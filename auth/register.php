@@ -171,123 +171,71 @@
         </ul>
     </div>
 
-  <main>
-    <div class="container my-3">
-        <div class="p-3 text-center bg-body-tertiary rounded-3" style="border-top: 5px solid green;">
-            <img src="<?= PROOT; ?>assets/media/logo/logo-1.jpeg" class="bi mt-4 mb-3 rounded-3" width="40" height="40" />
-            <h1 class="text-body-emphasis">Register . GMSA CKTUTAS</h1>
-            <p class="col-lg-8 mx-auto fs-5 text-muted">
-          This is a custom jumbotron featuring an SVG image at the top, some longer text that wraps early thanks to a responsive <code>.col-*</code> class, and a customized call to action.
-        </p>
-      </div>
-    </div>
-
-
-    <div class="row g-5 justify-content-center">
-      <div class="col-md-7 col-lg-8">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="mb-3">Billing address</h4>
-        <form class="needs-validation" novalidate>
-          <div class="row g-3">
-            <div class="col-sm-6">
-              <label for="firstName" class="form-label">First name</label>
-              <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
-              <div class="invalid-feedback">
-                Valid first name is required.
-              </div>
-            </div>
-
-            <div class="col-sm-6">
-              <label for="lastName" class="form-label">Last name</label>
-              <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
-              <div class="invalid-feedback">
-                Valid last name is required.
-              </div>
-            </div>
-
-            <div class="col-12">
-              <label for="username" class="form-label">Username</label>
-              <div class="input-group has-validation">
-                <span class="input-group-text">@</span>
-                <input type="text" class="form-control" id="username" placeholder="Username" required>
-              <div class="invalid-feedback">
-                  Your username is required.
-                </div>
-              </div>
-            </div>
-
-            <div class="col-12">
-              <label for="email" class="form-label">Email <span class="text-body-secondary">(Optional)</span></label>
-              <input type="email" class="form-control" id="email" placeholder="you@example.com">
-              <div class="invalid-feedback">
-                Please enter a valid email address for shipping updates.
-              </div>
-            </div>
-
-            <div class="col-12">
-              <label for="address" class="form-label">Address</label>
-              <input type="text" class="form-control" id="address" placeholder="1234 Main St" required>
-              <div class="invalid-feedback">
-                Please enter your shipping address.
-              </div>
-            </div>
-
-            <div class="col-12">
-              <label for="address2" class="form-label">Address 2 <span class="text-body-secondary">(Optional)</span></label>
-              <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
-            </div>
-
-            <div class="col-md-5">
-              <label for="country" class="form-label">Country</label>
-              <select class="form-select" id="country" required>
-                <option value="">Choose...</option>
-                <option>United States</option>
-              </select>
-              <div class="invalid-feedback">
-                Please select a valid country.
-              </div>
-            </div>
-
-            <div class="col-md-4">
-              <label for="state" class="form-label">State</label>
-              <select class="form-select" id="state" required>
-                <option value="">Choose...</option>
-                <option>California</option>
-              </select>
-              <div class="invalid-feedback">
-                Please provide a valid state.
-              </div>
-            </div>
-
-            <div class="col-md-3">
-              <label for="zip" class="form-label">Zip</label>
-              <input type="text" class="form-control" id="zip" placeholder="" required>
-              <div class="invalid-feedback">
-                Zip code required.
-              </div>
-            </div>
-          </div>
-
-          <hr class="my-4">
-
-          <button class="w-100 btn btn-success btn-lg" type="submit">Continue to checkout</button>
-        </form>
-            </div>
+    <main>
+        <div class="container my-3">
+            <div class="p-3 text-center bg-body-tertiary rounded-3" style="background-image: repeating-radial-gradient(circle at center center, rgba(102, 184, 13,0.25) 0px, rgba(102, 184, 13,0.25) 3px,transparent 3px, transparent 10px,rgba(101, 156, 106,0.25) 10px, rgba(101, 156, 106,0.25) 17px,transparent 17px, transparent 21px,rgba(101, 163, 83,0.25) 21px, rgba(101, 163, 83,0.25) 22px),repeating-linear-gradient(67.5deg, rgb(0,0,0) 0px, rgb(0,0,0) 13px,rgb(0,0,0) 13px, rgb(0,0,0) 16px,rgb(0,0,0) 16px, rgb(0,0,0) 30px,rgb(0,0,0) 30px, rgb(0,0,0) 31px); background-size: 72px 72px;border-top: 5px solid green;" >
+                <img src="<?= PROOT; ?>assets/media/logo/logo-1.jpeg" class="bi mt-4 mb-3 rounded-3" width="40" height="40" />
+                <h1 class="text-body-emphasis">Register . GMSA CKTUTAS</h1>
+                <p class="col-lg-8 mx-auto fs-5 text-muted">
+              This is a custom jumbotron featuring an SVG image at the top, some longer text that wraps early thanks to a responsive <code>.col-*</code> class, and a customized call to action.
+            </p>
         </div>
         
-      </div>
-  </main>
+        <div class="row justify-content-center">
+            <div class="col-md-7">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="mb-3">Personal Details</h4>
+                        <form class="needs-validation" novalidate>
+                            <div class="row g-3">
+                                <div class="col-sm-4">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="firstname" name="firstname" placeholder="name@example.com">
+                                        <label for="firstname">First name</label>
+                                        <div class="invalid-feedback">
+                                            Valid first name is required.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="middlename" name="middlename" placeholder="name@example.com">
+                                        <label for="middlename">Middle name</label>
+                                        <div class="invalid-feedback">
+                                            Valid middle name is required.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="lastname" name="lastname" placeholder="name@example.com">
+                                        <label for="lastname">Last name</label>
+                                        <div class="invalid-feedback">
+                                            Valid last name is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-  <footer class="my-5 pt-5 text-body-secondary text-center text-small">
-    <p class="mb-1" id="copyright">Copyrights &copy; 2002 - <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script> GMSA-CKTUTAS. <br>Build by <a href="https://www.gmsa-cktutas.org/" class="text-body">IT & Publicity Committe.</a>. </p>
-    <ul class="list-inline">
-      <li class="list-inline-item"><a href="#">Privacy</a></li>
-      <li class="list-inline-item"><a href="#">Terms</a></li>
-      <li class="list-inline-item"><a href="#">Support</a></li>
-    </ul>
-  </footer>
-</div>
+                            <button class="w-100 btn btn-success btn-lg" type="submit">Continue to checkout</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+
+
+    </main>
+
+    <footer class="my-5 pt-5 text-body-secondary text-center text-small">
+        <p class="mb-1" id="copyright">Copyrights &copy; 2002 - <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script> GMSA-CKTUTAS. <br>Build by <a href="https://www.gmsa-cktutas.org/" class="text-body">IT & Publicity Committe.</a>. </p>
+        <ul class="list-inline">
+            <li class="list-inline-item"><a href="#">Privacy</a></li>
+            <li class="list-inline-item"><a href="#">Terms</a></li>
+            <li class="list-inline-item"><a href="#">Support</a></li>
+        </ul>
+    </footer>
 
     <script type="text/javascript" src="<?= PROOT; ?>dist/js/jquery-3.7.1.min.js"></script>
     <script type="text/javascript" src="<?= PROOT; ?>dist/js/popper.min.js"></script>
@@ -296,8 +244,9 @@
 
     <script type="text/javascript">
         
-        
         // Fade out messages
         $("#temporary").fadeOut(5000);
+
     </script>
+</body>
 </html>
