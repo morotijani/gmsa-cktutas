@@ -110,7 +110,7 @@
 								<!-- Vector Image -->
 								<div class="col-lg-6 d-flex align-items-center order-2 order-lg-1">
 									<div class="p-3 p-lg-5">
-										<img src="assets/images/element/signin.svg" alt="">
+										<img src="<?= PROOT; ?>assets/media/signin.svg" alt="">
 									</div>
 									<!-- Divider -->
 									<div class="vr opacity-1 d-none d-lg-block"></div>
@@ -121,7 +121,7 @@
 									<div class="p-4 p-sm-7">
 										<!-- Logo -->
 										<a href="index.html">
-											<img class="h-50px mb-4" src="assets/images/logo-icon.svg" alt="logo">
+											<img class="h-50px mb-4" src="<?= PROOT; ?>assets/media/logo/logo-1.jpeg" alt="logo">
 										</a>
 										<!-- Title -->
 										<h1 class="mb-2 h3">Welcome back</h1>
@@ -153,20 +153,9 @@
 											<!-- Button -->
 											<div><button type="submit" class="btn btn-primary w-100 mb-0">Login</button></div>
 				
-											<!-- Divider -->
-											<div class="position-relative my-4">
-												<hr>
-												<p class="small bg-mode position-absolute top-50 start-50 translate-middle px-2">Or sign in with</p>
-											</div>
-				
-											<!-- Google and facebook button -->
-											<div class="vstack gap-3">
-												<a href="#" class="btn btn-light mb-0"><i class="fab fa-fw fa-google text-google-icon me-2"></i>Sign in with Google</a>
-												<a href="#" class="btn btn-light mb-0"><i class="fab fa-fw fa-facebook-f text-facebook me-2"></i>Sign in with Facebook</a>
-											</div>
 				
 											<!-- Copyright -->
-											<div class="text-primary-hover text-body mt-3 text-center"> Copyrights ©2024 Booking. Build by <a href="https://www.webestica.com/" class="text-body">Webestica</a>. </div>
+											<div class="text-primary-hover text-body mt-3 text-center"> Copyrights &copy;2024 GMSA-CKTUTAS. <br>Build by <a href="https://www.webestica.com/" class="text-body">IT & Publicity Committe.</a>. </div>
 										</form>
 										<!-- Form END -->
 									</div>		
