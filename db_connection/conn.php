@@ -15,7 +15,7 @@
 
  ///////////////////////////////////////////////////////////////////////////////////////////
  	$siteQuery = "
-	    SELECT * FROM garypie_about 
+	    SELECT * FROM gmsa_about 
 	    LIMIT 1
 	";
 	$statement = $conn->prepare($siteQuery);
@@ -49,30 +49,6 @@
 
 
 
-////////////////////////////////////////////////////////////////////////////////////////////////
-
- 	$cart_id = '';
- 	// check if cart exist in cookie
- 	if (isset($_COOKIE[CART_COOKIE])) {
- 		$cart_id = sanitize($_COOKIE[CART_COOKIE]);
-
- 		$cartQ = "
- 			SELECT * FROM garypie_cart 
- 			WHERE cart_id = ?
- 		";
- 		$statement = $conn->prepare($cartQ);
- 		$statement->execute([$cart_id]);
- 		if ($statement->rowCount() > 0) {
- 			// code... if cookie exist but does not exist in database then delete cookie form browser
- 			//echo 'exist';
- 		} else {
- 			$domain = ($_SERVER['HTTP_HOST'] != 'localhost')? '.'.$_SERVER['HTTP_HOST']: false;
-			setcookie(CART_COOKIE,'',1,"/",$domain,false);
- 			//echo 'deleted';
- 		}
- 	}
-
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
  	// ADMIN LOGIN
  	if (isset($_SESSION['ATAdmin'])) {
@@ -81,7 +57,7 @@
  			':admin_id' => $admin_id
  		);
  		$sql = "
- 			SELECT * FROM garypie_admin 
+ 			SELECT * FROM gmsa_admin 
  			WHERE admin_id = :admin_id 
  			LIMIT 1
  		";
@@ -107,7 +83,7 @@
  			':user_trash' => 0
  		);
  		$sql = "
- 			SELECT * FROM garypie_user 
+ 			SELECT * FROM gmsa_user 
  			WHERE user_id = :user_id 
  			AND user_trash = :user_trash 
  			LIMIT 1

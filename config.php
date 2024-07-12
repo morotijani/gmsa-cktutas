@@ -1,6 +1,6 @@
 <?php
 
-	define('BASEURL', $_SERVER['DOCUMENT_ROOT'].' /gmsa-cktutas/');
+	define('BASEURL', $_SERVER['DOCUMENT_ROOT'] . '/gmsa-cktutas/');
 	
 	define('PROOT', '/gmsa-cktutas/');
 
