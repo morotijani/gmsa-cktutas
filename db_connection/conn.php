@@ -10,7 +10,7 @@
 
 	date_default_timezone_set("Africa/Accra");
 
-	require_once($_SERVER['DOCUMENT_ROOT'].'/gmsa/config.php');
+	require_once($_SERVER['DOCUMENT_ROOT'].'/gmsa-cktutas/config.php');
  	require_once(BASEURL.'helpers/helpers.php');
 
  ///////////////////////////////////////////////////////////////////////////////////////////

@@ -71,7 +71,7 @@
 	</script>
 
 	<!-- Favicon -->
-	<link rel="shortcut icon" href="assets/media/logo/logo-1.jpeg">
+	<link rel="shortcut icon" href="<?= PROOT; ?>assets/media/logo/logo-1.jpeg">
 
 	<!-- Google Font -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -79,8 +79,8 @@
 	<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
 	<!-- Plugins CSS -->
-	<link rel="stylesheet" type="text/css" href="dist/css/all.min.css">
-	<link rel="stylesheet" type="text/css" href="dist/css/bootstrap-icons.css">
+	<link rel="stylesheet" type="text/css" href="<?= PROOT; ?>dist/css/all.min.css">
+	<link rel="stylesheet" type="text/css" href="<?= PROOT; ?>dist/css/bootstrap-icons.css">
 
 	<!-- Theme CSS -->
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
@@ -179,9 +179,9 @@ Main Content END -->
 	<div class="back-top"></div>
 
 
-    <script type="text/javascript" src="dist/js/jquery-3.7.1.min.js"></script>
-    <script type="text/javascript" src="dist/js/popper.min.js"></script>
-    <script type="text/javascript" src="dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="<?= PROOT; ?>dist/js/jquery-3.7.1.min.js"></script>
+    <script type="text/javascript" src="<?= PROOT; ?>dist/js/popper.min.js"></script>
+    <script type="text/javascript" src="<?= PROOT; ?>dist/js/bootstrap.min.js"></script>
 	<script src="assets/js/functions.js"></script>
 
 </body>
