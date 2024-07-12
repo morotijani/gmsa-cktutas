@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Booking - Multipurpose Online Booking Theme</title>
+	<title>Register -GMSA . CKTUAS</title>
 
 	<!-- Meta Tags -->
 	<meta charset="utf-8">
@@ -71,7 +71,7 @@
 	</script>
 
 	<!-- Favicon -->
-	<link rel="shortcut icon" href="assets/media/logo/logo-1.jpg">
+	<link rel="shortcut icon" href="assets/media/logo/logo-1.jpeg">
 
 	<!-- Google Font -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -79,8 +79,8 @@
 	<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
 	<!-- Plugins CSS -->
-	<link rel="stylesheet" type="text/css" href="assets/vendor/font-awesome/css/all.min.css">
-	<link rel="stylesheet" type="text/css" href="assets/vendor/bootstrap-icons/bootstrap-icons.css">
+	<link rel="stylesheet" type="text/css" href="dist/css/all.min.css">
+	<link rel="stylesheet" type="text/css" href="dist/css/bootstrap-icons.css">
 
 	<!-- Theme CSS -->
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
@@ -176,14 +176,13 @@ Main Content END -->
 </main>
 <!-- **************** MAIN CONTENT END **************** -->
 
-<!-- Back to top -->
-<div class="back-top"></div>
+	<div class="back-top"></div>
 
-<!-- Bootstrap JS -->
-<script src="assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
-<!-- ThemeFunctions -->
-<script src="assets/js/functions.js"></script>
+    <script type="text/javascript" src="dist/js/jquery-3.7.1.min.js"></script>
+    <script type="text/javascript" src="dist/js/popper.min.js"></script>
+    <script type="text/javascript" src="dist/js/bootstrap.min.js"></script>
+	<script src="assets/js/functions.js"></script>
 
 </body>
 </html>
