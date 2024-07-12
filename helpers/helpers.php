@@ -10,8 +10,6 @@ use ipinfo\ipinfo\IPinfo;
 
 
 
-
-
 function dnd($data) {
 	echo "<pre>";
 	print_r($data);
