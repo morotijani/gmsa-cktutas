@@ -30,19 +30,18 @@
         <section>
             <div class="container">
 
-            <div class="d-lg-flex justify-content-between align-items-center">
-            <!-- Title -->
-            <div class="col-md-7 bg-light border rounded-2 position-relative mx-auto p-2">
-                <div class="input-group">
-                    <input class="form-control focus-shadow-none bg-light border-0 me-1" type="email" placeholder="Search executives">
-                    <button type="button" class="btn btn-dark rounded-2 mb-0"><i class="bi bi-search me-2"></i>Search</button>
+                <div class="d-lg-flex justify-content-between align-items-center">
+                    <h2><?= date('Y'); ?></h2>
+                    <div class="col-md-7 bg-light border rounded-2 position-relative mx-auto p-2">
+                        <div class="input-group">
+                            <input class="form-control focus-shadow-none bg-light border-0 me-1" type="email" placeholder="Search executives">
+                            <button type="button" class="btn btn-dark rounded-2 mb-0"><i class="bi bi-search me-2"></i>Search</button>
+                        </div>
+                    </div>
+                    <div class="bg-light border rounded-2 position-relative p-1">
+                        <?php yearDropdown($startYear = 2013, $endYear = date('Y'), $id = "year", $class = "form-control focus-shadow-none bg-light border-0"); ?>
+                    </div>
                 </div>
-            </div>
-            <!-- Tabs -->
-            <div class="bg-light border rounded-2 position-relative p-1">
-                Choose a year <?php yearDropdown($startYear = 2013, $endYear = date('Y'), $id = "year", $class = "form-control form-control-lg focus-shadow-none bg-light border-0"); ?>
-            </div>
-        </div>
 
 
                 <div class="row g-4 g-sm-6 mt-0">
@@ -50,19 +49,18 @@
                         <div class="card card-img-scale bg-transparent overflow-hidden">
                             <div class="position-absolute top-0 end-0 z-index-2 m-3">
                                 <ul class="list-inline mb-0 mb-2 mb-sm-0">
-                                    <li class="list-inline-item"> <a class="btn-icon btn-sm rounded mb-2 bg-instagram-gradient" href="#"><i class="fab fa-fw fa-instagram"></i></a> </li>
+                                    <li class="list-inline-item"> <a class="btn-icon btn-sm rounded mb-2 bg-facebook" href="#"><i class="fab fa-fw fa-facebook-f"></i></a> </li>
                                 </ul>
                             </div>
                             <div class="card-img-scale-wrapper rounded-3">
-                                <img src="assets/images/team/01.jpg" class="img-scale" alt="card image">
+                                <img src="<?= PROOT; ?>assets/media/executives/07.jpeg" class="img-scale" alt="card image">
                             </div>
                             <div class="card-body text-center px-0 pb-0">
                                 <h6 class="mb-0"><a href="#" class="stretched-link">Emma Watson</a></h6>
-                                <small>Founder</small>
+                                <small>President . 2024</small>
                             </div>
                         </div>
                     </div>
-
                     <div class="col-sm-6 col-md-4 col-xl-3">
                         <div class="card card-img-scale bg-transparent overflow-hidden">
                             <div class="position-absolute top-0 end-0 z-index-2 m-3">
@@ -71,57 +69,91 @@
                                 </ul>
                             </div>
                             <div class="card-img-scale-wrapper rounded-3">
-                                <!-- Card Image -->              
-                                <img src="assets/images/team/02.jpg" class="img-scale" alt="card image">
+                                <img src="<?= PROOT; ?>assets/media/executives/07.jpeg" class="img-scale" alt="card image">
                             </div>
-                            <!-- Card body -->
                             <div class="card-body text-center px-0 pb-0">
-                                <h6 class="mb-0"><a href="#" class="stretched-link">Allen Smith</a></h6>
-                                <small>UI/UX designer</small>
+                                <h6 class="mb-0"><a href="#" class="stretched-link">Emma Watson</a></h6>
+                                <small>President . 2024</small>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Team item -->
                     <div class="col-sm-6 col-md-4 col-xl-3">
                         <div class="card card-img-scale bg-transparent overflow-hidden">
-                            <!-- Social links -->
-                            <div class="position-absolute top-0 end-0 z-index-2 m-3">
-                                <ul class="list-inline mb-0 mb-2 mb-sm-0">
-                                    <li class="list-inline-item"> <a class="btn-icon btn-sm rounded mb-2 bg-twitter" href="#"><i class="fab fa-fw fa-twitter"></i></a> </li>
-                                    <li class="list-inline-item"> <a class="btn-icon btn-sm rounded mb-2 bg-linkedin" href="#"><i class="fab fa-fw fa-linkedin-in"></i></a> </li>
-                                </ul>
-                            </div>
-                            <div class="card-img-scale-wrapper rounded-3">
-                                <!-- Card Image -->              
-                                <img src="assets/images/team/03.jpg" class="img-scale" alt="card image">
-                            </div>
-                            <!-- Card body -->
-                            <div class="card-body text-center px-0 pb-0">
-                                <h6 class="mb-0"><a href="#" class="stretched-link">Jacqueline Miller</a></h6>
-                                <small>Human Resource</small>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Team item -->
-                    <div class="col-sm-6 col-md-4 col-xl-3">
-                        <div class="card card-img-scale bg-transparent overflow-hidden">
-                            <!-- Social links -->
                             <div class="position-absolute top-0 end-0 z-index-2 m-3">
                                 <ul class="list-inline mb-0 mb-2 mb-sm-0">
                                     <li class="list-inline-item"> <a class="btn-icon btn-sm rounded mb-2 bg-facebook" href="#"><i class="fab fa-fw fa-facebook-f"></i></a> </li>
-                                    <li class="list-inline-item"> <a class="btn-icon btn-sm rounded mb-2 bg-instagram-gradient" href="#"><i class="fab fa-fw fa-instagram"></i></a> </li>
                                 </ul>
                             </div>
                             <div class="card-img-scale-wrapper rounded-3">
-                                <!-- Card Image -->              
-                                <img src="assets/images/team/04.jpg" class="img-scale" alt="card image">
+                                <img src="<?= PROOT; ?>assets/media/executives/07.jpeg" class="img-scale" alt="card image">
                             </div>
-                            <!-- Card body -->
                             <div class="card-body text-center px-0 pb-0">
-                                <h6 class="mb-0"><a href="#" class="stretched-link">Louis Ferguson</a></h6>
-                                <small>Web Developer</small>
+                                <h6 class="mb-0"><a href="#" class="stretched-link">Emma Watson</a></h6>
+                                <small>President . 2024</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-xl-3">
+                        <div class="card card-img-scale bg-transparent overflow-hidden">
+                            <div class="position-absolute top-0 end-0 z-index-2 m-3">
+                                <ul class="list-inline mb-0 mb-2 mb-sm-0">
+                                    <li class="list-inline-item"> <a class="btn-icon btn-sm rounded mb-2 bg-facebook" href="#"><i class="fab fa-fw fa-facebook-f"></i></a> </li>
+                                </ul>
+                            </div>
+                            <div class="card-img-scale-wrapper rounded-3">
+                                <img src="<?= PROOT; ?>assets/media/executives/07.jpeg" class="img-scale" alt="card image">
+                            </div>
+                            <div class="card-body text-center px-0 pb-0">
+                                <h6 class="mb-0"><a href="#" class="stretched-link">Emma Watson</a></h6>
+                                <small>President . 2024</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-xl-3">
+                        <div class="card card-img-scale bg-transparent overflow-hidden">
+                            <div class="position-absolute top-0 end-0 z-index-2 m-3">
+                                <ul class="list-inline mb-0 mb-2 mb-sm-0">
+                                    <li class="list-inline-item"> <a class="btn-icon btn-sm rounded mb-2 bg-facebook" href="#"><i class="fab fa-fw fa-facebook-f"></i></a> </li>
+                                </ul>
+                            </div>
+                            <div class="card-img-scale-wrapper rounded-3">
+                                <img src="<?= PROOT; ?>assets/media/executives/07.jpeg" class="img-scale" alt="card image">
+                            </div>
+                            <div class="card-body text-center px-0 pb-0">
+                                <h6 class="mb-0"><a href="#" class="stretched-link">Emma Watson</a></h6>
+                                <small>President . 2024</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-xl-3">
+                        <div class="card card-img-scale bg-transparent overflow-hidden">
+                            <div class="position-absolute top-0 end-0 z-index-2 m-3">
+                                <ul class="list-inline mb-0 mb-2 mb-sm-0">
+                                    <li class="list-inline-item"> <a class="btn-icon btn-sm rounded mb-2 bg-facebook" href="#"><i class="fab fa-fw fa-facebook-f"></i></a> </li>
+                                </ul>
+                            </div>
+                            <div class="card-img-scale-wrapper rounded-3">
+                                <img src="<?= PROOT; ?>assets/media/executives/07.jpeg" class="img-scale" alt="card image">
+                            </div>
+                            <div class="card-body text-center px-0 pb-0">
+                                <h6 class="mb-0"><a href="#" class="stretched-link">Emma Watson</a></h6>
+                                <small>President . 2024</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-xl-3">
+                        <div class="card card-img-scale bg-transparent overflow-hidden">
+                            <div class="position-absolute top-0 end-0 z-index-2 m-3">
+                                <ul class="list-inline mb-0 mb-2 mb-sm-0">
+                                    <li class="list-inline-item"> <a class="btn-icon btn-sm rounded mb-2 bg-facebook" href="#"><i class="fab fa-fw fa-facebook-f"></i></a> </li>
+                                </ul>
+                            </div>
+                            <div class="card-img-scale-wrapper rounded-3">
+                                <img src="<?= PROOT; ?>assets/media/executives/07.jpeg" class="img-scale" alt="card image">
+                            </div>
+                            <div class="card-body text-center px-0 pb-0">
+                                <h6 class="mb-0"><a href="#" class="stretched-link">Emma Watson</a></h6>
+                                <small>President . 2024</small>
                             </div>
                         </div>
                     </div>
