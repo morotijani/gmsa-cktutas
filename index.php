@@ -3,12 +3,14 @@
     // Index page
 
     require_once ("db_connection/conn.php");
+    $TITLE = "Welcome";
     $navTheme = "dark";
     include ("inc/header.inc.php");
+    include ("inc/navs.inc.php");
 
 
 ?>
-
+    <main>
         <section class="pt-0">
             <div class="swiper overflow-hidden" data-swiper-options='{
                 "effect": "fade",
