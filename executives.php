@@ -1,6 +1,6 @@
 <?php
 
-    // Contact us page
+    // Executives page
 
     require_once ("db_connection/conn.php");
     $navTheme = "";
@@ -12,132 +12,107 @@
 
 ?>
     <main>
-
-        // get with time zone
-          https://timeapi.io/api/Time/current/zone?timeZone=Africa/Accra
-
-        // get with ip
-        https://timeapi.io/api/Time/current/ip?ipAddress=237.71.232.203
-        
-        <section class="pt-20">
-            <div class="container mt-10">
-                <div class="row justify-content-center">
-                    <div class="col-lg-10 col-xl-8">
-                            <time id="clock" class="fw-bolder" style="font-size: 242px; line-height: 99px;"></time>
-                    </div>
-                </div>
-                <div class="d-flex flex-row-reverse mt-5">
-                    <div class="p-2" id="today-date" style="font-size: 48px; font-weight: 400;"></div>
-                </div>
-
-                <div class="d-flex flex-row-reverse gap-3 mt-3">
-                    <div class="card text-end" style="">
-                        <div class="card-body bg-light">
-                            <h5 class="card-title" style="font-size: xx-large; font-weight: 900">Fajr</h5>
-                            <p class="card-text fw-light lh-base lead">12:22 AM.</p>
-                        </div>
-                    </div>
-                    <div class="card text-end" style="">
-                        <div class="card-body bg-light">
-                            <h5 class="card-title" style="font-size: xx-large; font-weight: 900">Zuhr</h5>
-                            <p class="card-text fw-light lh-base lead">43:43 PM.</p>
-                        </div>
-                    </div>
-                    <div class="card text-end" style="">
-                        <div class="card-body bg-light">
-                            <h5 class="card-title" style="font-size: xx-large; font-weight: 900">Magrib</h5>
-                            <p class="card-text fw-light lh-base lead">43:43 PM.</p>
-                        </div>
-                    </div>
-                    <div class="card text-end" style="">
-                        <div class="card-body bg-light">
-                            <h5 class="card-title" style="font-size: xx-large; font-weight: 900">Isha</h5>
-                            <p class="card-text fw-light lh-base lead">43:43 PM.</p>
-                        </div>
-                    </div>
-                    <div class="card text-end" style="">
-                        <div class="card-body bg-light">
-                            <h5 class="card-title" style="font-size: xx-large; font-weight: 900">Jumm'ah</h5>
-                            <p class="card-text fw-light lh-base lead">43:43 PM.</p>
+        <section class="pt-7 pb-0">
+            <div class="container-fluid pt-3 pt-xl-5">
+                <div class="row">
+                    <div class="col-xxl-11 mx-auto">
+                        <div class="card bg-parallax h-300px h-md-400px h-xl-500px overflow-hidden" style="background:url(<?= PROOT; ?>assets/media/04.jpg) no-repeat; background-size:cover; background-position:center;">
+                            <div class="bg-overlay bg-dark bg-opacity-50"></div>
+                            <div class="card-img-overlay d-flex align-items-center justify-content-center text-center z-index-2">
+                                <h1 class="display-4 text-white">Our executives</h1>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="pt-0">
+        <section>
             <div class="container">
-                <!-- Title -->
-                <div class="inner-container-small text-center mb-4 mb-sm-6">
-                    <h2 class="mb-3">General Time</h2>
-                    <p class="mb-0">Our friendly team members are always willing to help you understand your present technology requirements and provide suggestions on your future needs.</p>
-                </div>
-    
-                <div class="row g-4 g-lg-6">
-                    <div class="col-lg-9 mx-auto">
-                        <div class="tab-content" id="pills-tabContent">
-                            <div class="card card-body bg-light d-md-flex justify-content-md-between align-items-md-center flex-md-row p-4 mb-3">
-                                <div class="mb-4 mb-md-0">
-                                    <div class="badge text-bg-dark mb-3">Jumm'ah</div>
-                                    <h5 class="mb-0"><a href="javascript:;" class="stretched-link fw-bolder" style="font-size: xxx-large;">1:10 PM </a></h5>
-                                    <div class="hstack gap-3 gap-sm-4 flex-wrap mt-3">
-                                        <span><i class="bi bi-geo-alt me-2"></i>Navrongo, Ghana</span>
-                                        <span><i class="bi bi-clock me-2"></i>Kasena Nankana</span>
-                                        <span><i class="bi bi-table me-2"></i>Every Friday</span>
-                                    </div>
-                                </div>
+                <div class="row g-4 g-sm-6">
+                    <div class="col-sm-6 col-md-4 col-xl-3">
+                        <div class="card card-img-scale bg-transparent overflow-hidden">
+                            <div class="position-absolute top-0 end-0 z-index-2 m-3">
+                                <ul class="list-inline mb-0 mb-2 mb-sm-0">
+                                    <li class="list-inline-item"> <a class="btn-icon btn-sm rounded mb-2 bg-instagram-gradient" href="#"><i class="fab fa-fw fa-instagram"></i></a> </li>
+                                </ul>
                             </div>
-                            <div class="card card-body bg-light d-md-flex justify-content-md-between align-items-md-center flex-md-row p-4 mb-3">
-                                <div class="mb-4 mb-md-0">
-                                    <div class="badge text-bg-dark mb-3">Ramadan</div>
-                                    <h5 class="mb-0"><a href="javascript:;" class="stretched-link fw-bolder" style="font-size: xxx-large;">23rd / 24 April</a></h5>
-                                    <div class="hstack gap-3 gap-sm-4 flex-wrap mt-3">
-                                        <span><i class="bi bi-geo-alt me-2"></i>Navrongo, Ghana</span>
-                                        <span><i class="bi bi-clock me-2"></i>Kasena Nankana</span>
-                                        <span><i class="bi bi-table me-2"></i>Every month of Ramadan (April)</span>
-                                    </div>
-                                </div>
+                            <div class="card-img-scale-wrapper rounded-3">
+                                <img src="assets/images/team/01.jpg" class="img-scale" alt="card image">
                             </div>
-                            <div class="card card-body bg-light d-md-flex justify-content-md-between align-items-md-center flex-md-row p-4 mb-3">
-                                <div class="mb-4 mb-md-0">
-                                    <div class="badge text-bg-dark mb-3">Taahajud</div>
-                                    <h5 class="mb-0"><a href="javascript:;" class="stretched-link fw-bolder" style="font-size: xxx-large;">20th / 21st May</a></h5>
-                                    <div class="hstack gap-3 gap-sm-4 flex-wrap mt-3">
-                                        <span><i class="bi bi-geo-alt me-2"></i>Navrongo, Ghana</span>
-                                        <span><i class="bi bi-clock me-2"></i>Kasena Nankana</span>
-                                        <span><i class="bi bi-table me-2"></i>Every month of Ramadan (May)</span>
-                                    </div>
-                                </div>
+                            <div class="card-body text-center px-0 pb-0">
+                                <h6 class="mb-0"><a href="#" class="stretched-link">Emma Watson</a></h6>
+                                <small>Founder</small>
                             </div>
+                        </div>
+                    </div>
 
-                            <div class="card card-body bg-light d-md-flex justify-content-md-between align-items-md-center flex-md-row p-4 mb-3">
-                                <div class="mb-4 mb-md-0">
-                                    <div class="badge text-bg-dark mb-3">Eid'ul Fitr</div>
-                                    <h5 class="mb-0"><a href="javascript:;" class="stretched-link fw-bolder" style="font-size: xxx-large;">30th / 1st June, 8:00 AM</a></h5>
-                                    <div class="hstack gap-3 gap-sm-4 flex-wrap mt-3">
-                                        <span><i class="bi bi-geo-alt me-2"></i>Navrongo, Ghana</span>
-                                        <span><i class="bi bi-clock me-2"></i>Kasena Nankana</span>
-                                        <span><i class="bi bi-table me-2"></i>Every month of May</span>
-                                    </div>
-                                </div>
+                    <div class="col-sm-6 col-md-4 col-xl-3">
+                        <div class="card card-img-scale bg-transparent overflow-hidden">
+                            <div class="position-absolute top-0 end-0 z-index-2 m-3">
+                                <ul class="list-inline mb-0 mb-2 mb-sm-0">
+                                    <li class="list-inline-item"> <a class="btn-icon btn-sm rounded mb-2 bg-facebook" href="#"><i class="fab fa-fw fa-facebook-f"></i></a> </li>
+                                </ul>
                             </div>
+                            <div class="card-img-scale-wrapper rounded-3">
+                                <!-- Card Image -->              
+                                <img src="assets/images/team/02.jpg" class="img-scale" alt="card image">
+                            </div>
+                            <!-- Card body -->
+                            <div class="card-body text-center px-0 pb-0">
+                                <h6 class="mb-0"><a href="#" class="stretched-link">Allen Smith</a></h6>
+                                <small>UI/UX designer</small>
+                            </div>
+                        </div>
+                    </div>
 
-                            <div class="card card-body bg-light d-md-flex justify-content-md-between align-items-md-center flex-md-row p-4 mb-3">
-                                <div class="mb-4 mb-md-0">
-                                    <div class="badge text-bg-dark mb-3">Eid'ul Adhar</div>
-                                    <h5 class="mb-0"><a href="javascript:;" class="stretched-link fw-bolder" style="font-size: xxx-large;">30th / 1st July, 8:00 AM</a></h5>
-                                    <div class="hstack gap-3 gap-sm-4 flex-wrap mt-3">
-                                        <span><i class="bi bi-geo-alt me-2"></i>Navrongo, Ghana</span>
-                                        <span><i class="bi bi-clock me-2"></i>Kasena Nankana</span>
-                                        <span><i class="bi bi-table me-2"></i>Every month of July</span>
-                                    </div>
-                                </div>
+                    <!-- Team item -->
+                    <div class="col-sm-6 col-md-4 col-xl-3">
+                        <div class="card card-img-scale bg-transparent overflow-hidden">
+                            <!-- Social links -->
+                            <div class="position-absolute top-0 end-0 z-index-2 m-3">
+                                <ul class="list-inline mb-0 mb-2 mb-sm-0">
+                                    <li class="list-inline-item"> <a class="btn-icon btn-sm rounded mb-2 bg-twitter" href="#"><i class="fab fa-fw fa-twitter"></i></a> </li>
+                                    <li class="list-inline-item"> <a class="btn-icon btn-sm rounded mb-2 bg-linkedin" href="#"><i class="fab fa-fw fa-linkedin-in"></i></a> </li>
+                                </ul>
+                            </div>
+                            <div class="card-img-scale-wrapper rounded-3">
+                                <!-- Card Image -->              
+                                <img src="assets/images/team/03.jpg" class="img-scale" alt="card image">
+                            </div>
+                            <!-- Card body -->
+                            <div class="card-body text-center px-0 pb-0">
+                                <h6 class="mb-0"><a href="#" class="stretched-link">Jacqueline Miller</a></h6>
+                                <small>Human Resource</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Team item -->
+                    <div class="col-sm-6 col-md-4 col-xl-3">
+                        <div class="card card-img-scale bg-transparent overflow-hidden">
+                            <!-- Social links -->
+                            <div class="position-absolute top-0 end-0 z-index-2 m-3">
+                                <ul class="list-inline mb-0 mb-2 mb-sm-0">
+                                    <li class="list-inline-item"> <a class="btn-icon btn-sm rounded mb-2 bg-facebook" href="#"><i class="fab fa-fw fa-facebook-f"></i></a> </li>
+                                    <li class="list-inline-item"> <a class="btn-icon btn-sm rounded mb-2 bg-instagram-gradient" href="#"><i class="fab fa-fw fa-instagram"></i></a> </li>
+                                </ul>
+                            </div>
+                            <div class="card-img-scale-wrapper rounded-3">
+                                <!-- Card Image -->              
+                                <img src="assets/images/team/04.jpg" class="img-scale" alt="card image">
+                            </div>
+                            <!-- Card body -->
+                            <div class="card-body text-center px-0 pb-0">
+                                <h6 class="mb-0"><a href="#" class="stretched-link">Louis Ferguson</a></h6>
+                                <small>Web Developer</small>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
+        
 
     </main>
 
@@ -324,29 +299,6 @@
     <script src="<?= PROOT; ?>dist/js/mainfunctions.js"></script>
 
     <script type="text/javascript">
-        $(document).ready(function() {
-
-            // timer
-            timer()
-            function timer() {
-                $.ajax({
-                    "url": "<?= PROOT; ?>auth/gettime.php",
-                    "method": "POST",
-                    success: function(data) {
-                        const obj = JSON.parse(data);
-                        $('#clock').text(obj.time + ':' + obj.seconds);
-                        $('#today-date').text(obj.dayOfWeek + ', ' + obj.date);
-                        console.log();
-                    }
-                });
-            }
-
-            //
-            setInterval(function() {
-                timer();
-            }, 1000);
-            
-        });
     </script>
 
 </body>
