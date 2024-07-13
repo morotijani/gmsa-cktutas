@@ -8,13 +8,13 @@
                     <img class="dark-mode-item navbar-brand-item" src="<?= PROOT; ?>assets/media/logo/logo-1.jpeg" alt="logo">
                 </a>
                 <div class="navbar-collapse collapse" id="navbarCollapse">
-                    <ul class="navbar-nav navbar-nav-scroll dropdown-hover mx-auto">
-                        <li class="nav-item dropdown"> <a class="nav-link active" href="<?= PROOT; ?>">Home</a></li>
-                        <li class="nav-item dropdown"> <a class="nav-link" href="<?= PROOT; ?>executives">Executives</a></li>
-                        <li class="nav-item dropdown"> <a class="nav-link" href="<?= PROOT; ?>calendar">Calendar</a></li>
-                        <li class="nav-item dropdown"> <a class="nav-link" href="<?= PROOT; ?>prayer-time">Prayer Time</a></li>
-                        <li class="nav-item dropdown"> <a class="nav-link" href="<?= PROOT; ?>news">News</a></li>
-                        <li class="nav-item"> <a class="nav-link" href="<?= PROOT; ?>contact-us">Contact us</a> </li>
+                    <ul class="navbar-nav navbar-nav-scroll mx-auto">
+                        <li class="nav-item"> <a class="nav-link active" href="<?= PROOT; ?>">Home</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="<?= PROOT; ?>executives">Executives</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="<?= PROOT; ?>calendar">Calendar</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="<?= PROOT; ?>prayer-time">Prayer Time</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="<?= PROOT; ?>news">News</a></li>
+                        <li class="nav-item"><a class="nav-link" href="<?= PROOT; ?>contact-us">Contact us</a> </li>
                     </ul>
                 </div>
 
