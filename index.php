@@ -135,12 +135,11 @@
                         <div class="card overflow-hidden min-vh-100 rounded-0" style="background:url(<?= PROOT; ?>assets/media/01.jpg) no-repeat; background-size:cover; background-position:center;">
                             <div class="bg-overlay bg-linear-overlay"></div>
                 
-                            <!-- Card image overlay -->
                             <div class="position-relative z-index-2 d-flex flex-column m-auto h-100 py-9"> 
                                 <div class="container">
                                     <div class="row">
                                         <div class="col-sm-11 col-lg-8 col-xl-7 text-center m-auto">
-                                            <span class="bg-white bg-opacity-10 text-white small rounded-3 px-3 py-2">🚀 #World's best software agency</span>
+                                            <span class="bg-white bg-opacity-10 text-white small rounded-3 px-3 py-2">🚀 #Ghana Muslim Students Association</span>
                                             <!-- Title -->
                                             <h1 class="text-white display-4 my-4">Leading the Way in <span class="text-primary">software</span> innovation</h1>
                                             <p class="text-white mb-5"> Whether you're a gaming enthusiast or simply seeking an extraordinary escape from reality, our Virtual VR product is your portal to endless excitement. </p>
