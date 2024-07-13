@@ -27,9 +27,38 @@
             </div>
         </section>
 
+        <section class="hero hero-with-header section-decorated-bottom">
+            <div class="container">
+                <div class="row">
+                  <div class="col-md-10">
+                    <span class="eyebrow mb-1 text-primary">Ready for adventure ?</span>
+                    <h1 class="display-2"><b>Book a travel</b> with us.</h1>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <div class="row gutter-1">
+                      <div class="form-group col-md-5">
+                        <input type="email" class="form-control-lg form-control" id="inputEmail4" placeholder="Destination">
+                      </div>
+                      <div class="form-group col-md-5">
+                        <select class="form-control form-control-lg" id="exampleFormControlSelect1">
+                          <option>One Week</option>
+                          <option>Two Weeks</option>
+                          <option>One Month</option>
+                        </select>
+                      </div>
+                      <div class="form-group col-md-2">
+                        <a href="" class="btn btn-lg btn-block btn-primary">Search</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>    
+        </section>
+
         <section>
             <div class="container">
-
                 <div class="d-lg-flex justify-content-between align-items-center">
                     <h2><?= date('Y'); ?></h2>
                     <div class="col-md-7 bg-light border rounded-2 position-relative mx-auto p-2">
