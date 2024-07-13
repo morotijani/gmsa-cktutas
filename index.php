@@ -155,7 +155,7 @@
 
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
-                        <div class="card overflow-hidden min-vh-100 rounded-0" style="background:url(<?= PROOT; ?>assets/media/10.jpg) no-repeat; background-size:cover; background-position:center;">
+                        <div class="card overflow-hidden min-vh-100 rounded-0" style="background:url(<?= PROOT; ?>assets/media/01.jpg) no-repeat; background-size:cover; background-position:center;">
                             <div class="bg-overlay bg-linear-overlay"></div>
                 
                             <!-- Card image overlay -->
@@ -175,7 +175,7 @@
                         </div>
                     </div>
                     <div class="swiper-slide">
-                        <div class="card overflow-hidden min-vh-100 rounded-0" style="background:url(<?= PROOT; ?>assets/media/09.jpg) no-repeat; background-size:cover; background-position:center;">
+                        <div class="card overflow-hidden min-vh-100 rounded-0" style="background:url(<?= PROOT; ?>assets/media/03.jpg) no-repeat; background-size:cover; background-position:center;">
                             <!-- Bg overlay -->
                             <div class="bg-overlay bg-linear-overlay"></div>
                 
@@ -194,7 +194,26 @@
                             </div>
                         </div>
                     </div>
-                </div>  
+                    <div class="swiper-slide">
+                        <div class="card overflow-hidden min-vh-100 rounded-0" style="background:url(<?= PROOT; ?>assets/media/04.jpg) no-repeat; background-size:cover; background-position:center;">
+                            <div class="bg-overlay bg-linear-overlay"></div>
+                
+                            <!-- Card image overlay -->
+                            <div class="position-relative z-index-2 d-flex flex-column m-auto h-100 py-9"> 
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-sm-11 col-lg-8 col-xl-7 text-center m-auto">
+                                            <span class="bg-white bg-opacity-10 text-white small rounded-3 px-3 py-2">🚀 #World's best software agency</span>
+                                            <!-- Title -->
+                                            <h1 class="text-white display-4 my-4">Leading the Way in <span class="text-primary">software</span> innovation</h1>
+                                            <p class="text-white mb-5"> Whether you're a gaming enthusiast or simply seeking an extraordinary escape from reality, our Virtual VR product is your portal to endless excitement. </p>
+                                            <a class="btn btn-lg btn-white icon-link icon-link-hover mb-0" href="#">Get started now<i class="bi bi-arrow-right"></i> </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                 <div class="swiper-pagination swiper-pagination-line position-absolute bottom-0 mb-3"></div>
             </div>  
@@ -260,7 +279,7 @@
                         <div class="row g-4 g-lg-6">
                             <!-- Title content -->
                             <div class="col-xl-5">
-                                <h3>We're a dynamic, innovative digital agency rooted in the vibrant heart of <span class="text-primary">California</span></h3>
+                                <h3>We're Ghana Muslim Student Accociation, from CKT - UTAS in the vibrant heart of <span class="text-primary">Navrongo</span></h3>
                             </div>
 
                             <!-- Years content -->
@@ -360,12 +379,12 @@
                             <!-- Download button -->
                             <div class="row g-4 mb-4 mb-lg-0">
                                 <!-- Google play store button -->
-                                <div class="col-6 col-sm-4">
-                                    <a href="#" class="btn btn-success"> <i class="bi bi-cash-coin btn-transition"></i> Pay here</a>
+                                <div class="col-6 col-sm-5">
+                                    <a href="#" class="btn btn-lg btn-success"> <i class="bi bi-cash-coin btn-transition"></i> Pay here</a>
                                 </div>
                                 <!-- App store button -->
-                                <div class="col-6 col-sm-4">
-                                    <a href="#" class="btn btn-dark"> <i class="bi bi-person-arms-up btn-transition"></i> Register </a>
+                                <div class="col-6 col-sm-5">
+                                    <a href="#" class="btn btn-lg btn-dark"> <i class="bi bi-person-arms-up btn-transition"></i> Register </a>
                                 </div>
                             </div>
                         </div>
@@ -373,7 +392,7 @@
                         <!-- Content -->
                         <div class="col-lg-5">
                             <!-- Mobile image -->
-                            <div class="iphone-x iphone-x-small ms-lg-auto m-0 mb-n9" style="background: url(<?= PROOT; ?>assets/media/dues.jpg); background-size: 100%; width: 280px; height:430px">
+                            <div class="iphone-x iphone-x-small ms-lg-auto m-0 mb-n9" style="background: url(<?= PROOT; ?>assets/media/digital-wallet.jpg); background-size: cover; background-position:center; background-repeat: no-repeat; width: 280px; height:430px">
                                 <i></i>
                                 <b style="left:6%;"></b>
                             </div>
