@@ -27,52 +27,36 @@
             </div>
         </section>
 
-        <section class="hero hero-with-header section-decorated-bottom">
+        <div class="py-2">
             <div class="container">
                 <div class="row">
-                  <div class="col-md-10">
-                    <span class="eyebrow mb-1 text-primary">Ready for adventure ?</span>
-                    <h1 class="display-2"><b>Book a travel</b> with us.</h1>
-                  </div>
+                    <div class="col-md-10">
+                        <span class="eyebrow mb-1 text-success">Current year, <?= date('Y'); ?></span>
+                        <h1 class="display-2"><b>Search name or</b> year.</h1>
+                    </div>
                 </div>
                 <div class="row">
-                  <div class="col">
-                    <div class="row gutter-1">
-                      <div class="form-group col-md-5">
-                        <input type="email" class="form-control-lg form-control" id="inputEmail4" placeholder="Destination">
-                      </div>
-                      <div class="form-group col-md-5">
-                        <select class="form-control form-control-lg" id="exampleFormControlSelect1">
-                          <option>One Week</option>
-                          <option>Two Weeks</option>
-                          <option>One Month</option>
-                        </select>
-                      </div>
-                      <div class="form-group col-md-2">
-                        <a href="" class="btn btn-lg btn-block btn-primary">Search</a>
-                      </div>
+                    <div class="col">
+                        <div class="row gutter-1">
+                            <div class="form-group col-md-5">
+                                <input type="search" class="form-control-lg form-control" id="inputEmail4" placeholder="Name">
+                            </div>
+                            <div class="form-group col-md-5">
+                                <select class="form-control form-control-lg">
+                                    <?php yearDropdown($startYear = 2013, $endYear = date('Y'), $id = "year", $class = "form-control form-control-lg"); ?>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <button class="btn btn-lg btn-block btn-success">Search</button>
+                            </div>
+                        </div>
                     </div>
-                  </div>
                 </div>
             </div>    
-        </section>
+        </div>
 
         <section>
             <div class="container">
-                <div class="d-lg-flex justify-content-between align-items-center">
-                    <h2><?= date('Y'); ?></h2>
-                    <div class="col-md-7 bg-light border rounded-2 position-relative mx-auto p-2">
-                        <div class="input-group">
-                            <input class="form-control focus-shadow-none bg-light border-0 me-1" type="email" placeholder="Search executives">
-                            <button type="button" class="btn btn-dark rounded-2 mb-0"><i class="bi bi-search me-2"></i>Search</button>
-                        </div>
-                    </div>
-                    <div class="bg-light border rounded-2 position-relative p-1">
-                        <?php yearDropdown($startYear = 2013, $endYear = date('Y'), $id = "year", $class = "form-control focus-shadow-none bg-light border-0"); ?>
-                    </div>
-                </div>
-
-
                 <div class="row g-4 g-sm-6 mt-0">
                     <div class="col-sm-6 col-md-4 col-xl-3">
                         <div class="card card-img-scale bg-transparent overflow-hidden">
