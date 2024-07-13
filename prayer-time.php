@@ -1,12 +1,20 @@
 <?php
 
     // Contact us page
+    
+    // header('Access-Control-Allow-Origin', '*');
+    // header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    // header('Access-Control-Allow-Headers', "Accept,authorization,Authorization, Content-Type");
+
+
+
+
 
     require_once ("db_connection/conn.php");
-    $navTheme = "";
+    //$navTheme = "";
     $TITLE = "Prayer time";
     include ("inc/header.inc.php");
-    include ("inc/nav.inc.php");
+   // include ("inc/nav.inc.php");
 
 
 ?>
@@ -205,17 +213,23 @@
 
     <script type="text/javascript">
         $(document).ready(function() {
-            var settings = {
-                "url": "https://timeapi.io/api/Time/current/zone?timeZone=Africa/Accra",
-                "method": "GET",
-                "timeout": 0,
-            };
 
-            // setInterval(function() {
-            //     $.ajax(settings).done(function (response) {
-            //         console.log(response);
-            //     });
-            // }, 1000);
+            // timer
+            timer()
+            function timer() {
+                $.ajax({
+                    "url": "<?= PROOT; ?>auth/gettime.php",
+                    "method": "POST",
+                    success: function(data) {
+                        console.log(data);
+                    }
+                });
+            }
+
+            //
+            setInterval(function() {
+                //timer();
+            }, 1000);
             
         });
     </script>
