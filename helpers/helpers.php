@@ -331,7 +331,16 @@ function getTitle() {
 }
 
 
-
+function yearDropdown($startYear, $endYear, $id="year", $class) { 
+    echo "<select id=" . $id . " name=" . $id . " class=" . $class . ">n"; 
+          
+    //echo each year as an option     
+    for ($i = $startYear; $i <= $endYear; $i++) { 
+    	echo "<option value=" . $i . ">" . $i . "</option>n";     
+    } 
+  
+	echo "</select>"; 
+}
 
 
 

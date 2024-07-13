@@ -29,7 +29,23 @@
 
         <section>
             <div class="container">
-                <div class="row g-4 g-sm-6">
+
+            <div class="d-lg-flex justify-content-between align-items-center">
+            <!-- Title -->
+            <div class="col-md-7 bg-light border rounded-2 position-relative mx-auto p-2">
+                <div class="input-group">
+                    <input class="form-control focus-shadow-none bg-light border-0 me-1" type="email" placeholder="Search executives">
+                    <button type="button" class="btn btn-dark rounded-2 mb-0"><i class="bi bi-search me-2"></i>Search</button>
+                </div>
+            </div>
+            <!-- Tabs -->
+            <div class="bg-light border rounded-2 position-relative p-1">
+                Choose a year <?php yearDropdown($startYear = 2013, $endYear = date('Y'), $id = "year", $class = "form-control form-control-lg focus-shadow-none bg-light border-0"); ?>
+            </div>
+        </div>
+
+
+                <div class="row g-4 g-sm-6 mt-0">
                     <div class="col-sm-6 col-md-4 col-xl-3">
                         <div class="card card-img-scale bg-transparent overflow-hidden">
                             <div class="position-absolute top-0 end-0 z-index-2 m-3">
