@@ -6,7 +6,7 @@
     $TITLE = "Welcome";
     $navTheme = "dark";
     include ("inc/header.inc.php");
-    include ("inc/navs.inc.php");
+    include ("inc/nav.inc.php");
 
 
 ?>

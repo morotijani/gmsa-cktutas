@@ -1,5 +1,5 @@
 *, body {
-	font-family: "Montserrat", sans-serif;
+	font-family: "Montserrat" !important, sans-serif;
   	font-optical-sizing: auto;
 /*  	font-weight: <weight>;*/
   	font-style: normal;

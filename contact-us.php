@@ -10,6 +10,14 @@
 
 
 ?>
+<style type="text/css">
+    *, body {
+    font-family: "Montserrat" !important;
+    font-optical-sizing: auto;
+/*      font-weight: <weight>;*/
+    font-style: normal;
+}
+</style>
     <main>
 
         <section class="pt-xl-8">
