@@ -26,6 +26,15 @@
     <!-- Theme CSS -->
     <link rel="stylesheet" type="text/css" href="<?= PROOT; ?>dist/css/gmsa.css">
     <link rel="stylesheet" type="text/css" href="<?= PROOT; ?>dist/css/main.css">
-
+    
+    <style type="text/css">
+    *, body {
+        font-family: "Montserrat" !important;
+        font-optical-sizing: auto;
+        /*      font-weight: <weight>;*/
+            font-style: normal;
+        }
+    </style>
+    
 </head>
 <body>

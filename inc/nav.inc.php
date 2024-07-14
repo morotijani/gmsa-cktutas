@@ -14,6 +14,7 @@
                         <li class="nav-item"> <a class="nav-link" href="<?= PROOT; ?>calendar">Calendar</a></li>
                         <li class="nav-item"> <a class="nav-link" href="<?= PROOT; ?>prayer-time">Prayer Time</a></li>
                         <li class="nav-item"> <a class="nav-link" href="<?= PROOT; ?>news">News</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="<?= PROOT; ?>gallery">Gallery</a></li>
                         <li class="nav-item"><a class="nav-link" href="<?= PROOT; ?>contact-us">Contact us</a> </li>
                     </ul>
                 </div>
