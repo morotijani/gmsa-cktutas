@@ -122,37 +122,58 @@
                 <form class="col-md-10 mx-auto p-2 mt-4 mt-md-5">
                     <div class="card bg-light">
                         <div class="card-body">
-                            
-                            <h4 class="mb-3">Personal Details</h4>
-                            <div class="row g-3">
-                            <div class="col-sm-4">
+                            <div id="step-1">
+                                <h4 class="mb-3 fw-light">Personal Details</h4>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="firstname" name="firstname" placeholder="">
+                                    <label for="firstname">Student ID</label>
+                                </div>
+                                <div class="row g-3">
+                                    <div class="col-sm-4">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="firstname" name="firstname" placeholder="">
+                                            <label for="firstname">First name</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="middlename" name="middlename" placeholder="">
+                                            <label for="middlename">Middle name</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="lastname" name="lastname" placeholder="">
+                                            <label for="lastname">Last name</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-floating mb-3">
+                                            <input type="email" class="form-control" id="lastname" name="lastname" placeholder="name@example.com">
+                                            <label for="lastname">Email</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-floating mb-3">
+                                            <input type="tel" class="form-control" id="lastname" name="lastname" placeholder="">
+                                            <label for="lastname">Phone</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="step-2">
+                                <h4 class="mb-3 fw-light">Parent/Guardian Details</h4>
                                 <div class="form-floating mb-3">
                                     <input type="text" class="form-control" id="firstname" name="firstname" placeholder="name@example.com">
-                                    <label for="firstname">First name</label>
-                                    <div class="invalid-feedback">
-                                        Valid first name is required.
-                                    </div>
+                                    <label for="firstname">Full name</label>
                                 </div>
-                            </div>
-                            <div class="col-sm-4">
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="middlename" name="middlename" placeholder="name@example.com">
-                                    <label for="middlename">Middle name</label>
-                                    <div class="invalid-feedback">
-                                        Valid middle name is required.
-                                    </div>
+                                    <input type="tel" class="form-control" id="middlename" name="middlename" placeholder="name@example.com">
+                                    <label for="middlename">Phone number</label>
+                                </div>
                                 </div>
                             </div>
-                            <div class="col-sm-4">
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="lastname" name="lastname" placeholder="name@example.com">
-                                    <label for="lastname">Last name</label>
-                                    <div class="invalid-feedback">
-                                        Valid last name is required.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         </div>
                     </div>
                 </form>
