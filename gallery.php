@@ -3,13 +3,14 @@
     // Contact us page
 
     require_once ("db_connection/conn.php");
-    $TITLE = "Contacts us";
+    $TITLE = "Gallery";
     $navTheme = "";
     include ("inc/header.inc.php");
     include ("inc/nav.inc.php");
 
 
 ?>
+    <link rel="stylesheet" type="text/css" href="<?= PROOT; ?>dist/css/glightbox.css">
     <main>
 
         <section class="pt-8">
@@ -25,7 +26,7 @@
                                 <path d="M30.8,83.2c0.1,0.5-3.5,1.7-7.7,3.1c-4.3,1.4-9.2,3.1-12.1,4.1c-5.7,1.9-10.6,3.1-11,2.1 c-0.4-0.9,3.9-3.6,9.8-5.6c2.9-1,8.1-2.4,12.6-3.2C26.9,83,30.7,82.7,30.8,83.2z"/>
                             </svg>
                         </span>
-                        Thoughts, stories and ideas from GMSA - CKTUTAS
+                        Explore our gallery filled with joy and happiness
                     </h1>
 
                     <form class="col-md-7 bg-light border rounded-2 position-relative mx-auto p-2 mt-4 mt-md-5">
@@ -35,267 +36,370 @@
                         </div>
                     </form>
                 </div>
+            </div>
 
-                <h6 class="mb-4">Blog category</h6>
-                <!-- Slider START -->
-                <div class="swiper" data-swiper-options='{
-                    "slidesPerView": 2, 
-                    "spaceBetween": 30,
-                    "pagination":{
-                        "el":".swiper-pagination",
-                        "clickable":"true"
-                    },
-                    "breakpoints": {
-                        "576": {"slidesPerView": 3},
-                        "992": {"slidesPerView": 5}
-                    }}'>
+            <div class="container-fluid overflow-hidden">
+        <div class="row g-4 g-lg-3 justify-content-lg-between">
 
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <a href="#" class="card card-img-scale overflow-hidden">
-                                <img src="assets/images/blog/4by4/01.jpg" class="img-scale" alt="category-img">
-                                <div class="card-img-overlay">
-                                    <div class="badge text-bg-dark">Lifestyle</div>
+            <div class="col-6 col-sm-4 position-relative ms-lg-n5">
+                
+                <!-- SVG decoration -->
+                <figure class="position-absolute top-0 end-0 me-n8 mt-4 z-index-1">
+                    <svg width="222.93px" height="172.15px">
+                        <path class="fill-primary" d="M0,152.3C25.31,99.13,142.25,26.36,187.95,4.96c21.41-10.03,48.53-5.45,27.23,19.21 c-11.03,12.77-28.92,28.13-37.16,35.18c-20.39,17.45-46.34,42.82-64.05,67.05c-13.98,19.11-10.02,14.46,6.64,0.11 c13.57-11.69,29.17-25.12,40.65-32.05c3.52-2.13,6.77-3.66,9.64-4.43c9.07-2.42,13,3.08,9.55,10.77 c-7.7,17.16-22.46,31.32-31.36,47.7c-4.97,9.14-13.24,28.13,7.7,16.79c3.8-2.05,7.36-4.37,9.99-5.45l0.79,1.35 c-2.43,0.88-36.48,26.3-27.52-3.45c5.4-17.94,19.83-32.81,29.27-48.73c5.34-9,8.21-13.61-3.32-6.64 c-10.7,6.46-26.03,19.67-39.37,31.15c-15.56,13.4-28.68,24.69-33.81,21.53c-11.43-7.04,27.26-51,35.01-59.53 c14.77-16.28,30.38-31.21,45.8-44.61c6.33-5.48,18.43-16.43,28.35-25.25c11.62-10.34,15.39-16.14-5.89-6.18 C152.63,39.83,42.78,111.18,18.54,162.1L0,152.3z"/>
+                    </svg>
+                </figure>
+
+                <!-- Images -->
+                <div class="row g-xl-7 align-items-center">
+                    <div class="col-6 d-none d-md-block">
+                        <a data-glightbox data-gallery="gallery" href="<?= PROOT; ?>assets/media/gallery/03.jpg">
+                            <div class="card card-element-hover card-overlay-hover overflow-hidden">
+                                <!-- Image -->
+                                <img src="<?= PROOT; ?>assets/media/gallery/03.jpg" class="rounded-3" alt="">
+                                <!-- Full screen button -->
+                                <div class="hover-element w-100 h-100">
+                                    <i class="bi bi-fullscreen fs-6 text-white position-absolute top-50 start-50 translate-middle bg-dark rounded-1 p-2 lh-1"></i>
                                 </div>
-                            </a>
-                        </div>
-
-                        <div class="swiper-slide">
-                            <a href="#" class="card card-img-scale overflow-hidden">
-                                <img src="assets/images/blog/4by4/02.jpg" class="img-scale" alt="category-img">
-                                <div class="card-img-overlay">
-                                    <div class="badge text-bg-dark">Technology</div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <div class="swiper-slide">
-                            <a href="#" class="card card-img-scale overflow-hidden">
-                                <img src="assets/images/blog/4by4/03.jpg" class="img-scale" alt="category-img">
-                                <div class="card-img-overlay">
-                                    <div class="badge text-bg-dark">Design</div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <div class="swiper-slide">
-                            <a href="#" class="card card-img-scale overflow-hidden">
-                                <img src="assets/images/blog/4by4/04.jpg" class="img-scale" alt="category-img">
-                                <div class="card-img-overlay">
-                                    <div class="badge text-bg-dark">Marketing</div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <div class="swiper-slide">
-                            <a href="#" class="card card-img-scale overflow-hidden">
-                                <img src="assets/images/blog/4by4/05.jpg" class="img-scale" alt="category-img">
-                                <div class="card-img-overlay">
-                                    <div class="badge text-bg-dark">Research</div>
-                                </div>
-                            </a>
-                        </div>
+                            </div>
+                        </a>
                     </div>
-                    <div class="swiper-pagination swiper-pagination-primary position-relative mt-4"></div>
+                    <div class="col-md-6 mt-lg-8">
+                        <!-- Image item -->
+                        <a data-glightbox data-gallery="gallery" href="<?= PROOT; ?>assets/media/gallery/04.jpg">
+                            <div class="card card-element-hover card-overlay-hover overflow-hidden mb-4 mb-xl-7">
+                                <!-- Image -->
+                                <img src="<?= PROOT; ?>assets/media/gallery/04.jpg" class="rounded-3" alt="">
+                                <!-- Full screen button -->
+                                <div class="hover-element w-100 h-100">
+                                    <i class="bi bi-fullscreen fs-6 text-white position-absolute top-50 start-50 translate-middle bg-dark rounded-1 p-2 lh-1"></i>
+                                </div>
+                            </div>
+                        </a>
+
+                        <!-- Image item -->
+                        <a data-glightbox data-gallery="gallery" href="<?= PROOT; ?>assets/media/gallery/05.jpg">
+                            <div class="card card-element-hover card-overlay-hover overflow-hidden">
+                                <!-- Image -->
+                                <img src="<?= PROOT; ?>assets/media/gallery/05.jpg" class="rounded-3" alt="">
+                                <!-- Full screen button -->
+                                <div class="hover-element w-100 h-100">
+                                    <i class="bi bi-fullscreen fs-6 text-white position-absolute top-50 start-50 translate-middle bg-dark rounded-1 p-2 lh-1"></i>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
                 </div>
             </div>
+
+            <!-- Image -->
+            <div class="col-sm-4 position-relative order-2 order-sm-1 z-index-9">
+                <!-- Image item -->
+                <a data-glightbox data-gallery="gallery" href="<?= PROOT; ?>assets/media/gallery/05.jpg">
+                    <div class="card card-element-hover card-overlay-hover overflow-hidden">
+                        <!-- Image -->
+                        <img src="<?= PROOT; ?>assets/media/gallery/05.jpg" class="rounded-3" alt="">
+                        <!-- Full screen button -->
+                        <div class="hover-element w-100 h-100">
+                            <i class="bi bi-fullscreen fs-6 text-white position-absolute top-50 start-50 translate-middle bg-dark rounded-1 p-2 lh-1"></i>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-6 col-sm-4 position-relative me-lg-n5 order-1">
+                <!-- Svg decoration -->
+                <figure class="position-absolute end-0 top-0 d-none d-md-block">
+                    <svg height="400" class="fill-primary opacity-2" viewBox="0 0 340 340">
+                        <circle cx="194.2" cy="2.2" r="2.2"></circle>
+                        <circle cx="2.2" cy="2.2" r="2.2"></circle>
+                        <circle cx="218.2" cy="2.2" r="2.2"></circle>
+                        <circle cx="26.2" cy="2.2" r="2.2"></circle>
+                        <circle cx="242.2" cy="2.2" r="2.2"></circle>
+                        <circle cx="50.2" cy="2.2" r="2.2"></circle>
+                        <circle cx="266.2" cy="2.2" r="2.2"></circle>
+                        <circle cx="74.2" cy="2.2" r="2.2"></circle>
+                        <circle cx="290.2" cy="2.2" r="2.2"></circle>
+                        <circle cx="98.2" cy="2.2" r="2.2"></circle>
+                        <circle cx="314.2" cy="2.2" r="2.2"></circle>
+                        <circle cx="122.2" cy="2.2" r="2.2"></circle>
+                        <circle cx="338.2" cy="2.2" r="2.2"></circle>
+                        <circle cx="146.2" cy="2.2" r="2.2"></circle>
+                        <circle cx="170.2" cy="2.2" r="2.2"></circle>
+                        <circle cx="194.2" cy="26.2" r="2.2"></circle>
+                        <circle cx="2.2" cy="26.2" r="2.2"></circle>
+                        <circle cx="218.2" cy="26.2" r="2.2"></circle>
+                        <circle cx="26.2" cy="26.2" r="2.2"></circle>
+                        <circle cx="242.2" cy="26.2" r="2.2"></circle>
+                        <circle cx="50.2" cy="26.2" r="2.2"></circle>
+                        <circle cx="266.2" cy="26.2" r="2.2"></circle>
+                        <circle cx="74.2" cy="26.2" r="2.2"></circle>
+                        <circle cx="290.2" cy="26.2" r="2.2"></circle>
+                        <circle cx="98.2" cy="26.2" r="2.2"></circle>
+                        <circle cx="314.2" cy="26.2" r="2.2"></circle>
+                        <circle cx="122.2" cy="26.2" r="2.2"></circle>
+                        <circle cx="338.2" cy="26.2" r="2.2"></circle>
+                        <circle cx="146.2" cy="26.2" r="2.2"></circle>
+                        <circle cx="170.2" cy="26.2" r="2.2"></circle>
+                        <circle cx="194.2" cy="50.2" r="2.2"></circle>
+                        <circle cx="2.2" cy="50.2" r="2.2"></circle>
+                        <circle cx="218.2" cy="50.2" r="2.2"></circle>
+                        <circle cx="26.2" cy="50.2" r="2.2"></circle>
+                        <circle cx="242.2" cy="50.2" r="2.2"></circle>
+                        <circle cx="50.2" cy="50.2" r="2.2"></circle>
+                        <circle cx="266.2" cy="50.2" r="2.2"></circle>
+                        <circle cx="74.2" cy="50.2" r="2.2"></circle>
+                        <circle cx="290.2" cy="50.2" r="2.2"></circle>
+                        <circle cx="98.2" cy="50.2" r="2.2"></circle>
+                        <circle cx="314.2" cy="50.2" r="2.2"></circle>
+                        <circle cx="122.2" cy="50.2" r="2.2"></circle>
+                        <circle cx="338.2" cy="50.2" r="2.2"></circle>
+                        <circle cx="146.2" cy="50.2" r="2.2"></circle>
+                        <circle cx="170.2" cy="50.2" r="2.2"></circle>
+                        <circle cx="194.2" cy="74.2" r="2.2"></circle>
+                        <circle cx="2.2" cy="74.2" r="2.2"></circle>
+                        <circle cx="218.2" cy="74.2" r="2.2"></circle>
+                        <circle cx="26.2" cy="74.2" r="2.2"></circle>
+                        <circle cx="242.2" cy="74.2" r="2.2"></circle>
+                        <circle cx="50.2" cy="74.2" r="2.2"></circle>
+                        <circle cx="266.2" cy="74.2" r="2.2"></circle>
+                        <circle cx="74.2" cy="74.2" r="2.2"></circle>
+                        <circle cx="290.2" cy="74.2" r="2.2"></circle>
+                        <circle cx="98.2" cy="74.2" r="2.2"></circle>
+                        <circle cx="314.2" cy="74.2" r="2.2"></circle>
+                        <circle cx="122.2" cy="74.2" r="2.2"></circle>
+                        <circle cx="338.2" cy="74.2" r="2.2"></circle>
+                        <circle cx="146.2" cy="74.2" r="2.2"></circle>
+                        <circle cx="170.2" cy="74.2" r="2.2"></circle>
+                        <circle cx="194.2" cy="98.2" r="2.2"></circle>
+                        <circle cx="2.2" cy="98.2" r="2.2"></circle>
+                        <circle cx="218.2" cy="98.2" r="2.2"></circle>
+                        <circle cx="26.2" cy="98.2" r="2.2"></circle>
+                        <circle cx="242.2" cy="98.2" r="2.2"></circle>
+                        <circle cx="50.2" cy="98.2" r="2.2"></circle>
+                        <circle cx="266.2" cy="98.2" r="2.2"></circle>
+                        <circle cx="74.2" cy="98.2" r="2.2"></circle>
+                        <circle cx="290.2" cy="98.2" r="2.2"></circle>
+                        <circle cx="98.2" cy="98.2" r="2.2"></circle>
+                        <circle cx="314.2" cy="98.2" r="2.2"></circle>
+                        <circle cx="122.2" cy="98.2" r="2.2"></circle>
+                        <circle cx="338.2" cy="98.2" r="2.2"></circle>
+                        <circle cx="146.2" cy="98.2" r="2.2"></circle>
+                        <circle cx="170.2" cy="98.2" r="2.2"></circle>
+                        <circle cx="194.2" cy="122.2" r="2.2"></circle>
+                        <circle cx="2.2" cy="122.2" r="2.2"></circle>
+                        <circle cx="218.2" cy="122.2" r="2.2"></circle>
+                        <circle cx="26.2" cy="122.2" r="2.2"></circle>
+                        <circle cx="242.2" cy="122.2" r="2.2"></circle>
+                        <circle cx="50.2" cy="122.2" r="2.2"></circle>
+                        <circle cx="266.2" cy="122.2" r="2.2"></circle>
+                        <circle cx="74.2" cy="122.2" r="2.2"></circle>
+                        <circle cx="290.2" cy="122.2" r="2.2"></circle>
+                        <circle cx="98.2" cy="122.2" r="2.2"></circle>
+                        <circle cx="314.2" cy="122.2" r="2.2"></circle>
+                        <circle cx="122.2" cy="122.2" r="2.2"></circle>
+                        <circle cx="338.2" cy="122.2" r="2.2"></circle>
+                        <circle cx="146.2" cy="122.2" r="2.2"></circle>
+                        <circle cx="170.2" cy="122.2" r="2.2"></circle>
+                        <circle cx="194.2" cy="146.2" r="2.2"></circle>
+                        <circle cx="2.2" cy="146.2" r="2.2"></circle>
+                        <circle cx="218.2" cy="146.2" r="2.2"></circle>
+                        <circle cx="26.2" cy="146.2" r="2.2"></circle>
+                        <circle cx="242.2" cy="146.2" r="2.2"></circle>
+                        <circle cx="50.2" cy="146.2" r="2.2"></circle>
+                        <circle cx="266.2" cy="146.2" r="2.2"></circle>
+                        <circle cx="74.2" cy="146.2" r="2.2"></circle>
+                        <circle cx="290.2" cy="146.2" r="2.2"></circle>
+                        <circle cx="98.2" cy="146.2" r="2.2"></circle>
+                        <circle cx="314.2" cy="146.2" r="2.2"></circle>
+                        <circle cx="122.2" cy="146.2" r="2.2"></circle>
+                        <circle cx="338.2" cy="146.2" r="2.2"></circle>
+                        <circle cx="146.2" cy="146.2" r="2.2"></circle>
+                        <circle cx="170.2" cy="146.2" r="2.2"></circle>
+                        <circle cx="194.2" cy="170.2" r="2.2"></circle>
+                        <circle cx="2.2" cy="170.2" r="2.2"></circle>
+                        <circle cx="218.2" cy="170.2" r="2.2"></circle>
+                        <circle cx="26.2" cy="170.2" r="2.2"></circle>
+                        <circle cx="242.2" cy="170.2" r="2.2"></circle>
+                        <circle cx="50.2" cy="170.2" r="2.2"></circle>
+                        <circle cx="266.2" cy="170.2" r="2.2"></circle>
+                        <circle cx="74.2" cy="170.2" r="2.2"></circle>
+                        <circle cx="290.2" cy="170.2" r="2.2"></circle>
+                        <circle cx="98.2" cy="170.2" r="2.2"></circle>
+                        <circle cx="314.2" cy="170.2" r="2.2"></circle>
+                        <circle cx="122.2" cy="170.2" r="2.2"></circle>
+                        <circle cx="338.2" cy="170.2" r="2.2"></circle>
+                        <circle cx="146.2" cy="170.2" r="2.2"></circle>
+                        <circle cx="170.2" cy="170.2" r="2.2"></circle>
+                        <circle cx="194.2" cy="194.2" r="2.2"></circle>
+                        <circle cx="2.2" cy="194.2" r="2.2"></circle>
+                        <circle cx="218.2" cy="194.2" r="2.2"></circle>
+                        <circle cx="26.2" cy="194.2" r="2.2"></circle>
+                        <circle cx="242.2" cy="194.2" r="2.2"></circle>
+                        <circle cx="50.2" cy="194.2" r="2.2"></circle>
+                        <circle cx="266.2" cy="194.2" r="2.2"></circle>
+                        <circle cx="74.2" cy="194.2" r="2.2"></circle>
+                        <circle cx="290.2" cy="194.2" r="2.2"></circle>
+                        <circle cx="98.2" cy="194.2" r="2.2"></circle>
+                        <circle cx="314.2" cy="194.2" r="2.2"></circle>
+                        <circle cx="122.2" cy="194.2" r="2.2"></circle>
+                        <circle cx="338.2" cy="194.2" r="2.2"></circle>
+                        <circle cx="146.2" cy="194.2" r="2.2"></circle>
+                        <circle cx="170.2" cy="194.2" r="2.2"></circle>
+                        <circle cx="194.2" cy="218.2" r="2.2"></circle>
+                        <circle cx="2.2" cy="218.2" r="2.2"></circle>
+                        <circle cx="218.2" cy="218.2" r="2.2"></circle>
+                        <circle cx="26.2" cy="218.2" r="2.2"></circle>
+                        <circle cx="242.2" cy="218.2" r="2.2"></circle>
+                        <circle cx="50.2" cy="218.2" r="2.2"></circle>
+                        <circle cx="266.2" cy="218.2" r="2.2"></circle>
+                        <circle cx="74.2" cy="218.2" r="2.2"></circle>
+                        <circle cx="290.2" cy="218.2" r="2.2"></circle>
+                        <circle cx="98.2" cy="218.2" r="2.2"></circle>
+                        <circle cx="314.2" cy="218.2" r="2.2"></circle>
+                        <circle cx="122.2" cy="218.2" r="2.2"></circle>
+                        <circle cx="338.2" cy="218.2" r="2.2"></circle>
+                        <circle cx="146.2" cy="218.2" r="2.2"></circle>
+                        <circle cx="170.2" cy="218.2" r="2.2"></circle>
+                        <circle cx="194.2" cy="242.2" r="2.2"></circle>
+                        <circle cx="2.2" cy="242.2" r="2.2"></circle>
+                        <circle cx="218.2" cy="242.2" r="2.2"></circle>
+                        <circle cx="26.2" cy="242.2" r="2.2"></circle>
+                        <circle cx="242.2" cy="242.2" r="2.2"></circle>
+                        <circle cx="50.2" cy="242.2" r="2.2"></circle>
+                        <circle cx="266.2" cy="242.2" r="2.2"></circle>
+                        <circle cx="74.2" cy="242.2" r="2.2"></circle>
+                        <circle cx="290.2" cy="242.2" r="2.2"></circle>
+                        <circle cx="98.2" cy="242.2" r="2.2"></circle>
+                        <circle cx="314.2" cy="242.2" r="2.2"></circle>
+                        <circle cx="122.2" cy="242.2" r="2.2"></circle>
+                        <circle cx="338.2" cy="242.2" r="2.2"></circle>
+                        <circle cx="146.2" cy="242.2" r="2.2"></circle>
+                        <circle cx="170.2" cy="242.2" r="2.2"></circle>
+                        <circle cx="194.2" cy="266.2" r="2.2"></circle>
+                        <circle cx="2.2" cy="266.2" r="2.2"></circle>
+                        <circle cx="218.2" cy="266.2" r="2.2"></circle>
+                        <circle cx="26.2" cy="266.2" r="2.2"></circle>
+                        <circle cx="242.2" cy="266.2" r="2.2"></circle>
+                        <circle cx="50.2" cy="266.2" r="2.2"></circle>
+                        <circle cx="266.2" cy="266.2" r="2.2"></circle>
+                        <circle cx="74.2" cy="266.2" r="2.2"></circle>
+                        <circle cx="290.2" cy="266.2" r="2.2"></circle>
+                        <circle cx="98.2" cy="266.2" r="2.2"></circle>
+                        <circle cx="314.2" cy="266.2" r="2.2"></circle>
+                        <circle cx="122.2" cy="266.2" r="2.2"></circle>
+                        <circle cx="338.2" cy="266.2" r="2.2"></circle>
+                        <circle cx="146.2" cy="266.2" r="2.2"></circle>
+                        <circle cx="170.2" cy="266.2" r="2.2"></circle>
+                        <circle cx="194.2" cy="290.2" r="2.2"></circle>
+                        <circle cx="2.2" cy="290.2" r="2.2"></circle>
+                        <circle cx="218.2" cy="290.2" r="2.2"></circle>
+                        <circle cx="26.2" cy="290.2" r="2.2"></circle>
+                        <circle cx="242.2" cy="290.2" r="2.2"></circle>
+                        <circle cx="50.2" cy="290.2" r="2.2"></circle>
+                        <circle cx="266.2" cy="290.2" r="2.2"></circle>
+                        <circle cx="74.2" cy="290.2" r="2.2"></circle>
+                        <circle cx="290.2" cy="290.2" r="2.2"></circle>
+                        <circle cx="98.2" cy="290.2" r="2.2"></circle>
+                        <circle cx="314.2" cy="290.2" r="2.2"></circle>
+                        <circle cx="122.2" cy="290.2" r="2.2"></circle>
+                        <circle cx="338.2" cy="290.2" r="2.2"></circle>
+                        <circle cx="146.2" cy="290.2" r="2.2"></circle>
+                        <circle cx="170.2" cy="290.2" r="2.2"></circle>
+                        <circle cx="194.2" cy="314.2" r="2.2"></circle>
+                        <circle cx="2.2" cy="314.2" r="2.2"></circle>
+                        <circle cx="218.2" cy="314.2" r="2.2"></circle>
+                        <circle cx="26.2" cy="314.2" r="2.2"></circle>
+                        <circle cx="242.2" cy="314.2" r="2.2"></circle>
+                        <circle cx="50.2" cy="314.2" r="2.2"></circle>
+                        <circle cx="266.2" cy="314.2" r="2.2"></circle>
+                        <circle cx="74.2" cy="314.2" r="2.2"></circle>
+                        <circle cx="290.2" cy="314.2" r="2.2"></circle>
+                        <circle cx="98.2" cy="314.2" r="2.2"></circle>
+                        <circle cx="314.2" cy="314.2" r="2.2"></circle>
+                        <circle cx="122.2" cy="314.2" r="2.2"></circle>
+                        <circle cx="338.2" cy="314.2" r="2.2"></circle>
+                        <circle cx="146.2" cy="314.2" r="2.2"></circle>
+                        <circle cx="170.2" cy="314.2" r="2.2"></circle>
+                        <circle cx="194.2" cy="338.2" r="2.2"></circle>
+                        <circle cx="2.2" cy="338.2" r="2.2"></circle>
+                        <circle cx="218.2" cy="338.2" r="2.2"></circle>
+                        <circle cx="26.2" cy="338.2" r="2.2"></circle>
+                        <circle cx="242.2" cy="338.2" r="2.2"></circle>
+                        <circle cx="50.2" cy="338.2" r="2.2"></circle>
+                        <circle cx="266.2" cy="338.2" r="2.2"></circle>
+                        <circle cx="74.2" cy="338.2" r="2.2"></circle>
+                        <circle cx="290.2" cy="338.2" r="2.2"></circle>
+                        <circle cx="98.2" cy="338.2" r="2.2"></circle>
+                        <circle cx="314.2" cy="338.2" r="2.2"></circle>
+                        <circle cx="122.2" cy="338.2" r="2.2"></circle>
+                        <circle cx="338.2" cy="338.2" r="2.2"></circle>
+                        <circle cx="146.2" cy="338.2" r="2.2"></circle>
+                        <circle cx="170.2" cy="338.2" r="2.2"></circle>
+                    </svg>
+                </figure>
+
+                <div class="row g-xl-7 position-relative">
+                    <div class="col-md-6 mt-lg-8">
+                        <!-- Image with play button -->
+                        <a data-glightbox data-gallery="gallery" href="https://www.youtube.com/embed/tXHviS-4ygo">
+                            <div class="card overflow-hidden mb-4 mb-xl-7">
+                                <!-- Image -->
+                                <img src="assets/images/bg/13.jpg" class="rounded-3" alt="">
+                                <!-- Full screen button -->
+                                <div class="w-100 h-100">
+                                    <span class="btn btn-lg btn-round btn-dark position-absolute top-50 start-50 translate-middle mb-0"><i class="fas fa-play"></i></span>
+                                </div>
+                            </div>
+                        </a>
+
+                        <!-- Image item -->
+                        <a data-glightbox data-gallery="gallery" href="<?= PROOT; ?>assets/media/gallery/06.jpg">
+                            <div class="card card-element-hover card-overlay-hover overflow-hidden">
+                                <!-- Image -->
+                                <img src="<?= PROOT; ?>assets/media/gallery/06.jpg" class="rounded-3" alt="">
+                                <!-- Full screen button -->
+                                <div class="hover-element w-100 h-100">
+                                    <i class="bi bi-fullscreen fs-6 text-white position-absolute top-50 start-50 translate-middle bg-dark rounded-1 p-2 lh-1"></i>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-6 d-none d-md-block">
+                        <!-- Image item -->
+                        <a data-glightbox data-gallery="gallery" href="<?= PROOT; ?>assets/media/gallery/07.jpeg">
+                            <div class="card card-element-hover card-overlay-hover overflow-hidden mb-4 mb-xl-7">
+                                <!-- Image -->
+                                <img src="<?= PROOT; ?>assets/media/gallery/07.jpeg" class="rounded-3" alt="">
+                                <!-- Full screen button -->
+                                <div class="hover-element w-100 h-100">
+                                    <i class="bi bi-fullscreen fs-6 text-white position-absolute top-50 start-50 translate-middle bg-dark rounded-1 p-2 lh-1"></i>
+                                </div>
+                            </div>
+                        </a>
+
+                        <!-- Image item -->
+                        <a data-glightbox data-gallery="gallery" href="<?= PROOT; ?>assets/media/gallery/09.jpeg">
+                            <div class="card card-element-hover card-overlay-hover overflow-hidden">
+                                <!-- Image -->
+                                <img src="<?= PROOT; ?>assets/media/gallery/09.jpeg" class="rounded-3" alt="">
+                                <!-- Full screen button -->
+                                <div class="hover-element w-100 h-100">
+                                    <i class="bi bi-fullscreen fs-6 text-white position-absolute top-50 start-50 translate-middle bg-dark rounded-1 p-2 lh-1"></i>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
         </section>
 
 
-        <section class="pt-0">
-            <div class="container">
-                <div class="row g-xl-7">
-                    <div class="col-lg-8">
-                        <!-- Title -->
-                        <h4 class="mb-4">Our Blog</h4>
 
-                        <article class="card card-hover-shadow border p-3 mb-4">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <img src="assets/images/blog/4by4/06.jpg" class="img-fluid card-img" alt="blog-img">
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="card-body d-flex flex-column h-100 ps-0 pe-3">
-                                        <div><span class="badge text-bg-dark mb-3">Technology</span></div>
-                                        <h5 class="card-title mb-3 mb-md-0">The Power of Gratitude: Cultivating Joy and Abundance</h5>
-                                        <div class="d-sm-flex justify-content-between align-items-center mt-auto">
-                                            <p class="mb-2 heading-color fw-semibold">By Carolyn Ortiz</p>
-                                            <a class="icon-link icon-link-hover stretched-link" href="blog-single-v1.html">Read more<i class="bi bi-arrow-right"></i> </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
-
-                        <article class="card card-hover-shadow border p-3 mb-4">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <img src="assets/images/blog/4by4/07.jpg" class="img-fluid card-img" alt="blog-img">
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="card-body d-flex flex-column h-100 ps-0 pe-3">
-                                        <div class="d-flex justify-content-between position-relative z-index-2">
-                                            <span class="badge text-bg-dark mb-3">Lifestyle</span>
-                                            <a href="#!" class="mb-0 text-body small" tabindex="0" role="button" data-bs-container="body" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="top" data-bs-content="You're seeing this ad because your activity meets the intended audience of our site.">
-                                                <i class="bi bi-info-circle ps-1"></i> Sponsored
-                                            </a>
-                                        </div>
-                                        <h5 class="card-title mb-3 mb-md-0">5 investment doubts you should clarify</h5>
-                                        <div class="d-sm-flex justify-content-between align-items-center mt-auto">
-                                            <p class="mb-2 heading-color fw-semibold">By Amanda Reed</p>
-                                            <a class="icon-link icon-link-hover stretched-link" href="blog-single-v2.html">Read more<i class="bi bi-arrow-right"></i> </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
-
-                        <article class="card card-hover-shadow border p-3 mb-4">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <img src="assets/images/blog/4by4/08.jpg" class="img-fluid card-img" alt="blog-img">
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="card-body d-flex flex-column h-100 ps-0 pe-3">
-                                        <div><span class="badge text-bg-dark mb-3">Design</span></div>
-                                        <h5 class="card-title mb-3 mb-md-0">Mastering Responsive Web Design with Bootstrap</h5>
-                                        <div class="d-sm-flex justify-content-between align-items-center mt-auto">
-                                            <p class="mb-2 heading-color fw-semibold">By Joan Wallace</p>
-                                            <a class="icon-link icon-link-hover stretched-link" href="blog-single-v1.html">Read more<i class="bi bi-arrow-right"></i> </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
-
-                        <article class="card card-hover-shadow border p-3 mb-4">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <img src="assets/images/blog/4by4/09.jpg" class="img-fluid card-img" alt="blog-img">
-                                </div>
-                                <div class="col-md-8">
-                                    <!-- Content -->
-                                    <div class="card-body d-flex flex-column h-100 ps-0 pe-3">
-                                        <div><span class="badge text-bg-dark mb-3">Marketing</span></div>
-                                        <h5 class="card-title mb-3 mb-md-0">Effortless Web Development with Mizzle</h5>
-                                        <!-- Author name and button -->
-                                        <div class="d-sm-flex justify-content-between align-items-center mt-auto">
-                                            <p class="mb-2 heading-color fw-semibold">By Lori Stevens</p>
-                                            <a class="icon-link icon-link-hover stretched-link" href="blog-single-v2.html">Read more<i class="bi bi-arrow-right"></i> </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
-
-                        <article class="card card-hover-shadow border p-3">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <img src="assets/images/blog/4by4/10.jpg" class="img-fluid card-img" alt="blog-img">
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="card-body d-flex flex-column h-100 ps-0 pe-3">
-                                        <div><span class="badge text-bg-dark mb-3">Research</span></div>
-                                        <h5 class="card-title mb-3 mb-md-0">Ten questions you should answer truthfully.</h5>
-                                        <div class="d-sm-flex justify-content-between align-items-center mt-auto">
-                                            <p class="mb-2 heading-color fw-semibold">By Louis Crawford</p>
-                                            <a class="icon-link icon-link-hover stretched-link" href="blog-single-v2.html">Read more<i class="bi bi-arrow-right"></i> </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-
-                    <div class="col-lg-4 mt-5 mt-lg-0">
-                        <div class="card card-body bg-light p-4">
-                            <svg class="mb-3" width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <g clip-path="url(#clip0_1113_392)">
-                                <path class="fill-primary" d="M22.5492 24.7427C23.8548 25.6131 26.1456 25.6132 27.4515 24.7426C27.4517 24.7425 27.452 24.7423 27.4522 24.7422L49.7048 9.90706C48.9749 7.79611 46.9686 6.27539 44.6128 6.27539H5.38754C3.03156 6.27539 1.0254 7.79611 0.29541 9.90706L22.5485 24.7423C22.5488 24.7425 22.549 24.7425 22.5492 24.7427Z"/>
-                                <path class="fill-mode" d="M29.077 27.1812C29.0767 27.1814 29.0765 27.1816 29.0763 27.1817C27.9335 27.9435 26.4665 28.3244 25 28.3244C23.5332 28.3244 22.0668 27.9436 20.9239 27.1816C20.9237 27.1815 20.9236 27.1814 20.9234 27.1813L0 13.2324V38.3373C0 41.3077 2.41672 43.7244 5.38735 43.7244H44.6128C47.5834 43.7244 50 41.3077 50 38.3373V13.2324L29.077 27.1812Z"/>
-                                </g>
-                                <defs>
-                                <clipPath id="clip0_1113_392">
-                                <rect width="50" height="50" fill="white"/>
-                                </clipPath>
-                                </defs>
-                            </svg>
-                            <h6 class="mb-3">Get the latest Mizzle article delivered to your inbox</h6>
-                            <form>
-                                <input type="email" class="form-control mb-2" placeholder="Email address">
-                                <button type="submit" class="btn btn-dark mb-0">Subscribe</button>
-                            </form>
-                        </div>
-
-                        <div class="card text-bg-dark mt-5">
-                            <img src="assets/images/blog/adv.jpg" class="card-img" alt="adv image">
-                            <div class="card-img-overlay">
-                                <h5 class="card-title">Advertisement</h5>
-                            </div>
-                        </div>
-
-                        <div class="mt-5">
-                            <h6 class="mb-3">Follow us on:</h6>
-                            <ul class="list-inline mb-0">
-                                <li class="list-inline-item"> <a class="btn btn-round bg-facebook" href="#"><i class="fab fa-fw fa-facebook-f lh-base"></i></a> </li>
-                                <li class="list-inline-item"> <a class="btn btn-round bg-instagram" href="#"><i class="fab fa-fw fa-instagram lh-base"></i></a> </li>
-                                <li class="list-inline-item"> <a class="btn btn-round bg-twitter" href="#"><i class="fab fa-fw fa-twitter lh-base"></i></a> </li>
-                                <li class="list-inline-item"> <a class="btn btn-round bg-linkedin" href="#"><i class="fab fa-fw fa-linkedin-in lh-base"></i></a> </li>
-                                <li class="list-inline-item"> <a class="btn btn-round bg-youtube" href="#"><i class="fab fa-fw fa-youtube lh-base"></i></a> </li>
-                            </ul>
-                        </div>
-
-                        <div class="align-items-center mt-5">
-                            <h6 class="mb-3 d-inline-block">Popular Tags:</h6>
-                            <ul class="list-inline mb-0 social-media-btn">
-                                <li class="list-inline-item"> <a class="btn btn-light btn-sm" href="#">blog</a> </li>
-                                <li class="list-inline-item"> <a class="btn btn-light btn-sm" href="#">business</a> </li>
-                                <li class="list-inline-item"> <a class="btn btn-light btn-sm" href="#">bootstrap</a> </li>
-                                <li class="list-inline-item"> <a class="btn btn-light btn-sm" href="#">data science</a> </li>
-                                <li class="list-inline-item"> <a class="btn btn-light btn-sm" href="#">deep learning</a> </li>
-                                <li class="list-inline-item"> <a class="btn btn-light btn-sm" href="#">Adventure</a> </li>
-                                <li class="list-inline-item"> <a class="btn btn-light btn-sm" href="#">Community</a> </li>
-                                <li class="list-inline-item"> <a class="btn btn-light btn-sm" href="#">Tutorials</a> </li>
-                                <li class="list-inline-item"> <a class="btn btn-light btn-sm" href="#">Interview</a> </li>
-                                <li class="list-inline-item"> <a class="btn btn-light btn-sm" href="#">Photography</a> </li>
-                                <li class="list-inline-item"> <a class="btn btn-light btn-sm" href="#">Classic</a> </li>
-                            </ul>
-                        </div>
-
-                    </div>
-
-                    <div class="col-12 mt-6">
-                        <ul class="pagination pagination-primary-soft d-flex justify-content-sm-between flex-wrap mb-0">
-                            <li>
-                                <ul class="list-unstyled">
-                                    <li class="page-item">
-                                        <a class="page-link" href="#"><i class="fas fa-long-arrow-alt-left me-2 rtl-flip"></i>Prev</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <ul class="list-unstyled">
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">..</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">22</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">23</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <ul class="list-unstyled">
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">Next<i class="fas fa-long-arrow-alt-right ms-2 rtl-flip"></i></a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-
-                </div>
-            </div>
-        </section>
 
     </main>
 
 <?php include ("inc/footer.inc.php"); ?>
+    <script type="text/javascript" src="<?= PROOT; ?>dist/js/glightbox.js"></script>
+    <script src="<?= PROOT; ?>dist/js/functions.js"></script>
