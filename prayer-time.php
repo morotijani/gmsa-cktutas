@@ -45,6 +45,12 @@
                     </div>
                     <div class="card text-end" style="">
                         <div class="card-body bg-light">
+                            <h5 class="card-title" style="font-size: xx-large; font-weight: 900">Asr</h5>
+                            <p class="card-text fw-light lh-base lead">43:43 PM.</p>
+                        </div>
+                    </div>
+                    <div class="card text-end" style="">
+                        <div class="card-body bg-light">
                             <h5 class="card-title" style="font-size: xx-large; font-weight: 900">Magrib</h5>
                             <p class="card-text fw-light lh-base lead">43:43 PM.</p>
                         </div>

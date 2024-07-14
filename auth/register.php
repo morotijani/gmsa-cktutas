@@ -66,7 +66,7 @@
         <header class="d-flex justify-content-center py-3">
             <ul class="nav nav-pills">
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="<?= PROOT; ?>" class="nav-link">
                         <img src="<?= PROOT; ?>assets/media/logo/logo-1.jpeg" class="bi mt-1 rounded-3" width="60" height="60" />
                     </a>
                 </li>
@@ -138,7 +138,7 @@
                     </h1>
                 </div>
 
-                <form class="col-md-10 mx-auto p-2 mt-4 mt-md-5">
+                <form class="col-md-10 mx-auto p-2 mt-4 mt-md-5" id="registerForm">
                     <div class="card bg-light">
                         <div class="card-body">
                             <div id="step-1">
@@ -164,77 +164,80 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-floating mb-3">
-                                            <input type="email" class="form-control" id="lastname" name="lastname" placeholder="name@example.com">
-                                            <label for="lastname">Email</label>
+                                            <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com">
+                                            <label for="email">Email</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-floating mb-3">
-                                            <input type="tel" class="form-control" id="lastname" name="lastname" placeholder="">
-                                            <label for="lastname">Phone</label>
+                                            <input type="tel" inputmode="" class="form-control" id="phone" name="phone" placeholder="">
+                                            <label for="phone">Phone</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-floating mb-3">
-                                            <select type="email" class="form-select" id="lastname" name="lastname">
-                                                <option selected>Open this menu</option>
-                                                <option>Male</option>
-                                                <option>Female</option>
+                                            <select type="text" class="form-select" id="gender" name="gender">
+                                                <option value="" selected>Open this menu</option>
+                                                <option value="Male">Male</option>
+                                                <option value="Female">Female</option>
                                             </select>
-                                            <label for="lastname">Gender</label>
+                                            <label for="gender">Gender</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-floating mb-3">
-                                            <input type="date" class="form-control" id="lastname" name="lastname" placeholder="">
-                                            <label for="lastname">Date of Birth</label>
+                                            <input type="date" class="form-control" id="dob" name="dob" placeholder="">
+                                            <label for="dob">Date of Birth</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="lastname" name="lastname" placeholder="">
-                                            <label for="lastname">Region</label>
+                                            <input type="text" class="form-control" id="region" name="region" placeholder="">
+                                            <label for="region">Region</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="lastname" name="lastname" placeholder="">
-                                            <label for="lastname">City</label>
+                                            <input type="text" class="form-control" id="city" name="city" placeholder="">
+                                            <label for="city">City</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="lastname" name="lastname" placeholder="">
-                                            <label for="lastname">Digital Address (optional)</label>
+                                            <input type="text" class="form-control" id="digitaladdress" name="digitaladdress" placeholder="">
+                                            <label for="digitaladdress">Digital Address (optional)</label>
                                         </div>
                                     </div>
                                 </div>
-                                <button class="btn btn-lg btn-primary-soft icon-link icon-link-hover mb-0" id="next-1">Next <i class="bi bi-arrow-right"></i></button>
+                                <button type="button" class="btn btn-lg btn-primary-soft icon-link icon-link-hover mb-0" id="next-1">Next <i class="bi bi-arrow-right"></i></button>
                             </div>
 
-                            <div id="step-2">
+                            <div id="step-2" class="d-none">
                                 <div class="row g-3">
                                     <h4 class="mb-3 fw-light">School Details</h4>
-                                    <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="firstname" name="firstname" placeholder="">
-                                        <label for="firstname">Student ID</label>
-                                    </div>
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-12">
                                         <div class="form-floating mb-3">
-                                            <input type="email" class="form-control" id="lastname" name="lastname" placeholder="name@example.com">
-                                            <label for="lastname">Course</label>
+                                            <input type="text" class="form-control" id="studentid" name="studentid" placeholder="">
+                                            <label for="studentid">Student ID</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-floating mb-3">
-                                            <input type="tel" class="form-control" id="lastname" name="lastname" placeholder="">
-                                            <label for="lastname">Department</label>
+                                            <input type="email" class="form-control" id="programme" name="programme" placeholder="name@example.com">
+                                            <label for="programme">Programme</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-floating mb-3">
+                                            <input type="tel" class="form-control" id="department" name="department" placeholder="">
+                                            <label for="department">Department</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-floating mb-3">
-                                            <select type="tel" class="form-select" id="lastname" name="lastname">
+                                            <select type="tel" class="form-select" id="admissiontype" name="admissiontype">
                                                 <option selected>Open this select menu</option>
+                                                <option>Diploma</option>
                                                 <option>Undergraduate</option>
                                                 <option>Postgraduate</option>
                                             </select>
@@ -243,33 +246,33 @@
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-floating mb-3">
-                                            <input type="tel" class="form-control" id="lastname" name="lastname" placeholder="">
-                                            <label for="lastname">Admission year</label>
+                                            <input type="tel" class="form-control" id="admissionyear" name="admissionyear" placeholder="">
+                                            <label for="admissionyear">Admission year</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-floating mb-3">
-                                            <input type="email" class="form-control" id="lastname" name="lastname" placeholder="name@example.com">
-                                            <label for="lastname">Level</label>
+                                            <input type="email" class="form-control" id="level" name="level" placeholder="">
+                                            <label for="level">Level</label>
                                         </div>
                                     </div>
                                 </div>
-                                <button class="btn btn-lg btn-light-soft icon-link icon-link-hover mb-0" id="prev-1">Back <i class="bi bi-arrow-left"></i></button>
-                                <button class="btn btn-lg btn-primary-soft icon-link icon-link-hover mb-0" id="next-3">Next <i class="bi bi-arrow-right"></i></button>
+                                <button type="button" class="btn btn-lg btn-light icon-link icon-link-hover mb-0" id="prev-1">Back <i class="bi bi-arrow-left"></i></button>
+                                <button type="button" class="btn btn-lg btn-primary-soft icon-link icon-link-hover mb-0" id="next-2">Next <i class="bi bi-arrow-right"></i></button>
                             </div>
 
-                            <div id="step-3">
+                            <div id="step-3" class="d-none">
                                 <h4 class="mb-3 fw-light">Parent/Guardian Details</h4>
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="firstname" name="firstname" placeholder="name@example.com">
-                                    <label for="firstname">Full name</label>
+                                    <input type="text" class="form-control" id="guardianfullname" name="guardianfullname" placeholder="">
+                                    <label for="guardianfullname">Full name</label>
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <input type="tel" class="form-control" id="middlename" name="middlename" placeholder="name@example.com">
-                                    <label for="middlename">Phone number</label>
+                                    <input type="tel" inputmode="" class="form-control" id="guardianphonenumber" name="guardianphonenumber" placeholder="">
+                                    <label for="guardianphonenumber">Phone number</label>
                                 </div>
-                                <button class="btn btn-lg btn-light-soft icon-link icon-link-hover mb-0" id="prev-1">Back <i class="bi bi-arrow-left"></i></button>
-                                <button class="btn btn-lg btn-success icon-link icon-link-hover mb-0" id="next-3">Submit <i class="bi bi-arrow-right"></i></button>
+                                <button type="button" class="btn btn-lg btn-light icon-link icon-link-hover mb-0" id="prev-2">Back <i class="bi bi-arrow-left"></i></button>
+                                <button id="submitRegister" class="btn btn-lg btn-success icon-link icon-link-hover mb-0">Submit <i class="bi bi-arrow-right"></i></button>
                             </div>
                         </div>
                     </div>
@@ -300,6 +303,72 @@
         
         // Fade out messages
         $("#temporary").fadeOut(5000);
+
+        $(document).ready(function() {
+            $('#next-1').click(function() {
+
+                var gender = $("#gender option:selected").text();
+
+                if ($('#firstname').val() == '') {
+                    alert('Frist name is required!')
+                    $('#firstname').addClass('border border-danger')
+                    $('#firstname').focus();
+                    return false
+                }
+
+                if ($('#lastname').val() == '') {
+                    alert('Last name is required!')
+                    $('#lastname').focus();
+                    return false
+                }
+
+                if ($('#email').val() == '') {
+                    alert('Email is required!')
+                    $('#email').focus();
+                    return false
+                }
+
+                if ($('#phone').val() == '') {
+                    alert('Phone number is required!')
+                    $('#phone').focus();
+                    return false
+                }
+
+                if (gender == '') {
+                    alert('Gender is required!')
+                    $('#gender').focus();
+                    return false
+                }
+
+                if ($('#dob').val() == '') {
+                    alert('Date of Birth is required!')
+                    $('#dob').focus();
+                    return false
+                }
+
+
+
+                $('#step-1').addClass('d-none');
+                $('#step-2').removeClass('d-none');
+            })
+
+            $('#next-2').click(function() {
+                $('#step-1').addClass('d-none');
+                $('#step-2').addClass('d-none');
+                $('#step-3').removeClass('d-none');
+            })
+
+            $('#prev-1').click(function() {
+                $('#step-2').addClass('d-none');
+                $('#step-1').removeClass('d-none');
+            })
+
+            $('#prev-2').click(function() {
+                $('#step-3').addClass('d-none');
+                $('#step-2').removeClass('d-none');
+                $('#step-1').addClass('d-none');
+            })
+        });
 
     </script>
 </body>
