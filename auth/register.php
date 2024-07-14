@@ -3,7 +3,7 @@
 
     require_once ("./../db_connection/conn.php");
 
-    $errors = '';
+    $errors = array();
     $post = cleanPost($_POST);
 
     $firstname = (isset($_POST['firstname']) ? $post['firstname'] : '');
@@ -28,28 +28,46 @@
     if (isset($_POST['submit'])) {
         $member_id = guidv4();
         $createdAt = date("Y-m-d H:i:s A");
+        $vericode = md5(time());
 
-        if (!find_by_student_id($studentid)) {
-            $error = "Student ID already exist!";
+        if (!is_array(find_by_student_id($studentid))) {
+            $errors[] = "Student ID already exist!";
         }
 
-        if (!find_by_student_email($email)) {
-            $error = "Student ID already exist!";
+        if (!is_array(find_by_student_email($email))) {
+            $errors[] = "Student ID already exist!";
         }
 
-        if (empty($error)) {
+        if (!empty($errors)) {
             // code...
-            display_errors($error);
+            // display_errors($error);
         } else {
+
+            $fn = ucwords($firstname . ' ' .  $middlename . ' ' . $lastname);
+            $to = $email;
+            $subject = "Please Verify Your Account.";
+            $body = "
+                <h3>
+                    {$fn},</h3>
+                    <p>
+                        Thank you for registering. Please verify your account by clicking 
+                        <a href=\"https://sites.local/garypie/store/verified/{$vericode}\" target=\"_blank\">here</a>.
+                </p>
+            ";
+
+            // $mail_result = send_email($fn, $to, $subject, $body);
+            // if ($mail_result) {}
+
+            $data = [$member_id, $firstname, $middlename, $lastname, $email, $phone, $gender, $dob, $region, $city, $digitaladdress, $studentid, $programme, $department, $admissiontype, $admissionyear, $level, $guardianfullname, $guardianphonenumber, $vericode, $createdAt];
             $query = "
-                INSERT INTO `gmsa_member`(`member_id`, `member_firstname`, `member_middlename`, `member_lastname`, `member_email`, `member_phone`, `user_password`, `member_gender`, `member_dob`, `member_region`, `member_city`, `member_digitaladdress`, `member_studentid`, `member_programme`, `member_department`, `member_admissiontype`, `member_admissionyear`, `member_level`, `member_guardianfullname`, `member_guardianphonenumber`, `member_verified`, `member_vericode`, `createdAt`) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                INSERT INTO `gmsa_members`(`member_id`, `member_firstname`, `member_middlename`, `member_lastname`, `member_email`, `member_phone`, `member_gender`, `member_dob`, `member_region`, `member_city`, `member_digitaladdress`, `member_studentid`, `member_programme`, `member_department`, `member_admissiontype`, `member_admissionyear`, `member_level`, `member_guardianfullname`, `member_guardianphonenumber`, `member_vericode`, `createdAt`) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             ";
             $statement = $conn->prepare($query);
             $result = $statement->execute($data);
 
             if (isset($result)) {
-                
+                $_SESSION['flash_success'] = 'Your have successfully created a membership account!';
                 redirect(PROOT . 'auth/register');
             } else {
                 echo js_alert("Something went wrong, please try again!");
@@ -173,7 +191,7 @@
 
     <main>
         
-
+        <div><?= $flash; ?></div>
         <section class="pt-1">
             <div class="container">
                 <div class="inner-container text-center mb-6">
@@ -191,7 +209,7 @@
                     </h1>
                 </div>
                 <?= display_errors($errors); ?>
-                <form class="col-md-10 mx-auto p-2 mt-4 mt-md-5" id="registerForm">
+                <form class="col-md-10 mx-auto p-2 mt-4 mt-md-5" id="registerForm" method="POST">
                     <div class="card bg-light">
                         <div class="card-body">
                             <div id="step-1">
@@ -276,7 +294,7 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-floating mb-3">
-                                            <input type="email" class="form-control" id="programme" name="programme" placeholder="name@example.com">
+                                            <input type="text" class="form-control" id="programme" name="programme" placeholder="name@example.com">
                                             <label for="programme">Programme *</label>
                                         </div>
                                     </div>
@@ -305,7 +323,7 @@
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-floating mb-3">
-                                            <input type="email" class="form-control" id="level" name="level" placeholder="">
+                                            <input type="number" min="0" class="form-control" id="level" name="level" placeholder="">
                                             <label for="level">Level *</label>
                                         </div>
                                     </div>
@@ -325,7 +343,7 @@
                                     <label for="guardianphonenumber">Phone number *</label>
                                 </div>
                                 <button type="button" class="btn btn-lg btn-light icon-link icon-link-hover mb-0" id="prev-2">Back <i class="bi bi-arrow-left"></i></button>
-                                <button type="button" id="submitRegister" name="submit" class="btn btn-lg btn-success icon-link icon-link-hover mb-0">Submit <i class="bi bi-arrow-right"></i></button>
+                                <button type="submit" id="submitRegister" name="submit" class="btn btn-lg btn-success icon-link icon-link-hover mb-0">Submit <i class="bi bi-arrow-right"></i></button>
                             </div>
                         </div>
                     </div>
@@ -344,7 +362,7 @@
         </ul>
     </footer>
 
-        <div class="back-top"></div>
+    <div class="back-top"></div>
 
     <script type="text/javascript" src="<?= PROOT; ?>dist/js/jquery-3.7.1.min.js"></script>
     <script type="text/javascript" src="<?= PROOT; ?>dist/js/popper.min.js"></script>
@@ -370,44 +388,51 @@
                 var gender = $("#gender option:selected").val();
 
                 if ($('#firstname').val() == '') {
-                    alert('Frist name is required!')
                     $('#firstname').addClass('border border-danger')
                     $('#firstname').focus();
+                    alert('Frist name is required!')
                     return false
                 }
 
                 if ($('#lastname').val() == '') {
-                    alert('Last name is required!')
                     $('#lastname').addClass('border border-danger')
                     $('#lastname').focus();
+                    alert('Last name is required!')
                     return false
                 }
 
                 if ($('#email').val() == '') {
-                    alert('Email is required!')
                     $('#email').addClass('border border-danger')
                     $('#email').focus();
+                    alert('Email is required!')
+                    return false
+                }
+
+                if (!isEmail($('#email').val())) {
+                    $('#email').addClass('border border-danger')
+                    $('#email').focus();
+                    alert('Invalid email provided!')
                     return false
                 }
 
                 if ($('#phone').val() == '') {
-                    alert('Phone number is required!')
                     $('#phone').addClass('border border-danger')
                     $('#phone').focus();
+                    alert('Phone number is required!')
                     return false
                 }
 
                 if (gender == '') {
-                    alert('Gender is required!')
                     $('#gender').addClass('border border-danger')
                     $('#gender').focus();
+                    alert('Gender is required!')
                     return false
                 }
 
                 if ($('#dob').val() == '') {
-                    alert('Date of Birth is required!')
                     $('#dob').addClass('border border-danger')
                     $('#dob').focus();
+                    alert('Date of Birth is required!')
                     return false
                 }
 
@@ -427,45 +452,45 @@
                 var admissiontype = $("#admissiontype option:selected").val();
 
                 if ($('#studentid').val() == '') {
-                    alert('Student ID is required!')
                     $('#studentid').addClass('border border-danger')
                     $('#studentid').focus();
+                    alert('Student ID is required!')
                     return false
                 }
 
                 if ($('#programme').val() == '') {
-                    alert('Programme is required!')
                     $('#programme').addClass('border border-danger')
                     $('#programme').focus();
+                    alert('Programme is required!')
                     return false
                 }
 
                 if ($('#department').val() == '') {
-                    alert('Department is required!')
                     $('#department').addClass('border border-danger')
                     $('#department').focus();
+                    alert('Department is required!')
                     return false
                 }
 
                 if (admissiontype == '') {
-                    alert('Admission type is required!')
                     $('#admissiontype').addClass('border border-danger')
                     $('#admissiontype').focus();
+                    alert('Admission type is required!')
                     return false
                 }
 
                 if ($('#admissionyear').val() == '') {
-                    alert('Admission year is required!')
                     $('#admissionyear').addClass('border border-danger')
                     $('#admissionyear').focus();
+                    alert('Admission year is required!')
                     return false
                 }
 
 
                 if ($('#level').val() == '') {
-                    alert('Level is required!')
                     $('#level').addClass('border border-danger')
                     $('#level').focus();
+                    alert('Level is required!')
                     return false
                 }
 
@@ -486,29 +511,34 @@
             });
 
             $('#submitRegister').click(function() {
-                if (confirm("Please check your you details before clicking on Ok!")) {
-                    $('#guardianfullname').removeClass('border border-danger')
-                    $('#guardianphonenumber').removeClass('border border-danger')
-                    
-                    if ($('#guardianfullname').val() == '') {
-                        $('#guardianfullname').addClass('border border-danger')
-                        $('#guardianfullname').focus();
-                        alert('Guardian full name is required!')
-                        return false
-                    }
+                $('#guardianfullname').removeClass('border border-danger')
+                $('#guardianphonenumber').removeClass('border border-danger')
 
-                    if ($('#guardianphonenumber').val() == '') {
-                        $('#guardianphonenumber').addClass('border border-danger')
-                        $('#guardianphonenumber').focus();
-                        alert('Guardian phone number is required!')
-                        return false
-                    }
+                if ($('#guardianfullname').val() == '') {
+                    $('#guardianfullname').addClass('border border-danger')
+                    $('#guardianfullname').focus();
+                    alert('Guardian full name is required!')
+                    return false
+                }
 
+                if ($('#guardianphonenumber').val() == '') {
+                    $('#guardianphonenumber').addClass('border border-danger')
+                    $('#guardianphonenumber').focus();
+                    alert('Guardian phone number is required!')
+                    return false
+                }
+
+                if (confirm("If the information you have provided are all correct, then click on Ok!")) {
                     $('#registerForm').submit();
                 } else {
                     return false;
                 }
             });
+
+
+            function isEmail(email) { 
+                return /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))$/i.test(email);
+            }
         });
 
     </script>

@@ -10,8 +10,9 @@
 
 	date_default_timezone_set("Africa/Accra");
 
-	require_once($_SERVER['DOCUMENT_ROOT'].'/gmsa-cktutas/config.php');
- 	require_once(BASEURL.'helpers/helpers.php');
+	require_once($_SERVER['DOCUMENT_ROOT'] . '/gmsa-cktutas/config.php');
+ 	require_once(BASEURL . 'helpers/helpers.php');
+ 	require_once(BASEURL . 'helpers/functions.php');
 
  ///////////////////////////////////////////////////////////////////////////////////////////
  	$siteQuery = "
@@ -100,7 +101,7 @@
  	if (isset($_SESSION['flash_success'])) {
  	 	$flash = '
  	 		<div class="bg-success" id="temporary">
- 	 			<p class="text-white">'.$_SESSION['flash_success'].'</p>
+ 	 			<p class="text-white">' . $_SESSION['flash_success'] . '</p>
  	 		</div>';
  	 	unset($_SESSION['flash_success']);
  	}
@@ -108,7 +109,7 @@
  	if (isset($_SESSION['flash_error'])) {
  	 	$flash = '
  	 		<div class="bg-danger" id="temporary">
- 	 			<p class="text-white">'.$_SESSION['flash_error'].'</p>
+ 	 			<p class="text-white">' . $_SESSION['flash_error'] . '</p>
  	 		</div>';
  	 	unset($_SESSION['flash_error']);
  	}
