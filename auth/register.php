@@ -5,120 +5,46 @@
 
 
 ?>
+
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="auto">
+<html lang="en">
 <head>
-    <script src="<?= PROOT; ?>dist/js/color-modes.js"></script>
+    <title>Register - GMSA CKTUTAS</title>
 
+    <!-- Meta Tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="gmsacktutas.com">
     <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.122.0">
-    <title>Register · GMSA | CKT-UTAS</title>
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/checkout/">
+    <!-- Dark mode -->
+    <script src="<?= PROOT; ?>dist/js/dark-mode.js"></script>
 
+    <link rel="shortcut icon" href="<?= PROOT; ?>assets/media/logo/logo-1.jpeg">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
-
-    <link href="<?= PROOT; ?>dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Favicons -->
-    <link rel="apple-touch-icon" href="/docs/5.3/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
-    <link rel="icon" href="/docs/5.3/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
-    <link rel="icon" href="/docs/5.3/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
-    <link rel="manifest" href="/docs/5.3/assets/img/favicons/manifest.json">
-    <link rel="mask-icon" href="/docs/5.3/assets/img/favicons/safari-pinned-tab.svg" color="#712cf9">
-    <link rel="icon" href="/docs/5.3/assets/img/favicons/favicon.ico">
-    <meta name="theme-color" content="#712cf9">
-
-
-    <style>
-        .bd-placeholder-img {
-            font-size: 1.125rem;
-            text-anchor: middle;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            user-select: none;
-        }
-
-        @media (min-width: 768px) {
-            .bd-placeholder-img-lg {
-                font-size: 3.5rem;
-            }
-        }
-
-        .b-example-divider {
-            width: 100%;
-            height: 3rem;
-            background-color: rgba(0, 0, 0, .1);
-            border: solid rgba(0, 0, 0, .15);
-            border-width: 1px 0;
-            box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
-        }
-
-        .b-example-vr {
-            flex-shrink: 0;
-            width: 1.5rem;
-            height: 100vh;
-        }
-
-        .bi {
-            vertical-align: -.125em;
-            fill: currentColor;
-        }
-
-        .nav-scroller {
-            position: relative;
-            z-index: 2;
-            height: 2.75rem;
-            overflow-y: hidden;
-        }
-
-        .nav-scroller .nav {
-            display: flex;
-            flex-wrap: nowrap;
-            padding-bottom: 1rem;
-            margin-top: -1px;
-            overflow-x: auto;
-            text-align: center;
-            white-space: nowrap;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .btn-bd-primary {
-            --bd-violet-bg: #712cf9;
-            --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
-
-            --bs-btn-font-weight: 600;
-            --bs-btn-color: var(--bs-white);
-            --bs-btn-bg: var(--bd-violet-bg);
-            --bs-btn-border-color: var(--bd-violet-bg);
-            --bs-btn-hover-color: var(--bs-white);
-            --bs-btn-hover-bg: #6528e0;
-            --bs-btn-hover-border-color: #6528e0;
-            --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
-            --bs-btn-active-color: var(--bs-btn-hover-color);
-            --bs-btn-active-bg: #5a23c8;
-            --bs-btn-active-border-color: #5a23c8;
-        }
-
-        .bd-mode-toggle {
-            z-index: 1500;
-        }
-
-        .bd-mode-toggle .dropdown-menu .active .bi {
-            display: block !important;
+    <link rel="stylesheet" type="text/css" href="<?= PROOT; ?>dist/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="<?= PROOT; ?>dist/css/bootstrap-icons.min.css">
+    <link rel="stylesheet" type="text/css" href="<?= PROOT; ?>dist/css/swiper-bundle.min.css">
+    
+    <!-- Theme CSS -->
+    <link rel="stylesheet" type="text/css" href="<?= PROOT; ?>dist/css/gmsa.css">
+    <link rel="stylesheet" type="text/css" href="<?= PROOT; ?>dist/css/main.css">
+    
+    <style type="text/css">
+    *, body {
+        font-family: "Montserrat" !important;
+        font-optical-sizing: auto;
+        /*      font-weight: <weight>;*/
+            font-style: normal;
         }
     </style>
-
-    <link href="<?= PROOT; ?>dist/css/checkout.css" rel="stylesheet">
-    <link href="<?= PROOT; ?>dist/css/gmsa.css" rel="stylesheet">
+    
 </head>
+<body>
 <body>
     <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
         <symbol id="check2" viewBox="0 0 16 16">
@@ -172,59 +98,66 @@
     </div>
 
     <main>
-        <div class="container my-3">
-            <div class="p-3 text-center bg-body-tertiary rounded-3" style="background-image: repeating-radial-gradient(circle at center center, rgba(102, 184, 13,0.25) 0px, rgba(102, 184, 13,0.25) 3px,transparent 3px, transparent 10px,rgba(101, 156, 106,0.25) 10px, rgba(101, 156, 106,0.25) 17px,transparent 17px, transparent 21px,rgba(101, 163, 83,0.25) 21px, rgba(101, 163, 83,0.25) 22px),repeating-linear-gradient(67.5deg, rgb(0,0,0) 0px, rgb(0,0,0) 13px,rgb(0,0,0) 13px, rgb(0,0,0) 16px,rgb(0,0,0) 16px, rgb(0,0,0) 30px,rgb(0,0,0) 30px, rgb(0,0,0) 31px); background-size: 72px 72px;border-top: 5px solid green;" >
-                <img src="<?= PROOT; ?>assets/media/logo/logo-1.jpeg" class="bi mt-4 mb-3 rounded-3" width="40" height="40" />
-                <h1 class="text-body-emphasis">Register . GMSA CKTUTAS</h1>
-                <p class="col-lg-8 mx-auto fs-5 text-muted">
-              This is a custom jumbotron featuring an SVG image at the top, some longer text that wraps early thanks to a responsive <code>.col-*</code> class, and a customized call to action.
-            </p>
-        </div>
-        
-        <div class="row justify-content-center">
-            <div class="col-md-7">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="mb-3">Personal Details</h4>
-                        <form class="needs-validation" novalidate>
+        <center>
+            <img src="<?= PROOT; ?>assets/media/logo/logo-1.jpeg" class="bi mt-1 rounded-3" width="60" height="60" />
+        </center>
+
+        <section class="pt-1">
+            <div class="container">
+                <div class="inner-container text-center mb-6">
+                    <h1 class="mb-0 lh-base position-relative">
+                        <span class="position-absolute top-0 start-0 mt-n5 ms-n5 d-none d-sm-block">
+                            <svg class="fill-primary" width="63.6px" height="93.3px" viewBox="0 0 63.6 93.3" style="enable-background:new 0 0 63.6 93.3;" xml:space="preserve">
+                                <path d="M58.5,1.9c0.5,0,1.6,5.3,2.4,11.8c0.8,6.5,1.4,14,1.6,18.5c0.3,8.8-0.5,15.9-1.6,16c-1.1,0-2.1-7.1-2.4-15.8 c-0.2-4.4-0.3-12-0.4-18.4C57.9,7.3,57.9,1.9,58.5,1.9z"/>
+                                <path d="M47.7,44.4c-0.5,0.1-1.5-2.1-2.8-4.7c-1.3-2.6-2.8-5.5-3.7-7.2c-1.7-3.4-2.9-6.4-2.1-7c0.8-0.6,3.4,1.5,5.3,5.1 c1,1.8,2.2,5.1,2.9,8.1C48.1,41.8,48.2,44.3,47.7,44.4z"/>
+                                <path d="M36.2,53.4c-0.2,0.5-4.1-1.2-8.5-3.5c-4.4-2.3-9.5-5.4-12.3-7.3c-5.6-3.9-9.6-7.9-9-8.8c0.6-0.9,5.4,1.7,11,5.5 c2.8,1.9,7.5,5.3,11.6,8.2C33.1,50.5,36.4,53,36.2,53.4z"/>
+                                <path d="M27.2,68.3c-0.1,0.5-2.1,0.7-4.4,0.6c-2.4,0-5.1-0.3-6.7-0.7c-3.1-0.6-5.4-2-5.2-3c0.2-1,2.9-1.2,5.9-0.5 c1.5,0.3,4.1,1,6.3,1.7C25.4,67.1,27.2,67.8,27.2,68.3z"/>
+                                <path d="M30.8,83.2c0.1,0.5-3.5,1.7-7.7,3.1c-4.3,1.4-9.2,3.1-12.1,4.1c-5.7,1.9-10.6,3.1-11,2.1 c-0.4-0.9,3.9-3.6,9.8-5.6c2.9-1,8.1-2.4,12.6-3.2C26.9,83,30.7,82.7,30.8,83.2z"/>
+                            </svg>
+                        </span>
+                        Register, your account details to join GMSA - CKTUTAS
+                    </h1>
+                </div>
+
+                <form class="col-md-10 mx-auto p-2 mt-4 mt-md-5">
+                    <div class="card bg-light">
+                        <div class="card-body">
+                            
+                            <h4 class="mb-3">Personal Details</h4>
                             <div class="row g-3">
-                                <div class="col-sm-4">
-                                    <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="firstname" name="firstname" placeholder="name@example.com">
-                                        <label for="firstname">First name</label>
-                                        <div class="invalid-feedback">
-                                            Valid first name is required.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="middlename" name="middlename" placeholder="name@example.com">
-                                        <label for="middlename">Middle name</label>
-                                        <div class="invalid-feedback">
-                                            Valid middle name is required.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="lastname" name="lastname" placeholder="name@example.com">
-                                        <label for="lastname">Last name</label>
-                                        <div class="invalid-feedback">
-                                            Valid last name is required.
-                                        </div>
+                            <div class="col-sm-4">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="firstname" name="firstname" placeholder="name@example.com">
+                                    <label for="firstname">First name</label>
+                                    <div class="invalid-feedback">
+                                        Valid first name is required.
                                     </div>
                                 </div>
                             </div>
-
-                            <button class="w-100 btn btn-success btn-lg" type="submit">Continue to checkout</button>
-                        </form>
+                            <div class="col-sm-4">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="middlename" name="middlename" placeholder="name@example.com">
+                                    <label for="middlename">Middle name</label>
+                                    <div class="invalid-feedback">
+                                        Valid middle name is required.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="lastname" name="lastname" placeholder="name@example.com">
+                                    <label for="lastname">Last name</label>
+                                    <div class="invalid-feedback">
+                                        Valid last name is required.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
-        </div>
-        </div>
-
+        </section>
 
     </main>
 

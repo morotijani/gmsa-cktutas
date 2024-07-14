@@ -32,7 +32,7 @@
                 <div class="row">
                     <div class="col-md-10">
                         <span class="eyebrow mb-1 text-success">Current year, <?= date('Y'); ?></span>
-                        <h1 class="display-2"><b>Search name or</b> year.</h1>
+                        <h1 class="display-2"><b>Search; name or</b> year.</h1>
                     </div>
                 </div>
                 <div class="row">

@@ -61,8 +61,8 @@
                         </ul>
                     </li>
 
-                    <li class="nav-item position-relative ms-2 ms-sm-3"><a class="btn btn-sm btn-light mb-0">Register</a></li>
-                    <li class="nav-item position-relative ms-2 ms-sm-3"><a class="btn btn-sm btn-success mb-0">Pay dues</a></li>
+                    <li class="nav-item position-relative ms-2 ms-sm-3"><a class="btn btn-sm btn-light mb-0" href="<?= PROOT; ?>auth/register">Register</a></li>
+                    <li class="nav-item position-relative ms-2 ms-sm-3"><a class="btn btn-sm btn-success mb-0" href="<?= PROOT; ?>auth/pay-dues">Pay dues</a></li>
 
                     <li class="nav-item">
                         <button class="navbar-toggler ms-3 p-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
