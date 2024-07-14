@@ -3,6 +3,62 @@
 
     require_once ("./../db_connection/conn.php");
 
+    $errors = '';
+    $post = cleanPost($_POST);
+
+    $firstname = (isset($_POST['firstname']) ? $post['firstname'] : '');
+    $middlename = (isset($_POST['middlename']) ? $post['middlename'] : '');
+    $lastname = (isset($_POST['lastname']) ? $post['lastname'] : '');
+    $email = (isset($_POST['email']) ? $post['email'] : '');
+    $phone = (isset($_POST['phone']) ? $post['phone'] : '');
+    $gender = (isset($_POST['gender']) ? $post['gender'] : '');
+    $dob = (isset($_POST['dob']) ? $post['dob'] : '');
+    $region = (isset($_POST['region']) ? $post['region'] : '');
+    $city = (isset($_POST['city']) ? $post['city'] : '');
+    $digitaladdress = (isset($_POST['digitaladdress']) ? $post['digitaladdress'] : '');
+    $studentid = (isset($_POST['studentid']) ? $post['studentid'] : '');
+    $programme = (isset($_POST['programme']) ? $post['programme'] : '');
+    $department = (isset($_POST['department']) ? $post['department'] : '');
+    $admissiontype = (isset($_POST['admissiontype']) ? $post['admissiontype'] : '');
+    $admissionyear = (isset($_POST['admissionyear']) ? $post['admissionyear'] : '');
+    $level = (isset($_POST['level']) ? $post['level'] : '');
+    $guardianfullname = (isset($_POST['guardianfullname']) ? $post['guardianfullname'] : '');
+    $guardianphonenumber = (isset($_POST['guardianphonenumber']) ? $post['guardianphonenumber'] : '');
+
+    if (isset($_POST['submit'])) {
+        $member_id = guidv4();
+        $createdAt = date("Y-m-d H:i:s A");
+
+        if (!find_by_student_id($studentid)) {
+            $error = "Student ID already exist!";
+        }
+
+        if (!find_by_student_email($email)) {
+            $error = "Student ID already exist!";
+        }
+
+        if (empty($error)) {
+            // code...
+            display_errors($error);
+        } else {
+            $query = "
+                INSERT INTO `gmsa_member`(`member_id`, `member_firstname`, `member_middlename`, `member_lastname`, `member_email`, `member_phone`, `user_password`, `member_gender`, `member_dob`, `member_region`, `member_city`, `member_digitaladdress`, `member_studentid`, `member_programme`, `member_department`, `member_admissiontype`, `member_admissionyear`, `member_level`, `member_guardianfullname`, `member_guardianphonenumber`, `member_verified`, `member_vericode`, `createdAt`) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ";
+            $statement = $conn->prepare($query);
+            $result = $statement->execute($data);
+
+            if (isset($result)) {
+                
+                redirect(PROOT . 'auth/register');
+            } else {
+                echo js_alert("Something went wrong, please try again!");
+            }
+        }
+            
+
+    }
+
 
 ?>
 
@@ -11,13 +67,11 @@
 <head>
     <title>Register - GMSA CKTUTAS</title>
 
-    <!-- Meta Tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="author" content="gmsacktutas.com">
     <meta name="description" content="">
 
-    <!-- Dark mode -->
     <script src="<?= PROOT; ?>dist/js/dark-mode.js"></script>
 
     <link rel="shortcut icon" href="<?= PROOT; ?>assets/media/logo/logo-1.jpeg">
@@ -35,10 +89,9 @@
     <link rel="stylesheet" type="text/css" href="<?= PROOT; ?>dist/css/main.css">
     
     <style type="text/css">
-    *, body {
-        font-family: "Montserrat" !important;
-        font-optical-sizing: auto;
-        /*      font-weight: <weight>;*/
+        *, body {
+            font-family: "Montserrat" !important;
+            font-optical-sizing: auto;
             font-style: normal;
         }
     </style>
@@ -137,7 +190,7 @@
                         Register, your account details to join GMSA - CKTUTAS
                     </h1>
                 </div>
-
+                <?= display_errors($errors); ?>
                 <form class="col-md-10 mx-auto p-2 mt-4 mt-md-5" id="registerForm">
                     <div class="card bg-light">
                         <div class="card-body">
@@ -272,7 +325,7 @@
                                     <label for="guardianphonenumber">Phone number *</label>
                                 </div>
                                 <button type="button" class="btn btn-lg btn-light icon-link icon-link-hover mb-0" id="prev-2">Back <i class="bi bi-arrow-left"></i></button>
-                                <button type="button" id="submitRegister" class="btn btn-lg btn-success icon-link icon-link-hover mb-0">Submit <i class="bi bi-arrow-right"></i></button>
+                                <button type="button" id="submitRegister" name="submit" class="btn btn-lg btn-success icon-link icon-link-hover mb-0">Submit <i class="bi bi-arrow-right"></i></button>
                             </div>
                         </div>
                     </div>
