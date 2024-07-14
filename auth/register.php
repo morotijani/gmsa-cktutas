@@ -147,7 +147,7 @@
                                     <div class="col-sm-4">
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control" id="firstname" name="firstname" placeholder="">
-                                            <label for="firstname">First name</label>
+                                            <label for="firstname">First name *</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
@@ -159,19 +159,19 @@
                                     <div class="col-sm-4">
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control" id="lastname" name="lastname" placeholder="">
-                                            <label for="lastname">Last name</label>
+                                            <label for="lastname">Last name *</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-floating mb-3">
                                             <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com">
-                                            <label for="email">Email</label>
+                                            <label for="email">Email *</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-floating mb-3">
                                             <input type="tel" inputmode="" class="form-control" id="phone" name="phone" placeholder="">
-                                            <label for="phone">Phone</label>
+                                            <label for="phone">Phone *</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
@@ -181,13 +181,13 @@
                                                 <option value="Male">Male</option>
                                                 <option value="Female">Female</option>
                                             </select>
-                                            <label for="gender">Gender</label>
+                                            <label for="gender">Gender *</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-floating mb-3">
                                             <input type="date" class="form-control" id="dob" name="dob" placeholder="">
-                                            <label for="dob">Date of Birth</label>
+                                            <label for="dob">Date of Birth *</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
@@ -218,42 +218,42 @@
                                     <div class="col-sm-12">
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control" id="studentid" name="studentid" placeholder="">
-                                            <label for="studentid">Student ID</label>
+                                            <label for="studentid">Student ID *</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-floating mb-3">
                                             <input type="email" class="form-control" id="programme" name="programme" placeholder="name@example.com">
-                                            <label for="programme">Programme</label>
+                                            <label for="programme">Programme *</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-floating mb-3">
                                             <input type="tel" class="form-control" id="department" name="department" placeholder="">
-                                            <label for="department">Department</label>
+                                            <label for="department">Department *</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-floating mb-3">
                                             <select type="tel" class="form-select" id="admissiontype" name="admissiontype">
-                                                <option selected>Open this select menu</option>
-                                                <option>Diploma</option>
-                                                <option>Undergraduate</option>
-                                                <option>Postgraduate</option>
+                                                <option value="" selected>Open this select menu</option>
+                                                <option value="Diploma">Diploma</option>
+                                                <option value="Undergraduate">Undergraduate</option>
+                                                <option value="Postgraduate">Postgraduate</option>
                                             </select>
-                                            <label for="floatingSelect">Admission type</label>
+                                            <label for="admissiontype">Admission type *</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-floating mb-3">
                                             <input type="tel" class="form-control" id="admissionyear" name="admissionyear" placeholder="">
-                                            <label for="admissionyear">Admission year</label>
+                                            <label for="admissionyear">Admission year *</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-floating mb-3">
                                             <input type="email" class="form-control" id="level" name="level" placeholder="">
-                                            <label for="level">Level</label>
+                                            <label for="level">Level *</label>
                                         </div>
                                     </div>
                                 </div>
@@ -265,14 +265,14 @@
                                 <h4 class="mb-3 fw-light">Parent/Guardian Details</h4>
                                 <div class="form-floating mb-3">
                                     <input type="text" class="form-control" id="guardianfullname" name="guardianfullname" placeholder="">
-                                    <label for="guardianfullname">Full name</label>
+                                    <label for="guardianfullname">Full name *</label>
                                 </div>
                                 <div class="form-floating mb-3">
                                     <input type="tel" inputmode="" class="form-control" id="guardianphonenumber" name="guardianphonenumber" placeholder="">
-                                    <label for="guardianphonenumber">Phone number</label>
+                                    <label for="guardianphonenumber">Phone number *</label>
                                 </div>
                                 <button type="button" class="btn btn-lg btn-light icon-link icon-link-hover mb-0" id="prev-2">Back <i class="bi bi-arrow-left"></i></button>
-                                <button id="submitRegister" class="btn btn-lg btn-success icon-link icon-link-hover mb-0">Submit <i class="bi bi-arrow-right"></i></button>
+                                <button type="button" id="submitRegister" class="btn btn-lg btn-success icon-link icon-link-hover mb-0">Submit <i class="bi bi-arrow-right"></i></button>
                             </div>
                         </div>
                     </div>
@@ -307,7 +307,14 @@
         $(document).ready(function() {
             $('#next-1').click(function() {
 
-                var gender = $("#gender option:selected").text();
+                $('#firstname').removeClass('border border-danger')
+                $('#lastname').removeClass('border border-danger')
+                $('#email').removeClass('border border-danger')
+                $('#phone').removeClass('border border-danger')
+                $('#gender').removeClass('border border-danger')
+                $('#dob').removeClass('border border-danger')
+
+                var gender = $("#gender option:selected").val();
 
                 if ($('#firstname').val() == '') {
                     alert('Frist name is required!')
@@ -318,41 +325,97 @@
 
                 if ($('#lastname').val() == '') {
                     alert('Last name is required!')
+                    $('#lastname').addClass('border border-danger')
                     $('#lastname').focus();
                     return false
                 }
 
                 if ($('#email').val() == '') {
                     alert('Email is required!')
+                    $('#email').addClass('border border-danger')
                     $('#email').focus();
                     return false
                 }
 
                 if ($('#phone').val() == '') {
                     alert('Phone number is required!')
+                    $('#phone').addClass('border border-danger')
                     $('#phone').focus();
                     return false
                 }
 
                 if (gender == '') {
                     alert('Gender is required!')
+                    $('#gender').addClass('border border-danger')
                     $('#gender').focus();
                     return false
                 }
 
                 if ($('#dob').val() == '') {
                     alert('Date of Birth is required!')
+                    $('#dob').addClass('border border-danger')
                     $('#dob').focus();
                     return false
                 }
-
-
 
                 $('#step-1').addClass('d-none');
                 $('#step-2').removeClass('d-none');
             })
 
+            // page 2
             $('#next-2').click(function() {
+                $('#studentid').removeClass('border border-danger')
+                $('#programme').removeClass('border border-danger')
+                $('#department').removeClass('border border-danger')
+                $('#admissiontype').removeClass('border border-danger')
+                $('#admissionyear').removeClass('border border-danger')
+                $('#level').removeClass('border border-danger')
+
+                var admissiontype = $("#admissiontype option:selected").val();
+
+                if ($('#studentid').val() == '') {
+                    alert('Student ID is required!')
+                    $('#studentid').addClass('border border-danger')
+                    $('#studentid').focus();
+                    return false
+                }
+
+                if ($('#programme').val() == '') {
+                    alert('Programme is required!')
+                    $('#programme').addClass('border border-danger')
+                    $('#programme').focus();
+                    return false
+                }
+
+                if ($('#department').val() == '') {
+                    alert('Department is required!')
+                    $('#department').addClass('border border-danger')
+                    $('#department').focus();
+                    return false
+                }
+
+                if (admissiontype == '') {
+                    alert('Admission type is required!')
+                    $('#admissiontype').addClass('border border-danger')
+                    $('#admissiontype').focus();
+                    return false
+                }
+
+                if ($('#admissionyear').val() == '') {
+                    alert('Admission year is required!')
+                    $('#admissionyear').addClass('border border-danger')
+                    $('#admissionyear').focus();
+                    return false
+                }
+
+
+                if ($('#level').val() == '') {
+                    alert('Level is required!')
+                    $('#level').addClass('border border-danger')
+                    $('#level').focus();
+                    return false
+                }
+
                 $('#step-1').addClass('d-none');
                 $('#step-2').addClass('d-none');
                 $('#step-3').removeClass('d-none');
@@ -367,7 +430,32 @@
                 $('#step-3').addClass('d-none');
                 $('#step-2').removeClass('d-none');
                 $('#step-1').addClass('d-none');
-            })
+            });
+
+            $('#submitRegister').click(function() {
+                if (confirm("Please check your you details before clicking on Ok!")) {
+                    $('#guardianfullname').removeClass('border border-danger')
+                    $('#guardianphonenumber').removeClass('border border-danger')
+                    
+                    if ($('#guardianfullname').val() == '') {
+                        $('#guardianfullname').addClass('border border-danger')
+                        $('#guardianfullname').focus();
+                        alert('Guardian full name is required!')
+                        return false
+                    }
+
+                    if ($('#guardianphonenumber').val() == '') {
+                        $('#guardianphonenumber').addClass('border border-danger')
+                        $('#guardianphonenumber').focus();
+                        alert('Guardian phone number is required!')
+                        return false
+                    }
+
+                    $('#registerForm').submit();
+                } else {
+                    return false;
+                }
+            });
         });
 
     </script>
