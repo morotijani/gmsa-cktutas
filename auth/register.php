@@ -124,10 +124,6 @@
                         <div class="card-body">
                             <div id="step-1">
                                 <h4 class="mb-3 fw-light">Personal Details</h4>
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="firstname" name="firstname" placeholder="">
-                                    <label for="firstname">Student ID</label>
-                                </div>
                                 <div class="row g-3">
                                     <div class="col-sm-4">
                                         <div class="form-floating mb-3">
@@ -159,10 +155,69 @@
                                             <label for="lastname">Phone</label>
                                         </div>
                                     </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-floating mb-3">
+                                            <select type="email" class="form-select" id="lastname" name="lastname">
+                                                <option selected>Open this menu</option>
+                                                <option>Male</option>
+                                                <option>Female</option>
+                                            </select>
+                                            <label for="lastname">Gender</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-floating mb-3">
+                                            <input type="date" class="form-control" id="lastname" name="lastname" placeholder="">
+                                            <label for="lastname">Date of Birth</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="step-2">
+                                <div class="row g-3">
+                                    <h4 class="mb-3 fw-light">School Details</h4>
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="firstname" name="firstname" placeholder="">
+                                        <label for="firstname">Student ID</label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-floating mb-3">
+                                            <input type="email" class="form-control" id="lastname" name="lastname" placeholder="name@example.com">
+                                            <label for="lastname">Course</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-floating mb-3">
+                                            <input type="tel" class="form-control" id="lastname" name="lastname" placeholder="">
+                                            <label for="lastname">Department</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-floating mb-3">
+                                            <select type="tel" class="form-select" id="lastname" name="lastname">
+                                                <option selected>Open this select menu</option>
+                                                <option>Undergraduate</option>
+                                                <option>Postgraduate</option>
+                                            </select>
+                                            <label for="floatingSelect">Admission type</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-floating mb-3">
+                                            <input type="tel" class="form-control" id="lastname" name="lastname" placeholder="">
+                                            <label for="lastname">Admission year</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-floating mb-3">
+                                            <input type="email" class="form-control" id="lastname" name="lastname" placeholder="name@example.com">
+                                            <label for="lastname">Level</label>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div id="step-2">
+                            <div id="step-3">
                                 <h4 class="mb-3 fw-light">Parent/Guardian Details</h4>
                                 <div class="form-floating mb-3">
                                     <input type="text" class="form-control" id="firstname" name="firstname" placeholder="name@example.com">
