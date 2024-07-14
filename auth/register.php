@@ -171,8 +171,28 @@
                                             <label for="lastname">Date of Birth</label>
                                         </div>
                                     </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="lastname" name="lastname" placeholder="">
+                                            <label for="lastname">Region</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="lastname" name="lastname" placeholder="">
+                                            <label for="lastname">City</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="lastname" name="lastname" placeholder="">
+                                            <label for="lastname">Digital Address (optional)</label>
+                                        </div>
+                                    </div>
                                 </div>
+                                <button class="btn btn-lg btn-primary-soft icon-link icon-link-hover mb-0" id="next-1">Next <i class="bi bi-arrow-right"></i></button>
                             </div>
+
                             <div id="step-2">
                                 <div class="row g-3">
                                     <h4 class="mb-3 fw-light">School Details</h4>
@@ -215,6 +235,8 @@
                                         </div>
                                     </div>
                                 </div>
+                                <button class="btn btn-lg btn-dark-soft icon-link icon-link-hover mb-0" id="prev-1">Back <i class="bi bi-arrow-left"></i></button>
+                                <button class="btn btn-lg btn-primary-soft icon-link icon-link-hover mb-0" id="next-3">Next <i class="bi bi-arrow-right"></i></button>
                             </div>
 
                             <div id="step-3">
@@ -227,7 +249,8 @@
                                     <input type="tel" class="form-control" id="middlename" name="middlename" placeholder="name@example.com">
                                     <label for="middlename">Phone number</label>
                                 </div>
-                                </div>
+                                <button class="btn btn-lg btn-dark-soft icon-link icon-link-hover mb-0" id="prev-1">Back <i class="bi bi-arrow-left"></i></button>
+                                <button class="btn btn-lg btn-success icon-link icon-link-hover mb-0" id="next-3">Submit <i class="bi bi-arrow-right"></i></button>
                             </div>
                         </div>
                     </div>
@@ -238,7 +261,7 @@
     </main>
 
     <footer class="my-5 pt-5 text-body-secondary text-center text-small">
-        <p class="mb-1" id="copyright">Copyrights &copy; 2002 - <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script> GMSA-CKTUTAS. <br>Build by <a href="https://www.gmsa-cktutas.org/" class="text-body">IT & Publicity Committe.</a>. </p>
+        <p class="mb-1" id="copyright">Copyrights &copy; 2002 - <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script> GMSA-CKTUTAS. <br>Build by <a href="https://www.gmsa-cktutas.org/" class="text-body">IT & Publicity Committe</a>. </p>
         <ul class="list-inline">
             <li class="list-inline-item"><a href="#">Privacy</a></li>
             <li class="list-inline-item"><a href="#">Terms</a></li>
