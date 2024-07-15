@@ -61,7 +61,7 @@
                             </p>
                             <div class="ml-auto">
                                 <div class="dropdown">
-                                    <button class="btn btn-success" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Refresh</span> <i class="fa fa-fw fa-recycle"></i></button>
+                                    <a class="btn btn-success" href="<?= PROOT . 'admin/prayer-time' .((isset($_GET['edit'])) ? '?edit='.$id.'': ''); ?>"><span>Refresh</span> <i class="fa fa-fw fa-recycle"></i></a>
                                 </div>
                             </div>
                         </div>

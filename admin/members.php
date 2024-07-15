@@ -1,9 +1,11 @@
 <?php 
     require_once ("../db_connection/conn.php");
-    if (!admin_is_logged_in()) {
-        admn_login_redirect();
-    }
+    // if (!admin_is_logged_in()) {
+    //     admn_login_redirect();
+    // }
+    include ("includes/head.php");
     include ("includes/header.php");
+    include ("includes/aside.php");
 
     // DELETE A MEMBER PERMANENTLY
     if (isset($_GET['permanent_delete']) && !empty($_GET['permanent_delete'])) {
@@ -15,7 +17,7 @@
 
         if ($DEL) {
             $query = "
-                DELETE FROM tein_membership 
+                DELETE FROM gmsa_members 
                 WHERE id = ?
             ";
             $statement = $conn->prepare($query);
@@ -26,8 +28,8 @@
     }
 
     $query = "
-        SELECT * FROM tein_membership 
-        WHERE membership_trash = ?
+        SELECT * FROM gmsa_members 
+        WHERE status = ?
         ORDER BY id DESC 
     ";
     $statement = $conn->prepare($query);
