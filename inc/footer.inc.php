@@ -150,7 +150,7 @@
             <!-- Bottom footer -->
             <div class="d-md-flex justify-content-between align-items-center text-center text-lg-start py-4">
                 <!-- copyright text -->
-                <div class="text-body mb-3 mb-md-0"> Copyrights ©2024 Mizzle. Build by <a href="https://www.webestica.com/" class="text-body text-primary-hover">Webestica</a>. </div>
+                <div class="text-body mb-3 mb-md-0" id="copyright"> Copyrights &copy; 2013 - <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script> GMSA - CKTUTAS. Build by <a href="https://www.gmsacktutas.org/" class="text-body text-primary-hover">IT & Publicity Committee</a>. </div>
 
                 <!-- Social links -->
                 <ul class="list-inline mb-0">

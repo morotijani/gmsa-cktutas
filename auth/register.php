@@ -354,7 +354,7 @@
     </main>
 
     <footer class="my-5 pt-5 text-body-secondary text-center text-small">
-        <p class="mb-1" id="copyright">Copyrights &copy; 2002 - <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script> GMSA-CKTUTAS. <br>Build by <a href="https://www.gmsa-cktutas.org/" class="text-body">IT & Publicity Committe</a>. </p>
+        <p class="mb-1" id="copyright">Copyrights &copy; 2013 - <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script> GMSA-CKTUTAS. <br>Build by <a href="https://www.gmsa-cktutas.org/" class="text-body">IT & Publicity Committe</a>. </p>
         <ul class="list-inline">
             <li class="list-inline-item"><a href="#">Privacy</a></li>
             <li class="list-inline-item"><a href="#">Terms</a></li>

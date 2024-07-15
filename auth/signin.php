@@ -153,7 +153,7 @@
 				
 				
 											<!-- Copyright -->
-											<div class="text-primary-hover text-body mt-3 text-center"> Copyrights &copy;2024 GMSA-CKTUTAS. <br>Build by <a href="https://www.webestica.com/" class="text-body">IT & Publicity Committe.</a>. </div>
+											<div class="text-primary-hover text-body mt-3 text-center" id="copyright"> Copyrights &copy;2013 - <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script> GMSA-CKTUTAS. <br>Build by <a href="https://www.webestica.com/" class="text-body">IT & Publicity Committe.</a>. </div>
 										</form>
 										<!-- Form END -->
 									</div>		
