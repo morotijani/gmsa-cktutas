@@ -37,51 +37,37 @@
     $count_members = $statement->rowCount();
     $result = $statement->fetchAll();
 ?> 
+ <main class="app-main">
+        <div class="wrapper">
+            <div class="page">
+                <div class="page-inner">
 
-    <?= $flash; ?>
-    <div class="container-fluid">
-        <main style="background-color: rgb(51, 51, 51);">
-            <div class="row justify-content-center">
-                <div class="col-md-4">
-
-                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3" style="margin-top: 34px;">
-                        <h2 class="text-white" style="font-weight: 600; font-size: 20px; line-height: 28px;">TEIN . Members</h2>
-                        <a href="add.member" class="btn btn-sm btn-outline-secondary" style="background: #333333;"> + Add Member</a>
-                    </div>
-
-                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center p-3 my-3 text-white bg-purple rounded shadow-sm text-white user-banner">
-                        <div class="btn-group me-2">
-
-                            <img class="me-3" src="<?= PROOT; ?>dist/media/logo/logo.png" alt="" width="48" height="38">
-                            <div class="lh-1">
-                                <h1 class="h6 mb-0 text-white lh-1" style="font-size: 16px; white-space: nowrap; text-overflow: ellipsis; font-weight: 700;"><?= strtoupper($admin_data['admin_fullname']); ?></h1>
-                                <span style="font-size: 12px; line-height: 16px;"><?= $admin_data['admin_email'] ?></span><br>   
-                                <span style="align-items: center; flex-direction: row;">😎 singed in.</span>
-                            </div>
-                        </div>
-                        <div class="btn-toolbar mb-2 mb-md-0">
-                            <div class="btn-group me-2">
+                    <header class="page-title-bar">
+                        <div class="d-md-flex align-items-md-start">
+                            <h1 class="page-title mr-sm-auto"> Members Table </h1><!-- .btn-toolbar -->
+                            <div class="btn-toolbar">
+                                <button type="button" class="btn btn-light"><i class="oi oi-data-transfer-download"></i> <span class="ml-1">Export</span></button> <button type="button" class="btn btn-light"><i class="oi oi-data-transfer-upload"></i> <span class="ml-1">Import</span></button>
                                 <div class="dropdown">
-                                    <button  class="text-white" style="background-color: transparent; border: none;" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        ...
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="<?= PROOT; ?>members">Refresh</a></li>
-                                        <li><a class="dropdown-item" href="<?= PROOT; ?>positions">Position</a></li>
-                                        <li><a class="dropdown-item" href="<?= PROOT; ?>executives">Executives</a></li>
-                                        <li><a class="dropdown-item" href="<?= PROOT; ?>logout">Logout</a></li>
-                                    </ul>
+                                    <button type="button" class="btn btn-light" data-toggle="dropdown" aria-expanded="false"><span>More</span> <span class="fa fa-caret-down"></span></button>
+                                    <div class="dropdown-menu dropdown-menu-right" style="">
+                                        <div class="dropdown-arrow"></div>
+                                        <a href="#" class="dropdown-item">Add tasks</a> 
+                                        <a href="#" class="dropdown-item">Invite members</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a href="#" class="dropdown-item">Share</a> 
+                                        <a href="#" class="dropdown-item">Archive</a>
+                                    </div>
                                 </div>
                             </div>
-                            <a href="index" class="btn btn-sm btn-outline-secondary">
-                                Menu
-                            </a>
+                        </div>
+                    </header>
+                    <div><?= $flash; ?></div>
+                    <div class="page-section">
+                        <div class="card card-fluid">
+                            <div id="load-content"></div>                                    
                         </div>
                     </div>
-
-                </div>
-            </div>
-           
+       
 
             <div class="text-white w-100 h-100" style="z-index: 5; padding: 4px 0px; margin-bottom: 20px; transition: all 0.2s ease-in-out; background: #3B3B3B; border-radius: 4px; box-shadow: 0px 1.6px 3.6px rgb(0 0 0 / 25%), 0px 0px 2.9px rgb(0 0 0 / 22%);">
                 <div class="container-fluid mt-4">
@@ -255,3 +241,31 @@
         </main>
     </div>
 <?php include ("includes/footer.php"); ?>
+<script type="text/javascript">
+     // SEARCH AND PAGINATION FOR LIST
+    function load_data(page, query = '') {
+        $.ajax({
+            url : "<?= PROOT; ?>admin/auth/list.members.php",
+            method : "POST",
+            data : {
+                page : page, 
+                query : query
+            },
+            success : function(data) {
+                $("#load-content").html(data);
+            }
+        });
+    }
+
+    load_data(1);
+    $('#search').keyup(function() {
+        var query = $('#search').val();
+        load_data(1, query);
+    });
+
+    $(document).on('click', '.page-link-go', function() {
+        var page = $(this).data('page_number');
+        var query = $('#search').val();
+        load_data(page, query);
+    });
+</script>

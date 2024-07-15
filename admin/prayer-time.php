@@ -68,9 +68,7 @@
                     </header>
                     <div><?= $flash; ?></div>
                     <div class="page-section">
-                        <?php if (isset($_GET['edit']) && !empty($_GET['edit'])):
-
-                        ?>
+                        <?php if (isset($_GET['edit']) && !empty($_GET['edit'])): ?>
                             <div class="card">
                                 <div class="card-body">
                                     <form method="POST">
