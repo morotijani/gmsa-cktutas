@@ -16,6 +16,7 @@
             $prayer_time = ((isset($_POST['prayer_time']) && !empty($_POST['prayer_time'])) ? sanitize($_POST['prayer_time']) : $prayer['prayer_time']);
             $prayer_date = ((isset($_POST['prayer_date']) && !empty($_POST['prayer_date'])) ? sanitize($_POST['prayer_date']) : $prayer['prayer_date']);
 
+
             if (isset($_POST['submit'])) {
                 $query = "
                     UPDATE gmsa_prayer_time 
@@ -77,18 +78,18 @@
                                             <legend>Update <?= $prayer_name; ?></legend>
                                             <div class="form-group">
                                                 <div class="form-label-group">
-                                                    <input type="text" class="form-control" id="fl2" placeholder="Password" required="" value="<?= $prayer_name; ?>"> <label for="fl2">Prayer</label>
+                                                    <input type="text" class="form-control" id="prayer_name" name="prayer_name" placeholder="Prayer name" required="" value="<?= $prayer_name; ?>"> <label for="prayer_name">Prayer</label>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <div class="form-label-group">
-                                                    <input type="time" class="form-control" id="fl2" placeholder="Time" required="" value="<?= $prayer_time; ?>"> <label for="fl2">Time</label>
+                                                    <input type="time" class="form-control" id="prayer_time" name="prayer_time" placeholder="Time" required="" value="<?= $prayer_time; ?>"> <label for="prayer_time">Time</label>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <div class="form-label-group">
-                                                    <input type="date" class="form-control" id="fl2" placeholder="Password" value="<?= $prayer_date; ?>"> <label for="fl2">Date</label>
-                                                    <small id="tf1Help" class="form-text text-muted">If prayer does not require any date, please leave this field empty..</small>
+                                                    <input type="date" class="form-control" id="prayer_date" name="prayer_date" placeholder="Prayer date" value="<?= $prayer_date; ?>"> <label for="prayer_date">Date</label>
+                                                    <small id="" class="form-text text-muted">If prayer does not require any date, please leave this field empty.</small>
                                                 </div>
                                             </div>
                                             <div class="form-actions">
@@ -106,12 +107,15 @@
                                     <div class="row align-items-center">
                                         <div class="col">
                                             <h3 class="card-title">
-                                                <a href="user-profile.html">4:45 AM</a> <small class="text-muted">updated at: </small>
+                                                <a href="user-profile.html"> <?= (($row['prayer_date'] == null) ? $row["prayer_time"] : pretty_date_notime($row['prayer_date'])); ?> </a> <small class="text-muted"> <?= (($row['prayer_date'] == null) ? '' : 'on: ' . $row['prayer_time']); ?> </small>
                                             </h3>
                                             <h6 class="card-subtitle text-muted"> @<?= strtoupper($row['prayer_name']); ?> </h6>
                                         </div>
                                         <div class="col-auto">
-                                            <a href="?edit=<?= $row["prayer_id"]; ?>" class="btn btn-icon btn-secondary mr-1" data-toggle="tooltip" title="" data-original-title="Private message">
+                                            <div class="d-inline-block">
+                                                <h6 class="card-subtitle text-muted"> <?= (($row['updatedAt'] == null) ? '' : 'updated at: ' . pretty_date($row['updatedAt'])); ?> </h6>
+                                            </div>
+                                            <a href="?edit=<?= $row["prayer_id"]; ?>" class="btn btn-icon btn-secondary mr-1" data-toggle="tooltip" title="" data-original-title="Edit Prayer">
                                                 <i class="fa-solid fa-pencil"></i>
                                             </a>
                                         </div>
