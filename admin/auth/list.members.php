@@ -105,7 +105,6 @@ $output = '
 ';
 
 if ($total_data > 0) {
-	$i = 1;
 	foreach ($result as $row) {
 
 		$output .= '
@@ -121,14 +120,14 @@ if ($total_data > 0) {
                     </a> 
                     <a href="javascript:;" data-target="#memberModal_' . $row["id"] . '" data-toggle="modal">Tomato - Green</a>
                 </td>
-                <td class="align-middle"> 329 </td>
-                <td class="align-middle"> 4 </td>
-                <td class="align-middle"> $31.70 </td>
-                <td class="align-middle"> 796 </td>
-                <td class="align-middle"> 796 </td>
+                <td class="align-middle"> '.$row["member_level"].' </td>
+                <td class="align-middle"> '.ucwords($row["member_programme"]).' </td>
+                <td class="align-middle"> '.ucwords($row["member_department"]).' </td>
+                <td class="align-middle"> '.$row["member_phone"].' </td>
+                <td class="align-middle"> '.ucwords($row["member_hostel"]).' </td>
                 <td class="align-middle text-right">
-                    <a href="#" class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-pencil-alt"></i> <span class="sr-only">Edit</span></a> 
-                    <a href="#" class="btn btn-sm btn-icon btn-secondary"><i class="far fa-trash-alt"></i> <span class="sr-only">Remove</span></a> 
+                    <a href="?edit='.$row["member_id"].'" class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-pencil-alt"></i> <span class="sr-only">Edit</span></a> 
+                    <a href="?remove='.$row["member_id"].'" class="btn btn-sm btn-icon btn-secondary"><i class="far fa-trash-alt"></i> <span class="sr-only">Remove</span></a> 
                 </td>
             </tr>
 
@@ -240,12 +239,7 @@ $output .= '
 			</tbody>
         </table>
     </div>
-
-    <div class="py-4 px-6">
-        <div class="row align-items-center justify-content-between">
-            <div class="col-md-6 d-none d-md-block">
-                <span class="text-muted text-sm">Showing ' . $count_filter . ' items out of ' . $total_data . ' results found</span>
-            </div>
+            
 ';
 
 if ($total_data > 0) {
