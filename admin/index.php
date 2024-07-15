@@ -1240,9 +1240,9 @@
       </main><!-- /.app-main -->
     </div><!-- /.app -->
     <!-- BEGIN BASE JS -->
-    <script src="<?= PROOT; ?>dist/js/jquery-3.7.1.min.js"></script>
-    <script src="<?= PROOT; ?>dist/js/popper.min.js"></script>
-    <script src="<?= PROOT; ?>dist/js/bootstrap.min.js"></script> <!-- END BASE JS -->
+    <script src="<?= PROOT; ?>admin/dist/js/jquery.min.js"></script>
+    <script src="<?= PROOT; ?>admin/dist/js/popper.min.js"></script>
+    <script src="<?= PROOT; ?>admin/dist/js/bootstrap.min.js"></script> <!-- END BASE JS -->
     <!-- BEGIN PLUGINS JS -->
     <script src="<?= PROOT; ?>admin/dist/js/pace.min.js"></script>
     <script src="<?= PROOT; ?>admin/dist/js/stacked-menu.min.js"></script>
