@@ -37,14 +37,14 @@
     $count_members = $statement->rowCount();
     $result = $statement->fetchAll();
 ?> 
- <main class="app-main">
+    <main class="app-main">
         <div class="wrapper">
             <div class="page">
                 <div class="page-inner">
 
                     <header class="page-title-bar">
                         <div class="d-md-flex align-items-md-start">
-                            <h1 class="page-title mr-sm-auto"> Members Table </h1><!-- .btn-toolbar -->
+                            <h1 class="page-title mr-sm-auto"> Members Table </h1>
                             <div class="btn-toolbar">
                                 <button type="button" class="btn btn-light"><i class="oi oi-data-transfer-download"></i> <span class="ml-1">Export</span></button> <button type="button" class="btn btn-light"><i class="oi oi-data-transfer-upload"></i> <span class="ml-1">Import</span></button>
                                 <div class="dropdown">
@@ -67,8 +67,8 @@
                             <div id="load-content"></div>                                    
                         </div>
                     </div>
-       
-               
+                </div>
+            </div>
         </main>
     </div>
 <?php include ("includes/footer.php"); ?>

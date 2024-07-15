@@ -8,14 +8,14 @@ if (isset($_FILES['images'])) {
 		$extension = pathinfo($_FILES['images']['name'][$count], PATHINFO_EXTENSION);
 
 		$new_name = uniqid() . '.' . $extension;
-		$new_name = 'dist/media/gallery/' . $new_name;
+		$new_name = 'assets/media/gallery/' . $new_name;
 		$location = BASEURL . $new_name;
 		$dateAded = date('Y-m-d H:i:s A');
 		$move = move_uploaded_file($_FILES['images']['tmp_name'][$count], $location);
 		
 		if ($move) {
 			$query = "
-				INSERT INTO tein_gallery (gallery_media, gallery_date_added) 
+				INSERT INTO gmsa_gallery (gallery_media, createdAt) 
 				VALUES (?, ?)
 			";
 			$statement = $conn->prepare($query);

@@ -53,10 +53,10 @@ $output = '
     <div class="card-header">
         <ul class="nav nav-tabs card-header-tabs">
             <li class="nav-item">
-                <a class="nav-link active show" data-toggle="tab" href="#tab1">All(' . $total_data . ')</a>
+                <a class="nav-link active" href="'.PROOT.'admin/members">All (' . $total_data . ')</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#tab2">Other</a>
+                <a class="nav-link" href="#tab2">Other</a>
             </li>
         </ul>
     </div>
