@@ -30,8 +30,8 @@
             $statement = $conn->prepare($deleteQuery);
             $result = $statement->execute([$id]);
             if ($result) {
-                // code...
-                redirect(PROOT . '.in/Gallery');
+                $_SESSION['flash_success'] = 'Media deleted successfully!';
+                redirect(PROOT . 'admin/gallery');
             }
         }
     }
@@ -47,16 +47,16 @@
                         <div class="d-md-flex align-items-md-start">
                             <h1 class="page-title mr-sm-auto"> Gallary </h1>
                             <div class="btn-toolbar">
-                                <button type="button" class="btn btn-light"><i class="oi oi-data-transfer-upload"></i> <span class="ml-1">Import</span></button>
+                                <a href="<?= PROOT; ?>admin/gallery" class="btn btn-light"><i class="oi oi-data-transfer-upload"></i> <span class="ml-1">Import</span></a>
                             </div>
                         </div>
                     </header>
-                    <div><?= $flash; ?></div>
+                    <div class="text-center"><?= $flash; ?></div>
                     <div class="page-section">
                         <div class="card card-fluid">
                             <div class="card-body">
                                 <div id="uploaded_image_info"></div>
-                                <label>Using dropzone</label>
+                                <label>Upload media</label>
                                 <div id="dropzone" class="fileinput-dropzone">
                                     <span>Drop files or click to upload.</span> <!-- The file input field used as target for the file upload widget -->
                                     <input id="select_file" type="file" name="files[]" multiple="">

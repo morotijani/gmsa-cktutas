@@ -21,7 +21,7 @@
         $data = [$message_id, $name, $email, $phone, $message, $createdAt];
 
         $query = "
-            INSERT INTO `gmsa_messages`(`message_id`, `message_name`, `message_email`, `message_phone`, `message`, `createdAt`) 
+            INSERT INTO `gmsa_contacts`(`message_id`, `message_name`, `message_email`, `message_phone`, `message`, `createdAt`) 
             VALUES (?, ?, ?, ?, ?, ?)
         ";
         $statement = $conn->prepare($query);
