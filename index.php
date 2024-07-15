@@ -35,7 +35,7 @@
                                         <div class="col-sm-11 col-lg-8 col-xl-7 text-center m-auto">
                                             <span class="bg-white bg-opacity-10 text-white small rounded-3 px-3 py-2">🚀 #Ghana Muslim Students Association</span>
                                             <!-- Title -->
-                                            <h1 class="text-white display-4 my-4">Leading the Way in <span class="text-primary">software</span> innovation</h1>
+                                            <h1 class="text-white display-4 my-4">Ghana Muslims <span class="text-primary">Student</span> Association</h1>
                                             <p class="text-white mb-5"> Whether you're a gaming enthusiast or simply seeking an extraordinary escape from reality, our Virtual VR product is your portal to endless excitement. </p>
                                             <a class="btn btn-lg btn-white icon-link icon-link-hover mb-0" href="#">Get started now<i class="bi bi-arrow-right"></i> </a>
                                         </div>
@@ -227,10 +227,10 @@
                             <p class="mb-4">Supposing so be resolving breakfast am or perfectly. It drew a hill from me. Valley by oh twenty direct me so.</p>
                             <div class="row g-4 mb-4 mb-lg-0">
                                 <div class="col-6 col-sm-5">
-                                    <a href="#" class="btn btn-lg btn-success"> <i class="bi bi-cash-coin btn-transition"></i> Pay here</a>
+                                    <a href="<?= PROOT; ?>auth/pay-dues" class="btn btn-lg btn-success"> <i class="bi bi-cash-coin btn-transition"></i> Pay here</a>
                                 </div>
                                 <div class="col-6 col-sm-5">
-                                    <a href="#" class="btn btn-lg btn-dark"> <i class="bi bi-person-arms-up btn-transition"></i> Register </a>
+                                    <a href="<?= PROOT; ?>auth/register" class="btn btn-lg btn-dark"> <i class="bi bi-person-arms-up btn-transition"></i> Register </a>
                                 </div>
                             </div>
                         </div>

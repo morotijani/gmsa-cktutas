@@ -12,22 +12,17 @@
 
 ?>
     <main>
-
-        // get with time zone
-          https://timeapi.io/api/Time/current/zone?timeZone=Africa/Accra
-
-        // get with ip
-        https://timeapi.io/api/Time/current/ip?ipAddress=237.71.232.203
         
         <section class="pt-20">
             <div class="container mt-10">
                 <div class="row justify-content-center">
                     <div class="col-lg-10 col-xl-8">
-                            <time id="clock" class="fw-bolder" style="font-size: 242px; line-height: 99px;"></time>
+                        <a href="https://time.is/Accra" id="time_is_link"></a>
+                        <time id="Accra_z001" class="fw-bolder" style="font-size: 242px;"></time>
                     </div>
                 </div>
-                <div class="d-flex flex-row-reverse mt-5">
-                    <div class="p-2" id="today-date" style="font-size: 48px; font-weight: 400;"></div>
+                <div class="d-flex flex-row-reverse">
+                    <div id="today-date" style="font-size: 50px; font-weight: 400;"><?= date("M d, Y", strtotime(date("M d, Y"))); ?></div>
                 </div>
 
                 <div class="d-flex flex-row-reverse gap-3 mt-3">
@@ -147,30 +142,38 @@
 
     </main>
 
-  <?php include ("inc/footer.inc.php"); ?>
-
+    <?php include ("inc/footer.inc.php"); ?>
+    <script src="//widget.time.is/en.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
 
-            // timer
-            timer()
-            function timer() {
-                $.ajax({
-                    "url": "<?= PROOT; ?>auth/gettime.php",
-                    "method": "POST",
-                    success: function(data) {
-                        const obj = JSON.parse(data);
-                        $('#clock').text(obj.time + ':' + obj.seconds);
-                        $('#today-date').text(obj.dayOfWeek + ', ' + obj.date);
-                        console.log();
-                    }
-                });
-            }
+            time_is_widget.init({
+                Accra_z001:{
+                    template:"TIME", 
+                    // date_format:"dayname, monthname dnum, year",
+                }
+            });
 
-            //
-            setInterval(function() {
-                timer();
-            }, 1000);
+
+            // timer
+            // timer()
+            // function timer() {
+            //     $.ajax({
+            //         "url": "<?= PROOT; ?>auth/gettime.php",
+            //         "method": "POST",
+            //         success: function(data) {
+            //             const obj = JSON.parse(data);
+            //             $('#clock').text(obj.time + ':' + obj.seconds);
+            //             $('#today-date').text(obj.dayOfWeek + ', ' + obj.date);
+            //             console.log();
+            //         }
+            //     });
+            // }
+
+            // //
+            // setInterval(function() {
+            //     timer();
+            // }, 1000);
             
         });
     </script>
