@@ -19,7 +19,7 @@
                             <a href="index.html" class="menu-link"><span class="menu-icon fas fa-home"></span> <span class="menu-text">Dashboard</span></a>
                         </li>
                         <li class="menu-item has-child">
-                            <a href="javascript:;" class="menu-link"><span class="menu-icon far fa-file"></span> <span class="menu-text">Blog / News</span> <span class="badge badge-warning">New</span></a>
+                            <a href="javascript:;" class="menu-link"><span class="menu-icon fa-regular fa-newspaper"></span> <span class="menu-text">Blog / News</span> <span class="badge badge-warning">New</span></a>
                             <ul class="menu">
                                 <li class="menu-item">
                                     <a href="<?= PROOT; ?>admin/blog" class="menu-link">All</a>
@@ -33,21 +33,7 @@
                             </ul>
                         </li>
                         <li class="menu-item has-child">
-                            <a href="javascript:;" class="menu-link"><span class="menu-icon far fa-file"></span> <span class="menu-text">Executives</span></a>
-                            <ul class="menu">
-                                <li class="menu-item">
-                                    <a href="<?= PROOT; ?>admin/executives" class="menu-link">All</a>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="<?= PROOT; ?>admin/position" class="menu-link">Positions</a>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="<?= PROOT; ?>admin/executives?add=1" class="menu-link">Add new Executive</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="menu-item has-child">
-                            <a href="javascript:;" class="menu-link"><span class="menu-icon far fa-file"></span> <span class="menu-text">Members</span></a>
+                            <a href="javascript:;" class="menu-link"><span class="menu-icon fa-solid fa-people-pulling"></span> <span class="menu-text">Members</span></a>
                             <ul class="menu">
                                 <li class="menu-item">
                                     <a href="<?= PROOT; ?>admin/members" class="menu-link">All</a>
@@ -69,20 +55,41 @@
                             </ul>
                         </li>
                         <li class="menu-item">
-                            <a href="<?= PROOT; ?>admin/gallery" class="menu-link"><span class="menu-icon fas fa-rocket"></span> <span class="menu-text">Gallery</span></a>
+                            <a href="<?= PROOT; ?>admin/gallery" class="menu-link"><span class="menu-icon fa-brands fa-envira"></span> <span class="menu-text">Gallery</span></a>
                         </li>
                         <li class="menu-item">
-                            <a href="<?= PROOT; ?>admin/contacts" class="menu-link"><span class="menu-icon fas fa-rocket"></span> <span class="menu-text">Contacts</span></a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="<?= PROOT; ?>admin/prayer-time" class="menu-link"><span class="menu-icon fas fa-rocket"></span> <span class="menu-text">Prayer Time</span></a>
+                            <a href="<?= PROOT; ?>admin/contacts" class="menu-link"><span class="menu-icon oi oi-envelope-open"></span> <span class="menu-text">Contacts</span></a>
                         </li>
                         <li class="menu-header">Interfaces </li>
+                        <li class="menu-item">
+                            <a href="<?= PROOT; ?>admin/prayer-time" class="menu-link"><span class="menu-icon fa-solid fa-person-praying"></span> <span class="menu-text">Prayer Time</span></a>
+                        </li>
                         <li class="menu-item has-child">
-                            <a href="#" class="menu-link"><span class="menu-icon oi oi-puzzle-piece"></span> <span class="menu-text">Components</span></a>
+                            <a href="javascript:;" class="menu-link"><span class="menu-icon fa-solid fa-person-rays"></span> <span class="menu-text">Executives</span></a>
                             <ul class="menu">
-                                <li class="menu-item has-child">
-                                    <a href="#" class="menu-link"><span class="menu-icon oi oi-list-rich"></span> <span class="menu-text">Level Menu</span></a>
+                                <li class="menu-item">
+                                    <a href="<?= PROOT; ?>admin/executives" class="menu-link">All</a>
+                                </li>
+                                <li class="menu-item">
+                                    <a href="<?= PROOT; ?>admin/position" class="menu-link">Positions</a>
+                                </li>
+                                <li class="menu-item">
+                                    <a href="<?= PROOT; ?>admin/executives?add=1" class="menu-link">Add new Executive</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <hr>
+                        <li class="menu-item has-child">
+                            <a href="javascript:;" class="menu-link"><span class="menu-icon fa-solid fa-person"></span> <span class="menu-text">Ibrahim Dramani</span></a>
+                            <ul class="menu">
+                                <li class="menu-item">
+                                    <a href="<?= PROOT; ?>admin/executives" class="menu-link">Profile</a>
+                                </li>
+                                <li class="menu-item">
+                                    <a href="<?= PROOT; ?>admin/position" class="menu-link">Settings</a>
+                                </li>
+                                <li class="menu-item">
+                                    <a href="<?= PROOT; ?>admin/executives?add=1" class="menu-link">Log out</a>
                                 </li>
                             </ul>
                         </li>
