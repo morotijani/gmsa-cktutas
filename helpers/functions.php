@@ -48,3 +48,19 @@ function find_prayer_by_id($id) {
 	$row = $statement->fetchAll();
 	return $row[0];
 }
+
+// find contact by id
+function find_contact_by_id($id) {
+	global $conn;
+
+	$query = "
+		SELECT * FROM gmsa_contacts 
+		WHERE gmsa_contacts.message_id = ? 
+	";
+	$statement = $conn->prepare($query);
+	$statement->execute([$id]);
+	$count_rows = $statement->rowCount();
+
+	$row = $statement->fetchAll();
+	return $row[0];
+}

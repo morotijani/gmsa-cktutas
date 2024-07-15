@@ -8,34 +8,31 @@
     include ("includes/aside.php");
 
     // DELETE A MEMBER PERMANENTLY
-    if (isset($_GET['permanent_delete']) && !empty($_GET['permanent_delete'])) {
-        $permanent_delete = (int)$_GET['permanent_delete'];
-        $permanent_delete = sanitize($permanent_delete);
+    if (isset($_GET['remove']) && !empty($_GET['remove'])) {
+        $id = sanitize($_GET['remove']);
+        $contact = find_contact_by_id($id);
 
-        $uploaded_passport_location = BASEURL . $_GET['uploaded_passport'];
-        $DEL = unlink($uploaded_passport_location);
-
-        if ($DEL) {
+        if (is_array($contact)) {
+            // code...
             $query = "
-                DELETE FROM gmsa_members 
-                WHERE id = ?
+                DELETE FROM gmsa_contacts 
+                WHERE message_id = ?
             ";
             $statement = $conn->prepare($query);
-            $statement->execute([$permanent_delete]);
-            $_SESSION['flash_success'] = 'Member permanently <span class="bg-info">DELETED</span>';
-            redirect(PROOT . '.in/members');
+            $result = $statement->execute([$id]);
+            if ($result) {
+                // code...
+                $_SESSION['flash_success'] = 'Contact deleted successfully!';
+                redirect(PROOT . 'admin/contacts');
+            } else {
+                echo js_alert('Something went wrong, please try again!');   
+            }
+        } else {
+            $_SESSION['flash_error'] = 'Contact was not found!';
+            redirect(PROOT . 'admin/contacts');
         }
     }
 
-    $query = "
-        SELECT * FROM gmsa_members 
-        WHERE status = ?
-        ORDER BY id DESC 
-    ";
-    $statement = $conn->prepare($query);
-    $statement->execute([0]);
-    $count_members = $statement->rowCount();
-    $result = $statement->fetchAll();
 ?> 
     <main class="app-main">
         <div class="wrapper">
@@ -44,7 +41,7 @@
 
                     <header class="page-title-bar">
                         <div class="d-md-flex align-items-md-start">
-                            <h1 class="page-title mr-sm-auto"> Contacts Table </h1>
+                            <h1 class="page-title mr-sm-auto"> Contacts </h1>
                             <div class="btn-toolbar">
                                 <button type="button" class="btn btn-light"><i class="oi oi-data-transfer-download"></i> <span class="ml-1">Export</span></button> <button type="button" class="btn btn-light"> <span class="ml-1">Refresh</span></button>
                             </div>
