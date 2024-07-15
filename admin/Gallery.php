@@ -53,8 +53,6 @@
                     </header>
                     <div><?= $flash; ?></div>
                     <div class="page-section">
-                        
-
                         <div class="card card-fluid">
                             <div class="card-body">
                                 <div id="uploaded_image_info"></div>
@@ -72,7 +70,7 @@
                                     <?php 
                                         foreach ($images as $image) {
                                             echo '
-                                                <div class="col-md-4 mb-2">
+                                                <div class="col-md-2 mb-2">
                                                     <div class="card">
                                                         <img class="img-fluid" src="' . PROOT . $image['gallery_media'].'">
                                                         <a href="?delete='.$image['id'].'&location='.$image['gallery_media'].'" class="badge badge-danger">delete</a>
@@ -84,11 +82,6 @@
                                 </div>
                             </div>
                         </div>
-
-
-
-
-
                     </div>
                 </div>
             </div>
