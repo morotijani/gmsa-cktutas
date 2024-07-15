@@ -1,34 +1,4 @@
-student
-student id
-email
-phone number
-full name
-hostel name
-course
-department
-level
-admission year
-under or post graduate
-gender
-date of birth
-region
-city
-digital address (optional)
-profile picture (optiona)
 
-parent details
-	name
-	phone
-
-prayer time
-	fajr
-	isha
-	magrib
-	asr
-	zuhur
-	jummah
-	eid fitr /adha
-	taajud
 
 blog / news
 	3 days dawah
