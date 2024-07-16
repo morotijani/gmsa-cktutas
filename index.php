@@ -340,7 +340,7 @@
                         <!-- Input -->
                         <div class="bg-light border rounded-2 position-relative z-index-2 p-2 mb-2">
                             <form class="input-group">
-                                <input class="form-control form-control-lg focus-shadow-none bg-light border-0 me-1" type="email" id="subscribe" name="subscribe" placeholder="Enter your email address">
+                                <input class="form-control form-control-lg focus-shadow-none bg-light border-0 me-1" type="email" id="subscribe" name="subscribe" placeholder="Enter your email address" onkeypress="return event.keyCode != 13;">
                                 <button type="button" onclick="subscribe_news(); return false;" class="btn btn-lg btn-dark rounded-2 mb-0">Subscribe!</button>
                             </form>
                         </div>

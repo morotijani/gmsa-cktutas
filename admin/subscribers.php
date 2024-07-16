@@ -16,7 +16,7 @@
             // code...
             $query = "
                 DELETE FROM gmsa_subscribers 
-                WHERE message_id = ?
+                WHERE subscriber_id = ?
             ";
             $statement = $conn->prepare($query);
             $result = $statement->execute([$id]);
@@ -47,7 +47,7 @@
                             </div>
                         </div>
                     </header>
-                    <div><?= $flash; ?></div>
+                    <div class="text-center"><?= $flash; ?></div>
                     <div class="page-section">
                         <div class="card card-fluid">
                             <div id="load-content"></div>                                    
@@ -59,7 +59,7 @@
     </div>
 <?php include ("includes/footer.php"); ?>
 <script type="text/javascript">
-    
+
      // SEARCH AND PAGINATION FOR LIST
     function load_data(page, query = '') {
         $.ajax({

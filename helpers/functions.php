@@ -64,3 +64,19 @@ function find_contact_by_id($id) {
 	$row = $statement->fetchAll();
 	return $row[0];
 }
+
+// find subscriber by id
+function find_subscriber_by_id($id) {
+	global $conn;
+
+	$query = "
+		SELECT * FROM gmsa_subscribers 
+		WHERE gmsa_subscribers.subscriber_id = ? 
+	";
+	$statement = $conn->prepare($query);
+	$statement->execute([$id]);
+	$count_rows = $statement->rowCount();
+
+	$row = $statement->fetchAll();
+	return $row[0];
+}
