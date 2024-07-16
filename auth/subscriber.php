@@ -22,7 +22,7 @@
 			$output = 'This email '. $email . ' has already subscribed!';
 		} else {
 			$query = "
-				INSERT INTO gmsa_subscribers (subscriber_id, subscriber_email, createdAtl) 
+				INSERT INTO gmsa_subscribers (subscriber_id, subscriber_email, createdAt) 
 				VALUES (?, ?, ?)
 			";
 			$statement = $conn->prepare($query);
@@ -42,12 +42,12 @@
                         </p>
                 ";
 
-				$mail_result = send_email($to, $to, $subject, $body);
-				if ($mail_result) {
+				// $mail_result = send_email($to, $to, $subject, $body);
+				// if ($mail_result) {
 					$output = 'Email subscribed successfully!';
-                } else {
-                    echo "Message could not be sent.";
-                }
+                // } else {
+                //     echo "Message could not be sent.";
+                // }
 			}
 		}
 		echo $output;

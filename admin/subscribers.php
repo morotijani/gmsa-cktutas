@@ -7,29 +7,29 @@
     include ("includes/header.php");
     include ("includes/aside.php");
 
-    // DELETE CONTACTS
+    // DELETE SUBSCRIBER
     if (isset($_GET['remove']) && !empty($_GET['remove'])) {
         $id = sanitize($_GET['remove']);
-        $contact = find_contact_by_id($id);
+        $subscriber = find_subscriber_by_id($id);
 
-        if (is_array($contact)) {
+        if (is_array($subscriber)) {
             // code...
             $query = "
-                DELETE FROM gmsa_contacts 
+                DELETE FROM gmsa_subscribers 
                 WHERE message_id = ?
             ";
             $statement = $conn->prepare($query);
             $result = $statement->execute([$id]);
             if ($result) {
                 // code...
-                $_SESSION['flash_success'] = 'Contact deleted successfully!';
-                redirect(PROOT . 'admin/contacts');
+                $_SESSION['flash_success'] = 'Subscriber deleted successfully!';
+                redirect(PROOT . 'admin/subscribers');
             } else {
                 echo js_alert('Something went wrong, please try again!');   
             }
         } else {
-            $_SESSION['flash_error'] = 'Contact was not found!';
-            redirect(PROOT . 'admin/contacts');
+            $_SESSION['flash_error'] = 'Subscriber was not found!';
+            redirect(PROOT . 'admin/subscribers');
         }
     }
 
@@ -41,9 +41,9 @@
 
                     <header class="page-title-bar">
                         <div class="d-md-flex align-items-md-start">
-                            <h1 class="page-title mr-sm-auto"> Contacts </h1>
+                            <h1 class="page-title mr-sm-auto"> Subscribers </h1>
                             <div class="btn-toolbar">
-                                <button type="button" class="btn btn-light"><i class="oi oi-data-transfer-download"></i> <span class="ml-1">Export</span></button> <a href="<?= PROOT; ?>admin/contacts" class="btn btn-light"> <span class="ml-1">Refresh</span></a>
+                                <button type="button" class="btn btn-light"><i class="oi oi-data-transfer-download"></i> <span class="ml-1">Export</span></button> <a href="<?= PROOT; ?>admin/subscribers" class="btn btn-light"> <span class="ml-1">Refresh</span></a>
                             </div>
                         </div>
                     </header>
@@ -59,10 +59,11 @@
     </div>
 <?php include ("includes/footer.php"); ?>
 <script type="text/javascript">
+    
      // SEARCH AND PAGINATION FOR LIST
     function load_data(page, query = '') {
         $.ajax({
-            url : "<?= PROOT; ?>admin/auth/list.contacts.php",
+            url : "<?= PROOT; ?>admin/auth/list.subscribers.php",
             method : "POST",
             data : {
                 page : page, 
