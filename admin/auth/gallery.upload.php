@@ -27,5 +27,3 @@ if (isset($_FILES['images'])) {
 	echo 'success';
 }
 
-
-?>

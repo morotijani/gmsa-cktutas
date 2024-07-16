@@ -340,12 +340,12 @@
                         <!-- Input -->
                         <div class="bg-light border rounded-2 position-relative z-index-2 p-2 mb-2">
                             <form class="input-group">
-                                <input class="form-control form-control-lg focus-shadow-none bg-light border-0 me-1" type="email" placeholder="Enter your email address">
-                                <button type="button" class="btn btn-lg btn-dark rounded-2 mb-0">Subscribe!</button>
+                                <input class="form-control form-control-lg focus-shadow-none bg-light border-0 me-1" type="email" id="subscribe" name="subscribe" placeholder="Enter your email address">
+                                <button type="button" onclick="subscribe_news(); return false;" class="btn btn-lg btn-dark rounded-2 mb-0">Subscribe!</button>
                             </form>
                         </div>
                     </div>
-                    <p class="small mb-0 px-4">Subscribe now and receive weekly newsletter with educational materials, new courses, interesting posts, popular books, and much more!</p>
+                    <p class="small mb-0 px-4">Subscribe now and receive weekly newsletter with educational materials, prayer times, activity calendar, Friday news, and much more!</p>
                 </div>
             </div>
         </section>
@@ -354,3 +354,39 @@
     </main>
 
 <?php include ("inc/footer.inc.php"); ?>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        // SUBSCRIBE TO NEW PRODUCTS
+        function subscribe_news() {
+            var email = $('#subscribe').val();
+
+            if (email == '') {
+                alert('Enter email to subscribe');
+                return false;
+            } else if (!isEmail(email)) {
+                alert('Please enter a valid email.');
+                return false;
+            } else {
+                $.ajax({
+                    url : '<?= PROOT; ?>auth/subscriber.php',
+                    method : 'POST',
+                    data : {email : email},
+                    success : function(data) {
+                        alert(data);
+                        location.reload();
+                    },
+                    error : function() {
+                        alert('Something went wrong.');
+                    }
+                });
+            }
+
+        }
+
+        function isEmail(email) { 
+            return /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))$/i.test(email);
+        }
+    })
+</script>
