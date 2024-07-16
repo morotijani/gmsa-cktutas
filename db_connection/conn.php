@@ -13,6 +13,10 @@
 	require_once($_SERVER['DOCUMENT_ROOT'] . '/gmsa-cktutas/config.php');
  	require_once(BASEURL . 'helpers/helpers.php');
  	require_once(BASEURL . 'helpers/functions.php');
+ 	require_once(BASEURL . 'helpers/Category.php');
+ 	require_once(BASEURL . 'helpers/News.php');
+ 	require_once(BASEURL . 'helpers/Search.php');
+ 	require_once(BASEURL . 'helpers/Pagination.php');
 
  ///////////////////////////////////////////////////////////////////////////////////////////
  	$siteQuery = "

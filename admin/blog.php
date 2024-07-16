@@ -1,9 +1,11 @@
 <?php 
     require_once ("../db_connection/conn.php");
-    if (!admin_is_logged_in()) {
-        admn_login_redirect();
-    }
+    // if (!admin_is_logged_in()) {
+    //     admn_login_redirect();
+    // }
+    include ("includes/head.php");
     include ("includes/header.php");
+    include ("includes/aside.php");
     $Category = new Category;
     $News = new News;
 
@@ -16,7 +18,7 @@
         $id = sanitize((int)$_GET['id']);
 
         $sql = "
-            SELECT * FROM tein_category 
+            SELECT * FROM gmsa_categories 
             WHERE id = ? 
             LIMIT 1
         ";
@@ -34,21 +36,21 @@
     // ADD CATEGORY
     if (isset($_POST['submit_category'])) {
         if (!empty($category)) {
-            $check = $conn->query("SELECT * FROM tein_category WHERE category = '".$category."'")->rowCount();
+            $check = $conn->query("SELECT * FROM gmsa_categories WHERE category = '".$category."'")->rowCount();
             if (isset($_GET['status']) && $_GET['status'] == 'edit') {
-                $check = $conn->query("SELECT * FROM tein_category WHERE category = '" . $category . "' AND id != " . $id . "")->rowCount();
+                $check = $conn->query("SELECT * FROM gmsa_categories WHERE category = '" . $category . "' AND id != " . $id . "")->rowCount();
             }
             if ($check > 0) {
                 $message = $category . ' already exists.';
             } else {
                 $category_url = php_url_slug($category);
                 $q = "
-                    INSERT INTO tein_category (category, category_url) 
+                    INSERT INTO gmsa_categories (category, category_url) 
                     VALUES (?, ?)
                 ";
                 if (isset($_GET['status']) && $_GET['status'] == 'edit_category') {
                     $q = "
-                        UPDATE tein_category 
+                        UPDATE gmsa_categories 
                         SET category = ?, category_url = ?
                         WHERE id = " . $id . "
                     ";
