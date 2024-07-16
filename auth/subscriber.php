@@ -5,6 +5,8 @@
 
 	if (isset($_POST['email'])) {
 		$email = sanitize($_POST['email']);
+		$createdAt = date("Y-m-d H:i:s A");
+		$subscriber_id = guidv4();
 		$output = '';
 
 		$select = "
@@ -24,7 +26,7 @@
 				VALUES (?, ?, ?)
 			";
 			$statement = $conn->prepare($query);
-			$result = $statement->execute([$email]);
+			$result = $statement->execute([$subscriber_id, $email, $createdAt]);
 			if ($result) {
 				$to = $email;
                 $subject = "GMSA CKTUTAS news subscription.";
@@ -49,6 +51,5 @@
 			}
 		}
 		echo $output;
-
 	}
 
