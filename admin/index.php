@@ -58,6 +58,16 @@
             }
             $currentTotal += $lastYr_row['transaction_amount'];
         }
+
+        $thisMonth = date('m');
+        $QUERY = "
+            SELECT * FROM gmsa_dues 
+            WHERE MONTH(createdAt) = '{$thisMonth}' 
+            AND transaction_intent = 'paid'
+        ";
+        $statement = $conn->prepare($QUERY);
+        $statement->execute();
+        $rows = $statement->fetchAll();
 ?>
 
     <main class="app-main">
@@ -85,7 +95,7 @@
                                 <div class="col-lg-9">
                                     <div class="metric-row metric-flush">
                                         <div class="col">
-                                            <a href="user-teams.html" class="metric metric-bordered align-items-center">
+                                            <a href="<?= PROOT; ?>admin/members" class="metric metric-bordered align-items-center">
                                                 <h2 class="metric-label"> Members </h2>
                                                 <p class="metric-value h3">
                                                     <sub><i class="oi oi-people"></i></sub> <span class="value"><?= count_members($conn, 0); ?></span>
@@ -93,7 +103,7 @@
                                             </a>
                                         </div>
                                         <div class="col">
-                                            <a href="user-projects.html" class="metric metric-bordered align-items-center">
+                                            <a href="<?= PROOT; ?>admin/blog" class="metric metric-bordered align-items-center">
                                                 <h2 class="metric-label"> News </h2>
                                                 <p class="metric-value h3">
                                                   <sub><i class="oi oi-fork"></i></sub> <span class="value"><?= count_news($conn, 0); ?></span>
@@ -101,7 +111,7 @@
                                             </a>
                                         </div>
                                         <div class="col">
-                                            <a href="user-tasks.html" class="metric metric-bordered align-items-center">
+                                            <a href="<?= PROOT; ?>admin/activity" class="metric metric-bordered align-items-center">
                                                 <h2 class="metric-label"> Active Tasks </h2>
                                                 <p class="metric-value h3">
                                                     <sub><i class="fa fa-tasks"></i></sub> <span class="value"><?= count_activities($conn, 0); ?></span>
@@ -121,8 +131,51 @@
                                     </a>
                                 </div>
                             </div>
+                            <div class="card card-body">
+                                <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+                            </div>
+                            <hr class="my-5">
+                            <div class="section-block">
+                                <h2 class="section-title"> Payment made in this month (<?= date('m'); ?>) </h2>
+                            </div>
+                            <div class="card card-fluid">
+                                <div class="card-body">
+                                    
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th>Trasaction ID</th>
+                                                    <th>Student ID</th>
+                                                    <th>Level</th>
+                                                    <th>Reference</th>
+                                                    <th>Date</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php if ($count_dues > 0): ?>
+                                                    <?php foreach ($rows as $key => $row): ?>
+                                                        <tr>
+                                                            <td><?= $i; ?></td>
+                                                            <td><?= $row['tdansaction_id']; ?></td>
+                                                            <td><?= $row['student_id']; ?></td>
+                                                            <td><?= $row['member_level']; ?></td>
+                                                            <td><?= $row['tdansaction_reference']; ?></td>
+                                                            <td><?= pretty_date($row['createdAt']); ?></td>
+                                                        </tr>
+                                                    <?php endforeach; ?>
+                                                <?php else: ?>
+                                                    <tr>
+                                                        <td colspan="6">No dues paid this month.</td>
+                                                    </tr>
+                                                <?php endif; ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
 
-                            <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
                         </div>
 
                     </div>
