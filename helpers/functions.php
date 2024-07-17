@@ -93,3 +93,56 @@ function find_subscriber_by_id($id) {
 	$row = $statement->fetchAll();
 	return $row[0];
 }
+
+
+// find activity by id
+function find_activity_by_id($id) {
+	global $conn;
+
+	$query = "
+		SELECT * FROM gmsa_activities 
+		WHERE gmsa_activities.activity_id = ? 
+	";
+	$statement = $conn->prepare($query);
+	$statement->execute([$id]);
+	$count_rows = $statement->rowCount();
+
+	$row = $statement->fetchAll();
+	return $row[0];
+}
+
+// count members by status
+function count_members($conn, $status) {
+
+	$query = "
+		SELECT * FROM gmsa_members 
+		WHERE gmsa_members.status = ? 
+	";
+	$statement = $conn->prepare($query);
+	$statement->execute([$status]);
+	return $statement->rowCount();
+}
+
+// count news by status
+function count_news($conn, $status) {
+	
+	$query = "
+		SELECT * FROM gmsa_news 
+		WHERE gmsa_news.status = ? 
+	";
+	$statement = $conn->prepare($query);
+	$statement->execute([$status]);
+	return $statement->rowCount();
+}
+
+// count activities by status
+function count_activities($conn, $status) {
+	
+	$query = "
+		SELECT * FROM gmsa_activities 
+		WHERE gmsa_activities.status = ? 
+	";
+	$statement = $conn->prepare($query);
+	$statement->execute([$status]);
+	return $statement->rowCount();
+}

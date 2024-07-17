@@ -37,15 +37,15 @@
                                             <a href="user-teams.html" class="metric metric-bordered align-items-center">
                                                 <h2 class="metric-label"> Members </h2>
                                                 <p class="metric-value h3">
-                                                    <sub><i class="oi oi-people"></i></sub> <span class="value">8</span>
+                                                    <sub><i class="oi oi-people"></i></sub> <span class="value"><?= count_members($conn, 0); ?></span>
                                                 </p>
                                             </a>
                                         </div>
                                         <div class="col">
                                             <a href="user-projects.html" class="metric metric-bordered align-items-center">
-                                                <h2 class="metric-label"> Executives </h2>
+                                                <h2 class="metric-label"> News </h2>
                                                 <p class="metric-value h3">
-                                                  <sub><i class="oi oi-fork"></i></sub> <span class="value">12</span>
+                                                  <sub><i class="oi oi-fork"></i></sub> <span class="value"><?= count_news($conn, 0); ?></span>
                                                 </p>
                                             </a>
                                         </div>
@@ -53,7 +53,7 @@
                                             <a href="user-tasks.html" class="metric metric-bordered align-items-center">
                                                 <h2 class="metric-label"> Active Tasks </h2>
                                                 <p class="metric-value h3">
-                                                    <sub><i class="fa fa-tasks"></i></sub> <span class="value">64</span>
+                                                    <sub><i class="fa fa-tasks"></i></sub> <span class="value"><?= count_activities($conn, 0); ?></span>
                                                 </p>
                                             </a>
                                         </div>

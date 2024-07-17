@@ -67,6 +67,9 @@
                         <li class="menu-item">
                             <a href="<?= PROOT; ?>admin/prayer-time" class="menu-link"><span class="menu-icon fa-solid fa-person-praying"></span> <span class="menu-text">Prayer Time</span></a>
                         </li>
+                        <li class="menu-item">
+                            <a href="<?= PROOT; ?>admin/activity" class="menu-link"><span class="menu-icon fas fa-globe"></span> <span class="menu-text">Activities</span></a>
+                        </li>
                         <li class="menu-item has-child">
                             <a href="javascript:;" class="menu-link"><span class="menu-icon fa-solid fa-person-rays"></span> <span class="menu-text">Executives</span></a>
                             <ul class="menu">
