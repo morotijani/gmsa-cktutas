@@ -8,47 +8,64 @@
     include ("includes/header.php");
     include ("includes/aside.php");
 
+    $post = cleanPost($_POST);
+    $activity = ((isset($_POST['activity']) && !empty($_POST['activity'])) ? $post['activity'] : '');
+    $details = ((isset($_POST['details']) && !empty($_POST['details'])) ? $post['details'] : '');
+    $activity_date = ((isset($_POST['activity_date']) && !empty($_POST['activity_date'])) ? $post['activity_date'] : '');
+    $activity_added_by = $admin_data['admin_id'];
+    $createdAt = date("Y-m-d H:i:s A");
+
     // get activity on edit
     if (isset($_GET['edit']) && !empty($_GET['edit'])) {
         $id = sanitize($_GET['edit']);
-        $prayer = find_activity_by_id($id);
+        $find_activity = find_activity_by_id($id);
 
-        if (is_array($prayer)) {
+        if (is_array($find_activity)) {
 
-            $prayer_name = ((isset($_POST['prayer_name']) && !empty($_POST['prayer_name'])) ? sanitize($_POST['prayer_name']) : $prayer['prayer_name']);
-            $prayer_time = ((isset($_POST['prayer_time']) && !empty($_POST['prayer_time'])) ? sanitize($_POST['prayer_time']) : $prayer['prayer_time']);
-            $prayer_date = ((isset($_POST['prayer_date']) && !empty($_POST['prayer_date'])) ? sanitize($_POST['prayer_date']) : $prayer['prayer_date']);
+            $activity = ((isset($_POST['activity']) && !empty($_POST['activity'])) ? $post['activity'] : $find_activity['activity']);
+            $details = ((isset($_POST['details']) && !empty($_POST['details'])) ? $post['details'] : $find_activity['details']);
+            $activity_date = ((isset($_POST['activity_date']) && !empty($_POST['activity_date'])) ? $post['activity_date'] : $find_activity['activity_date']);
 
-
-            if (isset($_POST['submit'])) {
-                $query = "
-                    UPDATE gmsa_prayer_time 
-                    SET prayer_name = ?, prayer_time = ?, prayer_date = ? 
-                    WHERE prayer_id = ?
-                ";
-                $statement = $conn->prepare($query);
-                $result = $statement->execute([$prayer_name, $prayer_time, $prayer_date, $id]);
-                if ($result) {
-                    // code...
-                    $_SESSION['flash_success'] = strtoupper($prayer_name) . ', updated successfully!';
-                    redirect(PROOT . 'admin/prayer-time');
-                } else {
-                    $_SESSION['flash_error'] = 'Something went wromg, please try again!';
-                    redirect(PROOT . 'admin/prayer-time');
-                }
-            }
         } else {
             $_SESSION['flash_error'] = 'Prayer was not found!';
-            redirect(PROOT . 'admin/prayer-time');
+            redirect(PROOT . 'admin/activity');
+        }
+    }
+
+    //
+    if (isset($_POST['submit'])) {
+
+        $activity_id = guidv4();
+        $query = "
+            INSERT INTO `gmsa_news`(`activity`, `activity_details`, `activity_created_by`, `activity_date`, `createdAt`, `activity_id`) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        ";
+        if (isset($_GET['edit']) && !empty($_GET['status'])) {
+            $activity_id = $id;
+            $query = "
+                UPDATE gmsa_news 
+                SET activity = ?, activity_details = ?, activity_updated_by = ?, activity_date  = ?, updatedAt = ?
+                WHERE activity_id = ?
+            ";
+        }
+        $statement = $conn->prepare($query);
+        $result = $statement->execute([$activity, $details, $activity_added_by, $activity_date, $createdAt, $activity_id]);
+        if (isset($result)) {
+            $_SESSION['flash_success'] = ucwords($activity) . ' successfully ' . ((isset($_GET['status']) && $_GET['status'] == 'edit_news') ? 'updated' : 'added') . ' successfully!';
+            redirect(PROOT . 'admin/activity');
+        } else {
+            $_SESSION['flash_error'] = 'Something went wrong, please try again';
+            redirect(PROOT . 'admin/activity');
         }
     }
 
     // get all prayers
     $sql = "
-        SELECT * FROM gmsa_prayer_time 
+        SELECT * FROM gmsa_activities 
+        WHERE status = ? 
     ";
     $statement = $conn->prepare($sql);
-    $statement->execute();
+    $statement->execute([0]);
     $rows = $statement->fetchAll();
 ?>
 
@@ -65,7 +82,7 @@
                             </p>
                             <div class="ml-auto">
                                 <div class="dropdown">
-                                    <a class="btn btn-success" href="<?= PROOT . 'admin/prayer-time' .((isset($_GET['edit'])) ? '?edit='.$id.'': ''); ?>"><span>Refresh</span> <i class="fa fa-fw fa-recycle"></i></a>
+                                    <a class="btn btn-success" href="<?= PROOT . 'admin/activity' .((isset($_GET['edit'])) ? '?edit='.$id.'': ''); ?>"><span>Refresh</span> <i class="fa fa-fw fa-recycle"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -73,56 +90,57 @@
                     <div class="page-section">
                         <div class="card">
                             <div class="card-body">
-                                <form method="POST">
+                                <form method="POST" action="<?= ((isset($_GET['edit']) && !empty($_GET['edit'])) ? '?edit=' . sanitize($_GET['id']) : ''); ?>">
                                     <fieldset>
                                         <legend><?= (isset($_GET['edit']) && !empty($_GET['edit']) ? 'Update' : 'Add'); ?> activity</legend>
                                         <div class="form-group">
                                             <div class="form-label-group">
-                                                <input type="text" class="form-control" id="prayer_name" name="prayer_name" placeholder="Prayer name" required="" value="<?= $prayer_name; ?>"> <label for="prayer_name">Prayer</label>
+                                                <input type="text" class="form-control" id="activity" name="activity" placeholder="Activty heading" required="" value="<?= $activity; ?>"> <label for="activity">Activty</label>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-label-group">
-                                                <input type="time" class="form-control" id="prayer_time" name="prayer_time" placeholder="Time" required="" value="<?= $prayer_time; ?>"> <label for="prayer_time">Time</label>
+                                                <textarea type="text" class="form-control" id="details" name="details" required="" placeholder="Details"><?= $details; ?></textarea>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-label-group">
-                                                <input type="date" class="form-control" id="prayer_date" name="prayer_date" placeholder="Prayer date" value="<?= $prayer_date; ?>"> <label for="prayer_date">Date</label>
-                                                <small id="" class="form-text text-muted">If prayer does not require any date, please leave this field empty.</small>
+                                                <input type="date" class="form-control" id="activity_date" name="activity_date" placeholder="Prayer date" value="<?= $activity_date; ?>"> <label for="activity_date">Date</label>
                                             </div>
                                         </div>
                                         <div class="form-actions">
-                                            <button class="btn btn-success" type="submit" name="submit">Update prayer</button>
-                                            <a class="btn" href="<?= PROOT; ?>admin/prayer-time">Cancel update</a>
+                                            <button class="btn btn-success" type="submit" name="submit"><?= (isset($_GET['edit']) && !empty($_GET['edit']) ? 'Update' : 'Add'); ?> activity</button>
+                                            <?php if (isset($_GET['edit']) && !empty($_GET['edit'])): ?>
+                                                <a class="btn" href="<?= PROOT; ?>admin/activity">Cancel update</a>
+                                            <?php endif; ?>
                                         </div>
                                     </fieldset>
                                 </form>
                             </div>
                         </div>
                         <hr>
-                        <?php foreach ($rows as $row): ?>
-                            <div class="card mb-2">
-                                <div class="card-body">
-                                    <div class="row align-items-center">
-                                        <div class="col">
-                                            <h3 class="card-title">
-                                                <a href="user-profile.html"> <?= (($row['prayer_date'] == null) ? $row["prayer_time"] : pretty_date_notime($row['prayer_date'])); ?> </a> <small class="text-muted"> <?= (($row['prayer_date'] == null) ? '' : 'on: ' . $row['prayer_time']); ?> </small>
-                                            </h3>
-                                            <h6 class="card-subtitle text-muted"> @<?= strtoupper($row['prayer_name']); ?> </h6>
-                                        </div>
-                                        <div class="col-auto">
-                                            <div class="d-inline-block">
-                                                <h6 class="card-subtitle text-muted"> <?= (($row['updatedAt'] == null) ? '' : 'updated at: ' . pretty_date($row['updatedAt'])); ?> </h6>
-                                            </div>
-                                            <a href="?edit=<?= $row["prayer_id"]; ?>" class="btn btn-icon btn-secondary mr-1" data-toggle="tooltip" title="" data-original-title="Edit Prayer">
-                                                <i class="fa-solid fa-pencil"></i>
-                                            </a>
-                                        </div>
-                                    </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Activity</th>
+                                                <th>Details</th>
+                                                <th>Date</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php foreach ($rows as $row): ?>
+                                                        
+                                        <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
-                        <?php endforeach; ?>
+                        </div>
                     </div>
                 </div>
             </div>

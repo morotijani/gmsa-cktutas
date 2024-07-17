@@ -45,8 +45,8 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
  	// ADMIN LOGIN
- 	if (isset($_SESSION['ATAdmin'])) {
- 		$admin_id = $_SESSION['ATAdmin'];
+ 	if (isset($_SESSION['GMAdmin'])) {
+ 		$admin_id = $_SESSION['GMAdmin'];
  		$data = array(
  			':admin_id' => $admin_id
  		);

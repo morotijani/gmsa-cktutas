@@ -86,16 +86,16 @@
                         </li>
                         <hr>
                         <li class="menu-item has-child">
-                            <a href="javascript:;" class="menu-link"><span class="menu-icon fa-solid fa-person"></span> <span class="menu-text">Ibrahim Dramani</span></a>
+                            <a href="javascript:;" class="menu-link"><span class="menu-icon fa-solid fa-person"></span> <span class="menu-text"><?= ucwords($admin_data['admin_fullname']); ?> </span></a>
                             <ul class="menu">
                                 <li class="menu-item">
-                                    <a href="<?= PROOT; ?>admin/executives" class="menu-link">Profile</a>
+                                    <a href="<?= PROOT; ?>admin/profile" class="menu-link">Profile</a>
                                 </li>
                                 <li class="menu-item">
-                                    <a href="<?= PROOT; ?>admin/position" class="menu-link">Settings</a>
+                                    <a href="<?= PROOT; ?>admin/settings" class="menu-link">Settings</a>
                                 </li>
                                 <li class="menu-item">
-                                    <a href="<?= PROOT; ?>admin/executives?add=1" class="menu-link">Log out</a>
+                                    <a href="<?= PROOT; ?>admin/auth/logout" class="menu-link">Log out</a>
                                 </li>
                             </ul>
                         </li>

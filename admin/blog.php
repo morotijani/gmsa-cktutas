@@ -113,7 +113,7 @@
     $news_content = (isset($_POST['news_content']) ? $_POST['news_content'] : '');
     $news_media = '';
     $news_url = php_url_slug($news_title);
-    $news_created_by = 1; //(int)$admin_id;
+    $news_created_by = $admin_data['admin_id'];
 
     // news edit
     if (isset($_GET['status']) && $_GET['status'] == 'edit_news') { 

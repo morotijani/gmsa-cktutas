@@ -5,7 +5,6 @@
     }
     include ("../includes/head.php");
 
-
     $error = '';
     if ($_POST) {
         if (empty($_POST['admin_email']) || empty($_POST['admin_password'])) {
