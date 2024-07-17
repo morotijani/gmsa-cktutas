@@ -76,8 +76,8 @@
 								      				Views; " . $new['news_views'] . " <br>
 								      			</small>
 								      			<br>
-								        		<button type='button' class='btn btn-secondary rounded-0' data-bs-dismiss='modal'>Close</button>
-								        		<a href='javascript:;' data-bs-toggle='modal' data-bs-target='#deleteModal" . $this->i . "' class='btn btn-outline-danger rounded-0'>Delete.</a>
+								        		<button type='button' class='btn btn-secondary rounded-0' data-dismiss='modal'>Close</button>
+								        		<a href='javascript:;' data-bs-toggle='modal' data-target='#deleteModal" . $this->i . "' class='btn btn-outline-danger rounded-0'>Delete.</a>
 								      		</div>
 								    	</div>
 								 	</div>
@@ -89,8 +89,8 @@
 								    	<div class='modal-content' style='background-color: rgb(51, 51, 51)'>
 								    		<div class='modal-body'>
 								      			<p>When you delete this categoy, all news and details under it will be deleted as well.</p>
-								        		<button type='button' class='btn btn-sm btn-secondary' data-bs-dismiss='modal'>Close</button>
-								        		<a href='" . PROOT . "admin/blog/add/delete/" . $new['news_id'] . "' class='btn btn-sm btn-outline-secondary'>Confirm Delete.</a>
+								        		<button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Close</button>
+								        		<a href='" . PROOT . "admin/blog/add/delete/" . $new['news_id'] . "' class='btn btn-outline-secondary'>Confirm Delete.</a>
 								      		</div>
 								    	</div>
 								 	</div>
@@ -119,7 +119,7 @@
 		        $update = "
 		            UPDATE gmsa_news 
 		            SET news_media = ? 
-		            WHERE id = ?
+		            WHERE news_id = ?
 		        ";
 		        $statement = $conn->prepare($update);
 		        $result = $statement->execute(['', $id]);
@@ -154,7 +154,7 @@
 			        $query = "
 			        	UPDATE gmsa_news 
 			        	SET news_featured = ?
-			        	WHERE id = ?
+			        	WHERE news_id = ?
 			        ";
 			        $statement = $conn->prepare($query);
 			        $result = $statement->execute([$feature, $id]);
@@ -172,7 +172,7 @@
 	        $query = "
 	        	UPDATE gmsa_news 
 	        	SET status = ?
-	        	WHERE id = ?
+	        	WHERE news_id = ?
 	        ";
 	        $statement = $conn->prepare($query);
 	        $result = $statement->execute([1, $id]);

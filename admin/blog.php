@@ -232,7 +232,7 @@
                                         <a href="<?= PROOT; ?>admin/blog/category" class="dropdown-item">Add Category</a>
                                         <div class="dropdown-divider"></div>
                                         <a href="#" class="dropdown-item">Share</a> 
-                                        <a href="#" class="dropdown-item">Archive</a>
+                                        <a href="<?= PROOT; ?>admin/blog/archive" class="dropdown-item">Archive</a>
                                     </div>
                                 </div>
                             </div>
