@@ -35,3 +35,6 @@ madarasa
 		students
 		imam
 	courses per semester
+
+
+	

@@ -15,7 +15,7 @@
 		private function findNews($conn, $id) {
 			$query = " 
 				SELECT * FROM gmsa_news 
-				WHERE id = ? 
+				WHERE news_id = ? 
 				LIMIT 1
 			";
 			$statement = $conn->prepare($query);
@@ -24,22 +24,29 @@
 			return $statement->rowCount();
 		}
 
-		public function allNews($conn) {
+		public function allNews($conn, $status) {
 			$query = "
 		        SELECT * FROM gmsa_news 
 		        INNER JOIN gmsa_categories 
-		        ON gmsa_categories.id = gmsa_news.news_category 
+		        ON gmsa_categories.category_id = gmsa_news.news_category 
 		        INNER JOIN gmsa_admin 
 		        ON gmsa_admin.admin_id = gmsa_news.news_created_by 
 		        WHERE gmsa_news.status = ?
 		        ORDER BY gmsa_news.id DESC 
 		    ";
 		    $statement = $conn->prepare($query);
-		    $statement->execute([0]);
+		    $statement->execute([$status]);
 		    $news = $statement->fetchAll();
 		    if ($statement->rowCount() > 0) {
 		    	// code...
 			    foreach ($news as $new) {
+			    	$option = "<a href='javascript:;' class='btn btn-danger text-decoration-none' data-toggle='modal' data-target='#deleteModal" . $this->i . "'>Delete</a>";
+			    	if ($status == 1) {
+			    		// code...
+			    		// $option = "<a href='javascript:;' class='btn btn-danger text-decoration-none' data-toggle='modal' data-target='#deleteModal" . $this->i . "'>Restore</a>";
+			    		$option = '';
+			    	}
+
 	                $this->output .= "
 	                	<tr>
 	                		<td>" . $this->i . "</td>
@@ -49,12 +56,12 @@
 		                    <td>" . pretty_date($new['createdAt']) . "</td>
 		                    <td>" . ucwords($new['admin_fullname']) . "</td>
 		                    <td>
-		                    	<a class='badge bg-" . (($new['news_featured'] == 1) ? 'secondary' : 'dark') . " text-decoration-none' href='" . PROOT . 'admin/blog/add/featured/' . $new['news_id'] . '/' . (($new['news_featured'] == 0) ? 1 : 2) . "'>" . (($new['news_featured'] == 1) ? 'featured' : '+ featured') . "</a>
+		                    	<a class='badge badge-subtle badge-" . (($new['news_featured'] == 1) ? 'secondary' : 'dark') . " text-decoration-none' href='" . PROOT . 'admin/blog/add/featured/' . $new['news_id'] . '/' . (($new['news_featured'] == 0) ? 1 : 2) . "'>" . (($new['news_featured'] == 1) ? 'featured' : '+ featured') . "</a>
 		                    </td>
 		                    <td>
 		                        <a class='btn btn-primary text-decoration-none' href='javascript:;' data-toggle='modal' data-target='#viewModal" . $this->i . "'>View</a>
 		                        <a class='btn btn-secondary text-decoration-none' href='" . PROOT . "admin/blog/add/edit_news/" . $new['news_id'] . "'>Edit</a>
-		                        <a href='javascript:;' class='btn btn-danger text-decoration-none' data-toggle='modal' data-target='#deleteModal" . $this->i . "'>Delete</a>
+		                        ".$option."
 
 		                        <!-- VIEW DETAILS MODAL -->
 								<div class='modal fade' id='viewModal" . $this->i . "' tabindex='-1' aria-labelledby='viewModalLabel' aria-hidden='true' data-bs-backdrop='static' data-bs-keyboard='false'>
@@ -66,7 +73,7 @@
 								    		</div>
 								    		<img class='img-fluid' src='" . PROOT . $new['news_media'] ."' />
 								    		<div class='modal-body'>
-								    			<span class='badge bg-info'>" . ucwords($new['category']) . "</span>
+								    			<span class='badge badge-subtle badge-info'>" . ucwords($new['category']) . "</span>
 								    			<br>
 								      			<p>" . nl2br($new['news_content']) . "</p>
 								      			<br>

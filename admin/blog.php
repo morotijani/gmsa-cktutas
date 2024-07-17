@@ -221,7 +221,7 @@
 
                     <header class="page-title-bar">
                         <div class="d-md-flex align-items-md-start">
-                            <h1 class="page-title mr-sm-auto"> News </h1>
+                            <h1 class="page-title mr-sm-auto"> <?= ((isset($_GET['type']) && $_GET['type'] == 'archive') ? '<span class="text-danger">Archive</span>' : '') ; ?> News </h1>
                             <div class="btn-toolbar">
                                 <a href="<?= PROOT; ?>admin/blog/<?= ((isset($_GET['type']) && $_GET['type'] != 'all') ? 'all' : 'add'); ?>" class="btn btn-light"> <span class="ml-1"><?= ((isset($_GET['type']) && $_GET['type'] != 'all') ? ' * All' : ' + Add'); ?> News</span></a>
                                 <div class="dropdown">
@@ -260,7 +260,29 @@
                                             </thead>
                                             <tbody>                                            
                                                 <?php 
-                                                    echo $News->allNews($conn);
+                                                    echo $News->allNews($conn, 0);
+                                                ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                <?php elseif ($_GET['type'] == 'archive'): ?>
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th>Heading</th>
+                                                    <th>Category</th>
+                                                    <th>Views</th>
+                                                    <th>Date</th>
+                                                    <th>Added by</th>
+                                                    <th></th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>                                            
+                                                <?php 
+                                                    echo $News->allNews($conn, 1);
                                                 ?>
                                             </tbody>
                                         </table>
@@ -320,7 +342,7 @@
                                                         <select type="text" class="custom-select" name="news_category" id="news_category" required>
                                                            <option value="" <?= (($news_category == '') ? 'selected' : ''); ?>>...</option>
                                                             <?php foreach ($Category->listCategory($conn) as $category_row): ?>
-                                                                <option value="<?= $category_row['id']; ?>" <?= (($news_category == $category_row['id']) ? 'selected' : ''); ?>><?= ucwords($category_row['category']); ?></option>
+                                                                <option value="<?= $category_row['category_id']; ?>" <?= (($news_category == $category_row['category_id']) ? 'selected' : ''); ?>><?= ucwords($category_row['category']); ?></option>
                                                             <?php endforeach ?>
                                                         </select>
                                                         <label for="news_category">Category</label>
