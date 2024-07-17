@@ -6,8 +6,8 @@
 		
 		public function listCategory($conn) {
 			$query = "
-				SELECT * FROM tein_category 
-				WHERE category_trash = ? 
+				SELECT * FROM gmsa_categories 
+				WHERE status = ? 
 				ORDER BY category
 			";
 			$statement = $conn->prepare($query);
@@ -17,8 +17,8 @@
 
 		public function listCategoryWithLimit($conn) {
 			$query = "
-				SELECT * FROM tein_category 
-				WHERE category_trash = ? 
+				SELECT * FROM gmsa_categories 
+				WHERE status = ? 
 				ORDER BY category 
 				LIMIT 4
 			";
@@ -29,7 +29,7 @@
 
 		public function allCategory($conn) {
 			$query = "
-		        SELECT * FROM tein_category 
+		        SELECT * FROM gmsa_categories 
 		        ORDER BY category ASC 
 		    ";
 		    $statement = $conn->prepare($query);
@@ -41,7 +41,7 @@
 	                $this->output .= "
 	                	<tr>
 		                    <td>
-		                        <a class='badge bg-secondary text-decoration-none' href='" . PROOT . ".in/blog/category/edit_category/" . $category['id'] . "'>Edit</a>
+		                        <a class='badge bg-secondary text-decoration-none' href='" . PROOT . "admin/blog/category/edit_category/" . $category['id'] . "'>Edit</a>
 		                    </td>
 		                    <td>" . ucwords($category['category']) . "</td>
 		                    <td>" . pretty_date($category['createdAt']) . "</td>
@@ -54,7 +54,7 @@
 								    		<div class='modal-body'>
 								      			<p>When you delete this categoy, all news and details under it will be deleted as well.</p>
 								        		<button type='button' class='btn btn-sm btn-secondary' data-bs-dismiss='modal'>Close</button>
-								        		<a href='" . PROOT . ".in/blog/category/delete/" . $category['id'] . "' class='btn btn-sm btn-outline-secondary'>Confirm Delete.</a>
+								        		<a href='" . PROOT . "admin/blog/category/delete/" . $category['id'] . "' class='btn btn-sm btn-outline-secondary'>Confirm Delete.</a>
 								      		</div>
 								    	</div>
 								 	</div>
@@ -76,7 +76,7 @@
 
 		public function deleteCategory($conn, $id) {
 	        $query = "
-	        	DELETE FROM tein_category 
+	        	DELETE FROM gmsa_categories 
 	        	WHERE id = ?
 	        ";
 	        $statement = $conn->prepare($query);
@@ -88,10 +88,10 @@
 		// fetch all news base on category
 		public function fetchCategoryNews($conn, $url) {
 			$query = "
-				SELECT *, tein_news.createdAt AS ca FROM tein_category 
+				SELECT *, tein_news.createdAt AS ca FROM gmsa_categories 
 				INNER JOIN tein_news 
-				ON tein_news.news_category = tein_category.id
-				WHERE tein_category.category_url = ? 
+				ON tein_news.news_category = gmsa_categories.id
+				WHERE gmsa_categories.category_url = ? 
 				AND tein_news.news_status = ? 
 				ORDER BY tein_news.createdAt DESC
 			";

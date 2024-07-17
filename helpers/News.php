@@ -14,7 +14,7 @@
 		
 		private function findNews($conn, $id) {
 			$query = " 
-				SELECT * FROM tein_news 
+				SELECT * FROM gmsa_news 
 				WHERE id = ? 
 				LIMIT 1
 			";
@@ -26,13 +26,13 @@
 
 		public function allNews($conn) {
 			$query = "
-		        SELECT *, tein_news.id AS news_id FROM tein_news 
-		        INNER JOIN tein_category 
-		        ON tein_category.id = tein_news.news_category 
-		        INNER JOIN tein_admin 
-		        ON tein_admin.admin_id = tein_news.news_created_by 
-		        WHERE tein_news.news_status = ?
-		        ORDER BY tein_news.id DESC 
+		        SELECT *, gmsa_news.id AS news_id FROM gmsa_news 
+		        INNER JOIN gmsa_categories 
+		        ON gmsa_categories.id = gmsa_news.news_category 
+		        INNER JOIN gmsa_admin 
+		        ON gmsa_admin.admin_id = gmsa_news.news_created_by 
+		        WHERE gmsa_news.status = ?
+		        ORDER BY gmsa_news.id DESC 
 		    ";
 		    $statement = $conn->prepare($query);
 		    $statement->execute([0]);
@@ -103,7 +103,7 @@
 		    } else {
 		    	$this->output = "
 		    		<tr>
-		    			<td colspan='3'>No data found!</td>
+		    			<td colspan='8'>No data found!</td>
 		    		</tr>
 		    	";
 		    }
@@ -117,7 +117,7 @@
 
 	        if ($delete) {
 		        $update = "
-		            UPDATE tein_news 
+		            UPDATE gmsa_news 
 		            SET news_media = ? 
 		            WHERE id = ?
 		        ";
@@ -132,7 +132,7 @@
 		// get number of featured
 		private function get_number_of_featured($conn) {
 			$query = " 
-				SELECT * FROM tein_news 
+				SELECT * FROM gmsa_news 
 				WHERE news_featured = ? 
 			";
 			$statement = $conn->prepare($query);
@@ -152,7 +152,7 @@
 				if ($news > 0) {
 					// code...
 			        $query = "
-			        	UPDATE tein_news 
+			        	UPDATE gmsa_news 
 			        	SET news_featured = ?
 			        	WHERE id = ?
 			        ";
@@ -170,8 +170,8 @@
 		// delete news by setting status to 1
 		public function deleteNews($conn, $id) {
 	        $query = "
-	        	UPDATE tein_news 
-	        	SET news_status = ?
+	        	UPDATE gmsa_news 
+	        	SET status = ?
 	        	WHERE id = ?
 	        ";
 	        $statement = $conn->prepare($query);
@@ -183,14 +183,14 @@
 		public function fetchNews($conn, $offset, $per_page) {
 			$today = date("d");
 			$query = "
-				SELECT *, tein_news.id AS news_id, tein_news.createdAt AS ca FROM tein_news 
-				INNER JOIN tein_category 
-				ON tein_category.id = tein_news.news_category
-				WHERE tein_news.news_featured = ? 
-				AND tein_news.news_status = ? 
-				-- AND (tein_news.news_views > 1 AND DAY(tein_news.createdAt) = ?) 
-				-- OR (tein_news.news_views <= 1 AND DAY(tein_news.createdAt) <= ?)
-				ORDER BY tein_news.createdAt DESC 
+				SELECT *, gmsa_news.id AS news_id, gmsa_news.createdAt AS ca FROM gmsa_news 
+				INNER JOIN gmsa_categories 
+				ON gmsa_categories.id = gmsa_news.news_category
+				WHERE gmsa_news.news_featured = ? 
+				AND gmsa_news.status = ? 
+				-- AND (gmsa_news.news_views > 1 AND DAY(gmsa_news.createdAt) = ?) 
+				-- OR (gmsa_news.news_views <= 1 AND DAY(gmsa_news.createdAt) <= ?)
+				ORDER BY gmsa_news.createdAt DESC 
 				LIMIT {$offset}, {$per_page}
 			";
 			$statement = $conn->prepare($query);
@@ -243,12 +243,12 @@
 		// fetch all news except featured
 		public function fetchRecentNews($conn) {
 			$query = "
-				SELECT *, tein_news.id AS news_id, tein_news.createdAt AS ca FROM tein_news 
-				INNER JOIN tein_category 
-				ON tein_category.id = tein_news.news_category
-				WHERE tein_news.news_featured = ?
-				AND tein_news.news_status = ? 
-				ORDER BY tein_news.createdAt DESC 
+				SELECT *, gmsa_news.id AS news_id, gmsa_news.createdAt AS ca FROM gmsa_news 
+				INNER JOIN gmsa_categories 
+				ON gmsa_categories.id = gmsa_news.news_category
+				WHERE gmsa_news.news_featured = ?
+				AND gmsa_news.status = ? 
+				ORDER BY gmsa_news.createdAt DESC 
 				LIMIT 4
 			";
 			$statement = $conn->prepare($query);
@@ -278,12 +278,12 @@
 		// fetch the 2 featured news
 		public function fetchFeaturedNews($conn) {
 			$query = "
-				SELECT *, tein_news.id AS news_id, tein_news.createdAt AS ca FROM tein_news 
-				INNER JOIN tein_category 
-				ON tein_category.id = tein_news.news_category
-				WHERE tein_news.news_featured = ?
-				AND tein_news.news_status = ? 
-				ORDER BY tein_news.createdAt ASC 
+				SELECT *, gmsa_news.id AS news_id, gmsa_news.createdAt AS ca FROM gmsa_news 
+				INNER JOIN gmsa_categories 
+				ON gmsa_categories.id = gmsa_news.news_category
+				WHERE gmsa_news.news_featured = ?
+				AND gmsa_news.status = ? 
+				ORDER BY gmsa_news.createdAt ASC 
 				LIMIT 2
 			";
 			$statement = $conn->prepare($query);
@@ -321,11 +321,11 @@
 		// fetch the random 1 news
 		public function fetchOneRandomNews($conn) {
 			$query = "
-				SELECT *, tein_news.id AS news_id, tein_news.createdAt AS ca FROM tein_news 
-				INNER JOIN tein_category 
-				ON tein_category.id = tein_news.news_category
-				WHERE tein_news.news_featured = ?
-				AND tein_news.news_status = ? 
+				SELECT *, gmsa_news.id AS news_id, gmsa_news.createdAt AS ca FROM gmsa_news 
+				INNER JOIN gmsa_categories 
+				ON gmsa_categories.id = gmsa_news.news_category
+				WHERE gmsa_news.news_featured = ?
+				AND gmsa_news.status = ? 
 				ORDER BY RAND()
 				LIMIT 1 
 			";
@@ -362,12 +362,12 @@
 		// get main or one feature post for the news
 		public function fetch_oneFeaturedNews($conn) {
 			$query = "
-				SELECT *, tein_news.id AS news_id, tein_news.createdAt AS ca FROM tein_news 
-				INNER JOIN tein_category 
-				ON tein_category.id = tein_news.news_category
-				WHERE tein_news.news_featured = ?
-				AND tein_news.news_status = ? 
-				ORDER BY tein_news.createdAt DESC 
+				SELECT *, gmsa_news.id AS news_id, gmsa_news.createdAt AS ca FROM gmsa_news 
+				INNER JOIN gmsa_categories 
+				ON gmsa_categories.id = gmsa_news.news_category
+				WHERE gmsa_news.news_featured = ?
+				AND gmsa_news.status = ? 
+				ORDER BY gmsa_news.createdAt DESC 
 				LIMIT 1
 			";
 			$statement = $conn->prepare($query);
@@ -415,13 +415,13 @@
 		// single view for news
 		public function singleView($conn, $newsUrl) {
 			$query = "
-				SELECT *, tein_news.id AS news_id, tein_news.createdAt AS ca FROM tein_news 
-				INNER JOIN tein_category 
-				ON tein_category.id = tein_news.news_category 
-				INNER JOIN tein_admin 
-				ON tein_admin.admin_id = tein_news.news_created_by 
-				WHERE tein_news.news_url = ?
-				AND tein_news.news_status = ? 
+				SELECT *, gmsa_news.id AS news_id, gmsa_news.createdAt AS ca FROM gmsa_news 
+				INNER JOIN gmsa_categories 
+				ON gmsa_categories.id = gmsa_news.news_category 
+				INNER JOIN gmsa_admin 
+				ON gmsa_admin.admin_id = gmsa_news.news_created_by 
+				WHERE gmsa_news.news_url = ?
+				AND gmsa_news.status = ? 
 				LIMIT 1
 			";
 			$statement = $conn->prepare($query);
@@ -490,7 +490,7 @@
 		//
 		public function updateViews($conn, $newsUrl) {
 			$query = "
-	        	UPDATE tein_news 
+	        	UPDATE gmsa_news 
 	        	SET news_views = news_views + 1
 	        	WHERE news_url = ?
 	        ";
@@ -597,13 +597,13 @@
 		public function popularNews($conn) {
 			$thisMonth = date('m');
 			$query = "
-				SELECT *, tein_news.id AS news_id, tein_news.createdAt AS ca FROM tein_news 
-				INNER JOIN tein_category 
-				ON tein_category.id = tein_news.news_category
-				WHERE tein_news.news_status = ? 
-				AND tein_news.news_views > ? 
-				AND MONTH(tein_news.createdAt) = ?
-				ORDER BY tein_news.news_views DESC
+				SELECT *, gmsa_news.id AS news_id, gmsa_news.createdAt AS ca FROM gmsa_news 
+				INNER JOIN gmsa_categories 
+				ON gmsa_categories.id = gmsa_news.news_category
+				WHERE gmsa_news.status = ? 
+				AND gmsa_news.news_views > ? 
+				AND MONTH(gmsa_news.createdAt) = ?
+				ORDER BY gmsa_news.news_views DESC
 			";
 			$statement = $conn->prepare($query);
 			$statement->execute([0, 10, $thisMonth]);
@@ -654,7 +654,7 @@
 		public function trendingNews($conn) {
 			$thisMonth = date('m');
 			$query = "
-				SELECT * FROM tein_news 
+				SELECT * FROM gmsa_news 
 				WHERE news_views > ? 
 				AND MONTH(createdAt) = ? 
 				ORDER BY news_views DESC
@@ -682,11 +682,11 @@
 		// fetch popular news
 		public function recentFooterNews($conn) {
 			$query = "
-				SELECT *, tein_news.id AS news_id, tein_news.createdAt AS ca FROM tein_news 
-				INNER JOIN tein_category 
-				ON tein_category.id = tein_news.news_category
-				WHERE tein_news.news_status = ? 
-				ORDER BY tein_news.id DESC 
+				SELECT *, gmsa_news.id AS news_id, gmsa_news.createdAt AS ca FROM gmsa_news 
+				INNER JOIN gmsa_categories 
+				ON gmsa_categories.id = gmsa_news.news_category
+				WHERE gmsa_news.status = ? 
+				ORDER BY gmsa_news.id DESC 
 				LIMIT 2
 			";
 			$statement = $conn->prepare($query);

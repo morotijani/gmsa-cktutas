@@ -29,7 +29,7 @@
             $category =  (isset($_POST['category']) ? sanitize($_POST['category']) : $row[0]['category']);
         } else {
             echo js_alert('Something went wrong, please try again');
-            redirect(PROOT . '.in/category');
+            redirect(PROOT . 'admin/category');
         }
     }
 
@@ -59,10 +59,10 @@
                 $result = $statement->execute([$category, $category_url]);
                 if (isset($result)) {
                     $_SESSION['flash_success'] = ucwords($category) . ' successfully ' . ((isset($_GET['status']) && $_GET['status'] == 'edit_category') ? 'updated' : 'added') . '!';        
-                    redirect(PROOT . '.in/blog/category');
+                    redirect(PROOT . 'admin/blog/category');
                 } else {
                     echo js_alert('Something went wrong, please try again');
-                    redirect(PROOT . '.in/blog/category');
+                    redirect(PROOT . 'admin/blog/category');
                 }
             }
         } else {
@@ -76,10 +76,10 @@
         $result = $Category->deleteCategory($conn, $delete);
         if ($result) {
             $_SESSION['flash_success'] = 'Category deleted!';            
-            redirect(PROOT . '.in/blog/category');
+            redirect(PROOT . 'admin/blog/category');
         } else {
             echo js_alert('Something went wrong, please try again');
-            redirect(PROOT . '.in/blog/category');
+            redirect(PROOT . 'admin/blog/category');
         }
     }  
 
@@ -95,10 +95,10 @@
         $feature = $News->featuredNews($conn, (int)$_GET['featured'], (int)$_GET['id']);
         if ($feature) {
             $_SESSION['flash_success'] = 'News ' . (($_GET['featured'] == 0) ? 'un-featured' : 'featured') . ' successfully!';
-            redirect(PROOT . '.in/blog/all');
+            redirect(PROOT . 'admin/blog/all');
         } else {
             $_SESSION['flash_error'] = 'Something went wrong, please try again!';
-            redirect(PROOT . '.in/blog/all');
+            redirect(PROOT . 'admin/blog/all');
         }
     }
     
@@ -111,7 +111,7 @@
     $news_content = (isset($_POST['news_content']) ? $_POST['news_content'] : '');
     $news_media = '';
     $news_url = php_url_slug($news_title);
-    $news_created_by = (int)$admin_id;
+    $news_created_by = 1; //(int)$admin_id;
 
     // news edit
     if (isset($_GET['status']) && $_GET['status'] == 'edit_news') { 
@@ -132,7 +132,7 @@
             $news_media = (($row[0]['news_media'] != '') ? $row[0]['news_media'] : '');
         } else {
             echo js_alert('Something went wrong, please try again');
-          redirect(PROOT . '.in/blog/add');
+            redirect(PROOT . 'admin/blog/add');
         }
     }
 
@@ -145,7 +145,7 @@
                 $image_extension = end($image_test);
                 $image_name = md5(microtime()).'.'.$image_extension;
 
-                $news_media = 'dist/media/news/'.$image_name;
+                $news_media = 'assets/media/news/'.$image_name;
                 move_uploaded_file($_FILES["news_media"]["tmp_name"], BASEURL . $news_media);
                 
                 if ($_POST['uploaded_image'] != '') {
@@ -173,10 +173,10 @@
         $result = $statement->execute([$news_title, $news_url, $news_content, $news_media, $news_category, $news_created_by]);
         if (isset($result)) {
             $_SESSION['flash_success'] = ucwords($news_title) . ' successfully ' . ((isset($_GET['status']) && $_GET['status'] == 'edit_news') ? 'updated' : 'added') . '!';        
-            redirect(PROOT . '.in/blog/all');
+            redirect(PROOT . 'admin/blog/all');
         } else {
             $_SESSION['flash_error'] = 'Something went wrong, please try again';
-            redirect(PROOT . '.in/blog/all');
+            redirect(PROOT . 'admin/blog/all');
         }
     }
 
@@ -186,22 +186,25 @@
         $result = $News->deleteNewsMedia($conn, (int)$_GET['delete_np'], sanitize($_GET['image']));
         if ($result) {
             $_SESSION['flash_success'] = 'Media deleted, upload new one!';            
-            redirect(PROOT . '.in/blog/add/edit_news/' . (int)$_GET['delete_np']);
+            redirect(PROOT . 'admin/blog/add/edit_news/' . (int)$_GET['delete_np']);
         } else {
             $_SESSION['flash_error'] = 'Something went wrong, please try again';
-            redirect(PROOT . '.in/blog/add/edit_news/' . (int)$_GET['delete_np']);
+            redirect(PROOT . 'admin/blog/add/edit_news/' . (int)$_GET['delete_np']);
         }
     }
 
     // Delete news
-    if (isset($_GET['type']) && $_GET['type'] == 'add' && $_GET['status'] == 'delete') {
-        $delete = $News->deleteNews($conn, sanitize((int)$_GET['id']));
-        if (isset($delete)) {
-            $_SESSION['flash_success'] = 'News deleted but temporary';
-            redirect(PROOT . '.in/blog/all');
-        } else {
-            $_SESSION['flash_error'] = 'Something went wrong, please try again';
-            redirect(PROOT . '.in/blog/all');
+    if (isset($_GET['type']) && $_GET['type'] == 'add') {
+        if (isset($_GET['status']) && $_GET['status'] == 'delete') {
+            // code...
+            $delete = $News->deleteNews($conn, sanitize((int)$_GET['id']));
+            if (isset($delete)) {
+                $_SESSION['flash_success'] = 'News deleted but temporary';
+                redirect(PROOT . 'admin/blog/all');
+            } else {
+                $_SESSION['flash_error'] = 'Something went wrong, please try again';
+                redirect(PROOT . 'admin/blog/all');
+            }
         }
     }
 
@@ -212,63 +215,47 @@
         if ($delete) {
             // code...
             $_SESSION['flash_success'] = 'Subscriber deleted!';            
-            redirect(PROOT . '.in/blog/subscribers/' . (int)$_GET['delete_np']);
+            redirect(PROOT . 'admin/blog/subscribers/' . (int)$_GET['delete_np']);
         } else {
             $_SESSION['flash_error'] = 'Something went wrong, please try again';
-            redirect(PROOT . '.in/blog/subscribers/' . (int)$_GET['delete_np']);
+            redirect(PROOT . 'admin/blog/subscribers/' . (int)$_GET['delete_np']);
         }
     }
 ?> 
+    <main class="app-main">
+        <div class="wrapper">
+            <div class="page">
+                <div class="page-inner">
 
-    <?= $flash; ?>
-    <style>
-        .tox .tox-dialog input {
-            color: #000 !important;
-        }
-    </style>
-    <div class="container-fluid">
-        <main style="background-color: rgb(51, 51, 51);">
-            <div class="row justify-content-center">
-                <div class="col-md-4">
-
-                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3" style="margin-top: 34px;">
-                        <h2 class="text-white" style="font-weight: 600; font-size: 20px; line-height: 28px;">TEIN . News Dashboard</h2>
-                        <a href="<?= PROOT; ?>.in/blog/<?= ((isset($_GET['type']) && $_GET['type'] != 'all') ? 'all' : 'add'); ?>" class="btn btn-sm btn-outline-secondary" style="background: #333333;"><?= ((isset($_GET['type']) && $_GET['type'] != 'all') ? ' * All' : ' + Add'); ?> News</a>
-                    </div>
-
-                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center p-3 my-3 text-white bg-purple rounded shadow-sm text-white user-banner">
-                        <div class="btn-group me-2">
-
-                            <img class="me-3" src="<?= PROOT; ?>dist/media/logo/logo.png" alt="" width="48" height="38">
-                            <div class="lh-1">
-                                <h1 class="h6 mb-0 text-white lh-1" style="font-size: 16px; white-space: nowrap; text-overflow: ellipsis; font-weight: 700;"><?= strtoupper($admin_data['admin_fullname']); ?></h1>
-                                <span style="font-size: 12px; line-height: 16px;"><?= $admin_data['admin_email'] ?></span><br>   
-                                <span style="align-items: center; flex-direction: row;">😎 singed in.</span>
+                    <header class="page-title-bar">
+                        <div class="d-md-flex align-items-md-start">
+                            <h1 class="page-title mr-sm-auto"> News </h1>
+                            <div class="btn-toolbar">
+                                <a href="<?= PROOT; ?>admin/blog/<?= ((isset($_GET['type']) && $_GET['type'] != 'all') ? 'all' : 'add'); ?>" class="btn btn-light"> <span class="ml-1"><?= ((isset($_GET['type']) && $_GET['type'] != 'all') ? ' * All' : ' + Add'); ?> News</span></a>
+                                <div class="dropdown">
+                                    <button type="button" class="btn btn-light" data-toggle="dropdown" aria-expanded="false"><span>More</span> <span class="fa fa-caret-down"></span></button>
+                                    <div class="dropdown-menu dropdown-menu-right" style="">
+                                        <div class="dropdown-arrow"></div>
+                                        <a href="#" class="dropdown-item">Add tasks</a> 
+                                        <a href="#" class="dropdown-item">Invite members</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a href="#" class="dropdown-item">Share</a> 
+                                        <a href="#" class="dropdown-item">Archive</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="btn-toolbar mb-2 mb-md-0">
-                            <div class="btn-group me-2">
-                                <button type="button" class="text-white" style="background-color: transparent; border: none;">...</button>
-                            </div>
-                            <a href="<?= PROOT; ?>.in/blog" class="btn btn-sm btn-outline-secondary">
-                                Menu
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row justify-content-center">
-                <div class="col-md-8">
-                    <div>
-                        <div class="text-white w-100 h-100" style="z-index: 5; padding: 4px 0px; margin-bottom: 20px; transition: all 0.2s ease-in-out; background: #3B3B3B; border-radius: 4px; box-shadow: 0px 1.6px 3.6px rgb(0 0 0 / 25%), 0px 0px 2.9px rgb(0 0 0 / 22%);">
+                    </header>
+                    <div><?= $flash; ?></div>
+                    <div class="page-section">
+                        <div class="card card-fluid">
 
                             <?php if (isset($_GET['type'])): ?>
                                 <?php if ($_GET['type'] == 'all'): ?>
-                                    <div class="container-fluid mt-4">
-                                        <table class="table table text-white table-bordered my-4">
+                                    <div class="table-responsive">
+                                        <table class="table">
                                             <thead>
-                                                <tr style="color: #A7A7A7; font-weight: 700;">
+                                                <tr>
                                                     <th></th>
                                                     <th>Heading</th>
                                                     <th>Category</th>
@@ -287,23 +274,6 @@
                                         </table>
                                     </div>
                                 <?php elseif ($_GET['type'] == 'subscribers'): ?>
-                                    <div class="container-fluid mt-4">
-                                        <table class="table table-sm text-white table-bordered my-4">
-                                            <thead>
-                                                <tr style="color: #A7A7A7; font-weight: 700;">
-                                                    <th></th>
-                                                    <th>Email</th>
-                                                    <th>Date</th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>                                            
-                                                <?php 
-                                                    echo $News->allSubscribers($conn);
-                                                ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
                                 <?php elseif ($_GET['type'] == 'category' || (isset($_GET['status']) && $_GET['status'] == 'edit_category')): ?>
                                     <div class="container-fluid mt-4">
                                         <div>
@@ -318,7 +288,7 @@
                                                 <div class="mt-2 mb-2">
                                                     <button type="submit" class="btn btn-sm btn-outline-secondary" name="submit_category" id="submit_category"><?= (isset($_GET['status']) && $_GET['status'] == 'edit') ? 'Update': 'Add'; ?> Category</button>
                                                     <?php if ((isset($_GET['status']) && $_GET['status'] == 'edit_category')): ?>
-                                                        <a href="<?= PROOT; ?>.in/blog/category">Cancel</a>
+                                                        <a href="<?= PROOT; ?>admin/blog/category">Cancel</a>
                                                     <?php endif ?>
                                                 </div>
                                             </form>
@@ -370,7 +340,7 @@
                                             <div class="mb-3">
                                                 <label>Product Image</label><br>
                                                 <img src="<?= PROOT . $news_media; ?>" class="img-fluid img-thumbnail" style="width: 200px; height: 200px; object-fit: cover;">
-                                                <a href="<?= PROOT; ?>.in/blog?delete_np=<?= $_GET['id']; ?>&image=<?= $news_media; ?>" class="badge bg-danger">Change Image</a>
+                                                <a href="<?= PROOT; ?>admin/blog?delete_np=<?= $_GET['id']; ?>&image=<?= $news_media; ?>" class="badge bg-danger">Change Image</a>
                                             </div>
                                             <?php else: ?>
                                             <div class="mb-3">
@@ -387,7 +357,7 @@
                                                 <button type="submit" class="btn btn-sm btn-outline-secondary" name="submitNews" id="submitNews"><?= (isset($_GET['status']) && $_GET['status'] == 'edit_news') ? 'Update': 'Create'; ?> News</button>
                                                 <?php if (isset($_GET['status']) && $_GET['status'] == 'edit_news'): ?>
                                                     <br><br>
-                                                    <a href="<?= PROOT; ?>.in/blog/all" class="button text-secondary">Cancel</a>
+                                                    <a href="<?= PROOT; ?>admin/blog/all" class="button text-secondary">Cancel</a>
                                                 <?php endif ?>
                                             </div>
                                         </form>
@@ -407,46 +377,8 @@
                                     </script>
                                 <?php endif; ?>
                             <?php else: ?>
-                                <ul class="list-group">
-                                    <a href="<?= PROOT; ?>.in/index" class="list-group-item d-flex justify-content-between align-items-center bg-transparent text-white border-0">
-                                        <span class="menu-item"><i class="bi bi-house"></i> Home</span>
-                                        <span class=""><i class="bi bi-arrow-right"></i></span>
-                                    </a>
-                                    <hr aria-hidden="true" class="menu-hr">
-                                    <a href="<?= PROOT; ?>.in/blog/all" class="list-group-item d-flex justify-content-between align-items-center bg-transparent text-white border-0">
-                                        <span class="menu-item"><i class="bi bi-eye-fill"></i> View all news</span>
-                                        <span class=""><i class="bi bi-arrow-right"></i></span>
-                                    </a>
-                                    <hr aria-hidden="true" class="menu-hr">
-                                    <a href="<?= PROOT; ?>.in/blog/category" class="list-group-item d-flex justify-content-between align-items-center bg-transparent text-white border-0">
-                                        <span class="menu-item"><i class="bi bi-tag"></i> Categories</span>
-                                        <span class=""><i class="bi bi-arrow-right"></i></span>
-                                    </a>
-                                    <hr aria-hidden="true" class="menu-hr">
-                                    <a href="<?= PROOT; ?>.in/blog/add" class="list-group-item d-flex justify-content-between align-items-center bg-transparent text-white border-0">
-                                        <span class="menu-item"><i class="bi bi-building-add"></i> Add news</span>
-                                        <span class=""><i class="bi bi-arrow-right"></i></span>
-                                    </a>
-                                    <hr aria-hidden="true" class="menu-hr">
-                                    <a href="<?= PROOT; ?>.in/blog/subscribers" class="list-group-item d-flex justify-content-between align-items-center bg-transparent text-white border-0">
-                                        <span class="menu-item"><i class="bi bi-person-up"></i> Subscribers</span>
-                                        <span class=""><i class="bi bi-arrow-right"></i></span>
-                                    </a>
-                                    <hr aria-hidden="true" class="menu-hr">
-                                    <a href="<?= PROOT; ?>.in/blog" class="list-group-item d-flex justify-content-between align-items-center bg-transparent text-white border-0">
-                                        <span class="menu-item"><i class="bi bi-arrow-clockwise"></i> Refresh</span>
-                                        <span class=""><i class="bi bi-arrow-right"></i></span>
-                                    </a>
-                                    <hr aria-hidden="true" class="menu-hr">
-                                    <a href="<?= PROOT; ?>.in/index" class="list-group-item d-flex justify-content-between align-items-center bg-transparent text-white border-0">
-                                        <span class="menu-item"><i class="bi bi-arrow-90deg-left"></i> Main Menu</span>
-                                        <span class=""><i class="bi bi-arrow-right"></i></span>
-                                    </a>
-                                </ul>
                             <?php endif; ?>
                         </div>
-                    </div>
-
                 </div>
             </div>
         </main>
