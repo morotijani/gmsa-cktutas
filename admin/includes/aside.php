@@ -50,27 +50,6 @@
                             </ul>
                         </li>
                         <li class="menu-item has-child">
-                            <a href="javascript:;" class="menu-link"><span class="menu-icon oi oi-browser"></span> <span class="menu-text">Layouts</span> <span class="badge badge-subtle badge-success">+4</span></a>
-                            <ul class="menu">
-                                <li class="menu-item">
-                                    <a href="layout-custom.html" class="menu-link">Custom</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="menu-item">
-                            <a href="<?= PROOT; ?>admin/gallery" class="menu-link"><span class="menu-icon fa-brands fa-envira"></span> <span class="menu-text">Gallery</span></a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="<?= PROOT; ?>admin/contacts" class="menu-link"><span class="menu-icon oi oi-envelope-open"></span> <span class="menu-text">Contacts</span></a>
-                        </li>
-                        <li class="menu-header">Interfaces </li>
-                        <li class="menu-item">
-                            <a href="<?= PROOT; ?>admin/prayer-time" class="menu-link"><span class="menu-icon fa-solid fa-person-praying"></span> <span class="menu-text">Prayer Time</span></a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="<?= PROOT; ?>admin/activity" class="menu-link"><span class="menu-icon fas fa-globe"></span> <span class="menu-text">Activities</span></a>
-                        </li>
-                        <li class="menu-item has-child">
                             <a href="javascript:;" class="menu-link"><span class="menu-icon fa-solid fa-person-rays"></span> <span class="menu-text">Executives</span></a>
                             <ul class="menu">
                                 <li class="menu-item">
@@ -83,6 +62,30 @@
                                     <a href="<?= PROOT; ?>admin/executives?add=1" class="menu-link">Add new Executive</a>
                                 </li>
                             </ul>
+                        </li>
+                        <li class="menu-item has-child">
+                            <a href="javascript:;" class="menu-link"><span class="menu-icon oi oi-browser"></span> <span class="menu-text">Layouts</span> <span class="badge badge-subtle badge-success">+4</span></a>
+                            <ul class="menu">
+                                <li class="menu-item">
+                                    <a href="layout-custom.html" class="menu-link">Custom</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="menu-item">
+                            <a href="<?= PROOT; ?>admin/dues" class="menu-link"><span class="menu-icon fa-brands fa-envira"></span> <span class="menu-text">Dues</span></a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="<?= PROOT; ?>admin/contacts" class="menu-link"><span class="menu-icon oi oi-envelope-open"></span> <span class="menu-text">Contacts</span></a>
+                        </li>
+                        <li class="menu-header">Interfaces </li>
+                        <li class="menu-item">
+                            <a href="<?= PROOT; ?>admin/prayer-time" class="menu-link"><span class="menu-icon fa-solid fa-person-praying"></span> <span class="menu-text">Prayer Time</span></a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="<?= PROOT; ?>admin/activity" class="menu-link"><span class="menu-icon fas fa-globe"></span> <span class="menu-text">Activities</span></a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="<?= PROOT; ?>admin/gallery" class="menu-link"><span class="menu-icon fa-brands fa-envira"></span> <span class="menu-text">Gallery</span></a>
                         </li>
                         <hr>
                         <li class="menu-item has-child">

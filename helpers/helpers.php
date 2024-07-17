@@ -29,7 +29,7 @@ function pretty_date_notime($date){
 
 // Display money in a readable way
 function money($number) {
-	return '$' . number_format($number, 2);
+	return '₵' . number_format($number, 2);
 }
 
 // Check For Incorrect Input Of Data

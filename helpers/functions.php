@@ -146,3 +146,18 @@ function count_activities($conn, $status) {
 	$statement->execute([$status]);
 	return $statement->rowCount();
 }
+
+// count activities by status
+function total_dues_this_year($conn) {
+	$thisYear = date('Y');
+	$query = "
+		SELECT SUM(transaction_amount) AS amt FROM gmsa_dues 
+        WHERE YEAR(createdAt) = ? 
+        AND transaction_intent = ? 
+	";
+	$statement = $conn->prepare($query);
+	$statement->execute(['paid', $thisYear]);
+	$row = $statement->fetchAll();
+
+	return money($row[0]['amt']);
+}

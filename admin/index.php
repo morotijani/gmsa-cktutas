@@ -68,6 +68,7 @@
         $statement = $conn->prepare($QUERY);
         $statement->execute();
         $rows = $statement->fetchAll();
+        $count_dues = $statement->rowCount();
 ?>
 
     <main class="app-main">
@@ -123,10 +124,10 @@
                                 <div class="col-lg-3">
                                     <a href="user-tasks.html" class="metric metric-bordered">
                                         <div class="metric-badge">
-                                            <span class="badge badge-lg badge-success"><span class="oi oi-media-record pulse mr-1"></span> ONGOING TASKS</span>
+                                            <span class="badge badge-lg badge-success"><span class="oi oi-media-record pulse mr-1"></span> PAID DUES THIS YEAR</span>
                                         </div>
                                         <p class="metric-value h3">
-                                            <sub><i class="oi oi-timer"></i></sub> <span class="value">8</span>
+                                            <sub><i class="fa fa-money"></i></sub> <span class="value"><?= total_dues_this_year($conn); ?></span>
                                         </p>
                                     </a>
                                 </div>
@@ -140,7 +141,6 @@
                             </div>
                             <div class="card card-fluid">
                                 <div class="card-body">
-                                    
                                     <div class="table-responsive">
                                         <table class="table">
                                             <thead>
