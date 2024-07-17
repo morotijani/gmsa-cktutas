@@ -6,7 +6,6 @@
     $TITLE = "Gallery";
     $navTheme = "";
     include ("../inc/header.inc.php");
-    include ("../inc/nav.inc.php");
 
 
 ?>
@@ -26,13 +25,13 @@
                                 <path d="M30.8,83.2c0.1,0.5-3.5,1.7-7.7,3.1c-4.3,1.4-9.2,3.1-12.1,4.1c-5.7,1.9-10.6,3.1-11,2.1 c-0.4-0.9,3.9-3.6,9.8-5.6c2.9-1,8.1-2.4,12.6-3.2C26.9,83,30.7,82.7,30.8,83.2z"/>
                             </svg>
                         </span>
-                        Pay your dues
+                        Pay your GMSA yearly dues.
                     </h1>
 
                     <form class="col-md-7 bg-light border rounded-2 position-relative mx-auto p-2 mt-4 mt-md-5">
                         <div class="input-group">
-                            <input class="form-control focus-shadow-none bg-light border-0 me-1" type="text" placeholder="Student ID">
-                            <button type="button" class="btn btn-dark rounded-2 mb-0"><i class="bi bi-search me-2"></i>Next</button>
+                            <input class="form-control focus-shadow-none bg-light border-0 me-1" type="text" autocomplete="off" autofocus id="studentid" placeholder="Student ID">
+                            <button type="button" id="dues_next" class="btn btn-dark rounded-2 mb-0"><i class="bi bi-forward-fill me-2"></i>Next</button>
                         </div>
                     </form>
                 </div>
@@ -48,6 +47,43 @@
         </section>
     </main>
 
-<?php include ("../inc/footer.inc.php"); ?>
-    <script type="text/javascript" src="<?= PROOT; ?>dist/js/glightbox.js"></script>
+    <script type="text/javascript" src="<?= PROOT; ?>dist/js/jquery-3.7.1.min.js"></script>
+    <script type="text/javascript" src="<?= PROOT; ?>dist/js/popper.min.js"></script>
+    <script type="text/javascript" src="<?= PROOT; ?>dist/js/bootstrap.min.js"></script>
     <script src="<?= PROOT; ?>dist/js/functions.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            // 
+            $('#dues_next').on('click', function() {
+                var type = 'find';
+                var studentid = $('#studentid').val();
+                if (studentid != '') {
+                    $.ajax({
+                        url : '<?= PROOT;?>auth/dues.find.student.php',
+                        method : 'POST',
+                        data : {
+                            type : type,
+                            studentid : studentid,
+                        },
+                        beforeSend: function() {
+
+                        },
+                        success: function(data) {
+
+                        },
+                        error: function(data) {
+
+                        }
+                    })
+                } else {
+                    console.log('Student ID required!');
+                    return false;
+                }
+            })
+        });
+    </script>
+
+</body>
+</html>

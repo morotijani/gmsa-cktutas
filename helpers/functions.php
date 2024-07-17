@@ -59,7 +59,7 @@ function find_prayer_by_id($id) {
 	$count_rows = $statement->rowCount();
 
 	$row = $statement->fetchAll();
-	return $row[0];
+	return (($statement->rowCount() > 0) ? $row[0] : '');
 }
 
 // find contact by id
@@ -75,7 +75,7 @@ function find_contact_by_id($id) {
 	$count_rows = $statement->rowCount();
 
 	$row = $statement->fetchAll();
-	return $row[0];
+	return (($statement->rowCount() > 0) ? $row[0] : '');
 }
 
 // find subscriber by id
@@ -91,7 +91,7 @@ function find_subscriber_by_id($id) {
 	$count_rows = $statement->rowCount();
 
 	$row = $statement->fetchAll();
-	return $row[0];
+	return (($statement->rowCount() > 0) ? $row[0] : '');
 }
 
 
@@ -108,7 +108,23 @@ function find_activity_by_id($id) {
 	$count_rows = $statement->rowCount();
 
 	$row = $statement->fetchAll();
-	return $row[0];
+	return (($statement->rowCount() > 0) ? $row[0] : '');
+}
+
+
+// find member by student id
+function find_member_by_studentID($conn, $studentid) {
+
+	$query = "
+		SELECT * FROM gmsa_members 
+		WHERE gmsa_members.member_studentid = ? 
+	";
+	$statement = $conn->prepare($query);
+	$statement->execute([$studentid]);
+	$count_rows = $statement->rowCount();
+
+	$row = $statement->fetchAll();
+	return (($statement->rowCount() > 0) ? $row[0] : '');
 }
 
 // count members by status
