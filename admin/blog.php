@@ -121,7 +121,7 @@
         $id = sanitize($_GET['id']);
         $sql = "
             SELECT * FROM gmsa_news 
-            WHERE id = ? 
+            WHERE news_id = ? 
             LIMIT 1
         ";
         $statement = $conn->prepare($sql);

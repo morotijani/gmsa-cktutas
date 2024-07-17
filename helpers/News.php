@@ -26,7 +26,7 @@
 
 		public function allNews($conn) {
 			$query = "
-		        SELECT *, gmsa_news.id AS news_id FROM gmsa_news 
+		        SELECT * FROM gmsa_news 
 		        INNER JOIN gmsa_categories 
 		        ON gmsa_categories.id = gmsa_news.news_category 
 		        INNER JOIN gmsa_admin 
@@ -183,7 +183,7 @@
 		public function fetchNews($conn, $offset, $per_page) {
 			$today = date("d");
 			$query = "
-				SELECT *, gmsa_news.id AS news_id, gmsa_news.createdAt AS ca FROM gmsa_news 
+				SELECT *, gmsa_news.createdAt AS ca FROM gmsa_news 
 				INNER JOIN gmsa_categories 
 				ON gmsa_categories.id = gmsa_news.news_category
 				WHERE gmsa_news.news_featured = ? 
@@ -243,7 +243,7 @@
 		// fetch all news except featured
 		public function fetchRecentNews($conn) {
 			$query = "
-				SELECT *, gmsa_news.id AS news_id, gmsa_news.createdAt AS ca FROM gmsa_news 
+				SELECT *, gmsa_news.createdAt AS ca FROM gmsa_news 
 				INNER JOIN gmsa_categories 
 				ON gmsa_categories.id = gmsa_news.news_category
 				WHERE gmsa_news.news_featured = ?
@@ -278,7 +278,7 @@
 		// fetch the 2 featured news
 		public function fetchFeaturedNews($conn) {
 			$query = "
-				SELECT *, gmsa_news.id AS news_id, gmsa_news.createdAt AS ca FROM gmsa_news 
+				SELECT *, gmsa_news.createdAt AS ca FROM gmsa_news 
 				INNER JOIN gmsa_categories 
 				ON gmsa_categories.id = gmsa_news.news_category
 				WHERE gmsa_news.news_featured = ?
@@ -321,7 +321,7 @@
 		// fetch the random 1 news
 		public function fetchOneRandomNews($conn) {
 			$query = "
-				SELECT *, gmsa_news.id AS news_id, gmsa_news.createdAt AS ca FROM gmsa_news 
+				SELECT *, gmsa_news.createdAt AS ca FROM gmsa_news 
 				INNER JOIN gmsa_categories 
 				ON gmsa_categories.id = gmsa_news.news_category
 				WHERE gmsa_news.news_featured = ?
@@ -362,7 +362,7 @@
 		// get main or one feature post for the news
 		public function fetch_oneFeaturedNews($conn) {
 			$query = "
-				SELECT *, gmsa_news.id AS news_id, gmsa_news.createdAt AS ca FROM gmsa_news 
+				SELECT *, gmsa_news.createdAt AS ca FROM gmsa_news 
 				INNER JOIN gmsa_categories 
 				ON gmsa_categories.id = gmsa_news.news_category
 				WHERE gmsa_news.news_featured = ?
