@@ -41,6 +41,7 @@
     <main class="app-main">
         <div class="wrapper">
             <div class="page">
+                <?= $flash; ?>
                 <div class="page-inner">
 
                     <header class="page-title-bar">
@@ -51,7 +52,6 @@
                             </div>
                         </div>
                     </header>
-                    <div class="text-center"><?= $flash; ?></div>
                     <div class="page-section">
                         <div class="card card-fluid">
                             <div class="card-body">

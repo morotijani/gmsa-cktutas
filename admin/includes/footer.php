@@ -50,6 +50,10 @@
         gtag('js', new Date());
         gtag('config', 'UA-116692175-1');
 
+        // $('#temporary').parent().fadeOut('');
+        // Fade out messages
+        $("#temporary").fadeOut(6000);
+
         function isNumberKey(evt) {
             var charCode = (evt.which) ? evt.which : evt.keyCode
             return !(charCode > 31 && (charCode < 48 || charCode > 57));

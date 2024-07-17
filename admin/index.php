@@ -9,6 +9,7 @@
     <main class="app-main">
         <div class="wrapper">
             <div class="page">
+                <?= $flash; ?>
                 <div class="page-inner">
 
                     <header class="page-title-bar">

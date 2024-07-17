@@ -52,6 +52,7 @@
     <main class="app-main">
         <div class="wrapper">
             <div class="page">
+                <?= $flash; ?>
                 <div class="page-inner">
 
                     <header class="page-title-bar">
@@ -66,7 +67,6 @@
                             </div>
                         </div>
                     </header>
-                    <div><?= $flash; ?></div>
                     <div class="page-section">
                         <?php if (isset($_GET['edit']) && !empty($_GET['edit'])): ?>
                             <div class="card">

@@ -56,7 +56,7 @@
 		                    <td>" . pretty_date($new['createdAt']) . "</td>
 		                    <td>" . ucwords($new['admin_fullname']) . "</td>
 		                    <td>
-		                    	<a class='badge badge-subtle badge-" . (($new['news_featured'] == 1) ? 'secondary' : 'dark') . " text-decoration-none' href='" . PROOT . 'admin/blog/add/featured/' . $new['news_id'] . '/' . (($new['news_featured'] == 0) ? 1 : 2) . "'>" . (($new['news_featured'] == 1) ? 'featured' : '+ featured') . "</a>
+		                    	<a class='badge badge-subtle badge-" . (($new['news_featured'] == 1) ? 'success' : 'dark') . " text-decoration-none' href='" . PROOT . 'admin/blog/add/featured/' . $new['news_id'] . '/' . (($new['news_featured'] == 0) ? 1 : 2) . "'>" . (($new['news_featured'] == 1) ? 'featured' : '+ featured') . "</a>
 		                    </td>
 		                    <td>
 		                        <a class='btn btn-primary text-decoration-none' href='javascript:;' data-toggle='modal' data-target='#viewModal" . $this->i . "'>View</a>

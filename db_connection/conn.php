@@ -104,16 +104,29 @@
  	$flash = '';
  	if (isset($_SESSION['flash_success'])) {
  	 	$flash = '
- 	 		<div class="bg-success" id="temporary">
+ 	 		<!-- <div class="bg-success" id="temporary">
  	 			<p class="text-white">' . $_SESSION['flash_success'] . '</p>
- 	 		</div>';
+ 	 		</div> -->
+
+ 	 		<div class="page-message bg-success" role="alert" id="temporary">
+              <i class="fa fa-fw fa-wrench"></i> ' . $_SESSION['flash_success'] . ': <span class="text-muted-dark text-sm">' . date('H:m:s A') . '</span>. <a href="#" class="btn btn-sm btn-icon btn-warning ml-1" aria-label="Close" onclick="$(this).parent().fadeOut()"><span aria-hidden="true"><i class="fa fa-times"></i></span></a>
+            </div>
+
+ 	 	';
  	 	unset($_SESSION['flash_success']);
  	}
 
  	if (isset($_SESSION['flash_error'])) {
  	 	$flash = '
- 	 		<div class="bg-danger" id="temporary">
+ 	 		<!-- <div class="bg-danger" id="temporary">
  	 			<p class="text-white">' . $_SESSION['flash_error'] . '</p>
- 	 		</div>';
+ 	 		</div> -->
+
+
+ 	 		<div class="page-message bg-danger" role="alert" id="temporary">
+              <i class="fa fa-fw fa-wrench"></i> ' . $_SESSION['flash_error'] . ': <span class="text-muted-dark text-sm">' . date('H:m:s A') . '</span>. <a href="#" class="btn btn-sm btn-icon btn-warning ml-1" aria-label="Close" onclick="$(this).parent().fadeOut()"><span aria-hidden="true"><i class="fa fa-times"></i></span></a>
+            </div>
+
+ 	 	';
  	 	unset($_SESSION['flash_error']);
  	}

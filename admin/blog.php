@@ -94,7 +94,6 @@
      */
     if (isset($_GET['status']) && $_GET['status'] == 'featured' && !empty($_GET['id']) && !empty($_GET['featured'])) {
         $_GET['featured'] = (($_GET['featured'] == 2) ? 0 : $_GET['featured']);
-        // dnd($_GET['featured']);
         $feature = $News->featuredNews($conn, (int)$_GET['featured'], sanitize($_GET['id']));
         if ($feature) {
             $_SESSION['flash_success'] = 'News ' . (($_GET['featured'] == 0) ? 'un-featured' : 'featured') . ' successfully!';
@@ -217,6 +216,7 @@
     <main class="app-main">
         <div class="wrapper">
             <div class="page">
+                <?= $flash; ?>
                 <div class="page-inner">
 
                     <header class="page-title-bar">
@@ -238,7 +238,6 @@
                             </div>
                         </div>
                     </header>
-                    <div><?= $flash; ?></div>
                     <div class="page-section">
                         <div class="card card-fluid">
 
@@ -409,8 +408,6 @@
     <script type="text/javascript">
      
         $(document).ready(function() {
-            // Fade out messages
-            $("#temporary").fadeOut(5000);
 
             // Upload IMAGE Temporary
             $(document).on('change','#passport', function() {
