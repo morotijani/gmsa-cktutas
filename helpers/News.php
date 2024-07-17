@@ -49,12 +49,12 @@
 		                    <td>" . pretty_date($new['createdAt']) . "</td>
 		                    <td>" . ucwords($new['admin_fullname']) . "</td>
 		                    <td>
-		                    	<a class='badge bg-" . (($new['news_featured'] == 1) ? 'secondary' : 'primary') . " text-decoration-none' href='" . PROOT . 'admin/blog/add/featured/' . $new['news_id'] . '/' . (($new['news_featured'] == 0) ? 1 : 2) . "'>" . (($new['news_featured'] == 1) ? 'featured' : '+ featured') . "</a>
+		                    	<a class='badge bg-" . (($new['news_featured'] == 1) ? 'secondary' : 'dark') . " text-decoration-none' href='" . PROOT . 'admin/blog/add/featured/' . $new['news_id'] . '/' . (($new['news_featured'] == 0) ? 1 : 2) . "'>" . (($new['news_featured'] == 1) ? 'featured' : '+ featured') . "</a>
 		                    </td>
 		                    <td>
-		                        <a class='badge bg-primary text-decoration-none' href='javascript:;' data-bs-toggle='modal' data-bs-target='#viewModal" . $this->i . "'>View</a>
-		                        <a href='javascript:;' class='badge bg-danger text-decoration-none' data-bs-toggle='modal' data-bs-target='#deleteModal" . $this->i . "'>Delete</a>
-		                        <a class='badge bg-secondary text-decoration-none' href='" . PROOT . "admin/blog/add/edit_news/" . $new['news_id'] . "'>Edit</a>
+		                        <a class='btn btn-primary text-decoration-none' href='javascript:;' data-toggle='modal' data-target='#viewModal" . $this->i . "'>View</a>
+		                        <a class='btn btn-secondary text-decoration-none' href='" . PROOT . "admin/blog/add/edit_news/" . $new['news_id'] . "'>Edit</a>
+		                        <a href='javascript:;' class='btn btn-danger text-decoration-none' data-toggle='modal' data-target='#deleteModal" . $this->i . "'>Delete</a>
 
 		                        <!-- VIEW DETAILS MODAL -->
 								<div class='modal fade' id='viewModal" . $this->i . "' tabindex='-1' aria-labelledby='viewModalLabel' aria-hidden='true' data-bs-backdrop='static' data-bs-keyboard='false'>
@@ -76,8 +76,8 @@
 								      				Views; " . $new['news_views'] . " <br>
 								      			</small>
 								      			<br>
-								        		<button type='button' class='btn btn-sm btn-secondary rounded-0' data-bs-dismiss='modal'>Close</button>
-								        		<a href='javascript:;' data-bs-toggle='modal' data-bs-target='#deleteModal" . $this->i . "' class='btn btn-sm btn-outline-danger rounded-0'>Delete.</a>
+								        		<button type='button' class='btn btn-secondary rounded-0' data-bs-dismiss='modal'>Close</button>
+								        		<a href='javascript:;' data-bs-toggle='modal' data-bs-target='#deleteModal" . $this->i . "' class='btn btn-outline-danger rounded-0'>Delete.</a>
 								      		</div>
 								    	</div>
 								 	</div>

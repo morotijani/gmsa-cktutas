@@ -120,7 +120,7 @@
     if (isset($_GET['status']) && $_GET['status'] == 'edit_news') { 
         $id = sanitize($_GET['id']);
         $sql = "
-            SELECT * FROM tein_news 
+            SELECT * FROM gmsa_news 
             WHERE id = ? 
             LIMIT 1
         ";
@@ -151,7 +151,7 @@
                 $news_media = 'assets/media/news/'.$image_name;
                 move_uploaded_file($_FILES["news_media"]["tmp_name"], BASEURL . $news_media);
                 
-                if ($_POST['uploaded_image'] != '') {
+                if (isset($_POST['uploaded_image']) && $_POST['uploaded_image'] != '') {
                     unlink($_POST['uploaded_image']);
                 }
             } else {
@@ -161,21 +161,23 @@
             $news_media = $_POST['uploaded_news_media'];
         }
 
+        $news_id = guidv4();
         $query = "
-            INSERT INTO `tein_news`(`news_title`, `news_url`, `news_content`, `news_media`, `news_category`, `news_created_by`) 
-            VALUES (?, ?, ?, ?, ?, ?)
+            INSERT INTO `gmsa_news`(`news_title`, `news_url`, `news_content`, `news_media`, `news_category`, `news_created_by`, `news_id`) 
+            VALUES (?, ?, ?, ?, ?, ?, ?)
         ";
         if (isset($_GET['status']) && $_GET['status'] == 'edit_news') {
+            $news_id = $id;
             $query = "
-                UPDATE tein_news 
-                SET news_title = ?, news_url = ?,  news_content = ?,  news_media = ?,  news_category = ?, news_created_by = ?
-                WHERE id = " . $id . "
+                UPDATE gmsa_news 
+                SET news_title = ?, news_url = ?,  news_content = ?,  news_media = ?,  news_category = ?, news_updated_by = ?
+                WHERE news_id = ?
             ";
         }
         $statement = $conn->prepare($query);
-        $result = $statement->execute([$news_title, $news_url, $news_content, $news_media, $news_category, $news_created_by]);
+        $result = $statement->execute([$news_title, $news_url, $news_content, $news_media, $news_category, $news_created_by, $news_id]);
         if (isset($result)) {
-            $_SESSION['flash_success'] = ucwords($news_title) . ' successfully ' . ((isset($_GET['status']) && $_GET['status'] == 'edit_news') ? 'updated' : 'added') . '!';        
+            $_SESSION['flash_success'] = ucwords($news_title) . ' successfully ' . ((isset($_GET['status']) && $_GET['status'] == 'edit_news') ? 'updated' : 'added') . '!';
             redirect(PROOT . 'admin/blog/all');
         } else {
             $_SESSION['flash_error'] = 'Something went wrong, please try again';
@@ -186,7 +188,7 @@
 
     // DELETE A picture on edit news post
     if ((isset($_GET['delete_np']) && !empty($_GET['delete_np'])) && (isset($_GET['image']) && !empty($_GET['image']))) {
-        $result = $News->deleteNewsMedia($conn, (int)$_GET['delete_np'], sanitize($_GET['image']));
+        $result = $News->deleteNewsMedia($conn, sanitize($_GET['delete_np']), sanitize($_GET['image']));
         if ($result) {
             $_SESSION['flash_success'] = 'Media deleted, upload new one!';            
             redirect(PROOT . 'admin/blog/add/edit_news/' . sanitize($_GET['delete_np']));
@@ -305,51 +307,57 @@
                                     <div class="container-fluid mt-4">
                                         <?= $message; ?>
                                         <form method="POST" enctype="multipart/form-data" action="<?= ((isset($_GET['status']) && $_GET['status'] == 'edit_news') ? '?edit_news=' . sanitize($_GET['id']) : ''); ?>">
-                                            <div class="mb-3">
-                                                <label for="news_title">Heading</label>
-                                                <input type="text" class="form-control form-control-sm" name="news_title" id="news_title" value="<?= $news_title; ?>" required>
-                                            </div>
-
-                                            <div class="mb-3">
-                                                <label for="news_category">Category</label>
-                                                <select type="text" class="form-control form-control-sm" name="news_category" id="news_category" required>
-                                                   <option value="" <?= (($news_category == '') ? 'selected' : ''); ?>>...</option>
-                                                    <?php foreach ($Category->listCategory($conn) as $category_row): ?>
-                                                        <option value="<?= $category_row['id']; ?>" <?= (($news_category == $category_row['id']) ? 'selected' : ''); ?>><?= ucwords($category_row['category']); ?></option>
-                                                    <?php endforeach ?>
-                                                </select>
-                                            </div>
-
-                                            <div class="mb-3">
-                                                <label for="news_content" class="form-label">Content</label>
-                                                <textarea name="news_content" id="news_content" rows="9" class="form-control form-control-sm" required><?= $news_content; ?></textarea>
-                                                <div class="form-text text-white">Type in news details.</div>
-                                            </div>
-
-                                            <?php if ($news_media != ''): ?>
-                                            <div class="mb-3">
-                                                <label>Product Image</label><br>
-                                                <img src="<?= PROOT . $news_media; ?>" class="img-fluid img-thumbnail" style="width: 200px; height: 200px; object-fit: cover;">
-                                                <a href="<?= PROOT; ?>admin/blog?delete_np=<?= $_GET['id']; ?>&image=<?= $news_media; ?>" class="badge bg-danger">Change Image</a>
-                                            </div>
-                                            <?php else: ?>
-                                            <div class="mb-3">
-                                                <div>
-                                                    <label for="news_media" class="form-label">Featured news image</label>
-                                                    <input type="file" class="form-control form-control-sm" id="news_media" name="news_media" required>
-                                                    <span id="upload_file"></span>
+                                            <fieldset>
+                                                 <legend>Add news</legend>
+                                                <div class="form-group">
+                                                    <div class="form-label-group">
+                                                        <input type="text" class="form-control" name="news_title" id="news_title" value="<?= $news_title; ?>" required>
+                                                        <label for="news_title">Heading</label>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <?php endif; ?>
-                                            <input type="hidden" name="uploaded_news_media" id="uploaded_news_media" value="<?= $news_media; ?>">
+                                                <div class="form-group">
+                                                    <div class="form-label-group">
+                                                        <select type="text" class="custom-select" name="news_category" id="news_category" required>
+                                                           <option value="" <?= (($news_category == '') ? 'selected' : ''); ?>>...</option>
+                                                            <?php foreach ($Category->listCategory($conn) as $category_row): ?>
+                                                                <option value="<?= $category_row['id']; ?>" <?= (($news_category == $category_row['id']) ? 'selected' : ''); ?>><?= ucwords($category_row['category']); ?></option>
+                                                            <?php endforeach ?>
+                                                        </select>
+                                                        <label for="news_category">Category</label>
+                                                    </div>
+                                                </div>
 
-                                            <div class="mt-2 mb-3">
-                                                <button type="submit" class="btn btn-sm btn-outline-secondary" name="submitNews" id="submitNews"><?= (isset($_GET['status']) && $_GET['status'] == 'edit_news') ? 'Update': 'Create'; ?> News</button>
-                                                <?php if (isset($_GET['status']) && $_GET['status'] == 'edit_news'): ?>
-                                                    <br><br>
-                                                    <a href="<?= PROOT; ?>admin/blog/all" class="button text-secondary">Cancel</a>
-                                                <?php endif ?>
-                                            </div>
+                                                <div class="mb-3">
+                                                    <label for="news_content" class="form-label">Content</label>
+                                                    <textarea name="news_content" id="news_content" rows="9" class="form-control" required><?= $news_content; ?></textarea>
+                                                    <div class="form-text text-white">Type in news details.</div>
+                                                </div>
+
+                                                <?php if ($news_media != ''): ?>
+                                                <div class="mb-3">
+                                                    <label>Product Image</label><br>
+                                                    <img src="<?= PROOT . $news_media; ?>" class="img-fluid img-thumbnail" style="width: 200px; height: 200px; object-fit: cover;">
+                                                    <a href="<?= PROOT; ?>admin/blog?delete_np=<?= $_GET['id']; ?>&image=<?= $news_media; ?>" class="badge bg-danger">Change Image</a>
+                                                </div>
+                                                <?php else: ?>
+                                                <div class="mb-3">
+                                                    <div>
+                                                        <label for="news_media" class="form-label">Featured news image</label>
+                                                        <input type="file" class="form-control" id="news_media" name="news_media" required>
+                                                        <span id="upload_file"></span>
+                                                    </div>
+                                                </div>
+                                                <?php endif; ?>
+                                                <input type="hidden" name="uploaded_news_media" id="uploaded_news_media" value="<?= $news_media; ?>">
+
+                                                <div class="form-actions mb-2">
+                                                    <button type="submit" class="btn btn-secondary" name="submitNews" id="submitNews"><?= (isset($_GET['status']) && $_GET['status'] == 'edit_news') ? 'Update': 'Create'; ?> News</button>
+                                                    <?php if (isset($_GET['status']) && $_GET['status'] == 'edit_news'): ?>
+                                                        <br><br>
+                                                        <a href="<?= PROOT; ?>admin/blog/all" class="btn">Cancel</a>
+                                                    <?php endif ?>
+                                                </div>
+                                            </fieldset>
                                         </form>
                                     </div>
                                     <script src="https://cdn.tiny.cloud/1/87lq0a69wq228bimapgxuc63s4akao59p3y5jhz37x50zpjk/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
@@ -375,4 +383,113 @@
     </div>
 
 <?php include ("includes/footer.php"); ?>
+
+    <script type="text/javascript">
+     
+        $(document).ready(function() {
+            // Fade out messages
+            $("#temporary").fadeOut(5000);
+
+            // Upload IMAGE Temporary
+            $(document).on('change','#passport', function() {
+
+                var property = document.getElementById("passport").files[0];
+                var image_name = property.name;
+
+                var image_extension = image_name.split(".").pop().toLowerCase();
+                if (jQuery.inArray(image_extension, ['jpeg', 'png', 'jpg']) == -1) {
+                    alert("The file extension must be .jpg, .png, .jpeg");
+                    $('#passport').val('');
+                    return false;
+                }
+
+                var image_size = property.size;
+                if (image_size > 15000000) {
+                    alert('The file size must be under 15MB');
+                    return false;
+                } else {
+
+                    var form_data = new FormData();
+                    form_data.append("passport", property);
+                    $.ajax({
+                        url: "<?= PROOT; ?>.in/auth/temporary.upload.php",
+                        method: "POST",
+                        data: form_data,
+                        contentType: false,
+                        cache: false,
+                        processData: false,
+                        beforeSend: function() {
+                            $("#upload_file").html("<div class='text-success font-weight-bolder'>Uploading member image ...</div>");
+                        },
+                        success: function(data) {
+                            $("#upload_file").html(data);
+                            $('#passport').css('visibility', 'hidden');
+                        }
+                    });
+                }
+            });
+
+            // DELETE TEMPORARY UPLOADED IMAGE
+            $(document).on('click', '.removeImg', function() {
+                var tempuploded_file_id = $(this).attr('id');
+
+                $.ajax ({
+                    url: "<?= PROOT; ?>admin/auth/delete.temporary.uploaded.php",
+                    method: "POST",
+                    data:{
+                        tempuploded_file_id : tempuploded_file_id
+                    },
+                    success: function(data) {
+                        $('#removeTempuploadedFile').remove();
+                        $('#passport').css('visibility', 'visible');
+                        $('#passport').val('');
+
+                        $('#news_media').css('visibility', 'visible');
+                        $('#news_media').val('');
+                    }
+                });
+            });
+
+
+            // Upload IMAGE Temporary
+            $(document).on('change','#news_media', function() {
+
+                var property = document.getElementById("news_media").files[0];
+                var image_name = property.name;
+
+                var image_extension = image_name.split(".").pop().toLowerCase();
+                if (jQuery.inArray(image_extension, ['jpeg', 'png', 'jpg', 'gif']) == -1) {
+                    alert("The file extension must be .jpg, .png, .jpeg, .gif");
+                    $('#news_media').val('');
+                    return false;
+                }
+
+                var image_size = property.size;
+                if (image_size > 15000000) {
+                    alert('The file size must be under 15MB');
+                    return false;
+                } else {
+
+                    var form_data = new FormData();
+                    form_data.append("news_media", property);
+                    $.ajax({
+                        url: "<?= PROOT; ?>admin/auth/temporary.upload.news.php",
+                        method: "POST",
+                        data: form_data,
+                        contentType: false,
+                        cache: false,
+                        processData: false,
+                        beforeSend: function() {
+                            $("#upload_file").html("<div class='text-success font-weight-bolder'>Uploading news image ...</div>");
+                        },
+                        success: function(data) {
+                            $("#upload_file").html(data);
+                            $('#news_media').css('visibility', 'hidden');
+                        }
+                    });
+                }
+            });
+
+        });
+    </script>
 

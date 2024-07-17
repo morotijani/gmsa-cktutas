@@ -49,6 +49,11 @@
       
         gtag('js', new Date());
         gtag('config', 'UA-116692175-1');
+
+        function isNumberKey(evt) {
+            var charCode = (evt.which) ? evt.which : evt.keyCode
+            return !(charCode > 31 && (charCode < 48 || charCode > 57));
+        }
     </script>
 </body>
 </html>
