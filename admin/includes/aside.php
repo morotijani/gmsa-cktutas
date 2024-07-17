@@ -16,7 +16,7 @@
                 <nav id="stacked-menu" class="stacked-menu">
                     <ul class="menu">
                         <li class="menu-item has-active">
-                            <a href="index.html" class="menu-link"><span class="menu-icon fas fa-home"></span> <span class="menu-text">Dashboard</span></a>
+                            <a href="<?= PROOT; ?>admin" class="menu-link"><span class="menu-icon fas fa-home"></span> <span class="menu-text">Dashboard</span></a>
                         </li>
                         <li class="menu-item has-child">
                             <a href="javascript:;" class="menu-link"><span class="menu-icon fa-regular fa-newspaper"></span> <span class="menu-text">Blog / News</span> <span class="badge badge-warning">New</span></a>
