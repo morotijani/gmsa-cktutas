@@ -91,7 +91,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-actions">
-                                                <button class="btn btn-primary" type="submit" name="submit">Update prayer</button>
+                                                <button class="btn btn-success" type="submit" name="submit">Update prayer</button>
                                                 <a class="btn" href="<?= PROOT; ?>admin/prayer-time">Cancel update</a>
                                             </div>
                                         </fieldset>

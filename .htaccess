@@ -1,9 +1,9 @@
 RewriteEngine on
 
-RewriteRule ^admin/blog/([0-9a-zA-Z]+)$ admin/blog.php?type=$1 [NC,L]
+RewriteRule ^admin/blog/([0-9a-zA-Z_-]+)$ admin/blog.php?type=$1 [NC,L]
 RewriteRule ^admin/blog/([0-9a-zA-Z_-]+)/([0-9a-zA-Z_-]+)$ admin/blog.php?type=$1&status=$2 [NC,L]
-RewriteRule ^admin/blog/([0-9a-zA-Z_-]+)/([0-9a-zA-Z_-]+)/([0-9]+)$ admin/blog.php?type=$1&status=$2&id=$3 [NC,L]
-RewriteRule ^admin/blog/([0-9a-zA-Z_-]+)/([0-9a-zA-Z_-]+)/([0-9]+)/([0-9]+)$ admin/blog.php?type=$1&status=$2&id=$3&featured=$4 [NC,L]
+RewriteRule ^admin/blog/([0-9a-zA-Z_-]+)/([0-9a-zA-Z_-]+)/([0-9a-zA-Z_-]+)$ admin/blog.php?type=$1&status=$2&id=$3 [NC,L]
+RewriteRule ^admin/blog/([0-9a-zA-Z_-]+)/([0-9a-zA-Z_-]+)/([0-9a-zA-Z_-]+)/([0-9a-zA-Z_-]+)$ admin/blog.php?type=$1&status=$2&id=$3&featured=$4 [NC,L]
 
 RewriteRule ^view/([a-zA-Z0-9-/]+)$ view.php?url=$1 [NC,L]
 RewriteRule ^view/([a-zA-Z-0-9-]+)/ view.php?url=$1 [NC,L]

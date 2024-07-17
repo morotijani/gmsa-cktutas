@@ -15,11 +15,11 @@
 
     // category edit
     if ((isset($_GET['status']) && $_GET['status'] == 'edit_category')) {
-        $id = sanitize((int)$_GET['id']);
+        $id = sanitize($_GET['id']);
 
         $sql = "
             SELECT * FROM gmsa_categories 
-            WHERE id = ? 
+            WHERE category_id = ? 
             LIMIT 1
         ";
         $statement = $conn->prepare($sql);
@@ -29,7 +29,7 @@
             $category =  (isset($_POST['category']) ? sanitize($_POST['category']) : $row[0]['category']);
         } else {
             echo js_alert('Something went wrong, please try again');
-            redirect(PROOT . 'admin/category');
+            redirect(PROOT . 'admin/blog/category');
         }
     }
 
@@ -44,19 +44,22 @@
                 $message = $category . ' already exists.';
             } else {
                 $category_url = php_url_slug($category);
+                $category_id = guidv4();
+
                 $q = "
-                    INSERT INTO gmsa_categories (category, category_url) 
-                    VALUES (?, ?)
+                    INSERT INTO gmsa_categories (category, category_url, category_id) 
+                    VALUES (?, ?, ?)
                 ";
                 if (isset($_GET['status']) && $_GET['status'] == 'edit_category') {
+                    $category_id = $id;
                     $q = "
                         UPDATE gmsa_categories 
                         SET category = ?, category_url = ?
-                        WHERE id = " . $id . "
+                        WHERE category_id = ?
                     ";
                 }
                 $statement = $conn->prepare($q);
-                $result = $statement->execute([$category, $category_url]);
+                $result = $statement->execute([$category, $category_url, $category_id]);
                 if (isset($result)) {
                     $_SESSION['flash_success'] = ucwords($category) . ' successfully ' . ((isset($_GET['status']) && $_GET['status'] == 'edit_category') ? 'updated' : 'added') . '!';        
                     redirect(PROOT . 'admin/blog/category');
@@ -66,13 +69,13 @@
                 }
             }
         } else {
-            $message = 'Category name required.';
+            $message = 'Category name required!';
         }
     }
 
     // DELETE A Category
     if ((isset($_GET['type']) && $_GET['type'] == 'category') && (isset($_GET['status']) && $_GET['status'] == 'delete')) {
-        $delete = sanitize((int)$_GET['id']);
+        $delete = sanitize($_GET['id']);
         $result = $Category->deleteCategory($conn, $delete);
         if ($result) {
             $_SESSION['flash_success'] = 'Category deleted!';            
@@ -92,7 +95,7 @@
     if (isset($_GET['status']) && $_GET['status'] == 'featured' && !empty($_GET['id']) && !empty($_GET['featured'])) {
         $_GET['featured'] = (($_GET['featured'] == 2) ? 0 : $_GET['featured']);
         // dnd($_GET['featured']);
-        $feature = $News->featuredNews($conn, (int)$_GET['featured'], (int)$_GET['id']);
+        $feature = $News->featuredNews($conn, (int)$_GET['featured'], sanitize($_GET['id']));
         if ($feature) {
             $_SESSION['flash_success'] = 'News ' . (($_GET['featured'] == 0) ? 'un-featured' : 'featured') . ' successfully!';
             redirect(PROOT . 'admin/blog/all');
@@ -115,7 +118,7 @@
 
     // news edit
     if (isset($_GET['status']) && $_GET['status'] == 'edit_news') { 
-        $id = sanitize((int)$_GET['id']);
+        $id = sanitize($_GET['id']);
         $sql = "
             SELECT * FROM tein_news 
             WHERE id = ? 
@@ -186,10 +189,10 @@
         $result = $News->deleteNewsMedia($conn, (int)$_GET['delete_np'], sanitize($_GET['image']));
         if ($result) {
             $_SESSION['flash_success'] = 'Media deleted, upload new one!';            
-            redirect(PROOT . 'admin/blog/add/edit_news/' . (int)$_GET['delete_np']);
+            redirect(PROOT . 'admin/blog/add/edit_news/' . sanitize($_GET['delete_np']));
         } else {
             $_SESSION['flash_error'] = 'Something went wrong, please try again';
-            redirect(PROOT . 'admin/blog/add/edit_news/' . (int)$_GET['delete_np']);
+            redirect(PROOT . 'admin/blog/add/edit_news/' . sanitize($_GET['delete_np']));
         }
     }
 
@@ -197,7 +200,7 @@
     if (isset($_GET['type']) && $_GET['type'] == 'add') {
         if (isset($_GET['status']) && $_GET['status'] == 'delete') {
             // code...
-            $delete = $News->deleteNews($conn, sanitize((int)$_GET['id']));
+            $delete = $News->deleteNews($conn, sanitize($_GET['id']));
             if (isset($delete)) {
                 $_SESSION['flash_success'] = 'News deleted but temporary';
                 redirect(PROOT . 'admin/blog/all');
@@ -208,19 +211,6 @@
         }
     }
 
-
-    // delete subscriber
-    if (isset($_GET['status']) && $_GET['status'] == 'delete_subscriber') {
-        $delete = $News->deleteSubscriber($conn, (int)$_GET['id']);
-        if ($delete) {
-            // code...
-            $_SESSION['flash_success'] = 'Subscriber deleted!';            
-            redirect(PROOT . 'admin/blog/subscribers/' . (int)$_GET['delete_np']);
-        } else {
-            $_SESSION['flash_error'] = 'Something went wrong, please try again';
-            redirect(PROOT . 'admin/blog/subscribers/' . (int)$_GET['delete_np']);
-        }
-    }
 ?> 
     <main class="app-main">
         <div class="wrapper">
@@ -236,8 +226,8 @@
                                     <button type="button" class="btn btn-light" data-toggle="dropdown" aria-expanded="false"><span>More</span> <span class="fa fa-caret-down"></span></button>
                                     <div class="dropdown-menu dropdown-menu-right" style="">
                                         <div class="dropdown-arrow"></div>
-                                        <a href="#" class="dropdown-item">Add tasks</a> 
-                                        <a href="#" class="dropdown-item">Invite members</a>
+                                        <a href="<?= PROOT; ?>admin/blog/add" class="dropdown-item">Add news</a> 
+                                        <a href="<?= PROOT; ?>admin/blog/category" class="dropdown-item">Add Category</a>
                                         <div class="dropdown-divider"></div>
                                         <a href="#" class="dropdown-item">Share</a> 
                                         <a href="#" class="dropdown-item">Archive</a>
@@ -273,40 +263,40 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                <?php elseif ($_GET['type'] == 'subscribers'): ?>
                                 <?php elseif ($_GET['type'] == 'category' || (isset($_GET['status']) && $_GET['status'] == 'edit_category')): ?>
                                     <div class="container-fluid mt-4">
                                         <div>
-                                            <code><?= $message; ?></code>
-                                            <form method="POST" action="<?= ((isset($_GET['status']) && $_GET['status'] == 'edit_category') ? '?edit_category=' . (int)$_GET['id'] : ''); ?>">
-                                                <div class="mb-3">
-                                                    <div>
-                                                        <label for="category" class="form-label">Category</label>
-                                                        <input type="text" class="form-control form-control-sm" id="category" name="category" placeholder="Category name" value="<?= $category; ?>" required>
+                                            <form method="POST" action="
+                                            <?= ((isset($_GET['status']) && $_GET['status'] == 'edit_category') ? '?edit_category=' . sanitize($_GET['id']) : ''); ?>">
+                                                <div class="bg-danger text-center"><?= $message; ?></div>
+                                                <fieldset>
+                                                    <legend>Category</legend>
+                                                    <div class="form-group">
+                                                        <div class="form-label-group">
+                                                            <input type="text" class="form-control" id="category" name="category" placeholder="Category name" required="" value="<?= $category; ?>"> <label for="category">Category</label>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="mt-2 mb-2">
-                                                    <button type="submit" class="btn btn-sm btn-outline-secondary" name="submit_category" id="submit_category"><?= (isset($_GET['status']) && $_GET['status'] == 'edit') ? 'Update': 'Add'; ?> Category</button>
-                                                    <?php if ((isset($_GET['status']) && $_GET['status'] == 'edit_category')): ?>
-                                                        <a href="<?= PROOT; ?>admin/blog/category">Cancel</a>
-                                                    <?php endif ?>
-                                                </div>
+                                                    <div class="form-actions">
+                                                        <button type="submit" class="btn btn-success" name="submit_category" id="submit_category"><?= (isset($_GET['status']) && $_GET['status'] == 'edit_category') ? 'Update': 'Add'; ?> Category</button>
+                                                        <?php if ((isset($_GET['status']) && $_GET['status'] == 'edit_category')): ?>
+                                                            <a href="<?= PROOT; ?>admin/blog/category" class="btn">Cancel</a>
+                                                        <?php endif; ?>
+                                                    </div>
+                                                </fieldset>
                                             </form>
                                         </div>
-
-                                        <table class="table table-sm text-white table-bordered my-4" style="width: auto; margin: 0 auto;">
+                                        <br>
+                                        <table class="table text-center">
                                             <thead>
-                                                <tr style="color: #A7A7A7; font-weight: 700;">
+                                                <tr>
                                                     <th></th>
                                                     <th>Category</th>
-                                                    <th></th>
+                                                    <th>Date</th>
                                                     <th></th>
                                                 </tr>
                                             </thead>
                                             <tbody>                                            
-                                                <?php 
-                                                    echo $Category->allCategory($conn);
-                                                ?>
+                                                <?= $Category->allCategory($conn); ?>
                                             </tbody>
                                         </table>
                                     </div>
@@ -314,7 +304,7 @@
                                     <!-- ADD NEWS -->
                                     <div class="container-fluid mt-4">
                                         <?= $message; ?>
-                                        <form method="POST" enctype="multipart/form-data" action="<?= ((isset($_GET['status']) && $_GET['status'] == 'edit_news') ? '?edit_news=' . (int)$_GET['id'] : ''); ?>">
+                                        <form method="POST" enctype="multipart/form-data" action="<?= ((isset($_GET['status']) && $_GET['status'] == 'edit_news') ? '?edit_news=' . sanitize($_GET['id']) : ''); ?>">
                                             <div class="mb-3">
                                                 <label for="news_title">Heading</label>
                                                 <input type="text" class="form-control form-control-sm" name="news_title" id="news_title" value="<?= $news_title; ?>" required>

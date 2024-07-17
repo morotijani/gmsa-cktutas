@@ -49,12 +49,12 @@
 		                    <td>" . pretty_date($new['createdAt']) . "</td>
 		                    <td>" . ucwords($new['admin_fullname']) . "</td>
 		                    <td>
-		                    	<a class='badge bg-" . (($new['news_featured'] == 1) ? 'secondary' : 'primary') . " text-decoration-none' href='" . PROOT . '.in/blog/add/featured/' . $new['news_id'] . '/' . (($new['news_featured'] == 0) ? 1 : 2) . "'>" . (($new['news_featured'] == 1) ? 'featured' : '+ featured') . "</a>
+		                    	<a class='badge bg-" . (($new['news_featured'] == 1) ? 'secondary' : 'primary') . " text-decoration-none' href='" . PROOT . 'admin/blog/add/featured/' . $new['news_id'] . '/' . (($new['news_featured'] == 0) ? 1 : 2) . "'>" . (($new['news_featured'] == 1) ? 'featured' : '+ featured') . "</a>
 		                    </td>
 		                    <td>
 		                        <a class='badge bg-primary text-decoration-none' href='javascript:;' data-bs-toggle='modal' data-bs-target='#viewModal" . $this->i . "'>View</a>
 		                        <a href='javascript:;' class='badge bg-danger text-decoration-none' data-bs-toggle='modal' data-bs-target='#deleteModal" . $this->i . "'>Delete</a>
-		                        <a class='badge bg-secondary text-decoration-none' href='" . PROOT . ".in/blog/add/edit_news/" . $new['news_id'] . "'>Edit</a>
+		                        <a class='badge bg-secondary text-decoration-none' href='" . PROOT . "admin/blog/add/edit_news/" . $new['news_id'] . "'>Edit</a>
 
 		                        <!-- VIEW DETAILS MODAL -->
 								<div class='modal fade' id='viewModal" . $this->i . "' tabindex='-1' aria-labelledby='viewModalLabel' aria-hidden='true' data-bs-backdrop='static' data-bs-keyboard='false'>
@@ -90,7 +90,7 @@
 								    		<div class='modal-body'>
 								      			<p>When you delete this categoy, all news and details under it will be deleted as well.</p>
 								        		<button type='button' class='btn btn-sm btn-secondary' data-bs-dismiss='modal'>Close</button>
-								        		<a href='" . PROOT . ".in/blog/add/delete/" . $new['news_id'] . "' class='btn btn-sm btn-outline-secondary'>Confirm Delete.</a>
+								        		<a href='" . PROOT . "admin/blog/add/delete/" . $new['news_id'] . "' class='btn btn-sm btn-outline-secondary'>Confirm Delete.</a>
 								      		</div>
 								    	</div>
 								 	</div>
@@ -556,7 +556,7 @@
 								    		<div class="modal-body">
 								      			<p>When you delete this subscriber, this subscriber will no longer be able to receive daily updates on news.</p>
 								        		<button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
-								        		<a href=' . PROOT . ".in/blog/subscribers/delete_subscriber/" . $row['id'] . ' class="btn btn-sm btn-outline-secondary">Confirm Delete.</a>
+								        		<a href=' . PROOT . "admin/blog/subscribers/delete_subscriber/" . $row['id'] . ' class="btn btn-sm btn-outline-secondary">Confirm Delete.</a>
 								      		</div>
 								    	</div>
 								 	</div>

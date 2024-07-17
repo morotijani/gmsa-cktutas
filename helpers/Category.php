@@ -41,20 +41,20 @@
 	                $this->output .= "
 	                	<tr>
 		                    <td>
-		                        <a class='badge bg-secondary text-decoration-none' href='" . PROOT . "admin/blog/category/edit_category/" . $category['id'] . "'>Edit</a>
+		                        <a class='btn btn-secondary text-decoration-none' href='" . PROOT . "admin/blog/category/edit_category/" . $category['category_id'] . "'>Edit</a>
 		                    </td>
 		                    <td>" . ucwords($category['category']) . "</td>
 		                    <td>" . pretty_date($category['createdAt']) . "</td>
 		                    <td>
-		                        <a href='javascript:;' class='badge bg-danger text-decoration-none' data-bs-toggle='modal' data-bs-target='#deleteModal" . $this->i . "'>Delete</a>
+		                        <a href='javascript:;' class='btn btn-danger text-decoration-none' data-toggle='modal' data-target='#deleteModal" . $this->i . "'>Delete</a>
 
 								<div class='modal fade' id='deleteModal" . $this->i . "' tabindex='-1' aria-labelledby='subscribeModalLabel' aria-hidden='true'>
 								  	<div class='modal-dialog modal-dialog-centered modal-sm'>
-								    	<div class='modal-content' style='background-color: rgb(51, 51, 51);'>
+								    	<div class='modal-content'>
 								    		<div class='modal-body'>
 								      			<p>When you delete this categoy, all news and details under it will be deleted as well.</p>
-								        		<button type='button' class='btn btn-sm btn-secondary' data-bs-dismiss='modal'>Close</button>
-								        		<a href='" . PROOT . "admin/blog/category/delete/" . $category['id'] . "' class='btn btn-sm btn-outline-secondary'>Confirm Delete.</a>
+								        		<button type='button' class='btn' data-dismiss='modal'>Close</button>
+								        		<a href='" . PROOT . "admin/blog/category/delete/" . $category['category_id'] . "' class='btn btn-secondary'>Confirm Delete.</a>
 								      		</div>
 								    	</div>
 								 	</div>
@@ -67,7 +67,7 @@
 		    } else {
 		    	$this->output = "
 		    		<tr>
-		    			<td colspan='3'>No data found!</td>
+		    			<td colspan='4'>No data found!</td>
 		    		</tr>
 		    	";
 		    }
@@ -77,7 +77,7 @@
 		public function deleteCategory($conn, $id) {
 	        $query = "
 	        	DELETE FROM gmsa_categories 
-	        	WHERE id = ?
+	        	WHERE category_id = ?
 	        ";
 	        $statement = $conn->prepare($query);
 	        $result = $statement->execute([$id]);

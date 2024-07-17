@@ -22,7 +22,10 @@
                             <a href="javascript:;" class="menu-link"><span class="menu-icon fa-regular fa-newspaper"></span> <span class="menu-text">Blog / News</span> <span class="badge badge-warning">New</span></a>
                             <ul class="menu">
                                 <li class="menu-item">
-                                    <a href="<?= PROOT; ?>admin/blog" class="menu-link">All</a>
+                                    <a href="<?= PROOT; ?>admin/blog/all" class="menu-link">All</a>
+                                </li>
+                                <li class="menu-item">
+                                    <a href="<?= PROOT; ?>admin/blog/category" class="menu-link">Category</a>
                                 </li>
                                 <li class="menu-item">
                                     <a href="<?= PROOT; ?>admin/blog?archive=1" class="menu-link">Archive</a>
