@@ -346,22 +346,20 @@
                             <div class="swiper-slide">
                                 <article class="card card-img-scale border p-2 h-100">
                                     <div class="card-img-scale-wrapper position-relative rounded overflow-hidden">
-                                        <img src="<?= PROOT . $blog_row['news_media']; ?>" class="card-img img-scale" alt="service image">
-                                        <!-- Badge -->
+                                        <img src="<?= PROOT . $blog_row['news_media']; ?>" class="card-img img-scale" alt="service image" style="height: 200px; object-fit: cover; object-position: top;">
                                         <div class="badge text-bg-dark position-absolute top-0 start-0 m-3"><?= ucwords($blog_row['category']); ?></div>
                                     </div>
-
                                     <div class="card-body d-flex flex-column px-2">
                                         <div class="small mb-3"><i class="bi bi-calendar me-1"></i><?= pretty_date($blog_row['bca']); ?></div>
-                                        <h6 class="card-title mb-3"><a href="blog-single-v2.html" class="stretched-link"><?= $blog_row['news_title']; ?></a></h6>
+                                        <h6 class="card-title mb-3"><a href="<?= PROOT . 'news/' . $blog_row['news_url']; ?>" class="stretched-link"><?= $blog_row['news_title']; ?></a></h6>
                                         <div class="d-flex justify-content-between align-items-center mt-auto">
                                             <div class="d-flex align-items-center">
                                                 <div class="avatar avatar-xs flex-shrink-0 me-2">
-                                                    <img class="avatar-img rounded" src="" alt="avatar">
+                                                    <img class="avatar-img rounded" src="<?= PROOT; ?>assets/media/avatar.png" alt="avatar">
                                                 </div>
                                                 <p class="mb-0">By <?= ucwords($blog_row['admin_fullname']); ?></p>
                                             </div>
-                                            <a href="#" class="btn btn-round btn-dark flex-shrink-0"><i class="bi bi-arrow-up-right"></i></a>
+                                            <a href="<?= PROOT . 'news/' . $blog_row['news_url']; ?>" class="btn btn-round btn-dark flex-shrink-0"><i class="bi bi-arrow-up-right"></i></a>
                                         </div>
                                     </div>
                                 </article>

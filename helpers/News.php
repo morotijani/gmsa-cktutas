@@ -155,7 +155,7 @@
 				$featured = $this->get_number_of_featured($conn);
 			}
 			$news = $this->findNews($conn, $id);
-			if ($featured < 3) {
+			if ($featured < 5) {
 				if ($news > 0) {
 					// code...
 			        $query = "
