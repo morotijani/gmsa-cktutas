@@ -48,16 +48,33 @@
                                     </div>
                                 </form>
                                 <hr class="my-5">
-                                <form method="POST">
+                                <form>
                                     <fieldset>
                                         <legend>Ads flyer</legend>
                                         <?php if ($site_row['ads'] != ''): ?>
-                                            <img src="<?= PROOT . $site_row['ads']; ?>" class="img-thumbnail">
+                                            <div id="removeTempuploadedFile" class="list-group list-group-flush list-group-divider">
+                                                <div class="list-group-item">
+                                                    <div class="list-group-item-figure">
+                                                        <div class="tile tile-img">
+                                                            <img src="<?= PROOT . $site_row['ads']; ?>" width="32" height="32" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="list-group-item-body">
+                                                    <div class="media align-items-center">
+                                                        <div class="media-body"><?= $site_row['ads']; ?></div>
+                                                            <div class="media-actions">
+                                                                <button type="button" class="btn btn-sm btn-secondary removeImg" id="<?= $site_row['ads']; ?>">Remove</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         <?php else: ?>
                                         <div class="form-group">
                                             <input type="file" class="form-control" id="ads" name="ads">
                                         </div>
                                         <?php endif; ?>
+                                        <div id="upload_file"></div>
                                     </fieldset>
                                 </form>
                             </div>
@@ -129,10 +146,10 @@
                         cache: false,
                         processData: false,
                         beforeSend: function() {
-                            $("#upload_file").html("<div class='text-success font-weight-bolder'>Uploading news image ...</div>");
+                            $("#upload-file").html("<div class='text-success font-weight-bolder'>Uploading news image ...</div>");
                         },
                         success: function(data) {
-                            $("#upload_file").html(data);
+                            $("#upload-file").html(data);
                             $('#ads').css('visibility', 'hidden');
                         }
                     });
