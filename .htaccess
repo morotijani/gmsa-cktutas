@@ -11,7 +11,11 @@ RewriteRule ^view/([a-zA-Z-0-9-]+)/ view.php?url=$1 [NC,L]
 RewriteRule ^category/([a-zA-Z0-9-/]+)$ category.php?url=$1 [NC,L]
 RewriteRule ^category/([a-zA-Z-0-9-]+)/ category.php?url=$1 [NC,L]
 
+RewriteRule ^auth/pay-dues/([a-zA-Z0-9-/]+)$ auth/pay-dues.php?url=$1 [NC,L]
 RewriteRule ^auth/pay-dues/([a-zA-Z-0-9-]+)/ auth/pay-dues.php?url=$1 [NC,L]
+
+RewriteRule ^auth/dues-paid/([a-zA-Z0-9-/]+)$ auth/dues-paid.php?url=$1 [NC,L]
+RewriteRule ^auth/dues-paid/([a-zA-Z-0-9-]+)/ auth/dues-paid.php?url=$1 [NC,L]
 
 
 RewriteCond %{REQUEST_FILENAME} !-d

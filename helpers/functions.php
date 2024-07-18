@@ -127,6 +127,22 @@ function find_member_by_studentID($conn, $studentid) {
 	return (($statement->rowCount() > 0) ? $row[0] : '');
 }
 
+
+// find member by student id
+function find_paid_dues_by_reference($conn, $reference) {
+
+	$query = "
+		SELECT * FROM gmsa_dues 
+		WHERE gmsa_dues.transaction_reference = ? 
+	";
+	$statement = $conn->prepare($query);
+	$statement->execute([$reference]);
+	$count_rows = $statement->rowCount();
+
+	$row = $statement->fetchAll();
+	return (($statement->rowCount() > 0) ? $row[0] : '');
+}
+
 //
 function get_amount_to_pay_using_level($conn, $studentid, $level) {
 	global $site_row;
@@ -143,7 +159,7 @@ function get_amount_to_pay_using_level($conn, $studentid, $level) {
 		SELECT *, SUM(transaction_amount) AS amt FROM gmsa_dues 
 		WHERE gmsa_dues.student_id = ? 
 		ORDER BY gmsa_dues.id DESC 
-		LIMIT 1
+		-- LIMIT 1
 	";
 	$statement = $conn->prepare($query);
 	$statement->execute([$studentid]);
@@ -151,30 +167,33 @@ function get_amount_to_pay_using_level($conn, $studentid, $level) {
 	$row = $statement->fetchAll();
 
 	$levelAmount = 0;
+	$level = 100;
 	if ($count_rows > 0) {
 		// code...
 		if ($row[0]['level'] == 100 && $row[0]['amt'] >= $site_row['dues_for_fresher']) {
 			$levelAmount = $site_row['dues_for_continue'];
+			$level = 200;
 		} else {
 			$levelAmount = $site_row['dues_for_fresher'] - $row[0]['amt'];
 		}
 
 		if ($row[0]['level'] == 200 && $row[0]['amt'] >= $site_row['dues_for_continue']) {
 			$levelAmount = $site_row['dues_for_continue'];
+			$level = 300;
 		} else {
 			$levelAmount = $site_row['dues_for_continue'] - $row[0]['amt'];
 		}
 
 		if ($row[0]['level'] == 300 && $row[0]['amt'] >= $site_row['dues_for_continue']) {
 			$levelAmount = $site_row['dues_for_continue'];
+			$level = 400;
 		} else {
 			$levelAmount = $site_row['dues_for_continue'] - $row[0]['amt'];
 		}
 
-		if ($row[0]['level'] == 400 && $row[0]['amt'] >= $site_row['dues_for_continue']) {
-			$levelAmount = $site_row['dues_for_continue'];
-		} else {
+		if ($row[0]['level'] == 400 && $row[0]['amt'] < $site_row['dues_for_continue']) {
 			$levelAmount = $site_row['dues_for_continue'] - $row[0]['amt'];
+			$level = 400;
 		}
 	} else {
 		if ($level == 100) {
@@ -185,7 +204,7 @@ function get_amount_to_pay_using_level($conn, $studentid, $level) {
         }
 	}
 
-	return $levelAmount;
+	return ['level' => $level, 'levelAmount' => $levelAmount];
 }
 
 // count members by status

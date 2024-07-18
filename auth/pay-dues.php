@@ -12,9 +12,9 @@
         $studentid = sanitize($_GET['url']);
         $student = find_member_by_studentID($conn, $studentid);
         if (is_array($student)) {
-            echo $student['member_level'];
-            $amountToPay = get_amount_to_pay_using_level($conn, $studentid, $student['member_level']);
-
+            $a = get_amount_to_pay_using_level($conn, $studentid, $student['member_level']);
+            $amountToPay = $a['levelAmount'];
+            $level = $a['level'];
 
             // if ($student['member_level'] == 100) {
             //     // code...
@@ -80,7 +80,7 @@
                             <label for="floatingInput">Student ID</label>
                         </div>
                         <div class="input-floating-label form-floating mb-4 mb-3">
-                            <input type="text" class="form-control bg-transparent" id="level" readonly value="<?= $student['member_level']; ?>">
+                            <input type="text" class="form-control bg-transparent" id="level" readonly value="<?= $level; ?>">
                             <label for="floatingPassword">Level</label>
                         </div>
                         <div class="input-floating-label form-floating mb-4 mb-3">
@@ -146,9 +146,9 @@
                     callback: function(response) {
                         var reference = response.reference;
                         var student_id = '<?= $studentid; ?>'
-                        var level = '<?= $student['member_level']; ?>';
+                        var level = '<?= $level; ?>';
                         $.ajax ({
-                            url: '<?= PROOT; ?>controller/dues.payment.php',
+                            url: '<?= PROOT; ?>auth/dues.payment.php',
                             method : 'POST',
                             data: {
                                 student_id : student_id, 
@@ -158,7 +158,7 @@
                             },
                             success : function(data) {
                                 if (data == '') {
-                                    window.location = '<?= PROOT; ?>dues.paid/' + level;
+                                    window.location = '<?= PROOT; ?>auth/dues-paid/'+reference;
                                 }
                             }
                         })
