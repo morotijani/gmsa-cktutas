@@ -59,7 +59,7 @@ function find_prayer_by_id($id) {
 	$count_rows = $statement->rowCount();
 
 	$row = $statement->fetchAll();
-	return (($statement->rowCount() > 0) ? $row[0] : '');
+	return (($count_rows > 0) ? $row[0] : '');
 }
 
 // find contact by id
@@ -75,7 +75,7 @@ function find_contact_by_id($id) {
 	$count_rows = $statement->rowCount();
 
 	$row = $statement->fetchAll();
-	return (($statement->rowCount() > 0) ? $row[0] : '');
+	return (($count_rows > 0) ? $row[0] : '');
 }
 
 // find subscriber by id
@@ -91,7 +91,7 @@ function find_subscriber_by_id($id) {
 	$count_rows = $statement->rowCount();
 
 	$row = $statement->fetchAll();
-	return (($statement->rowCount() > 0) ? $row[0] : '');
+	return (($count_rows > 0) ? $row[0] : '');
 }
 
 
@@ -108,7 +108,7 @@ function find_activity_by_id($id) {
 	$count_rows = $statement->rowCount();
 
 	$row = $statement->fetchAll();
-	return (($statement->rowCount() > 0) ? $row[0] : '');
+	return (($count_rows > 0) ? $row[0] : '');
 }
 
 
@@ -124,7 +124,7 @@ function find_member_by_studentID($conn, $studentid) {
 	$count_rows = $statement->rowCount();
 
 	$row = $statement->fetchAll();
-	return (($statement->rowCount() > 0) ? $row[0] : '');
+	return (($count_rows > 0) ? $row[0] : '');
 }
 
 
@@ -140,10 +140,10 @@ function find_paid_dues_by_reference($conn, $reference) {
 	$count_rows = $statement->rowCount();
 
 	$row = $statement->fetchAll();
-	return (($statement->rowCount() > 0) ? $row[0] : '');
+	return (($count_rows > 0) ? $row[0] : '');
 }
 
-//
+// get amount to pay using level
 function get_amount_to_pay_using_level($conn, $studentid, $level) {
 	global $site_row;
 
@@ -280,3 +280,25 @@ function total_dues_this_year($conn) {
 
 	return money($row[0]['amt']);
 }
+
+// fetch featured news with limit
+function fetch_featured_news($conn, $limit, $featured) {
+	$query = "
+		SELECT *, gmsa_news.createdAt AS bca FROM gmsa_news 
+		INNER JOIN gmsa_categories
+		ON gmsa_categories.category_id = gmsa_news.news_category 
+		INNER JOIN gmsa_admin 
+		ON gmsa_admin.admin_id = gmsa_news.news_created_by
+		WHERE news_featured = ? 
+		AND gmsa_news.status = ? 
+		ORDER BY news_views DESC
+		LIMIT $limit
+	";
+	$statement = $conn->prepare($query);
+	$statement->execute([$featured, 0]);
+	$count_rows = $statement->rowCount();
+
+	$row = $statement->fetchAll();
+	return (($count_rows > 0) ? $row : '');
+}
+
