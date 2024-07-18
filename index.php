@@ -36,8 +36,8 @@
                                             <span class="bg-white bg-opacity-10 text-white small rounded-3 px-3 py-2">🚀 #Ghana Muslim Students Association</span>
                                             <!-- Title -->
                                             <h1 class="text-white display-4 my-4">Ghana Muslims <span class="text-primary">Student</span> Association</h1>
-                                            <p class="text-white mb-5"> Whether you're a gaming enthusiast or simply seeking an extraordinary escape from reality, our Virtual VR product is your portal to endless excitement. </p>
-                                            <a class="btn btn-lg btn-white icon-link icon-link-hover mb-0" href="#">Get started now<i class="bi bi-arrow-right"></i> </a>
+                                            <p class="text-white mb-5"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquacaecat cupidatat non mollit est laborum. </p>
+                                            <a class="btn btn-lg btn-white icon-link icon-link-hover mb-0" href="<?= PROOT; ?>about-us">Know now<i class="bi bi-arrow-right"></i> </a>
                                         </div>
                                     </div>
                                 </div>
@@ -46,18 +46,16 @@
                     </div>
                     <div class="swiper-slide">
                         <div class="card overflow-hidden min-vh-100 rounded-0" style="background:url(<?= PROOT; ?>assets/media/03.jpg) no-repeat; background-size:cover; background-position:center;">
-                            <!-- Bg overlay -->
                             <div class="bg-overlay bg-linear-overlay"></div>
-                
-                            <!-- Content -->
                             <div class="position-relative z-index-2 d-flex flex-column m-auto h-100 py-9"> 
                                 <div class="container">
                                     <div class="row">
                                         <div class="col-sm-11 col-lg-8 mt-auto">
                                             <!-- Title -->
-                                            <h1 class="text-white display-4 mb-4">Empower Your <span class="fw-light">Business</span> with <span class="fw-light">Innovation</span></h1>
-                                            <p class="text-white mb-5"> Whether you're a gaming enthusiast or simply seeking an extraordinary escape from reality, our Virtual VR product is your portal to endless excitement. </p>
-                                            <a class="btn btn-lg btn-primary icon-link icon-link-hover mb-0" href="#">Explore Our Services<i class="bi bi-arrow-right"></i> </a>
+                                            <h1 class="text-white display-4 mb-4">Pay your <span class="fw-light">GMSA</span> Dues <span class="fw-light">Online</span></h1>
+                                            <p class="text-white mb-5"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ast laborum. </p>
+                                            <a class="btn btn-lg btn-primary icon-link icon-link-hover mb-0" href="<?= PROOT; ?>auth/pay-dues">Pay dues<i class="bi bi-arrow-right"></i> </a>
                                         </div>
                                     </div>
                                 </div>
@@ -67,24 +65,21 @@
                     <div class="swiper-slide">
                         <div class="card overflow-hidden min-vh-100 rounded-0" style="background:url(<?= PROOT; ?>assets/media/04.jpg) no-repeat; background-size:cover; background-position:center;">
                             <div class="bg-overlay bg-linear-overlay"></div>
-                
-                            <!-- Card image overlay -->
                             <div class="position-relative z-index-2 d-flex flex-column m-auto h-100 py-9"> 
                                 <div class="container">
                                     <div class="row">
-                                        <div class="col-sm-11 col-lg-8 col-xl-7 text-center m-auto">
-                                            <span class="bg-white bg-opacity-10 text-white small rounded-3 px-3 py-2">🚀 #World's best software agency</span>
+                                        <div class="col-sm-11 col-lg-8 col-xl-7 m-auto">
                                             <!-- Title -->
-                                            <h1 class="text-white display-4 my-4">Leading the Way in <span class="text-primary">software</span> innovation</h1>
-                                            <p class="text-white mb-5"> Whether you're a gaming enthusiast or simply seeking an extraordinary escape from reality, our Virtual VR product is your portal to endless excitement. </p>
-                                            <a class="btn btn-lg btn-white icon-link icon-link-hover mb-0" href="#">Get started now<i class="bi bi-arrow-right"></i> </a>
+                                            <h1 class="text-white display-4 my-4">Get updated on news <span class="text-primary">and</span> know whats up.</h1>
+                                            <p class="text-white mb-5"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                            tempor proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
+                                            <a class="btn btn-lg btn-white icon-link icon-link-hover mb-0" href="<?= PROOT; ?>blog">Get started now<i class="bi bi-arrow-right"></i> </a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 <div class="swiper-pagination swiper-pagination-line position-absolute bottom-0 mb-3"></div>
             </div>  
         </section>
@@ -93,7 +88,7 @@
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-md-3 mb-2 mb-md-0">
-                        <h5 class="pe-6">400+ members from societies</h5>
+                        <h5 class="pe-6"><?= count_members($conn, 0); ?>+ members from societies</h5>
                     </div>
 
                     <div class="col-md-9">
@@ -214,6 +209,146 @@
             </div>
         </section>
 
+        <!-- EXECUTIVES -->
+        <section class="pb-0">
+            <div class="container">
+                <div class="inner-container">
+                    <!-- Title -->
+                    <h2 class="text-center mb-4 mb-sm-5">Our leadership</h2>
+
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-0 justify-content-center">
+                        <!-- Team item -->
+                        <div class="col">
+                            <div class="card card-body bg-transparent text-center p-4">
+                                <!-- Image -->
+                                <div class="avatar avatar-xxl mx-auto flex-shrink-0 mb-3">
+                                    <img class="avatar-img rounded-circle" src="assets/images/avatar/04.jpg" alt="avatar">
+                                </div>
+
+                                <!-- Content -->
+                                <h6 class="mb-1"><a href="#">Samuel Bishop</a></h6>
+                                <small>UI/UX Designer</small>
+
+                                <!-- Social button -->
+                                <ul class="list-inline mb-0 mt-3">
+                                    <li class="list-inline-item"> <a class="btn btn-xs btn-icon btn-light" href="#"><i class="fab fa-fw fa-facebook-f lh-base"></i></a> </li>
+                                    <li class="list-inline-item"> <a class="btn btn-xs btn-icon btn-light" href="#"><i class="fab fa-fw fa-instagram lh-base"></i></a> </li>
+                                    <li class="list-inline-item"> <a class="btn btn-xs btn-icon btn-light" href="#"><i class="fab fa-fw fa-twitter lh-base"></i></a> </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Team item -->
+                        <div class="col">
+                            <div class="card card-body bg-transparent text-center p-4">
+                                <!-- Image -->
+                                <div class="avatar avatar-xxl mx-auto flex-shrink-0 mb-3">
+                                    <img class="avatar-img rounded-circle" src="assets/images/avatar/11.jpg" alt="avatar">
+                                </div>
+
+                                <!-- Content -->
+                                <h6 class="mb-1"><a href="#">Judy Nguyen</a></h6>
+                                <small>Web Designer</small>
+
+                                <!-- Social button -->
+                                <ul class="list-inline mb-0 mt-3">
+                                    <li class="list-inline-item"> <a class="btn btn-xs btn-icon btn-light" href="#"><i class="fab fa-fw fa-facebook-f lh-base"></i></a> </li>
+                                    <li class="list-inline-item"> <a class="btn btn-xs btn-icon btn-light" href="#"><i class="fab fa-fw fa-instagram lh-base"></i></a> </li>
+                                    <li class="list-inline-item"> <a class="btn btn-xs btn-icon btn-light" href="#"><i class="fab fa-fw fa-twitter lh-base"></i></a> </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Team item -->
+                        <div class="col">
+                            <div class="card card-body bg-transparent text-center p-4">
+                                <!-- Image -->
+                                <div class="avatar avatar-xxl mx-auto flex-shrink-0 mb-3">
+                                    <img class="avatar-img rounded-circle" src="assets/images/avatar/06.jpg" alt="avatar">
+                                </div>
+
+                                <!-- Content -->
+                                <h6 class="mb-1"><a href="#">Louis Ferguson</a></h6>
+                                <small>Web Developer</small>
+
+                                <!-- Social button -->
+                                <ul class="list-inline mb-0 mt-3">
+                                    <li class="list-inline-item"> <a class="btn btn-xs btn-icon btn-light" href="#"><i class="fab fa-fw fa-facebook-f lh-base"></i></a> </li>
+                                    <li class="list-inline-item"> <a class="btn btn-xs btn-icon btn-light" href="#"><i class="fab fa-fw fa-instagram lh-base"></i></a> </li>
+                                    <li class="list-inline-item"> <a class="btn btn-xs btn-icon btn-light" href="#"><i class="fab fa-fw fa-twitter lh-base"></i></a> </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Team item -->
+                        <div class="col">
+                            <div class="card card-body bg-transparent text-center p-4">
+                                <!-- Image -->
+                                <div class="avatar avatar-xxl mx-auto flex-shrink-0 mb-3">
+                                    <img class="avatar-img rounded-circle" src="assets/images/avatar/09.jpg" alt="avatar">
+                                </div>
+
+                                <!-- Content -->
+                                <h6 class="mb-1"><a href="#">Dennis Barrett</a></h6>
+                                <small>CEO &amp; Founder</small>
+
+                                <!-- Social button -->
+                                <ul class="list-inline mb-0 mt-3">
+                                    <li class="list-inline-item"> <a class="btn btn-xs btn-icon btn-light" href="#"><i class="fab fa-fw fa-facebook-f lh-base"></i></a> </li>
+                                    <li class="list-inline-item"> <a class="btn btn-xs btn-icon btn-light" href="#"><i class="fab fa-fw fa-instagram lh-base"></i></a> </li>
+                                    <li class="list-inline-item"> <a class="btn btn-xs btn-icon btn-light" href="#"><i class="fab fa-fw fa-twitter lh-base"></i></a> </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Team item -->
+                        <div class="col">
+                            <div class="card card-body bg-transparent text-center p-4">
+                                <!-- Image -->
+                                <div class="avatar avatar-xxl mx-auto flex-shrink-0 mb-3">
+                                    <img class="avatar-img rounded-circle" src="assets/images/avatar/05.jpg" alt="avatar">
+                                </div>
+
+                                <!-- Content -->
+                                <h6 class="mb-1"><a href="#">Dennis Barrett</a></h6>
+                                <small>CEO &amp; Founder</small>
+
+                                <!-- Social button -->
+                                <ul class="list-inline mb-0 mt-3">
+                                    <li class="list-inline-item"> <a class="btn btn-xs btn-icon btn-light" href="#"><i class="fab fa-fw fa-facebook-f lh-base"></i></a> </li>
+                                    <li class="list-inline-item"> <a class="btn btn-xs btn-icon btn-light" href="#"><i class="fab fa-fw fa-instagram lh-base"></i></a> </li>
+                                    <li class="list-inline-item"> <a class="btn btn-xs btn-icon btn-light" href="#"><i class="fab fa-fw fa-twitter lh-base"></i></a> </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Team item -->
+                        <div class="col">
+                            <div class="card card-body bg-transparent text-center p-4">
+                                <!-- Image -->
+                                <div class="avatar avatar-xxl mx-auto flex-shrink-0 mb-3">
+                                    <img class="avatar-img rounded-circle" src="assets/images/avatar/10.jpg" alt="avatar">
+                                </div>
+
+                                <!-- Content -->
+                                <h6 class="mb-1"><a href="#">Bryan Knight</a></h6>
+                                <small>Product Designer</small>
+
+                                <!-- Social button -->
+                                <ul class="list-inline mb-0 mt-3">
+                                    <li class="list-inline-item"> <a class="btn btn-xs btn-icon btn-light" href="#"><i class="fab fa-fw fa-facebook-f lh-base"></i></a> </li>
+                                    <li class="list-inline-item"> <a class="btn btn-xs btn-icon btn-light" href="#"><i class="fab fa-fw fa-instagram lh-base"></i></a> </li>
+                                    <li class="list-inline-item"> <a class="btn btn-xs btn-icon btn-light" href="#"><i class="fab fa-fw fa-twitter lh-base"></i></a> </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- PAY DUES -->
         <section>
             <div class="container">
                 <div class="bg-light rounded position-relative overflow-hidden p-4 p-sm-6">
@@ -246,7 +381,128 @@
             </div>
         </section>
 
+        <!-- BLOG -->
+        <section class="pt-0">
+            <div class="container">
 
+                <!-- Title -->
+                <div class="inner-container-small text-center mb-4 mb-sm-5">
+                    <h2 class="mb-0">Explore our latest blogs</h2>
+                </div>
+
+                <!-- Slider START -->
+                <div class="swiper" data-swiper-options='{
+                    "loop": false,
+                    "spaceBetween": 30,
+                    "pagination":{
+                        "el":".swiper-pagination"
+                    },
+                    "breakpoints": {
+                        "576": {"slidesPerView": 1}, 
+                        "768": {"slidesPerView": 2}, 
+                        "992": {"slidesPerView": 3}
+                    }}'>
+
+                    <!-- Slider items -->
+                    <div class="swiper-wrapper">
+                        <!-- Blog item -->
+                        <div class="swiper-slide">
+                            <article class="card card-img-scale border p-2 h-100">
+                                <!-- Card image and badge -->
+                                <div class="card-img-scale-wrapper position-relative rounded overflow-hidden">
+                                    <img src="assets/images/blog/4by3/03.jpg" class="card-img img-scale" alt="service image">
+                                    <!-- Badge -->
+                                    <div class="badge text-bg-dark position-absolute top-0 start-0 m-3">Technology</div>
+                                </div>
+
+                                <!-- Card body -->
+                                <div class="card-body d-flex flex-column px-2">
+                                    <div class="small mb-3"><i class="bi bi-calendar me-1"></i>April 15, 2024</div>
+                                    <h6 class="card-title mb-3"><a href="blog-single-v2.html" class="stretched-link">Sleek and Responsive - Designing with Bootstrap and Mizzle</a></h6>
+                                    <!-- Author info and button -->
+                                    <div class="d-flex justify-content-between align-items-center mt-auto">
+                                        <!-- Author -->
+                                        <div class="d-flex align-items-center">
+                                            <div class="avatar avatar-xs flex-shrink-0 me-2">
+                                                <img class="avatar-img rounded" src="assets/images/avatar/02.jpg" alt="avatar">
+                                            </div>
+                                            <p class="mb-0">By Emma Watson</p>
+                                        </div>
+                                        <!-- Button -->
+                                        <a href="#" class="btn btn-round btn-dark flex-shrink-0"><i class="bi bi-arrow-up-right"></i></a>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+
+                        <!-- Blog item -->
+                        <div class="swiper-slide">
+                            <article class="card card-img-scale border p-2 h-100">
+                                <!-- Card image and badge -->
+                                <div class="card-img-scale-wrapper position-relative rounded overflow-hidden">
+                                    <img src="assets/images/blog/4by3/08.jpg" class="card-img img-scale" alt="service image">
+                                    <!-- Badge -->
+                                    <div class="badge text-bg-dark position-absolute top-0 start-0 m-3">Research</div>
+                                </div>
+
+                                <!-- Card body -->
+                                <div class="card-body d-flex flex-column px-2">
+                                    <div class="small mb-3"><i class="bi bi-calendar me-1"></i>April 12, 2024</div>
+                                    <h6 class="card-title mb-3"><a href="blog-single-v2.html" class="stretched-link">Mastering HTML Website Templates - Unleash Your Creativity with Bootstrap</a></h6>
+                                    <!-- Author info and button -->
+                                    <div class="d-flex justify-content-between align-items-center mt-auto">
+                                        <!-- Author -->
+                                        <div class="d-flex align-items-center">
+                                            <div class="avatar avatar-xs flex-shrink-0 me-2">
+                                                <img class="avatar-img rounded" src="assets/images/avatar/04.jpg" alt="avatar">
+                                            </div>
+                                            <p class="mb-0">By Louis Ferguson</p>
+                                        </div>
+                                        <!-- Button -->
+                                        <a href="#" class="btn btn-round btn-dark flex-shrink-0"><i class="bi bi-arrow-up-right"></i></a>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+
+                        <!-- Blog item -->
+                        <div class="swiper-slide">
+                            <article class="card card-img-scale border p-2 h-100">
+                                <!-- Card image and badge -->
+                                <div class="card-img-scale-wrapper position-relative rounded overflow-hidden">
+                                    <img src="assets/images/blog/4by3/07.jpg" class="card-img img-scale" alt="service image">
+                                    <!-- Badge -->
+                                    <div class="badge text-bg-dark position-absolute top-0 start-0 m-3">Design</div>
+                                </div>
+
+                                <!-- Card body -->
+                                <div class="card-body d-flex flex-column px-2">
+                                    <div class="small mb-3"><i class="bi bi-calendar me-1"></i>April 08, 2024</div>
+                                    <h6 class="card-title mb-3"><a href="blog-single-v2.html" class="stretched-link">Effortless Web Design with Mizzle - Unlock Your Creative Potential</a></h6>
+                                    <!-- Author info and button -->
+                                    <div class="d-flex justify-content-between align-items-center mt-auto">
+                                        <!-- Author -->
+                                        <div class="d-flex align-items-center">
+                                            <div class="avatar avatar-xs flex-shrink-0 me-2">
+                                                <img class="avatar-img rounded" src="assets/images/avatar/09.jpg" alt="avatar">
+                                            </div>
+                                            <p class="mb-0">By Allen Smith</p>
+                                        </div>
+                                        <!-- Button -->
+                                        <a href="#" class="btn btn-round btn-dark flex-shrink-0"><i class="bi bi-arrow-up-right"></i></a>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+
+                    <!-- Slider Pagination -->
+                    <div class="swiper-pagination swiper-pagination-primary position-relative mt-4"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SUBSCRIPTION -->
         <section>
             <div class="container">
                 <div class="inner-container-small text-center">
