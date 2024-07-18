@@ -8,6 +8,7 @@
     include ("inc/header.inc.php");
     include ("inc/nav.inc.php");
 
+    $categories = get_category_for_user_view($conn);
 
 ?>
     
@@ -50,53 +51,19 @@
                         "576": {"slidesPerView": 3},
                         "992": {"slidesPerView": 5}
                     }}'>
-
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <a href="#" class="card card-img-scale overflow-hidden">
-                                <img src="assets/images/blog/4by4/01.jpg" class="img-scale" alt="category-img">
-                                <div class="card-img-overlay">
-                                    <div class="badge text-bg-dark">Lifestyle</div>
+                        <div class="swiper-wrapper">
+                        <?php if (is_array($categories)): ?>
+                            <?php foreach ($categories as$category): ?>
+                                <div class="swiper-slide">
+                                    <a href="<?= PROOT; ?>category/<?= $category['category_url']; ?>" class="card card-img-scale overflow-hidden">
+                                        <div class="card">
+                                            <div class="badge text-bg-dark"><?= ucwords($category['category']); ?></div>
+                                        </div>
+                                    </a>
                                 </div>
-                            </a>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                         </div>
-
-                        <div class="swiper-slide">
-                            <a href="#" class="card card-img-scale overflow-hidden">
-                                <img src="assets/images/blog/4by4/02.jpg" class="img-scale" alt="category-img">
-                                <div class="card-img-overlay">
-                                    <div class="badge text-bg-dark">Technology</div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <div class="swiper-slide">
-                            <a href="#" class="card card-img-scale overflow-hidden">
-                                <img src="assets/images/blog/4by4/03.jpg" class="img-scale" alt="category-img">
-                                <div class="card-img-overlay">
-                                    <div class="badge text-bg-dark">Design</div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <div class="swiper-slide">
-                            <a href="#" class="card card-img-scale overflow-hidden">
-                                <img src="assets/images/blog/4by4/04.jpg" class="img-scale" alt="category-img">
-                                <div class="card-img-overlay">
-                                    <div class="badge text-bg-dark">Marketing</div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <div class="swiper-slide">
-                            <a href="#" class="card card-img-scale overflow-hidden">
-                                <img src="assets/images/blog/4by4/05.jpg" class="img-scale" alt="category-img">
-                                <div class="card-img-overlay">
-                                    <div class="badge text-bg-dark">Research</div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
                     <div class="swiper-pagination swiper-pagination-primary position-relative mt-4"></div>
                 </div>
             </div>
@@ -149,7 +116,7 @@
                             </ul>
                         </div>
 
-                        <div class="align-items-center mt-5">
+                        <!-- <div class="align-items-center mt-5">
                             <h6 class="mb-3 d-inline-block">Popular Tags:</h6>
                             <ul class="list-inline mb-0 social-media-btn">
                                 <li class="list-inline-item"> <a class="btn btn-light btn-sm" href="#">blog</a> </li>
@@ -164,7 +131,7 @@
                                 <li class="list-inline-item"> <a class="btn btn-light btn-sm" href="#">Photography</a> </li>
                                 <li class="list-inline-item"> <a class="btn btn-light btn-sm" href="#">Classic</a> </li>
                             </ul>
-                        </div>
+                        </div> -->
 
                     </div>
                 </div>

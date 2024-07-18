@@ -278,7 +278,7 @@ function total_dues_this_year($conn) {
 	$statement->execute([$thisYear]);
 	$row = $statement->fetchAll();
 
-	return money($row[0]['amt']);
+	return (($statement->rowCount() > 0) ?  money($row[0]['amt']) : '');
 }
 
 // fetch featured news with limit
@@ -300,5 +300,18 @@ function fetch_featured_news($conn, $limit, $featured) {
 
 	$row = $statement->fetchAll();
 	return (($count_rows > 0) ? $row : '');
+}
+
+// count activities by status
+function get_category_for_user_view($conn) {
+	$query = "
+		SELECT * FROM gmsa_categories  
+        WHERE status = ? 
+	";
+	$statement = $conn->prepare($query);
+	$statement->execute([0]);
+	$row = $statement->fetchAll();
+
+	return (($statement->rowCount() > 0) ?  $row : '');
 }
 
