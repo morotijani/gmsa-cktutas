@@ -7,9 +7,55 @@
     $navTheme = "";
     include ("../inc/header.inc.php");
 
+    if (isset($_GET['url']) && !empty($_GET['url'])) {
+        // code...
+        $studentid = sanitize($_GET['url']);
+        $student = find_member_by_studentID($conn, $studentid);
+        if (is_array($student)) {
+            echo $student['member_level'];
+            $amountToPay = get_amount_to_pay_using_level($conn, $studentid, $student['member_level']);
+
+
+            // if ($student['member_level'] == 100) {
+            //     // code...
+            //     $levelAmount = $site_row['dues_for_fresher'];
+            // } else {
+            //     $levelAmount = $site_row['dues_for_continue'];
+            // }
+
+            // $sql = "
+            //     SELECT * FROM gmsa_dues 
+            //     WHERE student_id = ? 
+            // ";
+            // $statement = $conn->prepare($sql);
+            // $statement->execute([$studentid]);
+            // $rows = $statement->fetchAll();
+            // if ($statement->rowCount() > 0) {
+            //     // code...
+            //     $amountPaid = 0;
+            //     foreach ($rows as $row) {
+            //         // code...
+            //         $amountPaid += $row['transaction_amount'];
+            //     }
+            //     $amountToPay = $levelAmount - $amountPaid;
+            //     if ($amountToPay == 0) {
+            //         // code...
+            //         echo 'you\'ve made full payment';
+            //     } else {
+            //         echo 'you are to pay ' . money($amountToPay);
+            //     }
+            // } else {
+            //     $amountToPay = $levelAmount;
+            //     echo 'you are to pay ' . money($amountToPay);
+            // }
+        } else {
+            echo 'Student not found!';
+        }
+
+    }
+
 
 ?>
-    <link rel="stylesheet" type="text/css" href="<?= PROOT; ?>dist/css/glightbox.css">
     <main>
 
         <section class="pt-8">
@@ -27,13 +73,35 @@
                         </span>
                         Pay your GMSA yearly dues.
                     </h1>
-
-                    <form class="col-md-7 bg-light border rounded-2 position-relative mx-auto p-2 mt-4 mt-md-5">
-                        <div class="input-group">
-                            <input class="form-control focus-shadow-none bg-light border-0 me-1" type="text" autocomplete="off" autofocus id="studentid" placeholder="Student ID">
-                            <button type="button" id="dues_next" class="btn btn-dark rounded-2 mb-0"><i class="bi bi-forward-fill me-2"></i>Next</button>
+                    <?php if (isset($_GET['url']) && !empty($_GET['url'])): ?>
+                    <form id="paymentForm" class="col-md-7 bg-light border rounded-2 position-relative mx-auto p-2 mt-4 mt-md-5">
+                       <div class="input-floating-label form-floating mb-4">
+                            <input type="email" class="form-control bg-transparent" id="studentid" readonly value="<?= $studentid; ?>">
+                            <label for="floatingInput">Student ID</label>
                         </div>
+                        <div class="input-floating-label form-floating mb-4 mb-3">
+                            <input type="text" class="form-control bg-transparent" id="level" readonly value="<?= $student['member_level']; ?>">
+                            <label for="floatingPassword">Level</label>
+                        </div>
+                        <div class="input-floating-label form-floating mb-4 mb-3">
+                            <input type="text" class="form-control bg-transparent" id="email" value="<?= $student['member_email']; ?>">
+                            <label for="floatingPassword">Email</label>
+                        </div>
+                        <div class="input-floating-label form-floating mb-4 mb-3">
+                            <input type="tel" class="form-control bg-transparent" id="amount" min="10" value="<?= $amountToPay; ?>">
+                            <label for="floatingPassword">Amount to pay</label>
+                        </div>
+                        <button type="submit" onclick="payWithPaystack()" class="btn btn-primary mb-0">Pay now</button>&nbsp;
+                        <a href="<?= PROOT; ?>auth/pay-dues" class="btn mb-0">Cancel</a>
                     </form>
+                    <?php else: ?>
+                        <form class="col-md-7 bg-light border rounded-2 position-relative mx-auto p-2 mt-4 mt-md-5" method="GET">
+                            <div class="input-group">
+                                <input class="form-control focus-shadow-none bg-light border-0 me-1" type="text" autocomplete="off" autofocus id="url" name="url" placeholder="Student ID">
+                                <button id="dues_next" class="btn btn-dark rounded-2 mb-0"><i class="bi bi-forward-fill me-2"></i>Next</button>
+                            </div>
+                        </form>
+                    <?php endif ?>
                 </div>
             </div>
 
@@ -51,37 +119,96 @@
     <script type="text/javascript" src="<?= PROOT; ?>dist/js/popper.min.js"></script>
     <script type="text/javascript" src="<?= PROOT; ?>dist/js/bootstrap.min.js"></script>
     <script src="<?= PROOT; ?>dist/js/functions.js"></script>
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+
 
     <script type="text/javascript">
+
         $(document).ready(function() {
+            const paymentForm = document.getElementById('paymentForm');
+            paymentForm.addEventListener("submit", payWithPaystack, false);
 
-            // 
-            $('#dues_next').on('click', function() {
-                var type = 'find';
-                var studentid = $('#studentid').val();
-                if (studentid != '') {
-                    $.ajax({
-                        url : '<?= PROOT;?>auth/dues.find.student.php',
-                        method : 'POST',
-                        data : {
-                            type : type,
-                            studentid : studentid,
-                        },
-                        beforeSend: function() {
+            function payWithPaystack(e) {
+                e.preventDefault();
 
-                        },
-                        success: function(data) {
+                const amount = document.getElementById("amount").value
+                let handler = PaystackPop.setup({
+                    key: '<?= PAYSTACK_TEST_PUBLIC_KEY; ?>', // Replace with your public key
+                    email: document.getElementById("email").value,
+                    amount: amount * 100,
+                    currency: 'GHS',
+                    channels: ['card', 'bank', 'ussd', 'qr', 'mobile_money', 'bank_transfer'], 
+                    ref: 'GMSA'+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+                // label: "Optional string that replaces customer email"
+                    onClose: function(){
+                    alert('Window closed.');
+                    },
+                    callback: function(response) {
+                        var reference = response.reference;
+                        var student_id = '<?= $studentid; ?>'
+                        var level = '<?= $student['member_level']; ?>';
+                        $.ajax ({
+                            url: '<?= PROOT; ?>controller/dues.payment.php',
+                            method : 'POST',
+                            data: {
+                                student_id : student_id, 
+                                level : level, 
+                                reference : reference,
+                                amount : amount
+                            },
+                            success : function(data) {
+                                if (data == '') {
+                                    window.location = '<?= PROOT; ?>dues.paid/' + level;
+                                }
+                            }
+                        })
 
-                        },
-                        error: function(data) {
-
-                        }
-                    })
+                        let message = 'Payment complete! Reference: ' + response.reference;
+                        alert(message);
+                    }
+                });
+                if (amount <= <?= $amountToPay; ?>) {
+                    if (amount >= 10) {
+                        handler.openIframe();
+                    } else {
+                        alert('you cannot not pay less than 10ghc');
+                        return false;
+                    }
                 } else {
-                    console.log('Student ID required!');
+                    alert('you cannot not pay more');
                     return false;
                 }
-            })
+            }
+
+
+
+            // 
+            // $('#dues_next').on('click', function() {
+            //     var type = 'find';
+            //     var studentid = $('#studentid').val();
+            //     if (studentid != '') {
+            //         $.ajax({
+            //             url : '<?= PROOT;?>auth/dues.find.student.php',
+            //             method : 'POST',
+            //             data : {
+            //                 type : type,
+            //                 studentid : studentid,
+            //             },
+            //             beforeSend: function() {
+
+            //             },
+            //             success: function(data) {
+
+            //             },
+            //             error: function(data) {
+
+            //             }
+            //         })
+            //     } else {
+            //         console.log('Student ID required!');
+            //         return false;
+            //     }
+            // })
         });
     </script>
 

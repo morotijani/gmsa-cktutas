@@ -26,3 +26,6 @@
 
 	define('IPINFO_KEY', 'c5c08603163207');
 
+	define('PAYSTACK_TEST_SECRETE_KEY', 'sk_test_6c1ea588da6a0de775b2de5c0137ac940362cbff');
+	define('PAYSTACK_TEST_PUBLIC_KEY', 'pk_test_ef5beb2d9d4a7889e8975335c3eedc20c3ca45d3');
+
