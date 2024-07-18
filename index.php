@@ -71,7 +71,7 @@
                                     <div class="row">
                                         <div class="col-sm-11 col-lg-8 col-xl-7 m-auto">
                                             <!-- Title -->
-                                            <h1 class="text-white display-4 my-4">Get updated on news <span class="text-primary">and</span> know whats up.</h1>
+                                            <h1 class="text-white display-4 my-4">Get updated on news <span class="text-primary">and</span> know what's up.</h1>
                                             <p class="text-white mb-5"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
                                             tempor proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
                                             <a class="btn btn-lg btn-white icon-link icon-link-hover mb-0" href="<?= PROOT; ?>blog">Get started now<i class="bi bi-arrow-right"></i> </a>

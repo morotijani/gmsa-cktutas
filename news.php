@@ -3,7 +3,7 @@
     // Contact us page
 
     require_once ("db_connection/conn.php");
-    $TITLE = "Contacts us";
+    $TITLE = "News";
     $navTheme = "";
     include ("inc/header.inc.php");
     include ("inc/nav.inc.php");
@@ -110,187 +110,7 @@
                         <!-- Title -->
                         <h4 class="mb-4">Our Blog</h4>
 
-                        <article class="card card-hover-shadow border p-3 mb-4">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <img src="assets/images/blog/4by4/06.jpg" class="img-fluid card-img" alt="blog-img">
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="card-body d-flex flex-column h-100 ps-0 pe-3">
-                                        <div><span class="badge text-bg-dark mb-3">Technology</span></div>
-                                        <h5 class="card-title mb-3 mb-md-0">The Power of Gratitude: Cultivating Joy and Abundance</h5>
-                                        <div class="d-sm-flex justify-content-between align-items-center mt-auto">
-                                            <p class="mb-2 heading-color fw-semibold">By Carolyn Ortiz</p>
-                                            <a class="icon-link icon-link-hover stretched-link" href="blog-single-v1.html">Read more<i class="bi bi-arrow-right"></i> </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
-
-                        <article class="card card-hover-shadow border p-3 mb-4">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <img src="assets/images/blog/4by4/07.jpg" class="img-fluid card-img" alt="blog-img">
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="card-body d-flex flex-column h-100 ps-0 pe-3">
-                                        <div class="d-flex justify-content-between position-relative z-index-2">
-                                            <span class="badge text-bg-dark mb-3">Lifestyle</span>
-                                            <a href="#!" class="mb-0 text-body small" tabindex="0" role="button" data-bs-container="body" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="top" data-bs-content="You're seeing this ad because your activity meets the intended audience of our site.">
-                                                <i class="bi bi-info-circle ps-1"></i> Sponsored
-                                            </a>
-                                        </div>
-                                        <h5 class="card-title mb-3 mb-md-0">5 investment doubts you should clarify</h5>
-                                        <div class="d-sm-flex justify-content-between align-items-center mt-auto">
-                                            <p class="mb-2 heading-color fw-semibold">By Amanda Reed</p>
-                                            <a class="icon-link icon-link-hover stretched-link" href="blog-single-v2.html">Read more<i class="bi bi-arrow-right"></i> </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
-
-                        <article class="card card-hover-shadow border p-3 mb-4">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <img src="assets/images/blog/4by4/08.jpg" class="img-fluid card-img" alt="blog-img">
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="card-body d-flex flex-column h-100 ps-0 pe-3">
-                                        <div><span class="badge text-bg-dark mb-3">Design</span></div>
-                                        <h5 class="card-title mb-3 mb-md-0">Mastering Responsive Web Design with Bootstrap</h5>
-                                        <div class="d-sm-flex justify-content-between align-items-center mt-auto">
-                                            <p class="mb-2 heading-color fw-semibold">By Joan Wallace</p>
-                                            <a class="icon-link icon-link-hover stretched-link" href="blog-single-v1.html">Read more<i class="bi bi-arrow-right"></i> </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
-
-                        <article class="card card-hover-shadow border p-3 mb-4">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <img src="assets/images/blog/4by4/09.jpg" class="img-fluid card-img" alt="blog-img">
-                                </div>
-                                <div class="col-md-8">
-                                    <!-- Content -->
-                                    <div class="card-body d-flex flex-column h-100 ps-0 pe-3">
-                                        <div><span class="badge text-bg-dark mb-3">Marketing</span></div>
-                                        <h5 class="card-title mb-3 mb-md-0">Effortless Web Development with Mizzle</h5>
-                                        <!-- Author name and button -->
-                                        <div class="d-sm-flex justify-content-between align-items-center mt-auto">
-                                            <p class="mb-2 heading-color fw-semibold">By Lori Stevens</p>
-                                            <a class="icon-link icon-link-hover stretched-link" href="blog-single-v2.html">Read more<i class="bi bi-arrow-right"></i> </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
-
-                        <article class="card card-hover-shadow border p-3">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <img src="assets/images/blog/4by4/10.jpg" class="img-fluid card-img" alt="blog-img">
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="card-body d-flex flex-column h-100 ps-0 pe-3">
-                                        <div><span class="badge text-bg-dark mb-3">Research</span></div>
-                                        <h5 class="card-title mb-3 mb-md-0">Ten questions you should answer truthfully.</h5>
-                                        <div class="d-sm-flex justify-content-between align-items-center mt-auto">
-                                            <p class="mb-2 heading-color fw-semibold">By Louis Crawford</p>
-                                            <a class="icon-link icon-link-hover stretched-link" href="blog-single-v2.html">Read more<i class="bi bi-arrow-right"></i> </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-
-                    <div class="col-lg-4 mt-5 mt-lg-0">
-                        <div class="card card-body bg-light p-4">
-                            <svg class="mb-3" width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <g clip-path="url(#clip0_1113_392)">
-                                <path class="fill-primary" d="M22.5492 24.7427C23.8548 25.6131 26.1456 25.6132 27.4515 24.7426C27.4517 24.7425 27.452 24.7423 27.4522 24.7422L49.7048 9.90706C48.9749 7.79611 46.9686 6.27539 44.6128 6.27539H5.38754C3.03156 6.27539 1.0254 7.79611 0.29541 9.90706L22.5485 24.7423C22.5488 24.7425 22.549 24.7425 22.5492 24.7427Z"/>
-                                <path class="fill-mode" d="M29.077 27.1812C29.0767 27.1814 29.0765 27.1816 29.0763 27.1817C27.9335 27.9435 26.4665 28.3244 25 28.3244C23.5332 28.3244 22.0668 27.9436 20.9239 27.1816C20.9237 27.1815 20.9236 27.1814 20.9234 27.1813L0 13.2324V38.3373C0 41.3077 2.41672 43.7244 5.38735 43.7244H44.6128C47.5834 43.7244 50 41.3077 50 38.3373V13.2324L29.077 27.1812Z"/>
-                                </g>
-                                <defs>
-                                <clipPath id="clip0_1113_392">
-                                <rect width="50" height="50" fill="white"/>
-                                </clipPath>
-                                </defs>
-                            </svg>
-                            <h6 class="mb-3">Get the latest Mizzle article delivered to your inbox</h6>
-                            <form>
-                                <input type="email" class="form-control mb-2" placeholder="Email address">
-                                <button type="submit" class="btn btn-dark mb-0">Subscribe</button>
-                            </form>
-                        </div>
-
-                        <div class="card text-bg-dark mt-5">
-                            <img src="assets/images/blog/adv.jpg" class="card-img" alt="adv image">
-                            <div class="card-img-overlay">
-                                <h5 class="card-title">Advertisement</h5>
-                            </div>
-                        </div>
-
-                        <div class="mt-5">
-                            <h6 class="mb-3">Follow us on:</h6>
-                            <ul class="list-inline mb-0">
-                                <li class="list-inline-item"> <a class="btn btn-round bg-facebook" href="#"><i class="fab fa-fw fa-facebook-f lh-base"></i></a> </li>
-                                <li class="list-inline-item"> <a class="btn btn-round bg-instagram" href="#"><i class="fab fa-fw fa-instagram lh-base"></i></a> </li>
-                                <li class="list-inline-item"> <a class="btn btn-round bg-twitter" href="#"><i class="fab fa-fw fa-twitter lh-base"></i></a> </li>
-                                <li class="list-inline-item"> <a class="btn btn-round bg-linkedin" href="#"><i class="fab fa-fw fa-linkedin-in lh-base"></i></a> </li>
-                                <li class="list-inline-item"> <a class="btn btn-round bg-youtube" href="#"><i class="fab fa-fw fa-youtube lh-base"></i></a> </li>
-                            </ul>
-                        </div>
-
-                        <div class="align-items-center mt-5">
-                            <h6 class="mb-3 d-inline-block">Popular Tags:</h6>
-                            <ul class="list-inline mb-0 social-media-btn">
-                                <li class="list-inline-item"> <a class="btn btn-light btn-sm" href="#">blog</a> </li>
-                                <li class="list-inline-item"> <a class="btn btn-light btn-sm" href="#">business</a> </li>
-                                <li class="list-inline-item"> <a class="btn btn-light btn-sm" href="#">bootstrap</a> </li>
-                                <li class="list-inline-item"> <a class="btn btn-light btn-sm" href="#">data science</a> </li>
-                                <li class="list-inline-item"> <a class="btn btn-light btn-sm" href="#">deep learning</a> </li>
-                                <li class="list-inline-item"> <a class="btn btn-light btn-sm" href="#">Adventure</a> </li>
-                                <li class="list-inline-item"> <a class="btn btn-light btn-sm" href="#">Community</a> </li>
-                                <li class="list-inline-item"> <a class="btn btn-light btn-sm" href="#">Tutorials</a> </li>
-                                <li class="list-inline-item"> <a class="btn btn-light btn-sm" href="#">Interview</a> </li>
-                                <li class="list-inline-item"> <a class="btn btn-light btn-sm" href="#">Photography</a> </li>
-                                <li class="list-inline-item"> <a class="btn btn-light btn-sm" href="#">Classic</a> </li>
-                            </ul>
-                        </div>
-
-                    </div>
-
-                    <div class="col-12 mt-6">
-                        <ul class="pagination pagination-primary-soft d-flex justify-content-sm-between flex-wrap mb-0">
-                            <li>
-                                <ul class="list-unstyled">
-                                    <li class="page-item">
-                                        <a class="page-link" href="#"><i class="fas fa-long-arrow-alt-left me-2 rtl-flip"></i>Prev</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <ul class="list-unstyled">
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">..</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">22</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">23</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <ul class="list-unstyled">
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">Next<i class="fas fa-long-arrow-alt-right ms-2 rtl-flip"></i></a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
+                        <div id="load-content"></div>
                     </div>
 
                 </div>
@@ -298,192 +118,32 @@
         </section>
 
     </main>
+<?php include ("inc/footer.inc.php"); ?>
+<script type="text/javascript">
+     // SEARCH AND PAGINATION FOR LIST
+    function load_data(page, query = '') {
+        $.ajax({
+            url : "<?= PROOT; ?>auth/fetch.news.posts.php",
+            method : "POST",
+            data : {
+                page : page, 
+                query : query
+            },
+            success : function(data) {
+                $("#load-content").html(data);
+            }
+        });
+    }
 
-    <footer class="bg-dark position-relative overflow-hidden pt-6" data-bs-theme="dark">
+    load_data(1);
+    $('#search').keyup(function() {
+        var query = $('#search').val();
+        load_data(1, query);
+    });
 
-        <div class="container position-relative mt-5">
-            <!-- Widgets -->
-            <div class="row g-4">
-                <!-- Widget 1 START -->
-                <div class="col-xl-3 text-lg-center text-xl-start mb-4 mb-xl-0">
-                    <!-- logo -->
-                    <a href="index.html">
-                        <img class="light-mode-item h-40px" src="assets/images/logo.svg" alt="logo">
-                        <img class="dark-mode-item h-40px" src="assets/images/logo-light.svg" alt="logo">
-                    </a>
-                </div>
-                <!-- Widget 1 END -->
-
-                <!-- Widget START -->
-                <div class="col-6 col-md-4 col-lg-5 col-xl-4">
-                    <h6 class="mb-2 mb-md-4">Quick links</h6>
-                    <div class="row g-0">
-                        <div class="col-lg-6">
-                            <ul class="nav flex-column">
-                                <li class="nav-item"><a class="nav-link pt-0" href="about-v1.html">About us</a></li>
-                                <li class="nav-item"><a class="nav-link" href="contact-v1.html">Contact us</a></li>
-                                <li class="nav-item"><a class="nav-link" href="services-v1.html">Services</a></li>
-                                <li class="nav-item"><a class="nav-link" href="career.html">Career <span class="badge text-bg-danger ms-2">2 Job</span></a></li>
-                                <li class="nav-item"><a class="nav-link" href="career-single.html">Career detail</a></li>
-                                <li class="nav-item"><a class="nav-link" href="portfolio-showcase.html">Case studies</a></li>
-                                <li class="nav-item"><a class="nav-link" href="portfolio-showcase.html">Team</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-lg-6">
-                            <ul class="nav flex-column">
-                                <li class="nav-item"><a class="nav-link" href="contact-v1.html">Become a partner</a></li>
-                                <li class="nav-item"><a class="nav-link" href="customer-stories.html">Customer stories</a></li>
-                                <li class="nav-item"><a class="nav-link" href="sign-in.html">Sign in</a></li>
-                                <li class="nav-item"><a class="nav-link" href="sign-up.html">Sign up</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!-- Widget END -->
-
-                <!-- Widget START -->
-                <div class="col-6 col-md-4 col-lg-3 col-xl-2">
-                    <h6 class="mb-2 mb-md-4">Resources</h6>
-                    <ul class="nav flex-column">
-                        <li class="nav-item"><a class="nav-link" href="#">Privacy Policy</a></li>
-                        <li class="nav-item"><a class="nav-link pt-0" href="#">Legal</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Supports <i class="bi bi-box-arrow-up-right small ms-1"></i></a></li>
-                        <li class="nav-item"><a class="nav-link" href="faq.html">Faqs</a></li>
-                        <li class="nav-item"><a class="nav-link" href="blog-grid.html">News and blogs</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Terms &amp; condition</a></li>
-                    </ul>
-                </div>
-                <!-- Widget END -->
-
-                <!-- Widget START -->
-                <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3">
-                    <h6 class="mb-2 mb-md-4">Community</h6>
-                    <!-- Document -->
-                    <div class="position-relative d-flex align-items-center py-2 my-2">
-                        <div class="icon-lg bg-warning rounded-circle flex-shrink-0">
-                            <i class="bi bi-file-earmark-text-fill heading-color"></i>
-                        </div>
-                        <div class="nav flex-column ps-3">
-                            <h6 class="mb-2"><a href="#" class=" stretched-link p-0">Documentation</a></h6>
-                            <div class="small text-body-secondary">API, knowledge base, tutorials</div>
-                        </div>
-                    </div>
-
-                    <!-- Snippets -->
-                    <div class="position-relative d-flex align-items-center py-2 my-2">
-                        <div class="icon-lg bg-success rounded-circle flex-shrink-0">
-                            <i class="bi bi-stickies-fill heading-color"></i>
-                        </div>
-                        <div class="nav flex-column ps-3">
-                            <h6 class="mb-2"><a href="#" class=" stretched-link p-0">Snippets</a></h6>
-                            <div class="small text-body-secondary">API, knowledge base, tutorials</div>
-                        </div>
-                    </div>
-
-                    <!-- Snippets -->
-                    <div class="position-relative d-flex align-items-center py-2 my-2">
-                        <div class="icon-lg bg-info rounded-circle flex-shrink-0">
-                            <i class="bi bi-puzzle-fill heading-color"></i>
-                        </div>
-                        <div class="nav flex-column ps-3">
-                            <h6 class="mb-2"><a href="#" class="stretched-link p-0">Components</a></h6>
-                            <div class="small text-body-secondary">API, knowledge base, tutorials</div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Widget END -->
-            </div>
-
-            <!-- Divider -->
-            <hr class="opacity-1 my-5 my-sm-6">
-
-            <!-- Contact detail -->
-            <div class="row g-4 align-items-center">
-                <!-- Title -->
-                <div class="col-xl-3 text-lg-center text-xl-start mb-4 mb-xl-0">
-                    <h5 class="mb-1">Get in touch with us</h5>
-                    <p class="mb-0">We look forward to hearing from you!</p>
-                </div>
-
-                <!-- Mobile number -->
-                <div class="col-sm-6 col-md-4 col-xl-3 d-flex justify-content-md-center">
-                    <div class="position-relative d-flex align-items-center">
-                        <div class="icon-lg bg-body rounded-circle flex-shrink-0">
-                            <i class="bi bi-telephone heading-color"></i>
-                        </div>
-                        <div class="nav flex-column ps-3">
-                            <div class="small text-body-secondary">Give us a call</div>
-                            <p class="fw-semibold mt-1 mb-0"><a href="#" class="heading-color text-primary-hover stretched-link p-0">469-537-2410</a></p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Email -->
-                <div class="col-sm-6 col-md-4 col-xl-3 d-flex justify-content-md-center">
-                    <div class="position-relative d-flex align-items-center">
-                        <div class="icon-lg bg-body rounded-circle flex-shrink-0">
-                            <i class="bi bi-envelope heading-color"></i>
-                        </div>
-                        <div class="nav flex-column ps-3">
-                            <div class="small text-body-secondary">Send us an email</div>
-                            <p class="fw-semibold mt-1 mb-0"><a href="#" class="heading-color text-primary-hover stretched-link p-0">example@gmail.com</a></p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Address -->
-                <div class="col-sm-6 col-md-4 col-xl-3 d-flex justify-content-md-center">
-                    <div class="position-relative d-flex align-items-center">
-                        <div class="icon-lg bg-body rounded-circle flex-shrink-0">
-                            <i class="bi bi-geo-alt heading-color"></i>
-                        </div>
-                        <div class="nav flex-column ps-3">
-                            <div class="small text-body-secondary">Visit us in</div>
-                            <p class="fw-semibold heading-color mt-1 mb-0">55/123 Norman street, Banking road</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Divider -->
-            <hr class="opacity-1 mt-6 mb-0">
-
-            <!-- Bottom footer -->
-            <div class="d-md-flex justify-content-between align-items-center text-center text-lg-start py-4">
-                <!-- copyright text -->
-                <div class="text-body mb-3 mb-md-0"> Copyrights ©2024 Mizzle. Build by <a href="https://www.webestica.com/" class="text-body text-primary-hover">Webestica</a>. </div>
-
-                <!-- Social links -->
-                <ul class="list-inline mb-0">
-                    <li class="list-inline-item"> <a class="btn btn-xs btn-icon btn-light" href="#"><i class="fab fa-fw fa-facebook-f lh-base"></i></a> </li>
-                    <li class="list-inline-item"> <a class="btn btn-xs btn-icon btn-light" href="#"><i class="fab fa-fw fa-instagram lh-base"></i></a> </li>
-                    <li class="list-inline-item"> <a class="btn btn-xs btn-icon btn-light" href="#"><i class="fab fa-fw fa-twitter lh-base"></i></a> </li>
-                    <li class="list-inline-item"> <a class="btn btn-xs btn-icon btn-light" href="#"><i class="fab fa-fw fa-linkedin-in lh-base"></i></a> </li>
-                    <li class="list-inline-item"> <a class="btn btn-xs btn-icon btn-light" href="#"><i class="fab fa-fw fa-youtube lh-base"></i></a> </li>
-                </ul>
-            </div>
-            
-        </div>
-    </footer>
-
-    <div class="back-top"></div>
-
-    <script type="text/javascript" src="<?= PROOT; ?>dist/js/jquery-3.7.1.min.js"></script>
-    <script type="text/javascript" src="<?= PROOT; ?>dist/js/popper.min.js"></script>
-    <script type="text/javascript" src="<?= PROOT; ?>dist/js/bootstrap.min.js"></script>
-
-
-
-    <script src="<?= PROOT; ?>dist/js/purecounter_vanilla.js"></script>
-    <script src="<?= PROOT; ?>dist/js/swiper-bundle.min.js"></script>
-    <script src="<?= PROOT; ?>dist/js/jarallax.min.js"></script>
-    <script src="<?= PROOT; ?>dist/js/jarallax-video.min.js"></script>
-
-    <script src="<?= PROOT; ?>dist/js/mainfunctions.js"></script>
-    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
-
-    <script type="text/javascript">
-    </script>
-
-</body>
-</html>
+    $(document).on('click', '.page-link-go', function() {
+        var page = $(this).data('page_number');
+        var query = $('#search').val();
+        load_data(page, query);
+    });
+</script>
