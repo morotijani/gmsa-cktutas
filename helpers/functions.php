@@ -155,11 +155,18 @@ function get_amount_to_pay_using_level($conn, $studentid, $level) {
 	// 	ORDER BY gmsa_dues.id DESC 
 	// 	LIMIT 1
 	// ";
+	// $query = "
+	// 	SELECT *, SUM(transaction_amount) AS amt FROM gmsa_dues 
+	// 	WHERE gmsa_dues.student_id = ? 
+	// 	ORDER BY gmsa_dues.id DESC 
+	// 	LIMIT 1
+	// ";
+
 	$query = "
-		SELECT *, SUM(transaction_amount) AS amt FROM gmsa_dues 
+		SELECT * FROM gmsa_dues 
 		WHERE gmsa_dues.student_id = ? 
 		ORDER BY gmsa_dues.id DESC 
-		-- LIMIT 1
+		LIMIT 1
 	";
 	$statement = $conn->prepare($query);
 	$statement->execute([$studentid]);
@@ -170,55 +177,61 @@ function get_amount_to_pay_using_level($conn, $studentid, $level) {
 	$level = 100;
 	if ($count_rows > 0) {
 		// code...
-		if ($row[0]['level'] == 100) { 
-			if ($row[0]['amt'] >= $site_row['dues_for_fresher']) {
+		if ($row[0]['level'] == 100) {
+			$amount = $conn->query("SELECT SUM(transaction_amount) as amt FROM gmsa_dues WHERE level = 100")->fetchAll();
+			if ($amount[0]['amt'] >= $site_row['dues_for_fresher']) {
 				$levelAmount = $site_row['dues_for_continue'];
 				$level = 200;
 			} else {
 				$level = 100;
-				if ($row[0]['amt'] == 0.00) {
+				if ($amount[0]['amt'] == 0.00) {
 					// code...
 					$levelAmount = $site_row['dues_for_fresher'];
 				} else {
-					$levelAmount = $site_row['dues_for_fresher'] - $row[0]['amt'];
+					$levelAmount = $site_row['dues_for_fresher'] - $amount[0]['amt'];
 				}
 			}
 		}
 
 		if ($row[0]['level'] == 200) {
-			if ($row[0]['amt'] >= $site_row['dues_for_continue']) {
+			$amount = $conn->query("SELECT SUM(transaction_amount) as amt FROM gmsa_dues WHERE level = 200")->fetchAll();
+			if ($amount[0]['amt'] >= $site_row['dues_for_continue']) {
 				$levelAmount = $site_row['dues_for_continue'];
 				$level = 300;
 			} else {
 				$level = 200;
-				if ($row[0]['amt'] == 0.00) {
+				if ($amount[0]['amt'] == 0.00) {
 					// code...
 					$levelAmount = $site_row['dues_for_continue'];
 				} else {
-					$levelAmount = $site_row['dues_for_continue'] - $row[0]['amt'];
+					$levelAmount = $site_row['dues_for_continue'] - $amount[0]['amt'];
 				}
 			}
 		}
 
 		if ($row[0]['level'] == 300) {
-			if ($row[0]['amt'] >= $site_row['dues_for_continue']) {
+			$amount = $conn->query("SELECT SUM(transaction_amount) as amt FROM gmsa_dues WHERE level = 300")->fetchAll();
+			if ($amount[0]['amt'] >= $site_row['dues_for_continue']) {
 				$levelAmount = $site_row['dues_for_continue'];
 				$level = 400;
 			} else {
 				$level = 300;
-				if ($row[0]['amt'] == 0.00) {
+				if ($amount[0]['amt'] == 0.00) {
 					// code...
 					$levelAmount = $site_row['dues_for_continue'];
 				} else {
-					$levelAmount = $site_row['dues_for_continue'] - $row[0]['amt'];
+					$levelAmount = $site_row['dues_for_continue'] - $amount[0]['amt'];
 				}
 			}
 		}
 
 		if ($row[0]['level'] == 400) { 
-			if ($row[0]['amt'] < $site_row['dues_for_continue']) {
-				$levelAmount = $site_row['dues_for_continue'] - $row[0]['amt'];
-				$level = 400;
+			$level = 400;
+			$amount = $conn->query("SELECT SUM(transaction_amount) as amt FROM gmsa_dues WHERE level = 400")->fetchAll();
+			if ($amount[0]['amt'] < $site_row['dues_for_continue']) {
+				$levelAmount = $site_row['dues_for_continue'] - $amount[0]['amt'];
+			} else {
+				$levelAmount = 'Done paying.';
 			}
 		}
 	} else {
