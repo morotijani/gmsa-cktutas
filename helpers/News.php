@@ -424,7 +424,7 @@
 			$query = "
 				SELECT *, gmsa_news.id AS news_id, gmsa_news.createdAt AS ca FROM gmsa_news 
 				INNER JOIN gmsa_categories 
-				ON gmsa_categories.id = gmsa_news.news_category 
+				ON gmsa_categories.category_id = gmsa_news.news_category 
 				INNER JOIN gmsa_admin 
 				ON gmsa_admin.admin_id = gmsa_news.news_created_by 
 				WHERE gmsa_news.news_url = ?
