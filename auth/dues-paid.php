@@ -7,14 +7,15 @@
     $navTheme = "";
     include ("../inc/header.inc.php");
 
+    $message = '';
     if (isset($_GET['url']) && !empty($_GET['url'])) {
         // code...
         $reference = sanitize($_GET['url']);
         $student = find_paid_dues_by_reference($conn, $reference);
         if (is_array($student)) {
-            echo "paid";
+            $message = 200;;
         } else {
-            echo 'not paid!';
+            $message = 404;
         }
 
     }
@@ -36,14 +37,24 @@
                                 <path d="M30.8,83.2c0.1,0.5-3.5,1.7-7.7,3.1c-4.3,1.4-9.2,3.1-12.1,4.1c-5.7,1.9-10.6,3.1-11,2.1 c-0.4-0.9,3.9-3.6,9.8-5.6c2.9-1,8.1-2.4,12.6-3.2C26.9,83,30.7,82.7,30.8,83.2z"/>
                             </svg>
                         </span>
-                        Pay your GMSA yearly dues.
+                        <?= (($message == 200) ? 'Your GMSA dues hass been successfully paid!<br> Thank you.' : '<span class="text-danger">Your GMSA dues has NOT been paid, please go and make payment</span>!'); ?>
                     </h1>
-                    <form class="col-md-7 bg-light border rounded-2 position-relative mx-auto p-2 mt-4 mt-md-5" method="GET">
-                        <div class="input-group">
-                            <input class="form-control focus-shadow-none bg-light border-0 me-1" type="text" autocomplete="off" autofocus id="url" name="url" placeholder="Student ID">
-                            <button id="dues_next" class="btn btn-dark rounded-2 mb-0"><i class="bi bi-forward-fill me-2"></i>Next</button>
+                    <?php if ($message == 200): ?>
+                        <form class="col-md-7 bg-light border rounded-2 position-relative mx-auto p-2 mt-4 mt-md-5">
+                            <div class="input-group">
+                                <input class="form-control focus-shadow-none bg-light border-0 me-1" type="text" readonly value="<?= $reference; ?>">
+                                <button type="button" id="dues_next" class="btn btn-dark rounded-2 mb-0"><i class="bi bi-forward-fill me-2"></i>Copy Reference code.</button>
+                            </div>
+                        </form>
+                        <div class="my-5">
+                            <a href="<?= PROOT; ?>" class="btn btn-dark">Go home.</a>
                         </div>
-                    </form>
+                    <?php else: ?>
+                        <div class="my-5">
+                            <a href="<?= PROOT; ?>auth/pay-dues" class="btn btn-dark">Pay dues.</a>&nbsp;
+                            <a href="<?= PROOT; ?>" class="btn btn-light">Go home.</a>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
 

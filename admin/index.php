@@ -61,7 +61,6 @@
         $QUERY = "
             SELECT * FROM gmsa_dues 
             WHERE MONTH(createdAt) = '{$thisMonth}' 
-            AND transaction_intent = 'paid'
         ";
         $statement = $conn->prepare($QUERY);
         $statement->execute();
@@ -153,16 +152,16 @@
                                             </thead>
                                             <tbody>
                                                 <?php if ($count_dues > 0): ?>
-                                                    <?php foreach ($rows as $key => $row): ?>
+                                                    <?php $i = 1; foreach ($rows as $key => $row): ?>
                                                         <tr>
                                                             <td><?= $i; ?></td>
-                                                            <td><?= $row['tdansaction_id']; ?></td>
+                                                            <td><?= $row['dues_id']; ?></td>
                                                             <td><?= $row['student_id']; ?></td>
-                                                            <td><?= $row['member_level']; ?></td>
-                                                            <td><?= $row['tdansaction_reference']; ?></td>
+                                                            <td><?= $row['level']; ?></td>
+                                                            <td><?= $row['transaction_reference']; ?></td>
                                                             <td><?= pretty_date($row['createdAt']); ?></td>
                                                         </tr>
-                                                    <?php endforeach; ?>
+                                                    <?php $i++; endforeach; ?>
                                                 <?php else: ?>
                                                     <tr>
                                                         <td colspan="6">No dues paid this month.</td>
