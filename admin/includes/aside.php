@@ -88,6 +88,9 @@
                             <a href="<?= PROOT; ?>admin/gallery" class="menu-link"><span class="menu-icon fa-brands fa-envira"></span> <span class="menu-text">Gallery</span></a>
                         </li>
                         <hr>
+                        <li class="menu-item">
+                            <a href="<?= PROOT; ?>admin/site" class="menu-link"><span class="menu-icon fas fa-globe"></span> <span class="menu-text">Site</span></a>
+                        </li>
                         <li class="menu-item has-child">
                             <a href="javascript:;" class="menu-link"><span class="menu-icon fa-solid fa-person"></span> <span class="menu-text"><?= ucwords($admin_data['admin_fullname']); ?> </span></a>
                             <ul class="menu">

@@ -46,7 +46,7 @@
 
                     <header class="page-title-bar">
                         <div class="d-md-flex align-items-md-start">
-                            <h1 class="page-title mr-sm-auto"> Gallary </h1>
+                            <h1 class="page-title mr-sm-auto"> Gallery </h1>
                             <div class="btn-toolbar">
                                 <a href="<?= PROOT; ?>admin/gallery" class="btn btn-light"><i class="oi oi-data-transfer-upload"></i> <span class="ml-1">Import</span></a>
                             </div>
