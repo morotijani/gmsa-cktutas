@@ -170,30 +170,56 @@ function get_amount_to_pay_using_level($conn, $studentid, $level) {
 	$level = 100;
 	if ($count_rows > 0) {
 		// code...
-		if ($row[0]['level'] == 100 && $row[0]['amt'] >= $site_row['dues_for_fresher']) {
-			$levelAmount = $site_row['dues_for_continue'];
-			$level = 200;
-		} else {
-			$levelAmount = $site_row['dues_for_fresher'] - $row[0]['amt'];
+		if ($row[0]['level'] == 100) { 
+			if ($row[0]['amt'] >= $site_row['dues_for_fresher']) {
+				$levelAmount = $site_row['dues_for_continue'];
+				$level = 200;
+			} else {
+				$level = 100;
+				if ($row[0]['amt'] == 0.00) {
+					// code...
+					$levelAmount = $site_row['dues_for_fresher'];
+				} else {
+					$levelAmount = $site_row['dues_for_fresher'] - $row[0]['amt'];
+				}
+			}
 		}
 
-		if ($row[0]['level'] == 200 && $row[0]['amt'] >= $site_row['dues_for_continue']) {
-			$levelAmount = $site_row['dues_for_continue'];
-			$level = 300;
-		} else {
-			$levelAmount = $site_row['dues_for_continue'] - $row[0]['amt'];
+		if ($row[0]['level'] == 200) {
+			if ($row[0]['amt'] >= $site_row['dues_for_continue']) {
+				$levelAmount = $site_row['dues_for_continue'];
+				$level = 300;
+			} else {
+				$level = 200;
+				if ($row[0]['amt'] == 0.00) {
+					// code...
+					$levelAmount = $site_row['dues_for_continue'];
+				} else {
+					$levelAmount = $site_row['dues_for_continue'] - $row[0]['amt'];
+				}
+			}
 		}
 
-		if ($row[0]['level'] == 300 && $row[0]['amt'] >= $site_row['dues_for_continue']) {
-			$levelAmount = $site_row['dues_for_continue'];
-			$level = 400;
-		} else {
-			$levelAmount = $site_row['dues_for_continue'] - $row[0]['amt'];
+		if ($row[0]['level'] == 300) {
+			if ($row[0]['amt'] >= $site_row['dues_for_continue']) {
+				$levelAmount = $site_row['dues_for_continue'];
+				$level = 400;
+			} else {
+				$level = 300;
+				if ($row[0]['amt'] == 0.00) {
+					// code...
+					$levelAmount = $site_row['dues_for_continue'];
+				} else {
+					$levelAmount = $site_row['dues_for_continue'] - $row[0]['amt'];
+				}
+			}
 		}
 
-		if ($row[0]['level'] == 400 && $row[0]['amt'] < $site_row['dues_for_continue']) {
-			$levelAmount = $site_row['dues_for_continue'] - $row[0]['amt'];
-			$level = 400;
+		if ($row[0]['level'] == 400) { 
+			if ($row[0]['amt'] < $site_row['dues_for_continue']) {
+				$levelAmount = $site_row['dues_for_continue'] - $row[0]['amt'];
+				$level = 400;
+			}
 		}
 	} else {
 		if ($level == 100) {
@@ -249,10 +275,9 @@ function total_dues_this_year($conn) {
 	$query = "
 		SELECT SUM(transaction_amount) AS amt FROM gmsa_dues 
         WHERE YEAR(createdAt) = ? 
-        AND transaction_intent = ? 
 	";
 	$statement = $conn->prepare($query);
-	$statement->execute(['paid', $thisYear]);
+	$statement->execute([$thisYear]);
 	$row = $statement->fetchAll();
 
 	return money($row[0]['amt']);

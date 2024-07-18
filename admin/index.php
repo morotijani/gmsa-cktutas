@@ -16,7 +16,6 @@
             SELECT transaction_amount, createdAt 
             FROM gmsa_dues 
             WHERE YEAR(createdAt) = '{$thisYr}' 
-            AND transaction_intent = 'paid'
         ";
         $statement = $conn->prepare($thisYrQ);
         $statement->execute();
@@ -27,7 +26,6 @@
             SELECT transaction_amount, createdAt 
             FROM gmsa_dues 
             WHERE YEAR(createdAt) = '{$lastYr}' 
-            AND transaction_intent = 'paid'
         ";
         $statement = $conn->prepare($lastYrQ);
         $statement->execute();
