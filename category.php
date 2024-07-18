@@ -11,15 +11,10 @@ category<?php
     $News = new News;
     $Category = new Category;
 
-    $categories = get_category_for_user_view($conn);
-
     if (isset($_GET['url']) && !empty($_GET['url'])) {
         $url = sanitize($_GET['url']);
 
-        $sql = "
-        	SELECT * FROM gmsa_news 
-        	INNER JOIN
-        ";
+        
     } else {
         redirect(PROOT);
     }
@@ -27,7 +22,6 @@ category<?php
 ?>
     
     <main>
-
         <section class="pt-8">
             <div class="container">
                 <div class="inner-container text-center mb-6">
@@ -41,7 +35,7 @@ category<?php
                                 <path d="M30.8,83.2c0.1,0.5-3.5,1.7-7.7,3.1c-4.3,1.4-9.2,3.1-12.1,4.1c-5.7,1.9-10.6,3.1-11,2.1 c-0.4-0.9,3.9-3.6,9.8-5.6c2.9-1,8.1-2.4,12.6-3.2C26.9,83,30.7,82.7,30.8,83.2z"/>
                             </svg>
                         </span>
-                        Showing news, stories announcemnt from category <?= ucwords($url); ?>
+                        Showing news, stories from category: <?= ucwords($url); ?>
                     </h1>
 
                     <form class="col-md-7 bg-light border rounded-2 position-relative mx-auto p-2 mt-4 mt-md-5">
@@ -51,35 +45,6 @@ category<?php
                         </div>
                     </form>
                 </div>
-
-                <h6 class="mb-4">Blog category</h6>
-                <!-- Slider START -->
-                <div class="swiper" data-swiper-options='{
-                    "slidesPerView": 2, 
-                    "spaceBetween": 30,
-                    "pagination":{
-                        "el":".swiper-pagination",
-                        "clickable":"true"
-                    },
-                    "breakpoints": {
-                        "576": {"slidesPerView": 3},
-                        "992": {"slidesPerView": 5}
-                    }}'>
-                        <div class="swiper-wrapper">
-                        <?php if (is_array($categories)): ?>
-                            <?php foreach ($categories as$category): ?>
-                                <div class="swiper-slide">
-                                    <a href="<?= PROOT; ?>category/<?= $category['category_url']; ?>" class="card card-img-scale overflow-hidden">
-                                        <div class="card">
-                                            <div class="badge text-bg-dark"><?= ucwords($category['category']); ?></div>
-                                        </div>
-                                    </a>
-                                </div>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
-                        </div>
-                    <div class="swiper-pagination swiper-pagination-primary position-relative mt-4"></div>
-                </div>
             </div>
         </section>
 
@@ -88,15 +53,18 @@ category<?php
             <div class="container">
                 <div class="row g-xl-7">
                     <div class="col-lg-8">
-                        <h4 class="mb-4">Browsing category <?= ucwords($url); ?></h4>
-                        <?php 
-                        	$news = $Category->fetchCategoryNews($conn, $url);
-	                        if ($news == false) {
-	                            redirect(PROOT);
-	                        } else {
-	                            echo $news;
-	                        }
-	                    ?>
+                        <h4 class="mb-4">Browsing category: <?= ucwords($url); ?></h4>
+                        <div>
+                        	
+	                        <?php 
+	                        	$news = $Category->fetchCategoryNews($conn, $url);
+		                        if ($news == false) {
+		                            redirect(PROOT);
+		                        } else {
+		                            echo $news;
+		                        }
+		                    ?>
+                        </div>
                     </div>
 
                     <div class="col-lg-4 mt-5 mt-lg-0">
@@ -163,3 +131,31 @@ category<?php
 
     </main>
 <?php include ("inc/footer.inc.php"); ?>
+<script>
+	// SUBSCRIBE TO NEW
+    function subscribe_news() {
+        var email = $('#subscribe').val();
+
+        if (email == '') {
+            alert('Enter email to subscribe');
+            return false;
+        } else if (!isEmail(email)) {
+            alert('Please enter a valid email.');
+            return false;
+        } else {
+            $.ajax({
+                url : '<?= PROOT; ?>auth/subscriber.php',
+                method : 'POST',
+                data : {email : email},
+                success : function(data) {
+                    alert(data);
+                    location.reload();
+                },
+                error : function() {
+                    alert('Something went wrong.');
+                }
+            });
+        }
+
+    }
+</script>
