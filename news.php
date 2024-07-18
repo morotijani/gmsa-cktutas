@@ -127,7 +127,7 @@
                             <h6 class="mb-3">Get the latest GMSA article delivered to your inbox</h6>
                             <form>
                                 <input type="email" id="subscribe" name="subscribe" class="form-control mb-2" placeholder="Email address">
-                                <button type="submit" class="btn btn-dark mb-0">Subscribe</button>
+                                <button type="button" onclick="subscribe_news(); return false;" class="btn btn-dark mb-0">Subscribe</button>
                             </form>
                         </div>
 

@@ -134,13 +134,13 @@ if ($total_data > 0) {
 			if ($previous_id > 0) {
 				$previous_link = '
                     <li class="page-item">
-                        <a class="page-link page-link-go" href="javascript:;" data-page_number="'.$previous_id.'"><i class="fas fa-long-arrow-alt-left me-2 rtl-flip"></i>Prev</a>
+                        <a class="page-link page-link-go" href="javascript:;" data-page_number="'.$previous_id.'"> Prev </a>
                     </li>
 				';
 			} else {
 				$previous_link = '
                     <li class="page-item disabled">
-                        <a class="page-link" href="javascript:;"><i class="fas fa-long-arrow-alt-left me-2 rtl-flip"></i>Prev</a>
+                        <a class="page-link" href="javascript:;"> Prev </a>
                     </li>
 				';
 			}
@@ -149,13 +149,13 @@ if ($total_data > 0) {
 			if ($next_id >= $total_links) {
 				$next_link = '
                     <li class="page-item disabled">
-                        <a class="page-link" href="javascript:;">Next<i class="fas fa-long-arrow-alt-right ms-2 rtl-flip"></i></a>
+                        <a class="page-link" href="javascript:;"> Next </a>
                     </li>
 				';
 			} else {
 				$next_link = '
                     <li class="page-item">
-                        <a class="page-link page-link-go" href="javascript:;" data-page_number="'.$next_id.'">Next<i class="fas fa-long-arrow-alt-right ms-2 rtl-flip"></i></a>
+                        <a class="page-link page-link-go" href="javascript:;" data-page_number="'.$next_id.'"> Next </a>
                     </li>
 				';
 			}
@@ -174,6 +174,8 @@ if ($total_data > 0) {
 		}
 
 	}
+
+	$page_link = '<ul class="list-unstyled">'.$page_link.'</ul>';
 
 	$output .= $previous_link. $page_link . $next_link;
 }
