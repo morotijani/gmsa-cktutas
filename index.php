@@ -482,7 +482,7 @@
 <?php include ("inc/footer.inc.php"); ?>
 
 <script type="text/javascript">
-    // SUBSCRIBE TO NEW PRODUCTS
+    // SUBSCRIBE TO NEWS
     function subscribe_news() {
         var email = $('#subscribe').val();
 

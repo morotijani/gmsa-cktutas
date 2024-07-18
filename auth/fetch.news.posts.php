@@ -5,7 +5,7 @@
 require_once ("./../db_connection/conn.php");
 
 
-$limit = 10;
+$limit = 1;
 $page = 1;
 
 if ($_POST['page'] > 1) {
@@ -55,15 +55,15 @@ if ($total_data > 0) {
 			<article class="card card-hover-shadow border p-3 mb-4">
                 <div class="row">
                     <div class="col-md-4">
-                        <img src="assets/images/blog/4by4/06.jpg" class="img-fluid card-img" alt="blog-img">
+                        <img src="' . PROOT . $row["news_media"] . '" class="img-fluid card-img" alt="blog-img" style="height: 200px; object-fit: cover; object-position: top;">
                     </div>
                     <div class="col-md-8">
                         <div class="card-body d-flex flex-column h-100 ps-0 pe-3">
-                            <div><span class="badge text-bg-dark mb-3">Technology</span></div>
-                            <h5 class="card-title mb-3 mb-md-0">The Power of Gratitude: Cultivating Joy and Abundance</h5>
+                            <div><span class="badge text-bg-dark mb-3">'.ucwords($row['category']).'</span></div>
+                            <h5 class="card-title mb-3 mb-md-0">'.$row["news_title"].'</h5>
                             <div class="d-sm-flex justify-content-between align-items-center mt-auto">
-                                <p class="mb-2 heading-color fw-semibold">By Carolyn Ortiz</p>
-                                <a class="icon-link icon-link-hover stretched-link" href="blog-single-v1.html">Read more<i class="bi bi-arrow-right"></i> </a>
+                                <p class="mb-2 heading-color fw-semibold">By '.ucwords($row['admin_fullname']).'</p>
+                                <a class="icon-link icon-link-hover stretched-link" href="' . PROOT . 'news/' . $row['news_url'] . '">Read more<i class="bi bi-arrow-right"></i> </a>
                             </div>
                         </div>
                     </div>
@@ -127,32 +127,20 @@ if ($total_data > 0) {
 	for ($count = 0; $count < count($page_array); $count++) {
 		if ($page == $page_array[$count]) {
 			$page_link .= '
-	            <li>
-                    <ul class="list-unstyled">
-                        <li class="page-item active"><a class="page-link" href="javascript:;">'.$page_array[$count].'</a></li>
-                    </ul>
-                </li>
+                <li class="page-item active"><a class="page-link" href="javascript:;">'.$page_array[$count].'</a></li>
 			';
 
 			$previous_id = $page_array[$count] - 1;
 			if ($previous_id > 0) {
 				$previous_link = '
-                    <li>
-                        <ul class="list-unstyled">
-                            <li class="page-item">
-                                <a class="page-link page-link-go" href="javascript:;" data-page_number="'.$previous_id.'"><i class="fas fa-long-arrow-alt-left me-2 rtl-flip"></i>Prev</a>
-                            </li>
-                        </ul>
+                    <li class="page-item">
+                        <a class="page-link page-link-go" href="javascript:;" data-page_number="'.$previous_id.'"><i class="fas fa-long-arrow-alt-left me-2 rtl-flip"></i>Prev</a>
                     </li>
 				';
 			} else {
 				$previous_link = '
-	                <li>
-                        <ul class="list-unstyled">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="javascript:;"><i class="fas fa-long-arrow-alt-left me-2 rtl-flip"></i>Prev</a>
-                            </li>
-                        </ul>
+                    <li class="page-item disabled">
+                        <a class="page-link" href="javascript:;"><i class="fas fa-long-arrow-alt-left me-2 rtl-flip"></i>Prev</a>
                     </li>
 				';
 			}
@@ -160,22 +148,14 @@ if ($total_data > 0) {
 			$next_id = $page_array[$count] + 1;
 			if ($next_id >= $total_links) {
 				$next_link = '
-					<li>
-                        <ul class="list-unstyled">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="javascript:;">Next<i class="fas fa-long-arrow-alt-right ms-2 rtl-flip"></i></a>
-                            </li>
-                        </ul>
+                    <li class="page-item disabled">
+                        <a class="page-link" href="javascript:;">Next<i class="fas fa-long-arrow-alt-right ms-2 rtl-flip"></i></a>
                     </li>
 				';
 			} else {
 				$next_link = '
-					<li>
-                        <ul class="list-unstyled">
-                            <li class="page-item">
-                                <a class="page-link page-link-go" href="javascript:;" data-page_number="'.$next_id.'>Next<i class="fas fa-long-arrow-alt-right ms-2 rtl-flip"></i></a>
-                            </li>
-                        </ul>
+                    <li class="page-item">
+                        <a class="page-link page-link-go" href="javascript:;" data-page_number="'.$next_id.'">Next<i class="fas fa-long-arrow-alt-right ms-2 rtl-flip"></i></a>
                     </li>
 				';
 			}
