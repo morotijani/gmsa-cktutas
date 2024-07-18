@@ -51,6 +51,7 @@
                                 <form>
                                     <fieldset>
                                         <legend>Ads flyer</legend>
+                                        <div id="upload-file"></div>
                                         <?php if ($site_row['ads'] != ''): ?>
                                             <div id="removeTempuploadedFile" class="list-group list-group-flush list-group-divider">
                                                 <div class="list-group-item">
@@ -63,7 +64,7 @@
                                                     <div class="media align-items-center">
                                                         <div class="media-body"><?= $site_row['ads']; ?></div>
                                                             <div class="media-actions">
-                                                                <button type="button" class="btn btn-sm btn-secondary removeImg" id="<?= $site_row['ads']; ?>">Remove</button>
+                                                                <button type="button" class="btn btn-sm btn-secondary removeImg" id="<?= BASEURL . $site_row['ads']; ?>">Remove</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -74,7 +75,6 @@
                                             <input type="file" class="form-control" id="ads" name="ads">
                                         </div>
                                         <?php endif; ?>
-                                        <div id="upload_file"></div>
                                     </fieldset>
                                 </form>
                             </div>
@@ -102,16 +102,15 @@
                 var tempuploded_file_id = $(this).attr('id');
 
                 $.ajax ({
-                    url: "<?= PROOT; ?>admin/auth/delete.temporary.uploaded.php",
+                    url: "<?= PROOT; ?>admin/auth/delete.ads.php",
                     method: "POST",
                     data:{
                         tempuploded_file_id : tempuploded_file_id
                     },
                     success: function(data) {
-                        $('#removeTempuploadedFile').remove();
+                        //$('#removeTempuploadedFile').remove();
 
-                        $('#ads').css('visibility', 'visible');
-                        $('#ads').val('');
+                        location.reload();
                     }
                 });
             });
