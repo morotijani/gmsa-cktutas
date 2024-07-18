@@ -147,21 +147,6 @@ function find_paid_dues_by_reference($conn, $reference) {
 function get_amount_to_pay_using_level($conn, $studentid, $level) {
 	global $site_row;
 
-	// $query = "
-	// 	SELECT *, SUM(transaction_amount) AS amt FROM gmsa_dues 
-	// 	INNER JOIN gmsa_members 
-	// 	WHERE gmsa_members.member_studentid = gmsa_dues.student_id
-	// 	WHERE gmsa_dues.student_id = ? 
-	// 	ORDER BY gmsa_dues.id DESC 
-	// 	LIMIT 1
-	// ";
-	// $query = "
-	// 	SELECT *, SUM(transaction_amount) AS amt FROM gmsa_dues 
-	// 	WHERE gmsa_dues.student_id = ? 
-	// 	ORDER BY gmsa_dues.id DESC 
-	// 	LIMIT 1
-	// ";
-
 	$query = "
 		SELECT * FROM gmsa_dues 
 		WHERE gmsa_dues.student_id = ? 
@@ -178,7 +163,7 @@ function get_amount_to_pay_using_level($conn, $studentid, $level) {
 	if ($count_rows > 0) {
 		// code...
 		if ($row[0]['level'] == 100) {
-			$amount = $conn->query("SELECT SUM(transaction_amount) as amt FROM gmsa_dues WHERE level = 100")->fetchAll();
+			$amount = $conn->query("SELECT SUM(transaction_amount) as amt FROM gmsa_dues WHERE level = 100 AND student_id = '$studentid'")->fetchAll();
 			if ($amount[0]['amt'] >= $site_row['dues_for_fresher']) {
 				$levelAmount = $site_row['dues_for_continue'];
 				$level = 200;
@@ -194,7 +179,7 @@ function get_amount_to_pay_using_level($conn, $studentid, $level) {
 		}
 
 		if ($row[0]['level'] == 200) {
-			$amount = $conn->query("SELECT SUM(transaction_amount) as amt FROM gmsa_dues WHERE level = 200")->fetchAll();
+			$amount = $conn->query("SELECT SUM(transaction_amount) as amt FROM gmsa_dues WHERE level = 200 AND student_id = '$studentid'")->fetchAll();
 			if ($amount[0]['amt'] >= $site_row['dues_for_continue']) {
 				$levelAmount = $site_row['dues_for_continue'];
 				$level = 300;
@@ -210,7 +195,7 @@ function get_amount_to_pay_using_level($conn, $studentid, $level) {
 		}
 
 		if ($row[0]['level'] == 300) {
-			$amount = $conn->query("SELECT SUM(transaction_amount) as amt FROM gmsa_dues WHERE level = 300")->fetchAll();
+			$amount = $conn->query("SELECT SUM(transaction_amount) as amt FROM gmsa_dues WHERE level = 300 AND student_id = '$studentid'")->fetchAll();
 			if ($amount[0]['amt'] >= $site_row['dues_for_continue']) {
 				$levelAmount = $site_row['dues_for_continue'];
 				$level = 400;
@@ -227,7 +212,7 @@ function get_amount_to_pay_using_level($conn, $studentid, $level) {
 
 		if ($row[0]['level'] == 400) { 
 			$level = 400;
-			$amount = $conn->query("SELECT SUM(transaction_amount) as amt FROM gmsa_dues WHERE level = 400")->fetchAll();
+			$amount = $conn->query("SELECT SUM(transaction_amount) as amt FROM gmsa_dues WHERE level = 400 AND student_id = '$studentid'")->fetchAll();
 			if ($amount[0]['amt'] < $site_row['dues_for_continue']) {
 				$levelAmount = $site_row['dues_for_continue'] - $amount[0]['amt'];
 			} else {

@@ -13,7 +13,29 @@
         $reference = sanitize($_GET['url']);
         $student = find_paid_dues_by_reference($conn, $reference);
         if (is_array($student)) {
-            $message = 200;;
+            $message = 200;
+            $student_row = find_member_by_studentID($conn, $student['student_id']);
+            $payment = $conn->query("SELECT SUM(transaction_amount) as amt, level FROM gmsa_dues WHERE level = ".$student['level']." AND student_id = '".$student["student_id"]."'")->fetchAll();
+
+            $AMOUNT = 0;
+            if ($payment[0]['level'] == 100) {
+                // code...
+                $AMOUNT = $site_row['dues_for_fresher'] - $payment[0]['amt'];
+                if ($AMOUNT > 0) {
+                    // code...
+                    $payment_status = 'Part payment';
+                } else {
+                    $payment_status = 'Full payment';
+                }
+            } else {
+                $AMOUNT = $site_row['dues_for_continue'] - $payment[0]['amt'];
+                if ($AMOUNT > 0) {
+                    // code...
+                    $payment_status = 'Part payment';
+                } else {
+                    $payment_status = 'Full payment';
+                }
+            }
         } else {
             $message = 404;
         }
@@ -26,8 +48,8 @@
 
         <section class="pt-8">
             <div class="container">
-                <div class="inner-container text-center mb-6">
-                    <h1 class="mb-0 lh-base position-relative">
+                <div class="inner-container mb-6">
+                    <h1 class="mb-0 lh-base position-relative text-center">
                         <span class="position-absolute top-0 start-0 mt-n5 ms-n5 d-none d-sm-block">
                             <svg class="fill-primary" width="63.6px" height="93.3px" viewBox="0 0 63.6 93.3" style="enable-background:new 0 0 63.6 93.3;" xml:space="preserve">
                                 <path d="M58.5,1.9c0.5,0,1.6,5.3,2.4,11.8c0.8,6.5,1.4,14,1.6,18.5c0.3,8.8-0.5,15.9-1.6,16c-1.1,0-2.1-7.1-2.4-15.8 c-0.2-4.4-0.3-12-0.4-18.4C57.9,7.3,57.9,1.9,58.5,1.9z"/>
@@ -40,14 +62,64 @@
                         <?= (($message == 200) ? 'Your GMSA dues hass been successfully paid!<br> Thank you.' : '<span class="text-danger">Your GMSA dues has NOT been paid, please go and make payment</span>!'); ?>
                     </h1>
                     <?php if ($message == 200): ?>
-                        <form class="col-md-7 bg-light border rounded-2 position-relative mx-auto p-2 mt-4 mt-md-5">
-                            <div class="input-group">
-                                <input class="form-control focus-shadow-none bg-light border-0 me-1" type="text" readonly value="<?= $reference; ?>">
-                                <button type="button" id="dues_next" class="btn btn-dark rounded-2 mb-0"><i class="bi bi-forward-fill me-2"></i>Copy Reference code.</button>
+                        <div class="card shadow p-4 p-sm-5 p-md-6 mt-3" id="print-area">
+                            <div class="card-header border-bottom px-0 pt-0 pb-5 text-center">
+                                <div class="d-flex justify-content-between">
+                                    <div class="">
+                                        <img src="<?= PROOT; ?>assets/media/logo/logo.png" class="img-fluid" style="width: 100px;">
+                                    </div>
+                                    <div class="">
+                                        <h1 class="mb-3 h6">Bismillahir Rahmanir Rahim <br>In the name of Allah, most Gracious, most merciful</h1>
+                                        <p class="mb-0">GHANA MUSLIM STUDENTS ASSOCIATION <br>C.K TEDAM UNIVERSITY OF TECHNOLOGY AND APPLIED SCIENCES</p>
+                                    </div>
+                                    <div class="">
+                                        <img src="<?= PROOT; ?>assets/media/logo/CK-LOGO.png" class="img-fluid" style="width: 100px;">
+                                    </div>
+                                </div>
                             </div>
-                        </form>
-                        <div class="my-5">
-                            <a href="<?= PROOT; ?>" class="btn btn-dark">Go home.</a>
+                            <div class="card-body">
+                                <div class="d-flex">
+                                    <div class="flex-grow-1">
+                                        <button type="submit" class="btn border mb-3">Oficial Reciept</button>
+                                    </div>
+                                    <div class="" >
+                                        <input type="text" style="border-bottom: 2px dashed;" class="form-control-plaintext text-center" readonly value="<?= date("jS F, Y");?>">
+                                    </div>
+                                </div>
+                                <div class="my-4">
+                                    <b>Received from:</b> <span style="border-bottom: 2px dashed;"><?= ucwords($student_row['member_firstname'] . ' ' . $student_row['member_middlename'] . ' ' . $student_row['member_lastname']); ?></span>
+                                </div>
+                                <div class="my-4">
+                                    <b>The sum of:</b> <span style="border-bottom: 2px dashed;"><?= ucfirst(convertNumber(number_format($student['transaction_amount'], 2))); ?> Ghana cedis</span>
+                                </div>
+                                <div class="my-4">
+                                    <b>Being part / full payment for:</b> <span style="border-bottom: 2px dashed;"><?= $payment_status; ?></span>
+                                </div>
+                                <div class="d-flex my-4">
+                                    <div class="flex-grow-1">
+                                        <div class="">
+                                            <b>Reference No:</b> <span style="border-bottom: 2px dashed;"><?= $reference; ?></span>
+                                        </div>
+                                    </div>
+                                    <div class="">
+                                        <b>Balance:</b> <span style="border-bottom: 2px dashed;"><?= money($AMOUNT, 2); ?> Ghana cedis</span>
+                                    </div>
+                                </div>
+                                <div class="d-flex">
+                                    <div class="flex-grow-1">
+                                        <button type="submit" class="btn border mb-3"><?= money($student['transaction_amount']); ?>p</button>
+                                    </div>
+                                    <div class="">
+                                        <input style="border-bottom: 2px dashed;" class="form-control-plaintext" value="">
+                                        <br>
+                                        <b>Signature</b>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="my-5 text-center">
+                            <a href="<?= PROOT; ?>" class="btn btn-dark">Go home.</a>&nbsp;
+                            <button type="button" onclick="printDiv('print-area')" href="<?= PROOT; ?>" class="btn btn-light">Print receipt.</button>
                         </div>
                     <?php else: ?>
                         <div class="my-5">
@@ -73,5 +145,17 @@
     <script type="text/javascript" src="<?= PROOT; ?>dist/js/bootstrap.min.js"></script>
     <script src="<?= PROOT; ?>dist/js/functions.js"></script>
 
+    <script type="text/javascript">
+        function printDiv(divId) {
+            var printContents = document.getElementById(divId).innerHTML;
+            var originalContents = document.body.innerHTML;
+
+            document.body.innerHTML = printContents;
+
+            window.print();
+
+            document.body.innerHTML = originalContents;
+        }
+    </script>
 </body>
 </html>
