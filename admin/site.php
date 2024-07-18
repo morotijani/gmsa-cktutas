@@ -8,9 +8,29 @@
     include ("includes/header.php");
     include ("includes/aside.php");
 
-    // get prayer on edit
-    if (isset($_GET['edit']) && !empty($_GET['edit'])) {
-    
+    $post = cleanPost($_POST);
+    $facebook = ((isset($_POST['facebook']) && !empty($_POST['facebook'])) ? $post['facebook'] : $site_row['facebook']);
+    $instagram = ((isset($_POST['instagram']) && !empty($_POST['instagram'])) ? $post['instagram'] : $site_row['instagram']);
+    $linkedin = ((isset($_POST['linkedin']) && !empty($_POST['linkedin'])) ? $post['linkedin'] : $site_row['linkedin']);
+    $youtube = ((isset($_POST['youtube']) && !empty($_POST['youtube'])) ? $post['youtube'] : $site_row['youtube']);
+    $twitter = ((isset($_POST['twitter']) && !empty($_POST['twitter'])) ? $post['twitter'] : $site_row['twitter']);
+    if (isset($_POST['updatesocials'])) {
+        // code...
+        $query = "
+            UPDATE gmsa_about 
+            SET facebook = ?, instagram = ?, youtube = ?, twitter = ?, linkedin = ?
+        ";
+        $statement = $conn->prepare($query);
+        $result = $statement->execute([$facebook, $instagram, $youtube, $twitter, $linkedin]);
+
+        if ($result) {
+            // code...
+            $_SESSION['flash_success'] = 'Social media links updated successfully!';
+            redirect(PROOT . 'admin/site');
+        } else {
+            $_SESSION['flash_error'] = 'Something went wrong, please try again!';
+            redirect(PROOT . 'admin/site');
+        }
     }
 ?>
 
@@ -48,36 +68,67 @@
                                     </div>
                                 </form>
                                 <hr class="my-5">
-                                <form>
-                                    <fieldset>
-                                        <legend>Ads flyer</legend>
-                                        <div id="upload-file"></div>
-                                        <?php if ($site_row['ads'] != ''): ?>
-                                            <div id="removeTempuploadedFile" class="list-group list-group-flush list-group-divider">
-                                                <div class="list-group-item">
-                                                    <div class="list-group-item-figure">
-                                                        <div class="tile tile-img">
-                                                            <img src="<?= PROOT . $site_row['ads']; ?>" width="32" height="32" />
-                                                        </div>
+                                <fieldset>
+                                    <legend>Ads flyer</legend>
+                                    <div id="upload-file"></div>
+                                    <?php if ($site_row['ads'] != ''): ?>
+                                        <div id="removeTempuploadedFile" class="list-group list-group-flush list-group-divider">
+                                            <div class="list-group-item">
+                                                <div class="list-group-item-figure">
+                                                    <div class="tile tile-img">
+                                                        <img src="<?= PROOT . $site_row['ads']; ?>" width="32" height="32" />
                                                     </div>
-                                                    <div class="list-group-item-body">
-                                                    <div class="media align-items-center">
-                                                        <div class="media-body"><?= $site_row['ads']; ?></div>
-                                                            <div class="media-actions">
-                                                                <button type="button" class="btn btn-sm btn-secondary removeImg" id="<?= BASEURL . $site_row['ads']; ?>">Remove</button>
-                                                            </div>
+                                                </div>
+                                                <div class="list-group-item-body">
+                                                <div class="media align-items-center">
+                                                    <div class="media-body"><?= $site_row['ads']; ?></div>
+                                                        <div class="media-actions">
+                                                            <button type="button" class="btn btn-sm btn-secondary removeImg" id="<?= BASEURL . $site_row['ads']; ?>">Remove</button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        <?php else: ?>
-                                        <div class="form-group">
-                                            <input type="file" class="form-control" id="ads" name="ads">
                                         </div>
-                                        <?php endif; ?>
+                                    <?php else: ?>
+                                    <div class="form-group">
+                                        <input type="file" class="form-control" id="ads" name="ads">
+                                    </div>
+                                    <?php endif; ?>
+                                </fieldset>
+                                <hr class="my-5">
+                                <form method="POST">
+                                    <fieldset>
+                                        <legend>Socail media links</legend>
+                                        <div class="form-group">
+                                            <div class="form-label-group">
+                                                <input type="url" class="form-control" id="facebook" name="facebook" placeholder="https://facebook.com/" value="<?= $facebook; ?>"> <label for="facebook">Facebook</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-label-group">
+                                                <input type="url" class="form-control" id="instagram" name="instagram" placeholder="https://instagram.com/" value="<?= $instagram; ?>"> <label for="instagram">Instagram</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-label-group">
+                                                <input type="url" class="form-control" id="linkedin" name="linkedin" placeholder="https://linkedin.com/" value="<?= $linkedin; ?>"> <label for="linkedin">LinkedIn</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-label-group">
+                                                <input type="url" class="form-control" id="twitter" name="twitter" placeholder="https://twitter.com/" value="<?= $twitter; ?>"> <label for="twitter">Twitter</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-label-group">
+                                                <input type="url" class="form-control" id="youtube" name="youtube" placeholder="https://youtube.com/" value="<?= $youtube; ?>"> <label for="youtube">Youtube</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-actions">
+                                            <button class="btn btn-success" type="submit" name="updatesocials">Update socials</button>
+                                        </div>
                                     </fieldset>
                                 </form>
-                            </div>
                             </div>
                         </div>
                     </div>

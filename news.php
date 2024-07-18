@@ -98,21 +98,23 @@
                             </form>
                         </div>
 
-                        <div class="card text-bg-dark mt-5">
-                            <img src="assets/images/blog/adv.jpg" class="card-img" alt="adv image">
-                            <div class="card-img-overlay">
-                                <h5 class="card-title">Advertisement</h5>
+                        <?php if ($site_row['ads'] != ''): ?>
+                            <div class="card text-bg-dark mt-5">
+                                <img src="<?= PROOT . $site_row['ads']; ?>" class="card-img" alt="adv image">
+                                <div class="card-img-overlay">
+                                    <h5 class="card-title">Advertisement</h5>
+                                </div>
                             </div>
-                        </div>
+                        <?php endif ?>
 
                         <div class="mt-5">
                             <h6 class="mb-3">Follow us on:</h6>
                             <ul class="list-inline mb-0">
-                                <li class="list-inline-item"> <a class="btn btn-round bg-facebook" href="#"><i class="fab fa-fw fa-facebook-f lh-base"></i></a> </li>
-                                <li class="list-inline-item"> <a class="btn btn-round bg-instagram" href="#"><i class="fab fa-fw fa-instagram lh-base"></i></a> </li>
-                                <li class="list-inline-item"> <a class="btn btn-round bg-twitter" href="#"><i class="fab fa-fw fa-twitter lh-base"></i></a> </li>
-                                <li class="list-inline-item"> <a class="btn btn-round bg-linkedin" href="#"><i class="fab fa-fw fa-linkedin-in lh-base"></i></a> </li>
-                                <li class="list-inline-item"> <a class="btn btn-round bg-youtube" href="#"><i class="fab fa-fw fa-youtube lh-base"></i></a> </li>
+                                <li class="list-inline-item"> <a target="_blank" class="btn btn-round bg-facebook" href="<?= $site_row['facebook']; ?>"><i class="bi bi-facebook lh-base"></i></a> </li>
+                                <li class="list-inline-item"> <a target="_blank" class="btn btn-round bg-instagram" href="<?= $site_row['instagram']; ?>"><i class="bi bi-instagram lh-base"></i></a> </li>
+                                <li class="list-inline-item"> <a target="_blank" class="btn btn-round bg-twitter" href="<?= $site_row['twitter']; ?>"><i class="bi bi-twitter lh-base"></i></a> </li>
+                                <li class="list-inline-item"> <a target="_blank" class="btn btn-round bg-linkedin" href="<?= $site_row['linkedin']; ?>"><i class="bi bi-linkedin lh-base"></i></a> </li>
+                                <li class="list-inline-item"> <a target="_blank" class="btn btn-round bg-youtube" href="<?= $site_row['youtube']; ?>"><i class="bi bi-youtube lh-base"></i></a> </li>
                             </ul>
                         </div>
 
