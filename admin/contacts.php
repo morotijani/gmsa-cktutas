@@ -87,7 +87,7 @@
                 $result = $statement->execute($data);
                 if (isset($result)) {
                     $_SESSION['flash_success'] = 'Contact page successfully updated!';
-                    redirect(PROOT . 'gpmin/contacts?update=1');
+                    redirect(PROOT . 'admin/contacts?update-contact=1');
                 }
             }
         }
@@ -105,83 +105,102 @@
                         <div class="d-md-flex align-items-md-start">
                             <h1 class="page-title mr-sm-auto"> Contacts </h1>
                             <div class="btn-toolbar">
-                                <button type="button" class="btn btn-light"><i class="oi oi-data-transfer-download"></i> <span class="ml-1">Export</span></button> <a href="<?= PROOT; ?>admin/contacts?update-contact=1" class="btn btn-light"> <span class="ml-1">Update contact</span></a>
+                                <button type="button" class="btn btn-light"><i class="oi oi-data-transfer-download"></i> <span class="ml-1">Export</span></button> <a href="<?= PROOT . 'admin/contacts' . ((isset($_GET['update-contact']) && !empty($_GET['update-contact'])) ? '' : '?update-contact=1'); ?>" class="btn btn-light"> <span class="ml-1"><?= ((isset($_GET['update-contact']) && !empty($_GET['update-contact'])) ? '' : 'Update'); ?> Contact</span></a>
                             </div>
                         </div>
                     </header>
                     <div class="page-section">
-                        <div class="card card-body">
-                            <?php if (isset($_GET['update-contact']) && !empty($_GET['update-contact'])): ?>
-                                <form method="POST" action="contacts.php?update=1" id="updateForm">
+                        <?php if (isset($_GET['update-contact']) && !empty($_GET['update-contact'])): ?>
+                            <div class="card card-body">
+                                <form method="POST" action="contacts.php?update-contact=1" id="updateForm">
                                     <p class="bg-danger text-white text-center"><?= $errors; ?></p>
-                                    <div class="row">
-                                        <div class="col-md-4 mb-2">
-                                            <div class="form-group">
-                                                <label for="country">Country</label>
-                                                <input type="text" name="country" id="country" class="form-control" value="<?= $country; ?>">
+                                    <fieldset>
+                                        <legend>Update site contact details</legend>
+                                        <div class="row">
+                                            <div class="col-md-4 mb-2">
+                                                <div class="form-group">
+                                                    <div class="form-label-group">
+                                                        <input type="text" name="country" id="country" class="form-control" value="<?= $country; ?>">
+                                                        <label for="country">Country</label>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="state">State</label>
-                                                <input type="text" name="state" id="state" class="form-control" value="<?= $state; ?>">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="form-label-group">
+                                                        <input type="text" name="state" id="state" class="form-control" value="<?= $state; ?>">
+                                                        <label for="state">State</label>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="city">City</label>
-                                                <input type="text" name="city" id="city" class="form-control" value="<?= $city; ?>">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="form-label-group">
+                                                    <input type="text" name="city" id="city" class="form-control" value="<?= $city; ?>">
+                                                    <label for="city">City</label>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-md-3 mb-2">
                                             <div class="form-group">
-                                                <label for="email">Email</label>
-                                                <input type="email" name="email" id="email" class="form-control" value="<?= $email; ?>">
+                                                <div class="form-label-group">
+                                                    <input type="email" name="email" id="email" class="form-control" value="<?= $email; ?>">
+                                                    <label for="email">Email</label>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
-                                                <label for="phone_1">Phone 1</label>
-                                                <input type="text" name="phone_1" id="phone_1" class="form-control" value="<?= $phone_1; ?>">
+                                                <div class="form-label-group">
+                                                    <input type="text" name="phone_1" id="phone_1" class="form-control" value="<?= $phone_1; ?>">
+                                                    <label for="phone_1">Phone 1</label>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
-                                                <label for="phone_2">Phone 2 (Optional)</label>
-                                                <input type="text" name="phone_2" id="phone_2" class="form-control" value="<?= $phone_2; ?>">
+                                                <div class="form-label-group">
+                                                    <input type="text" name="phone_2" id="phone_2" class="form-control" value="<?= $phone_2; ?>">
+                                                    <label for="phone_2">Phone 2 (Optional)</label>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
-                                                <label for="fax">Fax</label>
-                                                <input type="text" name="fax" id="fax" class="form-control" value="<?= $fax; ?>">
+                                                <div class="form-label-group">
+                                                    <input type="text" name="fax" id="fax" class="form-control" value="<?= $fax; ?>">
+                                                    <label for="fax">Fax</label>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="street_1">Address 1 (Street)</label>
-                                                <input type="text" name="street_1" id="street_1" class="form-control" value="<?= $street_1; ?>">
+                                                <div class="form-label-group">
+                                                    <input type="text" name="street_1" id="street_1" class="form-control" value="<?= $street_1; ?>">
+                                                    <label for="street_1">Address 1 (Street)</label>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="street_2">Address 2 (Optional)</label>
-                                                <input type="text" name="street_2" id="street_2" class="form-control" value="<?= $street_2; ?>">
+                                                <div class="form-label-group">
+                                                    <input type="text" name="street_2" id="street_2" class="form-control" value="<?= $street_2; ?>">
+                                                    <label for="street_2">Address 2 (Optional)</label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group mt-3">
+                                    <div class="form-actions">
                                         <button type="submit" name="update_contact" id="update_contact" class="btn btn-dark">Update</button>
-                                        <br><br>
-                                        visit <a href="<?= PROOT; ?>contact-us" target="blank">contact us</a> page to see changers
                                     </div>
+                                    <p class="my-1">visit <a href="<?= PROOT; ?>contact-us" target="blank">contact us</a> page to see changers</p>
                                 </form>
                             </div>
-                            <?php else: ?>
+                        <?php else: ?>
                             <div class="card card-fluid">
                                 <div id="load-content"></div>                                    
                             </div>
-                            <?php endif ?>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
