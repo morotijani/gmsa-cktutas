@@ -8,6 +8,14 @@
     include ("inc/header.inc.php");
     include ("inc/nav.inc.php");
 
+    $sql = "
+        SELECT * FROM gmsa_gallery
+    ";
+    $statement = $conn->prepare($sql);
+    $statement->execute();
+    $count_rows = $statement->rowCount();
+    $rows = $statement->fetchAll();
+
 
 ?>
     <link rel="stylesheet" type="text/css" href="<?= PROOT; ?>dist/css/glightbox.css">
@@ -339,65 +347,29 @@
                     </svg>
                 </figure>
 
-                <div class="row g-xl-7 position-relative">
-                    <div class="col-md-6 mt-lg-8">
-                        <!-- Image with play button -->
-                        <a data-glightbox data-gallery="gallery" href="https://www.youtube.com/embed/tXHviS-4ygo">
-                            <div class="card overflow-hidden mb-4 mb-xl-7">
-                                <!-- Image -->
-                                <img src="assets/images/bg/13.jpg" class="rounded-3" alt="">
-                                <!-- Full screen button -->
-                                <div class="w-100 h-100">
-                                    <span class="btn btn-lg btn-round btn-dark position-absolute top-50 start-50 translate-middle mb-0"><i class="fas fa-play"></i></span>
-                                </div>
+                <div class="row g-xl-7 justify-content-center position-relative">
+                    <?php if ($count_rows > 0): ?>
+                        <?php foreach ($rows as $row): ?>
+                            <div class="col-md-6 mt-lg-8">
+                                <a data-glightbox data-gallery="gallery" href="<?= PROOT . $row["gallery_media"]; ?>">
+                                    <div class="card card-element-hover card-overlay-hover overflow-hidden">
+                                        <img src="<?= PROOT . $row["gallery_media"]; ?>" class="rounded-3" alt="">
+                                        <div class="hover-element w-100 h-100">
+                                            <i class="bi bi-fullscreen fs-6 text-white position-absolute top-50 start-50 translate-middle bg-dark rounded-1 p-2 lh-1"></i>
+                                        </div>
+                                    </div>
+                                </a>
                             </div>
-                        </a>
-
-                        <!-- Image item -->
-                        <a data-glightbox data-gallery="gallery" href="<?= PROOT; ?>assets/media/gallery/06.jpg">
-                            <div class="card card-element-hover card-overlay-hover overflow-hidden">
-                                <!-- Image -->
-                                <img src="<?= PROOT; ?>assets/media/gallery/06.jpg" class="rounded-3" alt="">
-                                <!-- Full screen button -->
-                                <div class="hover-element w-100 h-100">
-                                    <i class="bi bi-fullscreen fs-6 text-white position-absolute top-50 start-50 translate-middle bg-dark rounded-1 p-2 lh-1"></i>
-                                </div>
-                            </div>
-                        </a>
+                        <?php endforeach ?>
+                    <?php else: ?>
+                    <div class="alert alert-info">
+                        No data found!
                     </div>
-                    <div class="col-6 d-none d-md-block">
-                        <!-- Image item -->
-                        <a data-glightbox data-gallery="gallery" href="<?= PROOT; ?>assets/media/gallery/07.jpeg">
-                            <div class="card card-element-hover card-overlay-hover overflow-hidden mb-4 mb-xl-7">
-                                <!-- Image -->
-                                <img src="<?= PROOT; ?>assets/media/gallery/07.jpeg" class="rounded-3" alt="">
-                                <!-- Full screen button -->
-                                <div class="hover-element w-100 h-100">
-                                    <i class="bi bi-fullscreen fs-6 text-white position-absolute top-50 start-50 translate-middle bg-dark rounded-1 p-2 lh-1"></i>
-                                </div>
-                            </div>
-                        </a>
-
-                        <!-- Image item -->
-                        <a data-glightbox data-gallery="gallery" href="<?= PROOT; ?>assets/media/gallery/09.jpeg">
-                            <div class="card card-element-hover card-overlay-hover overflow-hidden">
-                                <!-- Image -->
-                                <img src="<?= PROOT; ?>assets/media/gallery/09.jpeg" class="rounded-3" alt="">
-                                <!-- Full screen button -->
-                                <div class="hover-element w-100 h-100">
-                                    <i class="bi bi-fullscreen fs-6 text-white position-absolute top-50 start-50 translate-middle bg-dark rounded-1 p-2 lh-1"></i>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
+                    <?php endif; ?>  
                 </div>
             </div>
 
         </section>
-
-
-
-
     </main>
 
 <?php include ("inc/footer.inc.php"); ?>
