@@ -9,6 +9,25 @@
     include ("includes/aside.php");
 
     $post = cleanPost($_POST);
+    $about_info = ((isset($_POST['about_info']) && !empty($_POST['about_info'])) ? $_POST['about_info'] : $site_row['about_info']);
+    if (isset($_POST['submit_form'])) {
+        // code...
+        $query = "
+            UPDATE gmsa_about 
+            SET about_info = ?
+        ";
+        $statement = $conn->prepare($query);
+        $result = $statement->execute([$about_info]);
+
+        if ($result) {
+            $_SESSION['flash_success'] = 'Contact updated successfully!';
+            redirect(PROOT . 'admin/site');
+        } else {
+            $_SESSION['flash_error'] = 'Something went wrong, please try again!';
+            redirect(PROOT . 'admin/site');
+        }
+    }
+
     $facebook = ((isset($_POST['facebook']) && !empty($_POST['facebook'])) ? $post['facebook'] : $site_row['facebook']);
     $instagram = ((isset($_POST['instagram']) && !empty($_POST['instagram'])) ? $post['instagram'] : $site_row['instagram']);
     $linkedin = ((isset($_POST['linkedin']) && !empty($_POST['linkedin'])) ? $post['linkedin'] : $site_row['linkedin']);
@@ -206,8 +225,6 @@
         tinymce.init({
             selector: '#about_info'
         });
-    </script>
-    <script type="text/javascript">
      
         $(document).ready(function() {
 
