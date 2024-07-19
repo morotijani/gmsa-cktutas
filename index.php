@@ -162,7 +162,7 @@
                                         </div>
                                         <div id="collapse-1" class="accordion-collapse collapse show" aria-labelledby="heading-1" data-bs-parent="#accordionFaq">
                                             <div class="accordion-body pb-0">
-                                                Effective design communicates your brand's identity, cultivates trust, and can significantly impact conversion rates and customer loyalty.
+                                                <?= $site_row['mission']; ?>
                                             </div>
                                         </div>
                                     </div>
@@ -176,7 +176,7 @@
                                         <!-- Body -->
                                         <div id="collapse-2" class="accordion-collapse collapse" aria-labelledby="heading-2" data-bs-parent="#accordionFaq">
                                             <div class="accordion-body pb-0">
-                                                We provide a range of tools, guides, and best practices to help you create designs, websites.
+                                                <?= $site_row['vision']; ?>
                                             </div>
                                         </div>
                                     </div>

@@ -3,7 +3,7 @@
     // Pay dues page
 
     require_once ("./../db_connection/conn.php");
-    $TITLE = "Gallery";
+    $TITLE = "Pay Dues";
     $navTheme = "";
     include ("../inc/header.inc.php");
 
@@ -11,45 +11,19 @@
         // code...
         $studentid = sanitize($_GET['url']);
         $student = find_member_by_studentID($conn, $studentid);
+        $amountToPay = 0;
+        $level = '';
         if (is_array($student)) {
             $a = get_amount_to_pay_using_level($conn, $studentid, $student['member_level']);
-            $amountToPay = $a['levelAmount'];
-            $level = $a['level'];
 
-            // if ($student['member_level'] == 100) {
-            //     // code...
-            //     $levelAmount = $site_row['dues_for_fresher'];
-            // } else {
-            //     $levelAmount = $site_row['dues_for_continue'];
-            // }
+            if (is_array($student)) {
+                $amountToPay = $a['levelAmount'];
+                $level = $a['level'];
+            }
 
-            // $sql = "
-            //     SELECT * FROM gmsa_dues 
-            //     WHERE student_id = ? 
-            // ";
-            // $statement = $conn->prepare($sql);
-            // $statement->execute([$studentid]);
-            // $rows = $statement->fetchAll();
-            // if ($statement->rowCount() > 0) {
-            //     // code...
-            //     $amountPaid = 0;
-            //     foreach ($rows as $row) {
-            //         // code...
-            //         $amountPaid += $row['transaction_amount'];
-            //     }
-            //     $amountToPay = $levelAmount - $amountPaid;
-            //     if ($amountToPay == 0) {
-            //         // code...
-            //         echo 'you\'ve made full payment';
-            //     } else {
-            //         echo 'you are to pay ' . money($amountToPay);
-            //     }
-            // } else {
-            //     $amountToPay = $levelAmount;
-            //     echo 'you are to pay ' . money($amountToPay);
-            // }
         } else {
-            echo 'Student not found!';
+           echo js_alert('Student not found!');
+           redirect(PROOT . 'auth/pay-dues');
         }
 
     }
@@ -57,7 +31,6 @@
 
 ?>
     <main>
-
         <section class="pt-8">
             <div class="container">
                 <div class="inner-container text-center mb-6">
@@ -101,6 +74,7 @@
                                 <button id="dues_next" class="btn btn-dark rounded-2 mb-0"><i class="bi bi-forward-fill me-2"></i>Next</button>
                             </div>
                         </form>
+                        <a href="<?= PROOT; ?>" class="btn mb-0 mt-4">Cancel</a>
                     <?php endif ?>
                 </div>
             </div>
@@ -168,10 +142,10 @@
                     }
                 });
                 if (amount <= <?= $amountToPay; ?>) {
-                    if (amount >= 10) {
+                    if (amount > 0) {
                         handler.openIframe();
                     } else {
-                        alert('you cannot not pay less than 10ghc');
+                        //alert('you cannot not pay less than 10ghc');
                         return false;
                     }
                 } else {
@@ -179,36 +153,6 @@
                     return false;
                 }
             }
-
-
-
-            // 
-            // $('#dues_next').on('click', function() {
-            //     var type = 'find';
-            //     var studentid = $('#studentid').val();
-            //     if (studentid != '') {
-            //         $.ajax({
-            //             url : '<?= PROOT;?>auth/dues.find.student.php',
-            //             method : 'POST',
-            //             data : {
-            //                 type : type,
-            //                 studentid : studentid,
-            //             },
-            //             beforeSend: function() {
-
-            //             },
-            //             success: function(data) {
-
-            //             },
-            //             error: function(data) {
-
-            //             }
-            //         })
-            //     } else {
-            //         console.log('Student ID required!');
-            //         return false;
-            //     }
-            // })
         });
     </script>
 

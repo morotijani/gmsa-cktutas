@@ -59,7 +59,7 @@
                                 <path d="M30.8,83.2c0.1,0.5-3.5,1.7-7.7,3.1c-4.3,1.4-9.2,3.1-12.1,4.1c-5.7,1.9-10.6,3.1-11,2.1 c-0.4-0.9,3.9-3.6,9.8-5.6c2.9-1,8.1-2.4,12.6-3.2C26.9,83,30.7,82.7,30.8,83.2z"/>
                             </svg>
                         </span>
-                        <?= (($message == 200) ? 'Your GMSA dues hass been successfully paid!<br> Thank you.' : '<span class="text-danger">Your GMSA dues has NOT been paid, please go and make payment</span>!'); ?>
+                        <?= (($message == 200) ? 'Your GMSA dues has been successfully paid!<br> Thank you.' : '<span class="text-danger">Your GMSA dues has NOT been paid, please go and make payment</span>!'); ?>
                     </h1>
                     <?php if ($message == 200): ?>
                         <div class="card shadow p-4 p-sm-5 p-md-6 mt-3" id="print-area">
@@ -110,7 +110,7 @@
                                         <button type="submit" class="btn border mb-3"><?= money($student['transaction_amount']); ?>p</button>
                                     </div>
                                     <div class="">
-                                        <input style="border-bottom: 2px dashed;" class="form-control-plaintext" value="">
+                                        <img src="<?= PROOT . $site_row['signature']; ?>" style="width: 75px; height: 75px;">
                                         <br>
                                         <b>Signature</b>
                                     </div>

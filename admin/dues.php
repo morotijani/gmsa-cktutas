@@ -7,92 +7,7 @@
     include ("includes/header.php");
     include ("includes/aside.php");
 
-    // DELETE CONTACTS
-    if (isset($_GET['remove']) && !empty($_GET['remove'])) {
-        $id = sanitize($_GET['remove']);
-        $contact = find_contact_by_id($id);
-
-        if (is_array($contact)) {
-            // code...
-            $query = "
-                DELETE FROM gmsa_contacts 
-                WHERE message_id = ?
-            ";
-            $statement = $conn->prepare($query);
-            $result = $statement->execute([$id]);
-            if ($result) {
-                // code...
-                $_SESSION['flash_success'] = 'Contact deleted successfully!';
-                redirect(PROOT . 'admin/contacts');
-            } else {
-                echo js_alert('Something went wrong, please try again!');   
-            }
-        } else {
-            $_SESSION['flash_error'] = 'Contact was not found!';
-            redirect(PROOT . 'admin/contacts');
-        }
-    }
-
-    if (isset($_GET['update-contact']) && !empty($_GET['update-contact'])) {
-        $errors = '';
-        $post = cleanPost($_POST);
-        $country = ((isset($_POST['country']))? $post["country"] : $site_row["about_country"]);
-        $state = ((isset($_POST['state']))? $post["state"] : $site_row["about_state"]);
-        $city = ((isset($_POST['city']))? $post["city"] : $site_row["about_city"]);
-        $email = ((isset($_POST['email']))? $post["email"] : $site_row["about_email"]);
-        $phone_1 = ((isset($_POST['phone_1']))? $post["phone_1"] : $site_row["about_phone"]);
-        $phone_2 = ((isset($_POST['phone_2']))? $post["phone_2"] : $site_row["about_phone2"]);
-        $fax = ((isset($_POST['fax']))? $post["fax"] : $site_row["about_fax"]);
-        $street_1 = ((isset($_POST['street_1']))? $post["street_1"] : $site_row["about_street1"]);
-        $street_2 = ((isset($_POST['street_2']))? $post["street_2"] : $site_row["about_street2"]);
-       
-        if ($_POST) {
-            $post = array(
-                'country'           => 'Country',
-                'state'             => 'State',
-                'city'              => 'City',
-                'email'             => 'Email',
-                'phone_1'           => 'Phone_1',
-                'fax'               => 'Fax',
-                'street_1'          => 'Street_1',
-            );
-            foreach ($post as $k => $v) {
-                if (empty($_POST[$k])) {
-                    $errors = '<span class="bg-info">'.$v.'</span> is required.';
-                } else {
-                    if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-                        $errors = 'Please enter a valid email address.';
-                    }
-                }
-            }
-
-            if (empty($errors)) {
-                $data = array(
-                    ':about_street1'            => sanitize($_POST["street_1"]),
-                    ':about_street2'            => sanitize($_POST["street_2"]),
-                    ':about_country'            => sanitize($_POST["country"]),
-                    ':about_state'              => sanitize($_POST["state"]),
-                    ':about_city'               => sanitize($_POST["city"]),
-                    ':about_phone'              => sanitize($_POST["phone_1"]),
-                    ':about_email'              => sanitize($_POST["email"]),
-                    ':about_phone2'             => sanitize($_POST["phone_2"]),
-                    ':about_fax'                => sanitize($_POST["fax"]),
-                );
-
-                $sql = "
-                    UPDATE gmsa_about 
-                    SET about_street1 = :about_street1, about_street2 = :about_street2, about_country = :about_country, about_state = :about_state, about_city = :about_city, about_phone = :about_phone, about_email = :about_email, about_phone2 = :about_phone2, about_fax = :about_fax
-                ";
-                $statement = $conn->prepare($sql);
-                $result = $statement->execute($data);
-                if (isset($result)) {
-                    $_SESSION['flash_success'] = 'Contact page successfully updated!';
-                    redirect(PROOT . 'admin/contacts?update-contact=1');
-                }
-            }
-        }
-
-    }
+    $total_data = $conn->query("SELECT * FROM gmsa_dues WHERE status = 0")->rowCount();
 
 ?> 
     <main class="app-main">
@@ -198,7 +113,27 @@
                             </div>
                         <?php else: ?>
                             <div class="card card-fluid">
-                                <div id="load-content"></div>                                    
+                                <div class="card-header">
+                                    <ul class="nav nav-tabs card-header-tabs">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" href="<?php echo PROOT; ?>admin/dues">All (<?= $total_data; ?>)</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#tab2">Other</a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><span class="oi oi-magnifying-glass"></span></span>
+                                            </div>
+                                            <input type="text" id="search" class="form-control" placeholder="Search record">
+                                        </div>
+                                    </div>
+                                    <div id="load-content"></div>                                    
                             </div>
                         <?php endif; ?>
                     </div>
@@ -211,7 +146,7 @@
      // SEARCH AND PAGINATION FOR LIST
     function load_data(page, query = '') {
         $.ajax({
-            url : "<?= PROOT; ?>admin/auth/list.contacts.php",
+            url : "<?= PROOT; ?>admin/auth/list.dues.php",
             method : "POST",
             data : {
                 page : page, 

@@ -96,6 +96,34 @@
                                     <?php endif; ?>
                                 </fieldset>
                                 <hr class="my-5">
+                                <fieldset>
+                                    <legend>Signature</legend>
+                                    <div id="upload-signature"></div>
+                                    <?php if ($site_row['signature'] != ''): ?>
+                                        <div id="removeTempuploadedSignature" class="list-group list-group-flush list-group-divider">
+                                            <div class="list-group-item">
+                                                <div class="list-group-item-figure">
+                                                    <div class="tile tile-img">
+                                                        <img src="<?= PROOT . $site_row['signature']; ?>" width="32" height="32" />
+                                                    </div>
+                                                </div>
+                                                <div class="list-group-item-body">
+                                                <div class="media align-items-center">
+                                                    <div class="media-body"><?= $site_row['signature']; ?></div>
+                                                        <div class="media-actions">
+                                                            <button type="button" class="btn btn-sm btn-secondary removeSignature" id="<?= BASEURL . $site_row['signature']; ?>">Remove</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php else: ?>
+                                    <div class="form-group">
+                                        <input type="file" class="form-control" id="signature" name="signature">
+                                    </div>
+                                    <?php endif; ?>
+                                </fieldset>
+                                <hr class="my-5">
                                 <form method="POST">
                                     <fieldset>
                                         <legend>Socail media links</legend>
@@ -148,7 +176,7 @@
      
         $(document).ready(function() {
 
-            // DELETE TEMPORARY UPLOADED IMAGE
+            // DELETE UPLOADED ADS
             $(document).on('click', '.removeImg', function() {
                 var tempuploded_file_id = $(this).attr('id');
 
@@ -167,7 +195,7 @@
             });
 
 
-            // Upload IMAGE Temporary
+            // Upload ADS
             $(document).on('change','#ads', function() {
 
                 var property = document.getElementById("ads").files[0];
@@ -201,6 +229,64 @@
                         success: function(data) {
                             $("#upload-file").html(data);
                             $('#ads').css('visibility', 'hidden');
+                        }
+                    });
+                }
+            });
+
+            // DELETE UPLOADED SIGNATURE
+            $(document).on('click', '.removeSignature', function() {
+                var tempuploded_file_id = $(this).attr('id');
+
+                $.ajax ({
+                    url: "<?= PROOT; ?>admin/auth/delete.signature.php",
+                    method: "POST",
+                    data:{
+                        tempuploded_file_id : tempuploded_file_id
+                    },
+                    success: function(data) {
+                        //$('#removeTempuploadedFile').remove();
+
+                        location.reload();
+                    }
+                });
+            });
+
+
+            // Upload SIGNATURE
+            $(document).on('change','#signature', function() {
+
+                var property = document.getElementById("signature").files[0];
+                var image_name = property.name;
+
+                var image_extension = image_name.split(".").pop().toLowerCase();
+                if (jQuery.inArray(image_extension, ['jpeg', 'png', 'jpg', 'gif']) == -1) {
+                    alert("The file extension must be .jpg, .png, .jpeg, .gif");
+                    $('#signature').val('');
+                    return false;
+                }
+
+                var image_size = property.size;
+                if (image_size > 15000000) {
+                    alert('The file size must be under 15MB');
+                    return false;
+                } else {
+
+                    var form_data = new FormData();
+                    form_data.append("signature", property);
+                    $.ajax({
+                        url: "<?= PROOT; ?>admin/auth/upload.signature.php",
+                        method: "POST",
+                        data: form_data,
+                        contentType: false,
+                        cache: false,
+                        processData: false,
+                        beforeSend: function() {
+                            $("#upload-signature").html("<div class='text-success font-weight-bolder'>Uploading news image ...</div>");
+                        },
+                        success: function(data) {
+                            $("#upload-signature").html(data);
+                            $('#signature').css('visibility', 'hidden');
                         }
                     });
                 }

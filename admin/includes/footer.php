@@ -34,7 +34,7 @@
     <!-- BEGIN THEME JS -->
     <script src="<?= PROOT; ?>admin/dist/js/theme.min.js"></script>
     <!-- BEGIN PAGE LEVEL JS -->
-    <script src="<?= PROOT; ?>admin/dist/js/dashboard-demo.js"></script> 
+    <!-- <script src="<?= PROOT; ?>admin/dist/js/dashboard-demo.js"></script>  -->
     <!-- END PAGE LEVEL JS -->
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
