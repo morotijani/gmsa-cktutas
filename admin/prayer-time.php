@@ -1,5 +1,6 @@
 <?php 
 
+
     require_once ("../db_connection/conn.php");
     if (!admin_is_logged_in()) {
         admn_login_redirect();
@@ -17,17 +18,16 @@
 
             $prayer_name = ((isset($_POST['prayer_name']) && !empty($_POST['prayer_name'])) ? sanitize($_POST['prayer_name']) : $prayer['prayer_name']);
             $prayer_time = ((isset($_POST['prayer_time']) && !empty($_POST['prayer_time'])) ? sanitize($_POST['prayer_time']) : $prayer['prayer_time']);
-            $prayer_date = ((isset($_POST['prayer_date']) && !empty($_POST['prayer_date'])) ? sanitize($_POST['prayer_date']) : $prayer['prayer_date']);
 
 
             if (isset($_POST['submit'])) {
                 $query = "
                     UPDATE gmsa_prayer_time 
-                    SET prayer_name = ?, prayer_time = ?, prayer_date = ? 
+                    SET prayer_name = ?, prayer_time = ? 
                     WHERE prayer_id = ?
                 ";
                 $statement = $conn->prepare($query);
-                $result = $statement->execute([$prayer_name, $prayer_time, $prayer_date, $id]);
+                $result = $statement->execute([$prayer_name, $prayer_time, $id]);
                 if ($result) {
                     // code...
                     $_SESSION['flash_success'] = strtoupper($prayer_name) . ', updated successfully!';
@@ -44,12 +44,7 @@
     }
 
     // get all prayers
-    $sql = "
-        SELECT * FROM gmsa_prayer_time 
-    ";
-    $statement = $conn->prepare($sql);
-    $statement->execute();
-    $rows = $statement->fetchAll();
+    $prayers = get_prayer_time($conn);
 ?>
 
     <main class="app-main">
@@ -87,12 +82,6 @@
                                                     <input type="time" class="form-control" id="prayer_time" name="prayer_time" placeholder="Time" required="" value="<?= $prayer_time; ?>"> <label for="prayer_time">Time</label>
                                                 </div>
                                             </div>
-                                            <div class="form-group">
-                                                <div class="form-label-group">
-                                                    <input type="date" class="form-control" id="prayer_date" name="prayer_date" placeholder="Prayer date" value="<?= $prayer_date; ?>"> <label for="prayer_date">Date</label>
-                                                    <small id="" class="form-text text-muted">If prayer does not require any date, please leave this field empty.</small>
-                                                </div>
-                                            </div>
                                             <div class="form-actions">
                                                 <button class="btn btn-success" type="submit" name="submit">Update prayer</button>
                                                 <a class="btn" href="<?= PROOT; ?>admin/prayer-time">Cancel update</a>
@@ -102,28 +91,34 @@
                                 </div>
                             </div>
                         <?php else: ?>
-                        <?php foreach ($rows as $row): ?>
-                            <div class="card mb-2">
-                                <div class="card-body">
-                                    <div class="row align-items-center">
-                                        <div class="col">
-                                            <h3 class="card-title">
-                                                <a href="user-profile.html"> <?= (($row['prayer_date'] == null) ? $row["prayer_time"] : pretty_date_notime($row['prayer_date'])); ?> </a> <small class="text-muted"> <?= (($row['prayer_date'] == null) ? '' : 'on: ' . $row['prayer_time']); ?> </small>
-                                            </h3>
-                                            <h6 class="card-subtitle text-muted"> @<?= strtoupper($row['prayer_name']); ?> </h6>
-                                        </div>
-                                        <div class="col-auto">
-                                            <div class="d-inline-block">
-                                                <h6 class="card-subtitle text-muted"> <?= (($row['updatedAt'] == null) ? '' : 'updated at: ' . pretty_date($row['updatedAt'])); ?> </h6>
+                        <?php if (is_array($prayers)): ?>
+                            <?php foreach ($prayers as $prayer): ?>
+                                <div class="card mb-2">
+                                    <div class="card-body">
+                                        <div class="row align-items-center">
+                                            <div class="col">
+                                                <h3 class="card-title">
+                                                    <a href="user-profile.html"> <?= $prayer["prayer_time"]; ?> </a>
+                                                </h3>
+                                                <h6 class="card-subtitle text-muted"> @<?= strtoupper($prayer['prayer_name']); ?> </h6>
                                             </div>
-                                            <a href="?edit=<?= $row["prayer_id"]; ?>" class="btn btn-icon btn-secondary mr-1" data-toggle="tooltip" title="" data-original-title="Edit Prayer">
-                                                <i class="fa-solid fa-pencil"></i>
-                                            </a>
+                                            <div class="col-auto">
+                                                <div class="d-inline-block">
+                                                    <h6 class="card-subtitle text-muted"> <?= (($prayer['updatedAt'] == null) ? '' : 'updated at: ' . pretty_date($prayer['updatedAt'])); ?> </h6>
+                                                </div>
+                                                <a href="?edit=<?= $prayer["prayer_id"]; ?>" class="btn btn-icon btn-secondary mr-1" data-toggle="tooltip" title="" data-original-title="Edit Prayer">
+                                                    <i class="fa-solid fa-pencil"></i>
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <div class="alert alert-info">
+                                Prayer time empty.
                             </div>
-                        <?php endforeach; ?>
+                        <?php endif; ?>
                         <?php endif; ?>
                     </div>
                 </div>

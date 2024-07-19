@@ -422,7 +422,7 @@
 		// single view for news
 		public function singleView($conn, $newsUrl) {
 			$query = "
-				SELECT *, gmsa_news.id AS news_id, gmsa_news.createdAt AS ca FROM gmsa_news 
+				SELECT *, gmsa_news.createdAt AS ca FROM gmsa_news 
 				INNER JOIN gmsa_categories 
 				ON gmsa_categories.category_id = gmsa_news.news_category 
 				INNER JOIN gmsa_admin 
@@ -436,7 +436,7 @@
 			$row = $statement->fetchAll();
 			if ($statement->rowCount() > 0) {
 
-				$related = $conn->query("SELECT news_title, news_url FROM gmsa_news ORDER BY RAND() LIMIT 8")->fetchAll();
+				$related = $conn->query("SELECT news_title, news_url, news_id FROM gmsa_news WHERE news_id != '".$row[0]["news_id"]."' ORDER BY RAND() LIMIT 10")->fetchAll();
 				$output = '
 				    <section class="pt-lg-8">
 		                <div class="container pt-4 pt-lg-0">

@@ -330,4 +330,15 @@ function fetch_activities($conn, $limit) {
     $rows = $statement->fetchAll();
 
     return (($statement->rowCount() > 0) ?  $rows : '');
-} 
+}
+
+function get_prayer_time($conn) {
+	$sql = "
+        SELECT * FROM gmsa_prayer_time 
+    ";
+    $statement = $conn->prepare($sql);
+    $statement->execute();
+    $rows = $statement->fetchAll();
+
+    return (($statement->rowCount() > 0) ?  $rows : '');
+}

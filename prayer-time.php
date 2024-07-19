@@ -9,6 +9,7 @@
     include ("inc/header.inc.php");
     include ("inc/nav.inc.php");
 
+    $prayers = get_prayer_time($conn);
 
 ?>
     <main>
@@ -103,63 +104,21 @@
                 <div class="row g-4 g-lg-6">
                     <div class="col-lg-9 mx-auto">
                         <div class="tab-content" id="pills-tabContent">
-                            <div class="card card-body bg-light d-md-flex justify-content-md-between align-items-md-center flex-md-row p-4 mb-3">
-                                <div class="mb-4 mb-md-0">
-                                    <div class="badge text-bg-dark mb-3">Jumm'ah</div>
-                                    <h5 class="mb-0"><a href="javascript:;" class="stretched-link fw-bolder" style="font-size: xxx-large;">1:10 PM </a></h5>
-                                    <div class="hstack gap-3 gap-sm-4 flex-wrap mt-3">
-                                        <span><i class="bi bi-geo-alt me-2"></i>Navrongo, Ghana</span>
-                                        <span><i class="bi bi-clock me-2"></i>Kasena Nankana</span>
-                                        <span><i class="bi bi-table me-2"></i>Every Friday</span>
+                            <?php if (is_array($prayers)): ?>
+                                <?php foreach ($prayers as $prayer): ?>
+                                    <div class="card card-body bg-light d-md-flex justify-content-md-between align-items-md-center flex-md-row p-4 mb-3">
+                                        <div class="mb-4 mb-md-0">
+                                            <div class="badge text-bg-dark mb-3"><?= strtoupper($prayer['prayer_name']); ?></div>
+                                            <h5 class="mb-0"><a href="javascript:;" class="stretched-link fw-bolder" style="font-size: xxx-large;"><?= $prayer['prayer_time']; ?> </a></h5>
+                                            <div class="hstack gap-3 gap-sm-4 flex-wrap mt-3">
+                                                <span><i class="bi bi-geo-alt me-2"></i>Navrongo, Ghana</span>
+                                                <span><i class="bi bi-clock me-2"></i>Kasena Nankana</span>
+                                                <span><i class="bi bi-table me-2"></i>Last update: <?= pretty_date_notime($prayer['updatedAt']); ?></span>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="card card-body bg-light d-md-flex justify-content-md-between align-items-md-center flex-md-row p-4 mb-3">
-                                <div class="mb-4 mb-md-0">
-                                    <div class="badge text-bg-dark mb-3">Ramadan</div>
-                                    <h5 class="mb-0"><a href="javascript:;" class="stretched-link fw-bolder" style="font-size: xxx-large;">23rd / 24 April</a></h5>
-                                    <div class="hstack gap-3 gap-sm-4 flex-wrap mt-3">
-                                        <span><i class="bi bi-geo-alt me-2"></i>Navrongo, Ghana</span>
-                                        <span><i class="bi bi-clock me-2"></i>Kasena Nankana</span>
-                                        <span><i class="bi bi-table me-2"></i>Every month of Ramadan (April)</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card card-body bg-light d-md-flex justify-content-md-between align-items-md-center flex-md-row p-4 mb-3">
-                                <div class="mb-4 mb-md-0">
-                                    <div class="badge text-bg-dark mb-3">Taahajud</div>
-                                    <h5 class="mb-0"><a href="javascript:;" class="stretched-link fw-bolder" style="font-size: xxx-large;">20th / 21st May</a></h5>
-                                    <div class="hstack gap-3 gap-sm-4 flex-wrap mt-3">
-                                        <span><i class="bi bi-geo-alt me-2"></i>Navrongo, Ghana</span>
-                                        <span><i class="bi bi-clock me-2"></i>Kasena Nankana</span>
-                                        <span><i class="bi bi-table me-2"></i>Every month of Ramadan (May)</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="card card-body bg-light d-md-flex justify-content-md-between align-items-md-center flex-md-row p-4 mb-3">
-                                <div class="mb-4 mb-md-0">
-                                    <div class="badge text-bg-dark mb-3">Eid'ul Fitr</div>
-                                    <h5 class="mb-0"><a href="javascript:;" class="stretched-link fw-bolder" style="font-size: xxx-large;">30th / 1st June, 8:00 AM</a></h5>
-                                    <div class="hstack gap-3 gap-sm-4 flex-wrap mt-3">
-                                        <span><i class="bi bi-geo-alt me-2"></i>Navrongo, Ghana</span>
-                                        <span><i class="bi bi-clock me-2"></i>Kasena Nankana</span>
-                                        <span><i class="bi bi-table me-2"></i>Every month of May</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="card card-body bg-light d-md-flex justify-content-md-between align-items-md-center flex-md-row p-4 mb-3">
-                                <div class="mb-4 mb-md-0">
-                                    <div class="badge text-bg-dark mb-3">Eid'ul Adhar</div>
-                                    <h5 class="mb-0"><a href="javascript:;" class="stretched-link fw-bolder" style="font-size: xxx-large;">30th / 1st July, 8:00 AM</a></h5>
-                                    <div class="hstack gap-3 gap-sm-4 flex-wrap mt-3">
-                                        <span><i class="bi bi-geo-alt me-2"></i>Navrongo, Ghana</span>
-                                        <span><i class="bi bi-clock me-2"></i>Kasena Nankana</span>
-                                        <span><i class="bi bi-table me-2"></i>Every month of July</span>
-                                    </div>
-                                </div>
-                            </div>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
