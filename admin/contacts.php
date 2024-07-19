@@ -33,6 +33,67 @@
         }
     }
 
+    if (isset($_GET['update-contact']) && !empty($_GET['update-contact'])) {
+        $errors = '';
+        $post = cleanPost($_POST);
+        $country = ((isset($_POST['country']))? $post["country"] : $site_row["about_country"]);
+        $state = ((isset($_POST['state']))? $post["state"] : $site_row["about_state"]);
+        $city = ((isset($_POST['city']))? $post["city"] : $site_row["about_city"]);
+        $email = ((isset($_POST['email']))? $post["email"] : $site_row["about_email"]);
+        $phone_1 = ((isset($_POST['phone_1']))? $post["phone_1"] : $site_row["about_phone"]);
+        $phone_2 = ((isset($_POST['phone_2']))? $post["phone_2"] : $site_row["about_phone2"]);
+        $fax = ((isset($_POST['fax']))? $post["fax"] : $site_row["about_fax"]);
+        $street_1 = ((isset($_POST['street_1']))? $post["street_1"] : $site_row["about_street1"]);
+        $street_2 = ((isset($_POST['street_2']))? $post["street_2"] : $site_row["about_street2"]);
+       
+        if ($_POST) {
+            $post = array(
+                'country'           => 'Country',
+                'state'             => 'State',
+                'city'              => 'City',
+                'email'             => 'Email',
+                'phone_1'           => 'Phone_1',
+                'fax'               => 'Fax',
+                'street_1'          => 'Street_1',
+            );
+            foreach ($post as $k => $v) {
+                if (empty($_POST[$k])) {
+                    $errors = '<span class="bg-info">'.$v.'</span> is required.';
+                } else {
+                    if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+                        $errors = 'Please enter a valid email address.';
+                    }
+                }
+            }
+
+            if (empty($errors)) {
+                $data = array(
+                    ':about_street1'            => sanitize($_POST["street_1"]),
+                    ':about_street2'            => sanitize($_POST["street_2"]),
+                    ':about_country'            => sanitize($_POST["country"]),
+                    ':about_state'              => sanitize($_POST["state"]),
+                    ':about_city'               => sanitize($_POST["city"]),
+                    ':about_phone'              => sanitize($_POST["phone_1"]),
+                    ':about_email'              => sanitize($_POST["email"]),
+                    ':about_phone2'             => sanitize($_POST["phone_2"]),
+                    ':about_fax'                => sanitize($_POST["fax"]),
+                );
+
+                $sql = "
+                    UPDATE gmsa_about 
+                    SET about_street1 = :about_street1, about_street2 = :about_street2, about_country = :about_country, about_state = :about_state, about_city = :about_city, about_phone = :about_phone, about_email = :about_email, about_phone2 = :about_phone2, about_fax = :about_fax
+                ";
+                $statement = $conn->prepare($sql);
+                $result = $statement->execute($data);
+                if (isset($result)) {
+                    $_SESSION['flash_success'] = 'Contact page successfully updated!';
+                    redirect(PROOT . 'gpmin/contacts?update=1');
+                }
+            }
+        }
+
+    }
+
 ?> 
     <main class="app-main">
         <div class="wrapper">
@@ -44,14 +105,83 @@
                         <div class="d-md-flex align-items-md-start">
                             <h1 class="page-title mr-sm-auto"> Contacts </h1>
                             <div class="btn-toolbar">
-                                <button type="button" class="btn btn-light"><i class="oi oi-data-transfer-download"></i> <span class="ml-1">Export</span></button> <a href="<?= PROOT; ?>admin/contacts" class="btn btn-light"> <span class="ml-1">Refresh</span></a>
+                                <button type="button" class="btn btn-light"><i class="oi oi-data-transfer-download"></i> <span class="ml-1">Export</span></button> <a href="<?= PROOT; ?>admin/contacts?update-contact=1" class="btn btn-light"> <span class="ml-1">Update contact</span></a>
                             </div>
                         </div>
                     </header>
                     <div class="page-section">
-                        <div class="card card-fluid">
-                            <div id="load-content"></div>                                    
-                        </div>
+                        <div class="card card-body">
+                            <?php if (isset($_GET['update-contact']) && !empty($_GET['update-contact'])): ?>
+                                <form method="POST" action="contacts.php?update=1" id="updateForm">
+                                    <p class="bg-danger text-white text-center"><?= $errors; ?></p>
+                                    <div class="row">
+                                        <div class="col-md-4 mb-2">
+                                            <div class="form-group">
+                                                <label for="country">Country</label>
+                                                <input type="text" name="country" id="country" class="form-control" value="<?= $country; ?>">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="state">State</label>
+                                                <input type="text" name="state" id="state" class="form-control" value="<?= $state; ?>">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="city">City</label>
+                                                <input type="text" name="city" id="city" class="form-control" value="<?= $city; ?>">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 mb-2">
+                                            <div class="form-group">
+                                                <label for="email">Email</label>
+                                                <input type="email" name="email" id="email" class="form-control" value="<?= $email; ?>">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="phone_1">Phone 1</label>
+                                                <input type="text" name="phone_1" id="phone_1" class="form-control" value="<?= $phone_1; ?>">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="phone_2">Phone 2 (Optional)</label>
+                                                <input type="text" name="phone_2" id="phone_2" class="form-control" value="<?= $phone_2; ?>">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="fax">Fax</label>
+                                                <input type="text" name="fax" id="fax" class="form-control" value="<?= $fax; ?>">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="street_1">Address 1 (Street)</label>
+                                                <input type="text" name="street_1" id="street_1" class="form-control" value="<?= $street_1; ?>">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="street_2">Address 2 (Optional)</label>
+                                                <input type="text" name="street_2" id="street_2" class="form-control" value="<?= $street_2; ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group mt-3">
+                                        <button type="submit" name="update_contact" id="update_contact" class="btn btn-dark">Update</button>
+                                        <br><br>
+                                        visit <a href="<?= PROOT; ?>contact-us" target="blank">contact us</a> page to see changers
+                                    </div>
+                                </form>
+                            </div>
+                            <?php else: ?>
+                            <div class="card card-fluid">
+                                <div id="load-content"></div>                                    
+                            </div>
+                            <?php endif ?>
                     </div>
                 </div>
             </div>
