@@ -8,6 +8,7 @@
     include ("inc/header.inc.php");
     include ("inc/nav.inc.php");
 
+    // get activities
     $rows = fetch_activities($conn, '');
 
 

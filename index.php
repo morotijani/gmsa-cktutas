@@ -8,7 +8,11 @@
     include ("inc/header.inc.php");
     include ("inc/nav.inc.php");
 
+    // fetch blog
     $blog_rows = fetch_featured_news($conn, 3, 1);
+
+    // fetch ctivities
+    $activities = fetch_activities($conn, 5);
 
 ?>
     <main>
@@ -288,24 +292,42 @@
             </div>
         </section>
 
+        <!-- ACTIVITIES -->
         <section class="">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-7 mx-auto">
                         <h2 class="text-center mb-5">Activities</h2>
                         <div class="accordion accordion-icon accordion-bg-light" id="accordionFaq">
-                            <div class="accordion-item mb-3">
-                                <div class="accordion-header font-base" id="heading-2">
-                                    <button class="accordion-button fw-semibold rounded collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-2" aria-expanded="false" aria-controls="collapse-2">
-                                        Can you describe Mizzle in just one sentence?
-                                    </button>
-                                </div>
-                                <!-- Body -->
-                                <div id="collapse-2" class="accordion-collapse collapse" aria-labelledby="heading-2" data-bs-parent="#accordionFaq">
-                                    <div class="accordion-body mt-3 pb-0">
-                                        September how men saw tolerably two behavior arranging. She offices for highest and replied one venture pasture. Applauded no discovery in newspaper allowance am northward. Frequently partiality possession resolution at or appearance unaffected me. Engaged its was the evident pleased husband. Ye goodness felicity do disposal dwelling no. First am plate jokes to began to cause a scale. Subjects he prospect elegance followed no overcame possible it on. Improved own provided blessing may peculiar domestic. Sight house has sex never. No visited raising gravity outward subject my cottage Mr be.
+                            <?php if (is_array($activities)): ?>
+                                <?php $i = 1; foreach ($activities as $activity): ?>
+                                    <div class="accordion-item mb-3">
+                                        <div class="accordion-header font-base" id="heading-<?= $i; ?>">
+                                            <button class="accordion-button fw-semibold rounded collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-<?= $i; ?>" aria-expanded="false" aria-controls="collapse-<?= $i; ?>"><?= $activity['activity']; ?></button>
+                                        </div>
+                                        <div id="collapse-<?= $i; ?>" class="accordion-collapse collapse" aria-labelledby="heading-<?= $i; ?>" data-bs-parent="#accordionFaq">
+                                            <div class="accordion-body mt-3 pb-0">
+                                                <?= $activity['activity_details']; ?>
+                                                <div class="d-flex justify-content-between mt-1">        
+                                                    <div class="">
+                                                        Venue: <p class="lead"><?= $activity['activity_time']; ?></p>
+                                                    </div> 
+                                                    <div class=""> 
+                                                        Date: <p class="lead"><?= $activity['activity_date']; ?></p>
+                                                    </div> 
+                                                    <div class="">
+                                                        Time: <p class="lead"><?= $activity['activity_venue']; ?></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
+                                <?php $i++; endforeach ?>
+                            <?php endif ?>
+                        </div>
+                        <div class="row" data-aos="fade-up">
+                            <div class="col text-center">
+                                <p><span class="badge bg-success text-blue mr-1">GMSA</span> view all activities and details. <a href="<?= PROOT; ?>activities" class="link">here</a></p>
                             </div>
                         </div>
                     </div>
