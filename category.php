@@ -1,4 +1,4 @@
-category<?php
+<?php
 
     // Contact us page
 
@@ -13,10 +13,8 @@ category<?php
 
     if (isset($_GET['url']) && !empty($_GET['url'])) {
         $url = sanitize($_GET['url']);
-
-        
     } else {
-        redirect(PROOT);
+        redirect(PROOT . 'news');
     }
 
 ?>
@@ -37,13 +35,6 @@ category<?php
                         </span>
                         Showing news, stories from category: <?= ucwords($url); ?>
                     </h1>
-
-                    <form class="col-md-7 bg-light border rounded-2 position-relative mx-auto p-2 mt-4 mt-md-5">
-                        <div class="input-group">
-                            <input class="form-control focus-shadow-none bg-light border-0 me-1" type="email" placeholder="Search blog">
-                            <button type="button" class="btn btn-dark rounded-2 mb-0"><i class="bi bi-search me-2"></i>Search</button>
-                        </div>
-                    </form>
                 </div>
             </div>
         </section>
@@ -59,7 +50,7 @@ category<?php
 	                        <?php 
 	                        	$news = $Category->fetchCategoryNews($conn, $url);
 		                        if ($news == false) {
-		                            redirect(PROOT);
+		                            redirect(PROOT . 'news');
 		                        } else {
 		                            echo $news;
 		                        }

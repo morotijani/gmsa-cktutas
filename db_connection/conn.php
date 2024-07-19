@@ -16,7 +16,6 @@
  	require_once(BASEURL . 'helpers/Category.php');
  	require_once(BASEURL . 'helpers/News.php');
  	require_once(BASEURL . 'helpers/Search.php');
- 	require_once(BASEURL . 'helpers/Pagination.php');
 
  ///////////////////////////////////////////////////////////////////////////////////////////
  	$siteQuery = "

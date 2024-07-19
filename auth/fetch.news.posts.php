@@ -17,7 +17,7 @@ if ($_POST['page'] > 1) {
 
 
 $query = "
-	SELECT *, gmsa_news.createdAt AS bca FROM gmsa_news 
+	SELECT * FROM gmsa_news 
 	INNER JOIN gmsa_categories
 	ON gmsa_categories.category_id = gmsa_news.news_category 
 	INNER JOIN gmsa_admin 
@@ -30,7 +30,7 @@ if ($search_query != '') {
 	$query .= '
 		AND (news_title LIKE "%'.$find_query.'%" 
 		OR category LIKE "%'.$find_query.'%" 
-		OR bcs LIKE "%'.$find_query.'%") 
+		OR gmsa_news.createdAt LIKE "%'.$find_query.'%") 
 	';
 } else {
 	$query .= 'ORDER BY news_views DESC ';

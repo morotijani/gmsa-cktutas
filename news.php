@@ -51,7 +51,7 @@
 
                     <form class="col-md-7 bg-light border rounded-2 position-relative mx-auto p-2 mt-4 mt-md-5">
                         <div class="input-group">
-                            <input class="form-control focus-shadow-none bg-light border-0 me-1" type="email" placeholder="Search blog">
+                            <input class="form-control focus-shadow-none bg-light border-0 me-1" id="search" type="search" placeholder="Search blog">
                             <button type="button" class="btn btn-dark rounded-2 mb-0"><i class="bi bi-search me-2"></i>Search</button>
                         </div>
                     </form>
