@@ -32,6 +32,26 @@
             redirect(PROOT . 'admin/site');
         }
     }
+
+    $mission = ((isset($_POST['mission']) && !empty($_POST['mission'])) ? $post['mission'] : $site_row['mission']);
+    $vision = ((isset($_POST['vision']) && !empty($_POST['vision'])) ? $post['vision'] : $site_row['vision']);
+    if (isset($_POST['updateMV'])) {
+        $query = "
+            UPDATE gmsa_about 
+            SET mission = ?, vision = ? 
+        ";
+        $statement = $conn->prepare($query);
+        $result = $statement->execute([$mission, $vision]);
+
+        if ($result) {
+            // code...
+            $_SESSION['flash_success'] = 'Mision Vision updated successfully!';
+            redirect(PROOT . 'admin/site');
+        } else {
+            $_SESSION['flash_error'] = 'Something went wrong, please try again!';
+            redirect(PROOT . 'admin/site');
+        }
+    }
 ?>
 
     <main class="app-main">
@@ -67,6 +87,25 @@
                                         <button class="btn btn-info" type="submit" name="submit_form" id="submit_form">Update.</button>
                                     </div>
                                 </form>
+                                <hr class="my-5">
+                                <fieldset>
+                                    <legend>Mission and Vision</legend>
+                                    <div class="form-group">
+                                        <div class="form-label-group">
+                                            <textarea type="text" class="form-control" id="mission" name="mission"><?= $mission; ?></textarea>
+                                            <label for="mission">Mission</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-label-group">
+                                            <textarea type="text" class="form-control" id="vision" name="vision"><?= $vision; ?></textarea>
+                                            <label for="vision">Vision</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-actions">
+                                        <button class="btn btn-success" type="submit" name="updateMV">Update</button>
+                                    </div>
+                                </fieldset>
                                 <hr class="my-5">
                                 <fieldset>
                                     <legend>Ads flyer</legend>
