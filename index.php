@@ -184,6 +184,7 @@
             </div>
         </section>
 
+        <!-- School -->
         <section class="pb-0">
             <div class="container">
                 <div class="row g-0 bg-light rounded overflow-hidden">
@@ -282,6 +283,31 @@
                         </div>
 
                         
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-7 mx-auto">
+                        <h2 class="text-center mb-5">Activities</h2>
+                        <div class="accordion accordion-icon accordion-bg-light" id="accordionFaq">
+                            <div class="accordion-item mb-3">
+                                <div class="accordion-header font-base" id="heading-2">
+                                    <button class="accordion-button fw-semibold rounded collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-2" aria-expanded="false" aria-controls="collapse-2">
+                                        Can you describe Mizzle in just one sentence?
+                                    </button>
+                                </div>
+                                <!-- Body -->
+                                <div id="collapse-2" class="accordion-collapse collapse" aria-labelledby="heading-2" data-bs-parent="#accordionFaq">
+                                    <div class="accordion-body mt-3 pb-0">
+                                        September how men saw tolerably two behavior arranging. She offices for highest and replied one venture pasture. Applauded no discovery in newspaper allowance am northward. Frequently partiality possession resolution at or appearance unaffected me. Engaged its was the evident pleased husband. Ye goodness felicity do disposal dwelling no. First am plate jokes to began to cause a scale. Subjects he prospect elegance followed no overcame possible it on. Improved own provided blessing may peculiar domestic. Sight house has sex never. No visited raising gravity outward subject my cottage Mr be.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

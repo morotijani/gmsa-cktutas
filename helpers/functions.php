@@ -315,3 +315,19 @@ function get_category_for_user_view($conn) {
 	return (($statement->rowCount() > 0) ?  $row : '');
 }
 
+function fetch_activities($conn, $limit) {
+
+	$sql = "
+        SELECT * FROM gmsa_activities 
+        WHERE gmsa_activities.status = ? 
+        ORDER BY gmsa_activities.activity_date ASC
+    ";
+    if ($limit != '') {
+    	$sql .= "LIMIT $limit";
+    }
+    $statement = $conn->prepare($sql);
+    $statement->execute([0]);
+    $rows = $statement->fetchAll();
+
+    return (($statement->rowCount() > 0) ?  $rows : '');
+} 

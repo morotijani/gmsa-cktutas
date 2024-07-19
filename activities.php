@@ -8,15 +8,7 @@
     include ("inc/header.inc.php");
     include ("inc/nav.inc.php");
 
-
-    $sql = "
-        SELECT * FROM gmsa_activities 
-        WHERE gmsa_activities.status = ?
-    ";
-    $statement = $conn->prepare($sql);
-    $statement->execute([0]);
-    $rows = $statement->fetchAll();
-    $count_row = $statement->rowCount();
+    $rows = fetch_activities($conn, '');
 
 
 ?>
@@ -50,7 +42,7 @@
                 <div class="row g-4 g-lg-6">
                     <div class="col-lg-9 mx-auto">
                         <div class="tab-content" id="pills-tabContent">
-                            <?php if ($count_row > 0): ?>
+                            <?php if (is_array($rows) > 0): ?>
                                 <?php foreach ($rows as $row): ?>
                                     <div class="card card-body bg-light d-md-flex justify-content-md-between align-items-md-center flex-md-row p-4 mb-3">
                                         <div class="mb-4 mb-md-0">

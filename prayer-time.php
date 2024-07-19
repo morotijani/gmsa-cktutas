@@ -18,11 +18,11 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-10 col-xl-8">
                         <a href="https://time.is/Accra" id="time_is_link"></a>
-                        <time id="Accra_z001" class="fw-bolder" style="font-size: 242px;"></time>
+                        <time id="Accra_z001" class="fw-bolder fs-1 text-center" style="/*font-size: 242px;"></time>
                     </div>
                 </div>
                 <div class="d-flex flex-row-reverse">
-                    <div id="today-date" style="font-size: 50px; font-weight: 400;"><?= date("M d, Y", strtotime(date("M d, Y"))); ?></div>
+                    <div id="today-date" style="/*font-size: 50px;*/ font-weight: 400;"><?= date("M d, Y", strtotime(date("M d, Y"))); ?></div>
                 </div>
 
                 <div class="d-flex flex-row-reverse gap-3 mt-3">
