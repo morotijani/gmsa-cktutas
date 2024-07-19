@@ -37,10 +37,10 @@
                         Explore our gallery filled with joy and happiness
                     </h1>
 
-                    <form class="col-md-7 bg-light border rounded-2 position-relative mx-auto p-2 mt-4 mt-md-5">
+                    <form class="col-md-7 bg-light border rounded-2 position-relative mx-auto p-2 mt-4 mt-md-5" method="GET">
                         <div class="input-group">
-                            <input class="form-control focus-shadow-none bg-light border-0 me-1" type="date" placeholder="Search blog">
-                            <button type="button" class="btn btn-dark rounded-2 mb-0"><i class="bi bi-search me-2"></i>Search</button>
+                            <input class="form-control focus-shadow-none bg-light border-0 me-1" type="date" name="date" placeholder="Search gallery with date" value="<?= ((isset($_GET['date']) && !empty(($_GET['date']))) ? sanitize($_GET['date']) : ''); ?>">
+                            <button class="btn btn-dark rounded-2 mb-0"><i class="bi bi-search me-2"></i>Search</button>
                         </div>
                     </form>
                 </div>
@@ -56,23 +56,56 @@
                         </figure>
                     </div>
 
-                    <?php if ($count_rows > 0): ?>
-                        <?php foreach ($rows as $row): ?>
-                            <div class="col-sm-4 position-relative order-2 order-sm-1 z-index-9">
-                                <a data-glightbox data-gallery="gallery" href="<?= PROOT . $row["gallery_media"]; ?>">
-                                    <div class="card card-element-hover card-overlay-hover overflow-hidden">
-                                        <img src="<?= PROOT . $row["gallery_media"]; ?>" class="rounded-3" alt="">
-                                        <div class="hover-element w-100 h-100">
-                                            <i class="bi bi-fullscreen fs-6 text-white position-absolute top-50 start-50 translate-middle bg-dark rounded-1 p-2 lh-1"></i>
-                                        </div>
+                    <?php if (isset($_GET['date']) && !empty($_GET['date'])):
+                        $search = sanitize($_GET['date']);
+                        $sql = "
+                            SELECT * FROM gmsa_gallery 
+                            WHERE DATE(createdAt) = ?
+                        ";
+                        $statement = $conn->prepare($sql);
+                        $statement->execute([$search]);
+                        if ($statement->rowCount() > 0) {
+                            foreach ($statement->fetchAll() as $row) {
+                                echo '
+                                    <div class="col-sm-4 position-relative order-2 order-sm-1 z-index-9">
+                                        <a data-glightbox data-gallery="gallery" href="' . $row["gallery_media"] . '">
+                                            <div class="card card-element-hover card-overlay-hover overflow-hidden">
+                                                <img src="' . $row["gallery_media"] . '" class="rounded-3" alt="">
+                                                <div class="hover-element w-100 h-100">
+                                                    <i class="bi bi-fullscreen fs-6 text-white position-absolute top-50 start-50 translate-middle bg-dark rounded-1 p-2 lh-1"></i>
+                                                </div>
+                                            </div>
+                                        </a>
                                     </div>
-                                </a>
-                            </div>
-                        <?php endforeach ?>
+                                ';
+                            }
+                        } else {
+                            echo '
+                                <div class="alert alert-info">
+                                    No data found!
+                                </div>
+                            ';
+                        }
+                    ?>
                     <?php else: ?>
-                    <div class="alert alert-info">
-                        No data found!
-                    </div>
+                        <?php if ($count_rows > 0): ?>
+                            <?php foreach ($rows as $row): ?>
+                                <div class="col-sm-4 position-relative order-2 order-sm-1 z-index-9">
+                                    <a data-glightbox data-gallery="gallery" href="<?= PROOT . $row["gallery_media"]; ?>">
+                                        <div class="card card-element-hover card-overlay-hover overflow-hidden">
+                                            <img src="<?= PROOT . $row["gallery_media"]; ?>" class="rounded-3" alt="">
+                                            <div class="hover-element w-100 h-100">
+                                                <i class="bi bi-fullscreen fs-6 text-white position-absolute top-50 start-50 translate-middle bg-dark rounded-1 p-2 lh-1"></i>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                        <div class="alert alert-info">
+                            No data found!
+                        </div>
+                        <?php endif; ?>
                     <?php endif; ?>
                 </div>
             </div>

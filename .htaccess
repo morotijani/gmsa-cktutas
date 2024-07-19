@@ -11,6 +11,9 @@ RewriteRule ^view/([a-zA-Z-0-9-]+)/ view.php?url=$1 [NC,L]
 RewriteRule ^news/([a-zA-Z0-9-/]+)$ news.php?url=$1 [NC,L]
 RewriteRule ^news/([a-zA-Z-0-9-]+)/ news.php?url=$1 [NC,L]
 
+RewriteRule ^gallery/([a-zA-Z0-9-/]+)$ gallery.php?date=$1 [NC,L]
+RewriteRule ^gallery/([a-zA-Z-0-9-]+)/ gallery.php?date=$1 [NC,L]
+
 RewriteRule ^category/([a-zA-Z0-9-/]+)$ category.php?url=$1 [NC,L]
 RewriteRule ^category/([a-zA-Z-0-9-]+)/ category.php?url=$1 [NC,L]
 
@@ -31,4 +34,4 @@ RewriteCond $1 !^(media|admin|store|helpers|fonts|dist|controller|connection|rob
 
 RewriteRule ^([^\.]+)$ $1.php [NC,L]
 
-#ErrorDocument 404 http://127.0.0.1/garypie/404.php
+#ErrorDocument 404 http://127.0.0.1/gmsa-cktutas/404.php
