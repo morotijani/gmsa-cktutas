@@ -28,78 +28,11 @@
                         <h5 style="font-weight: 900;" id="today-date"><?= date('jS F, Y'); ?></h5>
                     </a>
                 </div>
-
-                <div class="hstack gap-3 flex-wrap align-items-center justify-content-center mt-4">
-                    <a href="javascript:;" class="btn btn-sm btn-light mb-0">
-                        <h5 style="font-weight: 900;">Hotel</h5>
-                        <p class="fw-light lh-base lead">12:22 AM.</p>
-                    </a>
-                    <a href="javascript:;" class="btn btn-sm btn-light mb-0">
-                        <h5 style="font-weight: 900;">Flight</h5>
-                        <p class="fw-light lh-base lead">12:22 AM.</p>
-                    </a>
-                    <a href="javascript:;" class="btn btn-sm btn-light mb-0">
-                        <h5 style="font-weight: 900;">Tour</h5>
-                        <p class="fw-light lh-base lead">12:22 AM.</p>
-                    </a>
-                    <a href="javascript:;" class="btn btn-sm btn-light mb-0">
-                        <h5 style="font-weight: 900;">Cab</h5>
-                        <p class="fw-light lh-base lead">12:22 AM.</p>
-                    </a>
-                    <a href="javascript:;" class="btn btn-sm btn-light mb-0">
-                        <h5 style="font-weight: 900;">Directory</h5>
-                        <p class="fw-light lh-base lead">12:22 AM.</p>
-                    </a>
-                </div>
-
-                <!-- <div class="d-flex justify-content-between gap-3 mt-3">
-                    <div class="card text-end" style="">
-                        <div class="card-body bg-light">
-                            <h5 class="card-title" style="/*font-size: xx-large; font-weight: 900*/">Fajr</h5>
-                            <p class="card-text fw-light lh-base lead">12:22 AM.</p>
-                        </div>
-                    </div>
-                    <div class="card text-end" style="">
-                        <div class="card-body bg-light">
-                            <h5 class="card-title" style="/*font-size: xx-large; font-weight: 900*/">Zuhr</h5>
-                            <p class="card-text fw-light lh-base lead">43:43 PM.</p>
-                        </div>
-                    </div>
-                    <div class="card text-end" style="">
-                        <div class="card-body bg-light">
-                            <h5 class="card-title" style="/*font-size: xx-large; font-weight: 900*/">Asr</h5>
-                            <p class="card-text fw-light lh-base lead">43:43 PM.</p>
-                        </div>
-                    </div>
-                    <div class="card text-end" style="">
-                        <div class="card-body bg-light">
-                            <h5 class="card-title" style="/*font-size: xx-large; font-weight: 900*/">Magrib</h5>
-                            <p class="card-text fw-light lh-base lead">43:43 PM.</p>
-                        </div>
-                    </div>
-                    <div class="card text-end" style="">
-                        <div class="card-body bg-light">
-                            <h5 class="card-title" style="/*font-size: xx-large; font-weight: 900*/">Isha</h5>
-                            <p class="card-text fw-light lh-base lead">43:43 PM.</p>
-                        </div>
-                    </div>
-                    <div class="card text-end" style="">
-                        <div class="card-body bg-light">
-                            <h5 class="card-title" style="/*font-size: xx-large; font-weight: 900*/">Jumm'ah</h5>
-                            <p class="card-text fw-light lh-base lead">43:43 PM.</p>
-                        </div>
-                    </div>
-                </div> -->
             </div>
         </section>
 
         <section class="pt-0">
             <div class="container">
-                <!-- Title -->
-                <div class="inner-container-small text-center mb-4 mb-sm-6">
-                    <h2 class="mb-3">General Time</h2>
-                    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod llit anim id est laborum.</p>
-                </div>
     
                 <div class="row g-4 g-lg-6">
                     <div class="col-lg-9 mx-auto">
