@@ -7,6 +7,8 @@
     include ("includes/header.php");
     include ("includes/aside.php");
 
+    $total_data = $conn->query("SELECT * FROM gmsa_members WHERE status = 0")->rowCount();
+
     // DELETE A MEMBER PERMANENTLY
     if (isset($_GET['permanent_delete']) && !empty($_GET['permanent_delete'])) {
         $permanent_delete = (int)$_GET['permanent_delete'];
@@ -64,7 +66,27 @@
                     </header>
                     <div class="page-section">
                         <div class="card card-fluid">
-                            <div id="load-content"></div>                                    
+                            <div class="card-header">
+                                <ul class="nav nav-tabs card-header-tabs">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="<?= PROOT; ?>admin/members">All (<?= $total_data; ?>)</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#tab2">Other</a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><span class="oi oi-magnifying-glass"></span></span>
+                                        </div>
+                                        <input type="text" id="search" class="form-control" placeholder="Search record">
+                                    </div>
+                                </div>
+                                <div id="load-content"></div>                                 
                         </div>
                     </div>
                 </div>

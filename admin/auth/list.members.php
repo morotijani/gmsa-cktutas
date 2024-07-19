@@ -49,28 +49,7 @@ $result = $statement->fetchAll();
 $count_filter = $statement->rowCount();
 
 
-$output = ' 
-    <div class="card-header">
-        <ul class="nav nav-tabs card-header-tabs">
-            <li class="nav-item">
-                <a class="nav-link active" href="'.PROOT.'admin/members">All (' . $total_data . ')</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#tab2">Other</a>
-            </li>
-        </ul>
-    </div>
-
-    <div class="card-body">
-        <div class="form-group">
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"><span class="oi oi-magnifying-glass"></span></span>
-                </div>
-                <input type="text" id="search" class="form-control" placeholder="Search record">
-            </div>
-        </div>
-
+$output = '
     	<div class="text-muted"> Showing ' . $count_filter . ' to 10 of ' . $total_data . ' entries </div>
         <div class="table-responsive">
 	        <table class="table">

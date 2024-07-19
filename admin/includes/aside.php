@@ -28,7 +28,7 @@
                                     <a href="<?= PROOT; ?>admin/blog/category" class="menu-link">Category</a>
                                 </li>
                                 <li class="menu-item">
-                                    <a href="<?= PROOT; ?>admin/blog?archive=1" class="menu-link">Archive</a>
+                                    <a href="<?= PROOT; ?>admin/blog/archive" class="menu-link">Archive</a>
                                 </li>
                                 <li class="menu-item">
                                     <a href="<?= PROOT; ?>admin/blog/add" class="menu-link">Make new Post</a>
