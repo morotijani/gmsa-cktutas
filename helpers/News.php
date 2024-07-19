@@ -435,7 +435,9 @@
 			$statement->execute([$newsUrl, 0]);
 			$row = $statement->fetchAll();
 			if ($statement->rowCount() > 0) {
-				return '
+
+				$related = $conn->query("SELECT news_title, news_url FROM gmsa_news ORDER BY RAND() LIMIT 8")->fetchAll();
+				$output = '
 				    <section class="pt-lg-8">
 		                <div class="container pt-4 pt-lg-0">
 		                    <div class="row g-4 g-sm-7">
@@ -451,9 +453,9 @@
 		                            </div>
 		                            <h1 class="h2 mb-0">' . $row[0]['news_title'] . '</h1>
 		                            <div class="d-flex align-items-center flex-wrap mt-4">
-		                                <a href="#" class="badge text-bg-dark mb-0">Lifestyle</a>
+		                                <a href="'.PROOT.'category/'.$row[0]["category_url"].'" class="badge text-bg-dark mb-0">' . strtoupper($row[0]["category"]) . '</a>
 		                                <span class="text-secondary opacity-3 mx-3">|</span>
-		                                <a href="#" class="text-secondary text-primary-hover mb-0"><i class="bi bi-eye me-2"></i>' . $row[0]["news_views"] . ' view' . (($row[0]["news_views"] > 1) ? 's' : '') . '</a>
+		                                <a href="javascript:;" class="text-secondary text-primary-hover mb-0"><i class="bi bi-eye me-2"></i>' . $row[0]["news_views"] . ' view' . (($row[0]["news_views"] > 1) ? 's' : '') . '</a>
 		                                <span class="text-secondary opacity-3 mx-3">|</span>
 		                                <span class="text-secondary">' . pretty_date_notime($row[0]['ca']) . '</span>
 		                            </div>
@@ -464,13 +466,15 @@
 		                        <div class="col-lg-4 ps-xl-6">
 		                            <div class="align-items-center mt-5">
 		                                <h6 class="mb-3 d-inline-block">Related post:</h6>
-
 		                                <ul class="list-group list-group-flush">
-		                                    <li class="list-group-item ps-0"><a href="#" class="heading-color text-primary-hover fw-semibold">5 investment doubts you should clarify</a></li>
-		                                    <li class="list-group-item ps-0"><a href="#" class="heading-color text-primary-hover fw-semibold">Mastering Responsive Web Design with Bootstrap</a></li>
-		                                    <li class="list-group-item ps-0"><a href="#" class="heading-color text-primary-hover fw-semibold">Effortless Web Development with Mizzle</a></li>
-		                                    <li class="list-group-item ps-0"><a href="#" class="heading-color text-primary-hover fw-semibold">Sleek and Responsive - Designing with Bootstrap and Mizzle</a></li>
-		                                    <li class="list-group-item ps-0"><a href="#" class="heading-color text-primary-hover fw-semibold">Ten questions you should answer truthfully.</a></li>
+		                                ';
+		                                foreach ($related as $relate) {
+		                                	// code...
+		                                	$output .= '
+		                                    	<li class="list-group-item ps-0"><a href="'.$relate["news_url"].'" class="heading-color text-primary-hover fw-semibold">'.ucfirst($relate['news_title']).'</a></li>
+		                                	';
+		                                }
+		                                $output .= '
 		                                </ul>
 		                            </div>
 		                        </div>
@@ -478,6 +482,7 @@
 		                </div>
 		            </section>
 				';
+				return $output;
 			} else {
 				return false;
 			}
