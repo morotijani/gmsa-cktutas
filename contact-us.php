@@ -57,7 +57,7 @@
                                             </ol>
                                         </nav>
                                         <h1 class="mb-3 h3">We will like to here from you, anytime</h1>
-                                        <p class="mb-0">You can reach us anytime via <a href="#">contact@gmsacktutas.org</a></p>
+                                        <p class="mb-0">You can reach us anytime via <a href="mailto:<?= $site_row["about_email"]; ?>"><?= $site_row["about_email"]; ?></a></p>
                                     </div>
                                     <form class="card-body px-0 pb-0 pt-5" method="POST">
                                         <div class="input-floating-label form-floating mb-4">
@@ -99,7 +99,7 @@
                                 </div>
                                 <span class="heading-color fw-semibold mb-0">CKT-UTAS office:</span>
                             </div>
-                            <address class="mb-0">1421 Coburn Hollow Road Metamora, Near Center Point, IL .</address>
+                            <address class="mb-0"><?= ucwords($site_row['about_state'] . ', ' . $site_row['about_state']) . ', ' . $site_row['about_street1']; ?></address>
                         </div>
                     </div>
 
@@ -108,7 +108,7 @@
                             <div class="mb-4"><i class="bi bi-envelope fa-xl text-primary"></i></div>
                             <h6 class="mb-3">Email us</h6>
                             <p>We're on top of things and aim to respond to all inquiries within 24 hours.</p>
-                            <a href="#" class="heading-color text-primary-hover text-decoration-underline mb-0">contact@gmsacktutas.org</a>
+                            <a href="mailto:<?= $site_row["about_email"]; ?>" class="heading-color text-primary-hover text-decoration-underline mb-0"><?= $site_row["about_email"]; ?></a>
                         </div>
                     </div>
 
@@ -117,7 +117,7 @@
                             <div class="mb-4"><i class="bi bi-telephone fa-xl text-primary"></i></div>
                             <h6 class="mb-3">Call us</h6>
                             <p>Let's work together towards a common goal - get in touch!</p>
-                            <a href="#" class="heading-color text-primary-hover text-decoration-underline mb-0">(233) 241 72 7274</a>
+                            <a href="tel:<?= $site_row["about_phone"]; ?>" class="heading-color text-primary-hover text-decoration-underline mb-0"><?= $site_row["about_phone"] . (($site_row["about_phone2"] != '') ? ' / ' . $site_row["about_phone2"] : ''); ?></a>
                         </div>
                     </div>
 
