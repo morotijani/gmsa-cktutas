@@ -33,10 +33,10 @@
                             <h6 class="mb-2 mb-md-4">Quick links</h6>
                             <ul class="nav flex-column">
                                 <li class="nav-item"><a class="nav-link pt-0" href="<?= PROOT; ?>about-us">About us</a></li>
-                                <li class="nav-item"><a class="nav-link" href="<?= PROOT; ?>contact-us">Contact us</a></li>
+                                <li class="nav-item"><a class="nav-link" href="<?= PROOT; ?>executives">Executives</a></li>
                                 <li class="nav-item"><a class="nav-link" href="<?= PROOT; ?>gllery">Gallery</a></li>
                                 <li class="nav-item"><a class="nav-link" href="<?= PROOT; ?>prayer-time">Prayer Time</a></li>
-                                <li class="nav-item"><a class="nav-link" href="<?= PROOT; ?>executives">Executives</a></li>
+                                <li class="nav-item"><a class="nav-link" href="<?= PROOT; ?>contact-us">Contact us</a></li>
                             </ul>
                         </div>
                         <div class="col-6 col-md-4">
@@ -45,6 +45,8 @@
                                 <li class="nav-item"><a class="nav-link" href="<?= PROOT; ?>donate">Donate</a></li>
                                 <li class="nav-item"><a class="nav-link" href="<?= PROOT; ?>auth/register">Register</a></li>
                                 <li class="nav-item"><a class="nav-link" href="<?= PROOT; ?>auth/pay-dues">Pay Dues</a></li>
+                                <li class="nav-item"><a class="nav-link" href="<?= PROOT; ?>calendar">Calendar</a></li>
+                                <li class="nav-item"><a class="nav-link" href="<?= PROOT; ?>activities">Activities</a></li>
                             </ul>
                         </div>
                         <div class="col-md-4">
