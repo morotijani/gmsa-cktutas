@@ -11,6 +11,7 @@
                     <ul class="navbar-nav navbar-nav-scroll mx-auto">
                         <li class="nav-item"> <a class="nav-link active" href="<?= PROOT; ?>">Home</a></li>
                         <li class="nav-item"> <a class="nav-link" href="<?= PROOT; ?>executives">Executives</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="<?= PROOT; ?>activities">Activities</a></li>
                         <li class="nav-item"> <a class="nav-link" href="<?= PROOT; ?>calendar">Calendar</a></li>
                         <li class="nav-item"> <a class="nav-link" href="<?= PROOT; ?>prayer-time">Prayer Time</a></li>
                         <li class="nav-item"> <a class="nav-link" href="<?= PROOT; ?>news">News</a></li>
