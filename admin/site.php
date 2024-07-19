@@ -75,7 +75,7 @@
                     <div class="page-section">
                         <div class="card">
                             <div class="card-body">
-                                <form method="POST" action="about.php">
+                                <form method="POST" action="">
                                     <div class="form-group mb-2">
                                         <label>Update about us.</label>
                                         <textarea class="form-control" rows="15" name="about_info" id="about_info">
@@ -88,24 +88,20 @@
                                     </div>
                                 </form>
                                 <hr class="my-5">
-                                <fieldset>
-                                    <legend>Mission and Vision</legend>
-                                    <div class="form-group">
-                                        <div class="form-label-group">
-                                            <textarea type="text" class="form-control" id="mission" name="mission"><?= $mission; ?></textarea>
-                                            <label for="mission">Mission</label>
+                                <form method="POST">
+                                    <fieldset>
+                                        <legend>Mission and Vision</legend>
+                                        <div class="form-group">
+                                            <textarea type="text" class="form-control" id="mission" name="mission" placeholder="Mission"><?= $mission; ?></textarea>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="form-label-group">
-                                            <textarea type="text" class="form-control" id="vision" name="vision"><?= $vision; ?></textarea>
-                                            <label for="vision">Vision</label>
+                                        <div class="form-group">
+                                            <textarea type="text" class="form-control" id="vision" name="vision" placeholder="Vision"><?= $vision; ?></textarea>
                                         </div>
-                                    </div>
-                                    <div class="form-actions">
-                                        <button class="btn btn-success" type="submit" name="updateMV">Update</button>
-                                    </div>
-                                </fieldset>
+                                        <div class="form-actions">
+                                            <button class="btn btn-success" type="submit" name="updateMV">Update</button>
+                                        </div>
+                                    </fieldset>
+                                </form>
                                 <hr class="my-5">
                                 <fieldset>
                                     <legend>Ads flyer</legend>

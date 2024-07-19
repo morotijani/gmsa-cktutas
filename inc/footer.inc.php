@@ -80,7 +80,7 @@
                         </div>
                         <div class="nav flex-column ps-3">
                             <div class="small text-body-secondary">Visit us in</div>
-                            <p class="fw-semibold heading-color mt-1 mb-0"><?= ucwords($site_row['about_state'] . ', ' . $site_row['about_state']) . ', ' . $site_row['about_street1']; ?></p>
+                            <p class="fw-semibold heading-color mt-1 mb-0"><?= ucwords($site_row['about_state'] . ', ' . $site_row['about_city']) . ', ' . $site_row['about_street1']; ?></p>
                         </div>
                     </div>
                 </div>

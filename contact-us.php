@@ -99,7 +99,7 @@
                                 </div>
                                 <span class="heading-color fw-semibold mb-0">CKT-UTAS office:</span>
                             </div>
-                            <address class="mb-0"><?= ucwords($site_row['about_state'] . ', ' . $site_row['about_state']) . ', ' . $site_row['about_street1']; ?></address>
+                            <address class="mb-0"><?= ucwords($site_row['about_state'] . ', ' . $site_row['about_city']) . ', ' . $site_row['about_street1']; ?></address>
                         </div>
                     </div>
 
