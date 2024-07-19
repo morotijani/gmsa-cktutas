@@ -434,60 +434,49 @@
 			$statement = $conn->prepare($query);
 			$statement->execute([$newsUrl, 0]);
 			$row = $statement->fetchAll();
-			//dnd($row);
 			if ($statement->rowCount() > 0) {
 				return '
-					<!-- =======================
-				    Inner intro START -->
-				    <section class="pt-2">
-				        <div class="container">
-				            <div class="row">
-				                <div class="col-12">
-				                    <div class="card bg-dark-overlay-5 overflow-hidden card-bg-scale h-400 text-center" style="background-image:url(' . PROOT . $row[0]["news_media"] . '); background-position: center left; background-size: cover;">
-				                        <!-- Card Image overlay -->
-				                        <div class="card-img-overlay d-flex align-items-center p-3 p-sm-4"> 
-				                            <div class="w-100 my-auto">
-				                                <!-- Card category -->
-				                                <a href="' . PROOT . 'category/' . $row[0]["category_url"] . '" class="badge text-bg-danger mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>' . ucwords($row[0]["category"]) . '</a>
-				                                <!-- Card title -->
-				                                <h2 class="text-white display-5">' . ucwords($row[0]["news_title"]) . '</h2>
-				                                <!-- Card info -->
-				                                <ul class="nav nav-divider text-white-force align-items-center justify-content-center">
-				                                    <li class="nav-item">
-				                                        <div class="nav-link">
-				                                            <div class="d-flex align-items-center text-white position-relative">
-				                                                <div class="avatar avatar-sm">
-				                                                    <img class="avatar-img rounded-circle" src="' . PROOT . 'dist/media/admin-male.svg" alt="avatar">
-				                                                </div>
-				                                                <span class="ms-3">by <a href="#" class="stretched-link text-reset btn-link">C.O</a></span>
-				                                            </div>
-				                                        </div>
-				                                    </li>
-				                                    <li class="nav-item">' . pretty_date_notime($row[0]['ca']) . '</li>
-				                                    <li class="nav-item">5 min read</li>
-				                                    <li class="nav-item">' . $row[0]["news_views"] . ' view' . (($row[0]["news_views"] > 1) ? 's' : '') . '</li>
-				                                </ul>
-				                            </div>
-				                        </div>
-				                    </div>
-				                </div>
-				            </div>
-				        </div>
-				    </section>
-				    <!-- =======================
-				    Inner intro END -->
+				    <section class="pt-lg-8">
+		                <div class="container pt-4 pt-lg-0">
+		                    <div class="row g-4 g-sm-7">
+		                        <div class="col-lg-8">
+		                            <div class="d-flex position-relative z-index-9">
+		                                <nav aria-label="breadcrumb">
+		                                    <ol class="breadcrumb breadcrumb-dots mb-1">
+		                                        <li class="breadcrumb-item"><a href="'.PROOT.'">Home</a></li>
+		                                        <li class="breadcrumb-item"><a href="'.PROOT.'news">Blog</a></li>
+		                                        <li class="breadcrumb-item active" aria-current="page">GMSA news</li>
+		                                    </ol>
+		                                </nav>
+		                            </div>
+		                            <h1 class="h2 mb-0">' . $row[0]['news_title'] . '</h1>
+		                            <div class="d-flex align-items-center flex-wrap mt-4">
+		                                <a href="#" class="badge text-bg-dark mb-0">Lifestyle</a>
+		                                <span class="text-secondary opacity-3 mx-3">|</span>
+		                                <a href="#" class="text-secondary text-primary-hover mb-0"><i class="bi bi-eye me-2"></i>' . $row[0]["news_views"] . ' view' . (($row[0]["news_views"] > 1) ? 's' : '') . '</a>
+		                                <span class="text-secondary opacity-3 mx-3">|</span>
+		                                <span class="text-secondary">' . pretty_date_notime($row[0]['ca']) . '</span>
+		                            </div>
+		                            <img src="'.PROOT . $row[0]['news_media'].'" class="img-fluid rounded mt-5" alt="blog-img">
 
-				    <!-- =======================
-				    Main START -->
-				    <section class="pt-0">
-				        <div class="container position-relative" data-sticky-container>
-				            <div class="row">
-				                <!-- Main Content START -->
-				                <div class="col-lg-9 mb-5">
-				                    <p>' . nl2br($row[0]['news_content']) . ' </p>
-				                </div>
+		                            <p class="mt-5">'.$row[0]["news_content"].'</p>
+		                        </div>
+		                        <div class="col-lg-4 ps-xl-6">
+		                            <div class="align-items-center mt-5">
+		                                <h6 class="mb-3 d-inline-block">Related post:</h6>
 
-				                
+		                                <ul class="list-group list-group-flush">
+		                                    <li class="list-group-item ps-0"><a href="#" class="heading-color text-primary-hover fw-semibold">5 investment doubts you should clarify</a></li>
+		                                    <li class="list-group-item ps-0"><a href="#" class="heading-color text-primary-hover fw-semibold">Mastering Responsive Web Design with Bootstrap</a></li>
+		                                    <li class="list-group-item ps-0"><a href="#" class="heading-color text-primary-hover fw-semibold">Effortless Web Development with Mizzle</a></li>
+		                                    <li class="list-group-item ps-0"><a href="#" class="heading-color text-primary-hover fw-semibold">Sleek and Responsive - Designing with Bootstrap and Mizzle</a></li>
+		                                    <li class="list-group-item ps-0"><a href="#" class="heading-color text-primary-hover fw-semibold">Ten questions you should answer truthfully.</a></li>
+		                                </ul>
+		                            </div>
+		                        </div>
+		                    </div>
+		                </div>
+		            </section>
 				';
 			} else {
 				return false;
