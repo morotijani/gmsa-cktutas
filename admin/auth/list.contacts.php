@@ -89,8 +89,8 @@ if ($total_data > 0) {
                 <td> 
                     <a href="javascript:;" data-target="#contactModal_' . $row["id"] . '" data-toggle="modal">'.ucwords($row["message_name"]).'</a>
                 </td>
-                <td class="align-middle"> '.$row["message_email"].' </td>
-                <td class="align-middle"> '.mb_strimwidth($row["message"], 0, 120, '...').' </td>
+                <td class="align-middle"> ' . $row["message_email"] . ' </td>
+                <td class="align-middle"> ' . mb_strimwidth($row["message"], 0, 120, '...') . ' </td>
                 <td class="align-middle"> '.pretty_date($row["createdAt"]).' </td>
                 <td class="align-middle text-right">
                     <a href="?remove='.$row["message_id"].'" class="btn btn-sm btn-icon btn-secondary"><i class="far fa-trash-alt"></i> <span class="sr-only">Remove</span></a> 

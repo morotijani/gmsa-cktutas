@@ -25,7 +25,7 @@
                         <img class="light-mode-item h-40px" src="<?= PROOT; ?>assets/media/logo/logo.png" alt="logo" style="">
                         <img class="dark-mode-item h-40px" src="<?= PROOT; ?>assets/media/logo/logo-1.jpeg" alt="logo" style="">
                     </a>
-                    <p class="mt-4 mb-2">A Bootstrap theme that's both stylish and functional, perfect for any type of technology or corporate website.</p>
+                    <p class="mt-4 mb-2"><?= mb_strimwidth($site_row["mission"], 0, 120, '...'); ?></p>
                 </div>
                 <div class="col-lg-8 col-xxl-7">
                     <div class="row g-4">
@@ -68,12 +68,9 @@
                         </div>
                     </div>
                 </div>
-            </div>            
-
+            </div>
             <hr class="opacity-1 mt-6 mb-0">
-
             <div class="d-md-flex justify-content-between align-items-center text-center text-lg-start py-4">
-                <!-- copyright text -->
                 <div class="text-body mb-3 mb-md-0" id="copyright"> Copyrights &copy; 2013 - <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script> GMSA - CKTUTAS. Build by <a href="https://www.gmsacktutas.org/" class="text-body text-primary-hover">IT & Publicity Committee</a>. </div>
             </div>
             
