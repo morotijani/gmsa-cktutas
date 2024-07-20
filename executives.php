@@ -9,7 +9,7 @@
     include ("inc/header.inc.php");
     include ("inc/nav.inc.php");
 
-    $executives = fetch_all_executives($conn);
+    $executives = fetch_all_executives($conn, 'all');
 
     $post = cleanPost($_GET);
     $name = (isset($_GET['name']) && !empty($_GET['name']) ? $post['name'] : '');

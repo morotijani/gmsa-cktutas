@@ -14,6 +14,10 @@
     // fetch ctivities
     $activities = fetch_activities($conn, 5);
 
+    // fetch executives
+    $executives = fetch_all_executives($conn, 3);
+
+
 ?>
     <main>
         <section class="pt-0">
@@ -216,81 +220,33 @@
         </section>
 
         <!-- EXECUTIVES -->
+        <?php if (is_array($executives)): ?>
         <section class="pb-0">
             <div class="container">
                 <div class="inner-container">
-                    <!-- Title -->
                     <h2 class="text-center mb-4 mb-sm-5">Know your executives</h2>
-
                     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-0 justify-content-center">
-                        <!-- Team item -->
-                        <div class="col">
-                            <div class="card card-body bg-transparent text-center p-4">
-                                <!-- Image -->
-                                <div class="avatar avatar-xxl mx-auto flex-shrink-0 mb-3">
-                                    <img class="avatar-img rounded-circle" src="assets/images/avatar/04.jpg" alt="avatar">
+                        <?php foreach ($executives as $executive): ?>
+                            <div class="col">
+                                <div class="card card-body bg-transparent text-center p-4">
+                                    <div class="avatar avatar-xxl mx-auto flex-shrink-0 mb-3">
+                                        <img class="avatar-img rounded-circle" src="<?= PROOT. $executive['member_picture'] ;?>" alt="avatar">
+                                    </div>
+                                    <h6 class="mb-1"><a href="<?= PROOT; ?>executives"><?= ucwords($executive['member_firstname'] . ' ' . $executive['member_middlename'] . ' ' . $executive['member_lastname']); ?></a></h6>
+                                    <small><?= strtoupper($executive['position'])?></small>
                                 </div>
-
-                                <!-- Content -->
-                                <h6 class="mb-1"><a href="#">Samuel Bishop</a></h6>
-                                <small>UI/UX Designer</small>
-
-                                <!-- Social button -->
-                                <ul class="list-inline mb-0 mt-3">
-                                    <li class="list-inline-item"> <a class="btn btn-xs btn-icon btn-light" href="#"><i class="fab fa-fw fa-facebook-f lh-base"></i></a> </li>
-                                    <li class="list-inline-item"> <a class="btn btn-xs btn-icon btn-light" href="#"><i class="fab fa-fw fa-instagram lh-base"></i></a> </li>
-                                    <li class="list-inline-item"> <a class="btn btn-xs btn-icon btn-light" href="#"><i class="fab fa-fw fa-twitter lh-base"></i></a> </li>
-                                </ul>
                             </div>
+                        <?php endforeach; ?>
+                    </div>
+                    <div class="row" data-aos="fade-up">
+                        <div class="col text-center">
+                            <p><span class="badge bg-success text-blue mr-1">GMSA</span> view all executives and details. <a href="<?= PROOT; ?>executives" class="link">here</a></p>
                         </div>
-
-                        <!-- Team item -->
-                        <div class="col">
-                            <div class="card card-body bg-transparent text-center p-4">
-                                <!-- Image -->
-                                <div class="avatar avatar-xxl mx-auto flex-shrink-0 mb-3">
-                                    <img class="avatar-img rounded-circle" src="assets/images/avatar/11.jpg" alt="avatar">
-                                </div>
-
-                                <!-- Content -->
-                                <h6 class="mb-1"><a href="#">Judy Nguyen</a></h6>
-                                <small>Web Designer</small>
-
-                                <!-- Social button -->
-                                <ul class="list-inline mb-0 mt-3">
-                                    <li class="list-inline-item"> <a class="btn btn-xs btn-icon btn-light" href="#"><i class="fab fa-fw fa-facebook-f lh-base"></i></a> </li>
-                                    <li class="list-inline-item"> <a class="btn btn-xs btn-icon btn-light" href="#"><i class="fab fa-fw fa-instagram lh-base"></i></a> </li>
-                                    <li class="list-inline-item"> <a class="btn btn-xs btn-icon btn-light" href="#"><i class="fab fa-fw fa-twitter lh-base"></i></a> </li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <!-- Team item -->
-                        <div class="col">
-                            <div class="card card-body bg-transparent text-center p-4">
-                                <!-- Image -->
-                                <div class="avatar avatar-xxl mx-auto flex-shrink-0 mb-3">
-                                    <img class="avatar-img rounded-circle" src="assets/images/avatar/06.jpg" alt="avatar">
-                                </div>
-
-                                <!-- Content -->
-                                <h6 class="mb-1"><a href="#">Louis Ferguson</a></h6>
-                                <small>Web Developer</small>
-
-                                <!-- Social button -->
-                                <ul class="list-inline mb-0 mt-3">
-                                    <li class="list-inline-item"> <a class="btn btn-xs btn-icon btn-light" href="#"><i class="fab fa-fw fa-facebook-f lh-base"></i></a> </li>
-                                    <li class="list-inline-item"> <a class="btn btn-xs btn-icon btn-light" href="#"><i class="fab fa-fw fa-instagram lh-base"></i></a> </li>
-                                    <li class="list-inline-item"> <a class="btn btn-xs btn-icon btn-light" href="#"><i class="fab fa-fw fa-twitter lh-base"></i></a> </li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        
                     </div>
                 </div>
             </div>
         </section>
+        <?php endif ?>
 
         <!-- ACTIVITIES -->
         <section class="">

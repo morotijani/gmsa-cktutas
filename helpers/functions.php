@@ -387,7 +387,7 @@ function find_executive_by_member_id($conn, $member_id) {
 
 
 // find executive by member id
-function fetch_all_executives($conn) {
+function fetch_all_executives($conn, $limit) {
 	$sql = "
         SELECT * FROM gmsa_executives 
         INNER JOIN gmsa_positions 
@@ -396,6 +396,9 @@ function fetch_all_executives($conn) {
         ON gmsa_members.member_id = gmsa_executives.member_id 
         WHERE gmsa_executives.status = ?
     ";
+    if ($limit != 'all') {
+    	$sql .= " LIMIT $limit";
+    }
     $statement = $conn->prepare($sql);
     $statement->execute([0]);
     $rows = $statement->fetchAll();
