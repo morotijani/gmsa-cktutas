@@ -606,9 +606,7 @@ function getTitle() {
 }
 
 
-function yearDropdown($startYear, $endYear, $id="year", $class) { 
-    echo "<option value=''>Choose a year here to filter executives </option>";
-          
+function yearDropdown($startYear, $endYear, $id="year", $class) {           
     //echo each year as an option     
     for ($i = $startYear; $i <= $endYear; $i++) { 
     	echo "<option value=" . $i . ">" . $i . "</option>n";     

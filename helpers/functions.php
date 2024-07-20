@@ -384,3 +384,21 @@ function find_executive_by_member_id($conn, $member_id) {
 
     return (($statement->rowCount() > 0) ?  $rows : '');
 }
+
+
+// find executive by member id
+function fetch_all_executives($conn) {
+	$sql = "
+        SELECT * FROM gmsa_executives 
+        INNER JOIN gmsa_positions 
+        ON gmsa_positions.position_id = gmsa_executives.position_id 
+        INNER JOIN gmsa_members 
+        ON gmsa_members.member_id = gmsa_executives.member_id 
+        WHERE gmsa_executives.status = ?
+    ";
+    $statement = $conn->prepare($sql);
+    $statement->execute([0]);
+    $rows = $statement->fetchAll();
+
+    return (($statement->rowCount() > 0) ?  $rows : '');
+}
