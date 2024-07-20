@@ -9,6 +9,30 @@
 
     $total_data = $conn->query("SELECT * FROM gmsa_dues WHERE status = 0")->rowCount();
 
+    $fresher = ((isset($_POST['fresher']) && !empty($_POST['fresher'])) ? sanitize($_POST['fresher']) : $site_row['dues_for_fresher']);
+    $continuing = ((isset($_POST['continuing']) && !empty($_POST['continuing'])) ? sanitize($_POST['continuing']) : $site_row['dues_for_continue']);
+    if (isset($_POST['submit'])) {
+        if (!empty($fresher) || $fresher != '' && $fresher > 0) {
+            if (!empty($continuing) || $continuing != '' && $continuing > 0) {
+                //dnd($_POST);
+                $sql = "
+                    UPDATE `gmsa_about` 
+                    SET `dues_for_fresher` = ?, `dues_for_continue` = ? 
+                    WHERE 1
+                ";
+                $statement = $conn->prepare($sql);
+                $result = $statement->execute([$fresher, $continuing]);
+                if ($result) {
+                    $_SESSION['flash_success'] = 'Dues payment amount updated successfully!';
+                    redirect(PROOT . 'admin/dues');
+                } else {
+                    $_SESSION['flash_error'] = 'Something went wrong, please try again!';
+                    redirect(PROOT . 'admin/dues');
+                }
+            }
+        }
+    }
+
 ?> 
     <main class="app-main">
         <div class="wrapper">
@@ -18,125 +42,63 @@
 
                     <header class="page-title-bar">
                         <div class="d-md-flex align-items-md-start">
-                            <h1 class="page-title mr-sm-auto"> Contacts </h1>
+                            <h1 class="page-title mr-sm-auto"> Dues </h1>
                             <div class="btn-toolbar">
-                                <button type="button" class="btn btn-light"><i class="oi oi-data-transfer-download"></i> <span class="ml-1">Export</span></button> <a href="<?= PROOT . 'admin/contacts' . ((isset($_GET['update-contact']) && !empty($_GET['update-contact'])) ? '' : '?update-contact=1'); ?>" class="btn btn-light"> <span class="ml-1"><?= ((isset($_GET['update-contact']) && !empty($_GET['update-contact'])) ? '' : 'Update'); ?> Contact</span></a>
+                                <button type="button" class="btn btn-light"><i class="oi oi-data-transfer-download"></i> <span class="ml-1">Export</span></button> <a href="<?= PROOT . 'admin/dues?update=1'; ?>" class="btn btn-light"> <span class="ml-1">Update dues amount</span></a>
                             </div>
                         </div>
                     </header>
                     <div class="page-section">
-                        <?php if (isset($_GET['update-contact']) && !empty($_GET['update-contact'])): ?>
-                            <div class="card card-body">
-                                <form method="POST" action="contacts.php?update-contact=1" id="updateForm">
-                                    <p class="bg-danger text-white text-center"><?= $errors; ?></p>
-                                    <fieldset>
-                                        <legend>Update site contact details</legend>
-                                        <div class="row">
-                                            <div class="col-md-4 mb-2">
-                                                <div class="form-group">
-                                                    <div class="form-label-group">
-                                                        <input type="text" name="country" id="country" class="form-control" value="<?= $country; ?>">
-                                                        <label for="country">Country</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <div class="form-label-group">
-                                                        <input type="text" name="state" id="state" class="form-control" value="<?= $state; ?>">
-                                                        <label for="state">State</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <div class="form-label-group">
-                                                    <input type="text" name="city" id="city" class="form-control" value="<?= $city; ?>">
-                                                    <label for="city">City</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 mb-2">
-                                            <div class="form-group">
-                                                <div class="form-label-group">
-                                                    <input type="email" name="email" id="email" class="form-control" value="<?= $email; ?>">
-                                                    <label for="email">Email</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <div class="form-label-group">
-                                                    <input type="text" name="phone_1" id="phone_1" class="form-control" value="<?= $phone_1; ?>">
-                                                    <label for="phone_1">Phone 1</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <div class="form-label-group">
-                                                    <input type="text" name="phone_2" id="phone_2" class="form-control" value="<?= $phone_2; ?>">
-                                                    <label for="phone_2">Phone 2 (Optional)</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <div class="form-label-group">
-                                                    <input type="text" name="fax" id="fax" class="form-control" value="<?= $fax; ?>">
-                                                    <label for="fax">Fax</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <div class="form-label-group">
-                                                    <input type="text" name="street_1" id="street_1" class="form-control" value="<?= $street_1; ?>">
-                                                    <label for="street_1">Address 1 (Street)</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <div class="form-label-group">
-                                                    <input type="text" name="street_2" id="street_2" class="form-control" value="<?= $street_2; ?>">
-                                                    <label for="street_2">Address 2 (Optional)</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-actions">
-                                        <button type="submit" name="update_contact" id="update_contact" class="btn btn-dark">Update</button>
-                                    </div>
-                                    <p class="my-1">visit <a href="<?= PROOT; ?>contact-us" target="blank">contact us</a> page to see changer</p>
-                                </form>
-                            </div>
-                        <?php else: ?>
-                            <div class="card card-fluid">
-                                <div class="card-header">
-                                    <ul class="nav nav-tabs card-header-tabs">
-                                        <li class="nav-item">
-                                            <a class="nav-link active" href="<?php echo PROOT; ?>admin/dues">All (<?= $total_data; ?>)</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#tab2">Other</a>
-                                        </li>
-                                    </ul>
-                                </div>
-
+                        <?php if (isset($_GET['update']) && !empty($_GET['update'])): ?>
+                           <div class="card">
                                 <div class="card-body">
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><span class="oi oi-magnifying-glass"></span></span>
+                                    <form method="POST">
+                                        <fieldset>
+                                            <legend>Update dues payment amounts</legend>
+                                            <div class="form-group">
+                                                <div class="form-label-group">
+                                                    <input type="tel" class="form-control" id="fresher" name="fresher" placeholder="0.00" required="" value="<?= $fresher; ?>"> <label for="fresher">Fresher</label>
+                                                </div>
                                             </div>
-                                            <input type="text" id="search" class="form-control" placeholder="Search record">
-                                        </div>
-                                    </div>
-                                    <div id="load-content"></div>                                    
+                                            <div class="form-group">
+                                                <div class="form-label-group">
+                                                    <input type="tel" class="form-control" id="continuing" name="continuing" placeholder="0.00" required="" value="<?= $continuing; ?>"> <label for="continuing">Continuing</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-actions">
+                                                <button class="btn btn-success" type="submit" name="submit">Update amounts</button>
+                                                <a class="btn" href="<?= PROOT; ?>admin/dues">Cancel update</a>
+                                            </div>
+                                        </fieldset>
+                                    </form>
+                                </div>
+                            </div> 
+                        <?php else: ?>
+                        <div class="card card-fluid">
+                            <div class="card-header">
+                                <ul class="nav nav-tabs card-header-tabs">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="<?php echo PROOT; ?>admin/dues">All (<?= $total_data; ?>)</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#tab2">Other</a>
+                                    </li>
+                                </ul>
                             </div>
-                        <?php endif; ?>
+
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><span class="oi oi-magnifying-glass"></span></span>
+                                        </div>
+                                        <input type="text" id="search" class="form-control" placeholder="Search record">
+                                    </div>
+                                </div>
+                                <div id="load-content"></div>                                    
+                        </div>
                     </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </main>
