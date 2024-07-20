@@ -1,6 +1,6 @@
 <?php 
 
-// LIST AND SEARCH FOR TRADES
+// LIST AND SEARCH FOR EXECUTIVES
 
 require_once ("../../db_connection/conn.php");
 
@@ -17,8 +17,12 @@ if ($_POST['page'] > 1) {
 
 
 $query = "
-	SELECT * FROM gmsa_members 
-	WHERE status = 0 
+	SELECT * FROM gmsa_executives 
+	INNER JOIN gmsa_members 
+	ON gmsa_members.member_id = gmsa_executives.member_id 
+	INNER JOIN gmsa_positions 
+	ON gmsa_position.position_id = gmsa_executives.position_id 
+	WHERE gmsa_executives.status = 0 
 ";
 $search_query = ((isset($_POST['query'])) ? sanitize($_POST['query']) : '');
 $find_query = str_replace(' ', '%', $search_query);
@@ -26,22 +30,19 @@ if ($search_query != '') {
 	$query .= '
 		AND (member_id LIKE "%'.$find_query.'%" 
 		OR member_firstname LIKE "%'.$find_query.'%" 
+		OR member_middlename LIKE "%'.$find_query.'%" 
 		OR member_lastname LIKE "%'.$find_query.'%" 
-		OR member_email LIKE "%'.$find_query.'%" 
-		OR member_phone LIKE "%'.$find_query.'%" 
-		OR member_dob LIKE "%'.$find_query.'%" 
-		OR member_studentid LIKE "%'.$find_query.'%" 
-		OR member_department LIKE "%'.$find_query.'%" 
+		OR member_programme LIKE "%'.$find_query.'%" 
 		OR member_level LIKE "%'.$find_query.'%" 
 		OR member_hostel LIKE "%'.$find_query.'%") 
 	';
 } else {
-	$query .= 'ORDER BY createdAt DESC ';
+	$query .= 'ORDER BY gmsa_executives.createdAt DESC ';
 }
 
 $filter_query = $query . 'LIMIT ' . $start . ', ' . $limit . '';
 
-$total_data = $conn->query("SELECT * FROM gmsa_members WHERE status = 0")->rowCount();
+$total_data = $conn->query("SELECT * FROM gmsa_executives WHERE status = 0")->rowCount();
 
 $statement = $conn->prepare($filter_query);
 $statement->execute();
@@ -72,11 +73,10 @@ $output = '
 	                            </div>
 	                        </div>
 	                    </th>
+	                    <th> Position </th>
 	                    <th> Level </th>
 	                    <th> Programme </th>
-	                    <th> Department </th>
-	                    <th> Phone </th>
-	                    <th> Hostel </th>
+	                    <th> Date </th>
 	                    <th style="width:100px; min-width:100px;"> &nbsp; </th>
 	                </tr>
 	            </thead>

@@ -102,29 +102,6 @@
     $createdAt = date("Y-m-d H:i:s A");
     $executive_id = guidv4();
 
-    // news edit
-    if (isset($_GET['status']) && $_GET['status'] == 'edit_news') { 
-        $id = sanitize($_GET['id']);
-        $sql = "
-            SELECT * FROM gmsa_news 
-            WHERE news_id = ? 
-            LIMIT 1
-        ";
-        $statement = $conn->prepare($sql);
-        $statement->execute([$id]);
-        $row = $statement->fetchAll();
-        
-        if ($statement->rowCount() > 0) {
-            $news_title = (isset($_POST['news_title']) ? sanitize($_POST['news_title']) : $row[0]['news_title']);
-            $news_category = (isset($_POST['news_category']) ? sanitize($_POST['news_category']) : $row[0]['news_category']);
-            $news_content = (isset($_POST['news_content']) ? $_POST['news_content'] : $row[0]['news_content']);
-            $news_media = (($row[0]['news_media'] != '') ? $row[0]['news_media'] : '');
-        } else {
-            echo js_alert('Something went wrong, please try again');
-            redirect(PROOT . 'admin/executives/add');
-        }
-    }
-
     if (isset($_POST['submitExecutive'])) {
         if ($_POST['uploaded_executive_media'] == '') {
             if (!empty($_FILES)) {
@@ -150,14 +127,6 @@
             INSERT INTO `gmsa_executives`(`member_id`, `position_id`, `createdAt`, `executive_id`) 
             VALUES (?, ?, ?, ?)
         ";
-        if (isset($_GET['status']) && $_GET['status'] == 'edit_news') {
-            $executive_id = $id;
-            $query = "
-                UPDATE gmsa_executives 
-                SET member_id = ?, position_id = ?, updatedAt = ?
-                WHERE executive_id = ?
-            ";
-        }
         $statement = $conn->prepare($query);
         $result = $statement->execute([$member_id, $executive_position, $createdAt, $executive_id]);
         if (isset($result)) {
@@ -169,7 +138,7 @@
             $statement = $conn->prepare($sql);
             $statement->execute([$executive_media, $member_id]);
 
-            $_SESSION['flash_success'] = 'Executive successfully ' . ((isset($_GET['status']) && $_GET['status'] == 'edit_news') ? 'updated' : 'added') . '!';
+            $_SESSION['flash_success'] = 'Executive successfully added!';
             redirect(PROOT . 'admin/executives/all');
         } else {
             $_SESSION['flash_error'] = 'Something went wrong, please try again';
@@ -177,26 +146,13 @@
         }
     }
 
-
-    // DELETE A picture on edit news post
-    if ((isset($_GET['delete_np']) && !empty($_GET['delete_np'])) && (isset($_GET['image']) && !empty($_GET['image']))) {
-        $result = $News->deleteNewsMedia($conn, sanitize($_GET['delete_np']), sanitize($_GET['image']));
-        if ($result) {
-            $_SESSION['flash_success'] = 'Media deleted, upload new one!';            
-            redirect(PROOT . 'admin/executives/add/edit_news/' . sanitize($_GET['delete_np']));
-        } else {
-            $_SESSION['flash_error'] = 'Something went wrong, please try again';
-            redirect(PROOT . 'admin/executives/add/edit_news/' . sanitize($_GET['delete_np']));
-        }
-    }
-
-    // Delete news
+    // Delete executive
     if (isset($_GET['type']) && $_GET['type'] == 'add') {
         if (isset($_GET['status']) && $_GET['status'] == 'delete') {
             // code...
             $delete = $News->deleteNews($conn, sanitize($_GET['id']));
             if (isset($delete)) {
-                $_SESSION['flash_success'] = 'News deleted but temporary';
+                $_SESSION['flash_success'] = 'Executive deleted successfully!';
                 redirect(PROOT . 'admin/executives/all');
             } else {
                 $_SESSION['flash_error'] = 'Something went wrong, please try again';
@@ -298,17 +254,12 @@
                                     </div>
                                 </div>
                             <?php 
-                                elseif (isset($_GET['status']) && (($_GET['type'] == 'add' && $_GET['status'] == 'new') || ($_GET['status'] == 'edit_executive'))): 
-                                    if ($_GET['status'] == 'new') {
-                                    } else if ($_GET['status'] == 'edit_executive') {
-
-                                    }
-                            ?>
+                                elseif (isset($_GET['status']) && (($_GET['type'] == 'add' && $_GET['status'] == 'new'))): ?>
                                 <div class="card">
                                     <div class="card-body">
                                         <form method="POST" enctype="multipart/form-data">
                                             <fieldset>
-                                                <legend><?= (($_GET['status'] == 'new') ? 'Add' : 'Update'); ?> executive</legend>
+                                                <legend>Add executive</legend>
                                                 <div class="form-group">
                                                     <div class="form-label-group">
                                                         <input type="text" class="form-control" id="prayer_name" name="prayer_name" placeholder="Prayer name" required="" value="<?= ucwords($member_row['member_firstname'] . ' ' . $member_row['member_middlename'] . ' ' . $member_row['member_lastname']); ?>"> <label for="prayer_name">File</label>
@@ -345,11 +296,9 @@
                                                 <input type="hidden" name="uploaded_executive_media" id="uploaded_executive_media" value="<?= $executive_media; ?>">
 
                                                 <div class="form-actions mb-2">
-                                                    <button type="submit" class="btn btn-secondary" name="submitExecutive" id="submitExecutive"><?= (isset($_GET['status']) && $_GET['status'] == 'edit_news') ? 'Update': 'Add'; ?> executive</button>
-                                                    <?php if (isset($_GET['status']) && $_GET['status'] == 'edit_news'): ?>
-                                                        <br><br>
-                                                        <a href="<?= PROOT; ?>admin/executive" class="btn">Cancel</a>
-                                                    <?php endif ?>
+                                                    <button type="submit" class="btn btn-secondary" name="submitExecutive" id="submitExecutive">Add executive</button>
+                                                    <br><br>
+                                                    <a href="<?= PROOT; ?>admin/executive/all" class="btn">Cancel</a>
                                                 </div>
                                             </fieldset>
                                         </form>
@@ -393,7 +342,7 @@
         // SEARCH AND PAGINATION FOR LIST
         function load_data(page, query = '') {
             $.ajax({
-                url : "<?= PROOT; ?>admin/auth/list.members.php",
+                url : "<?= PROOT; ?>admin/auth/list.executives.php",
                 method : "POST",
                 data : {
                     page : page, 
