@@ -126,11 +126,11 @@
         }
 
         $query = "
-            INSERT INTO `gmsa_executives`(`member_id`, `position_id`, `createdAt`, `executive_id`) 
+            INSERT INTO `gmsa_executives`(`member_id`, `position_id`, `year_from`, `year_to`, `createdAt`, `executive_id`) 
             VALUES (?, ?, ?, ?)
         ";
         $statement = $conn->prepare($query);
-        $result = $statement->execute([$member_id, $executive_position, $createdAt, $executive_id]);
+        $result = $statement->execute([$member_id, $executive_position, $year_from, $year_to, $createdAt, $executive_id]);
         if (isset($result)) {
             $sql = "
                 UPDATE gmsa_members 
@@ -160,7 +160,18 @@
             $_SESSION['flash_error'] = 'Something went wrong, please try again';
             redirect(PROOT . 'admin/executives/all');
         }
-        
+    }
+
+     // DELETE A executive picture
+    if ((isset($_GET['delete_np']) && !empty($_GET['delete_np'])) && (isset($_GET['image']) && !empty($_GET['image']))) {
+        $result = $News->deleteNewsMedia($conn, sanitize($_GET['delete_np']), sanitize($_GET['image']));
+        if ($result) {
+            $_SESSION['flash_success'] = 'Media deleted, upload new one!';            
+            redirect(PROOT . 'admin/blog/add/edit_news/' . sanitize($_GET['delete_np']));
+        } else {
+            $_SESSION['flash_error'] = 'Something went wrong, please try again';
+            redirect(PROOT . 'admin/blog/add/edit_news/' . sanitize($_GET['delete_np']));
+        }
     }
 ?> 
     <main class="app-main">
@@ -178,7 +189,7 @@
                                     <button type="button" class="btn btn-light" data-toggle="dropdown" aria-expanded="false"><span>More</span> <span class="fa fa-caret-down"></span></button>
                                     <div class="dropdown-menu dropdown-menu-right" style="">
                                         <div class="dropdown-arrow"></div>
-                                        <a href="<?= PROOT; ?>admin/members/all" class="dropdown-item">Add executive</a> 
+                                        <a href="<?= PROOT; ?>admin/members" class="dropdown-item">Add executive</a> 
                                         <a href="<?= PROOT; ?>admin/executives/position" class="dropdown-item">Add Position</a>
                                         <div class="dropdown-divider"></div>
                                         <a href="<?= PROOT; ?>admin" class="dropdown-item">Dashboard</a> 
@@ -264,7 +275,7 @@
                                                 <legend>Add executive</legend>
                                                 <div class="form-group">
                                                     <div class="form-label-group">
-                                                        <input type="text" class="form-control" readonly placeholder="Prayer name" required="" value="<?= ucwords($member_row['member_firstname'] . ' ' . $member_row['member_middlename'] . ' ' . $member_row['member_lastname']); ?>"> <label for="">File</label>
+                                                        <input type="text" class="form-control" readonly placeholder="Prayer name" required="" value="<?= ucwords($member_row['member_firstname'] . ' ' . $member_row['member_middlename'] . ' ' . $member_row['member_lastname']); ?>"> <label for="">Member Name</label>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
@@ -279,14 +290,12 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
-                                                    <div class="form-label-group">
-                                                        <input type="year" class="form-control" id="year_from" name="year_from" placeholder="Prayer name" required="" value="<?=$year_from; ?>"> <label for="year_from">Year from</label>
-                                                    </div>
+                                                    <label for="year_from">Year from</label>
+                                                    <select type="year" class="form-control" id="year_from" name="year_from" required="" value="<?=$year_from; ?>"></select>
                                                 </div>
                                                 <div class="form-group">
-                                                    <div class="form-label-group">
-                                                        <input type="year" class="form-control" id="year_to" name="year_to" placeholder="Prayer name" required="" value="<?= $year_to; ?>"> <label for="year_to">Year to</label>
-                                                    </div>
+                                                    <label for="year_to">Year to</label>
+                                                    <select type="year" class="form-control" id="year_to" name="year_to" required="" value="<?= $year_to; ?>"></select>
                                                 </div>
                                                 <?php if ($executive_media != ''): ?>
                                                 <div class="mb-3">
@@ -308,7 +317,7 @@
                                                 <div class="form-actions mb-2">
                                                     <button type="submit" class="btn btn-secondary" name="submitExecutive" id="submitExecutive">Add executive</button>
                                                     <br><br>
-                                                    <a href="<?= PROOT; ?>admin/executive/all" class="btn">Cancel</a>
+                                                    <a href="<?= PROOT; ?>admin/executives/all" class="btn">Cancel</a>
                                                 </div>
                                             </fieldset>
                                         </form>
@@ -348,6 +357,31 @@
 <?php include ("includes/footer.php"); ?>
 <script type="text/javascript">
     $(document).ready(function() {
+
+        $('#year_from').each(function() {
+            var year = (new Date()).getFullYear();
+            var current = year;
+            year -= 11;
+            for (var i = 0; i < 12; i++) {
+                if ((year+i) == current)
+                    $(this).append('<option selected value="' + (year + i) + '">' + (year + i) + '</option>');
+                else
+                    $(this).append('<option value="' + (year + i) + '">' + (year + i) + '</option>');
+            }
+        })
+
+        $('#year_to').each(function() {
+            var year = (new Date()).getFullYear();
+            var current = year + 1;
+            year -= 11;
+            for (var i = 0; i < 13; i++) {
+                if ((year+i) == current)
+                    $(this).append('<option selected value="' + (year + i) + '">' + (year + i) + '</option>');
+                else
+                    $(this).append('<option value="' + (year + i) + '">' + (year + i) + '</option>');
+            }
+        })
+
     
         // SEARCH AND PAGINATION FOR LIST
         function load_data(page, query = '') {
