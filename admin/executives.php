@@ -105,6 +105,7 @@
     $executive_id = guidv4();
 
     if (isset($_POST['submitExecutive'])) {
+        
         if ($_POST['uploaded_executive_media'] == '') {
             if (!empty($_FILES)) {
 
@@ -127,7 +128,7 @@
 
         $query = "
             INSERT INTO `gmsa_executives`(`member_id`, `position_id`, `year_from`, `year_to`, `createdAt`, `executive_id`) 
-            VALUES (?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?)
         ";
         $statement = $conn->prepare($query);
         $result = $statement->execute([$member_id, $executive_position, $year_from, $year_to, $createdAt, $executive_id]);
@@ -164,13 +165,26 @@
 
      // DELETE A executive picture
     if ((isset($_GET['delete_np']) && !empty($_GET['delete_np'])) && (isset($_GET['image']) && !empty($_GET['image']))) {
-        $result = $News->deleteNewsMedia($conn, sanitize($_GET['delete_np']), sanitize($_GET['image']));
-        if ($result) {
-            $_SESSION['flash_success'] = 'Media deleted, upload new one!';            
-            redirect(PROOT . 'admin/blog/add/edit_news/' . sanitize($_GET['delete_np']));
-        } else {
-            $_SESSION['flash_error'] = 'Something went wrong, please try again';
-            redirect(PROOT . 'admin/blog/add/edit_news/' . sanitize($_GET['delete_np']));
+
+        $mediaLocation = BASEURL . sanitize($_GET['image']);
+        $delete = unlink($mediaLocation);
+        unset($mediaLocation);
+
+        if ($delete) {
+            $update = "
+                UPDATE gmsa_members 
+                SET member_picture = ? 
+                WHERE member_id = ?
+            ";
+            $statement = $conn->prepare($update);
+            $result = $statement->execute([NULL, sanitize($_GET['delete_np'])]);
+            if ($result) {
+                $_SESSION['flash_success'] = 'Media deleted, upload new one!';            
+                redirect(PROOT . 'admin/executives/add/new/' . sanitize($_GET['delete_np']));
+            } else {
+                $_SESSION['flash_error'] = 'Something went wrong, please try again';
+                redirect(PROOT . 'admin/executives/add/new/' . sanitize($_GET['delete_np']));
+            }
         }
     }
 ?> 
@@ -301,7 +315,7 @@
                                                 <div class="mb-3">
                                                     <label>Executive Image</label><br>
                                                     <img src="<?= PROOT . $executive_media; ?>" class="img-fluid img-thumbnail" style="width: 200px; height: 200px; object-fit: cover;">
-                                                    <a href="<?= PROOT; ?>admin/executive?delete_np=<?= $_GET['id']; ?>&image=<?= $executive_media; ?>" class="badge bg-danger">Change Image</a>
+                                                    <a href="<?= PROOT; ?>admin/executives?delete_np=<?= $_GET['id']; ?>&image=<?= $executive_media; ?>" class="badge bg-danger">Change Image</a>
                                                 </div>
                                                 <?php else: ?>
                                                 <div class="mb-3">
