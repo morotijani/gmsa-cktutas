@@ -17,7 +17,7 @@ if ($_POST['page'] > 1) {
 
 
 $query = "
-	SELECT *, gmsa_executives.createdAt AS eca, gmsa_members.createdAt AS mca FROM gmsa_executives 
+	SELECT *, gmsa_members.createdAt AS mca FROM gmsa_executives 
 	INNER JOIN gmsa_members 
 	ON gmsa_members.member_id = gmsa_executives.member_id 
 	INNER JOIN gmsa_positions 
@@ -74,9 +74,8 @@ $output = '
 	                        </div>
 	                    </th>
 	                    <th> Position </th>
-	                    <th> Level </th>
+	                    <th> Year </th>
 	                    <th> Programme </th>
-	                    <th> Date </th>
 	                    <th style="width:100px; min-width:100px;"> &nbsp; </th>
 	                </tr>
 	            </thead>
@@ -98,23 +97,22 @@ if ($total_data > 0) {
                     <a href="#" class="tile tile-img mr-1">
                         <img class="img-fluid" src="' . PROOT . (($row["member_picture"] == '') ? 'assets/media/default.png' : $row['member_picture']) . '" alt="Card image cap">
                     </a> 
-                    <a href="javascript:;" data-target="#memberModal_' . $i . '" data-toggle="modal">'.ucwords($row["member_firstname"] . ' ' . $row["member_middlename"] . '  ' . $row["member_lastname"]).'</a>
+                    <a href="javascript:;" data-target="#executiveModal_' . $i . '" data-toggle="modal">'.ucwords($row["member_firstname"] . ' ' . $row["member_middlename"] . '  ' . $row["member_lastname"]).'</a>
                 </td>
                 <td class="align-middle"> '.ucwords($row["position"]).' </td>
-                <td class="align-middle"> '.$row["member_level"].' </td>
+                <td class="align-middle"> '.$row["year_from"] . '/' . $row["year_to"] .' </td>
                 <td class="align-middle"> '.ucwords($row["member_programme"]).' </td>
-                <td class="align-middle"> '.pretty_date($row["eca"]).' </td>
                 <td class="align-middle text-right">
-                    <a href="?remove='.$row["executive_id"].'" class="btn btn-sm btn-icon btn-secondary"><i class="far fa-trash-alt"></i> <span class="sr-only">Remove</span></a> 
+                    <a href="' . PROOT . 'admin/executives/remove/' . $row["executive_id"] . '" class="btn btn-sm btn-icon btn-secondary"><i class="far fa-trash-alt"></i> <span class="sr-only">Remove</span></a> 
                 </td>
             </tr>
 
             <!-- Executive details -->
-            <div class="modal fade" id="memberModal_' . $i . '" tabindex="-1" role="dialog" aria-labelledby="memberModalLabel_' . $i. '" aria-hidden="true">
+            <div class="modal fade" id="executiveModal_' . $i . '" tabindex="-1" role="dialog" aria-labelledby="executiveModalLabel_' . $i. '" aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h6 class="modal-title" id="memberModalLabel_' . $i . '">' . $row["member_firstname"] . ' details</h6>
+							<h6 class="modal-title" id="executiveModalLabel_' . $i . '">' . $row["member_firstname"] . ' details</h6>
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
 						</div>
 						<div class="modal-body p-2">

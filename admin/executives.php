@@ -99,6 +99,8 @@
         }
     }
     $executive_position = (isset($_POST['executive_position']) ? sanitize($_POST['executive_position']) : '');
+    $year_from = (isset($_POST['year_from']) ? sanitize($_POST['year_from']) : '');
+    $year_to = (isset($_POST['year_to']) ? sanitize($_POST['year_to']) : '');
     $createdAt = date("Y-m-d H:i:s A");
     $executive_id = guidv4();
 
@@ -147,18 +149,18 @@
     }
 
     // Delete executive
-    if (isset($_GET['type']) && $_GET['type'] == 'add') {
-        if (isset($_GET['status']) && $_GET['status'] == 'delete') {
-            // code...
-            $delete = $News->deleteNews($conn, sanitize($_GET['id']));
-            if (isset($delete)) {
-                $_SESSION['flash_success'] = 'Executive deleted successfully!';
-                redirect(PROOT . 'admin/executives/all');
-            } else {
-                $_SESSION['flash_error'] = 'Something went wrong, please try again';
-                redirect(PROOT . 'admin/executives/all');
-            }
+    if ((isset($_GET['type']) && $_GET['type'] == 'remove') && !empty($_GET['status'])) {
+        // code...
+        $delete = sanitize($_GET['status']);
+        $result = $conn->query("DELETE FROM gmsa_executives WHERE executive_id = '".$delete."'")->execute();
+        if (isset($result)) {
+            $_SESSION['flash_success'] = 'Executive deleted successfully!';
+            redirect(PROOT . 'admin/executives/all');
+        } else {
+            $_SESSION['flash_error'] = 'Something went wrong, please try again';
+            redirect(PROOT . 'admin/executives/all');
         }
+        
     }
 ?> 
     <main class="app-main">
@@ -176,7 +178,7 @@
                                     <button type="button" class="btn btn-light" data-toggle="dropdown" aria-expanded="false"><span>More</span> <span class="fa fa-caret-down"></span></button>
                                     <div class="dropdown-menu dropdown-menu-right" style="">
                                         <div class="dropdown-arrow"></div>
-                                        <a href="<?= PROOT; ?>admin/executives/add" class="dropdown-item">Add executive</a> 
+                                        <a href="<?= PROOT; ?>admin/members/all" class="dropdown-item">Add executive</a> 
                                         <a href="<?= PROOT; ?>admin/executives/position" class="dropdown-item">Add Position</a>
                                         <div class="dropdown-divider"></div>
                                         <a href="<?= PROOT; ?>admin" class="dropdown-item">Dashboard</a> 
@@ -262,10 +264,9 @@
                                                 <legend>Add executive</legend>
                                                 <div class="form-group">
                                                     <div class="form-label-group">
-                                                        <input type="text" class="form-control" id="prayer_name" name="prayer_name" placeholder="Prayer name" required="" value="<?= ucwords($member_row['member_firstname'] . ' ' . $member_row['member_middlename'] . ' ' . $member_row['member_lastname']); ?>"> <label for="prayer_name">File</label>
+                                                        <input type="text" class="form-control" readonly placeholder="Prayer name" required="" value="<?= ucwords($member_row['member_firstname'] . ' ' . $member_row['member_middlename'] . ' ' . $member_row['member_lastname']); ?>"> <label for="">File</label>
                                                     </div>
                                                 </div>
-
                                                 <div class="form-group">
                                                     <div class="form-label-group">
                                                         <select type="text" class="custom-select" name="executive_position" id="executive_position" required>
@@ -277,7 +278,16 @@
                                                         <label for="executive_position">Position</label>
                                                     </div>
                                                 </div>
-
+                                                <div class="form-group">
+                                                    <div class="form-label-group">
+                                                        <input type="year" class="form-control" id="year_from" name="year_from" placeholder="Prayer name" required="" value="<?=$year_from; ?>"> <label for="year_from">Year from</label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="form-label-group">
+                                                        <input type="year" class="form-control" id="year_to" name="year_to" placeholder="Prayer name" required="" value="<?= $year_to; ?>"> <label for="year_to">Year to</label>
+                                                    </div>
+                                                </div>
                                                 <?php if ($executive_media != ''): ?>
                                                 <div class="mb-3">
                                                     <label>Executive Image</label><br>
