@@ -289,7 +289,7 @@
                                         $member_row = find_member_by_id($conn, $id);
                                         if (is_array($member_row)) {
                                             // code...
-
+                                            $executive_media = $member_row['member_picture'];
                                         } else {
                                             $_SESSION['flash_error'] = 'Member not found!';
                                             redirect(PROOT . 'admin/members');
@@ -302,7 +302,7 @@
                                     <div class="card-body">
                                         <form method="POST">
                                             <fieldset>
-                                                <legend><?= (($_GET['status'] == 'new') ? 'Add' : 'Update'); ?> member</legend>
+                                                <legend><?= (($_GET['status'] == 'new') ? 'Add' : 'Update'); ?> executive</legend>
                                                 <div class="form-group">
                                                     <div class="form-label-group">
                                                         <input type="text" class="form-control" id="prayer_name" name="prayer_name" placeholder="Prayer name" required="" value="<?= ucwords($member_row['member_firstname'] . ' ' . $member_row['member_middlename'] . ' ' . $member_row['member_lastname']); ?>"> <label for="prayer_name">File</label>
@@ -330,7 +330,7 @@
                                                 <?php else: ?>
                                                 <div class="mb-3">
                                                     <div>
-                                                        <label for="executive_media" class="form-label">Featured news image</label>
+                                                        <label for="executive_media" class="form-label">Upload image</label>
                                                         <input type="file" class="form-control" id="executive_media" name="executive_media" required>
                                                         <span id="upload_file"></span>
                                                     </div>
@@ -339,7 +339,7 @@
                                                 <input type="hidden" name="uploaded_executive_media" id="uploaded_executive_media" value="<?= $executive_media; ?>">
 
                                                 <div class="form-actions mb-2">
-                                                    <button type="submit" class="btn btn-secondary" name="submitNews" id="submitNews"><?= (isset($_GET['status']) && $_GET['status'] == 'edit_news') ? 'Update': 'Create'; ?> executive</button>
+                                                    <button type="submit" class="btn btn-secondary" name="submitNews" id="submitNews"><?= (isset($_GET['status']) && $_GET['status'] == 'edit_news') ? 'Update': 'Add'; ?> executive</button>
                                                     <?php if (isset($_GET['status']) && $_GET['status'] == 'edit_news'): ?>
                                                         <br><br>
                                                         <a href="<?= PROOT; ?>admin/executive" class="btn">Cancel</a>
@@ -382,30 +382,94 @@
     </div>
 <?php include ("includes/footer.php"); ?>
 <script type="text/javascript">
-     // SEARCH AND PAGINATION FOR LIST
-    function load_data(page, query = '') {
-        $.ajax({
-            url : "<?= PROOT; ?>admin/auth/list.members.php",
-            method : "POST",
-            data : {
-                page : page, 
-                query : query
-            },
-            success : function(data) {
-                $("#load-content").html(data);
+    $(document).ready(function() {
+    
+        // SEARCH AND PAGINATION FOR LIST
+        function load_data(page, query = '') {
+            $.ajax({
+                url : "<?= PROOT; ?>admin/auth/list.members.php",
+                method : "POST",
+                data : {
+                    page : page, 
+                    query : query
+                },
+                success : function(data) {
+                    $("#load-content").html(data);
+                }
+            });
+        }
+
+        load_data(1);
+        $('#search').keyup(function() {
+            var query = $('#search').val();
+            load_data(1, query);
+        });
+
+        $(document).on('click', '.page-link-go', function() {
+            var page = $(this).data('page_number');
+            var query = $('#search').val();
+            load_data(page, query);
+        });
+
+        // DELETE TEMPORARY UPLOADED IMAGE
+        $(document).on('click', '.removeImg', function() {
+            var tempuploded_file_id = $(this).attr('id');
+
+            $.ajax ({
+                url: "<?= PROOT; ?>admin/auth/delete.temporary.uploaded.php",
+                method: "POST",
+                data:{
+                    tempuploded_file_id : tempuploded_file_id
+                },
+                success: function(data) {
+                    $('#removeTempuploadedFile').remove();
+                    $('#passport').css('visibility', 'visible');
+                    $('#passport').val('');
+
+                    $('#executive_media').css('visibility', 'visible');
+                    $('#executive_media').val('');
+                }
+            });
+        });
+
+
+        // Upload IMAGE Temporary
+        $(document).on('change','#executive_media', function() {
+
+            var property = document.getElementById("executive_media").files[0];
+            var image_name = property.name;
+
+            var image_extension = image_name.split(".").pop().toLowerCase();
+            if (jQuery.inArray(image_extension, ['jpeg', 'png', 'jpg', 'gif']) == -1) {
+                alert("The file extension must be .jpg, .png, .jpeg, .gif");
+                $('#executive_media').val('');
+                return false;
+            }
+
+            var image_size = property.size;
+            if (image_size > 15000000) {
+                alert('The file size must be under 15MB');
+                return false;
+            } else {
+
+                var form_data = new FormData();
+                form_data.append("executive_media", property);
+                $.ajax({
+                    url: "<?= PROOT; ?>admin/auth/temporary.upload.executive.php",
+                    method: "POST",
+                    data: form_data,
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    beforeSend: function() {
+                        $("#upload_file").html("<div class='text-success font-weight-bolder'>Uploading news image ...</div>");
+                    },
+                    success: function(data) {
+                        $("#upload_file").html(data);
+                        $('#executive_media').css('visibility', 'hidden');
+                    }
+                });
             }
         });
-    }
-
-    load_data(1);
-    $('#search').keyup(function() {
-        var query = $('#search').val();
-        load_data(1, query);
-    });
-
-    $(document).on('click', '.page-link-go', function() {
-        var page = $(this).data('page_number');
-        var query = $('#search').val();
-        load_data(page, query);
     });
 </script>
