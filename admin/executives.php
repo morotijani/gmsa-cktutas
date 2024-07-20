@@ -30,7 +30,7 @@
             $position =  (isset($_POST['position']) ? sanitize($_POST['position']) : $row[0]['position']);
         } else {
             echo js_alert('Something went wrong, please try again');
-            redirect(PROOT . 'admin/blog/position');
+            redirect(PROOT . 'admin/executives/position');
         }
     }
 
@@ -42,7 +42,7 @@
                 $check = $conn->query("SELECT * FROM gmsa_positions WHERE position = '" . $position . "' AND position_id != " . $id . "")->rowCount();
             }
             if ($check > 0) {
-                $message = $position . ' already exists.';
+                $message = $position . ' already exists!';
             } else {
                 $position_id = guidv4();
 
@@ -62,10 +62,10 @@
                 $result = $statement->execute([$position, $position_id]);
                 if (isset($result)) {
                     $_SESSION['flash_success'] = ucwords($position) . ' successfully ' . ((isset($_GET['status']) && $_GET['status'] == 'edit_position') ? 'updated' : 'added') . '!';        
-                    redirect(PROOT . 'admin/blog/position');
+                    redirect(PROOT . 'admin/executives/position');
                 } else {
                     echo js_alert('Something went wrong, please try again');
-                    redirect(PROOT . 'admin/blog/position');
+                    redirect(PROOT . 'admin/executives/position');
                 }
             }
         } else {
@@ -79,10 +79,10 @@
         $result = $conn->query("DELETE FROM gmsa_positions WHERE position_id = '".$delete."'")->execute();
         if ($result) {
             $_SESSION['flash_success'] = 'Position deleted!';            
-            redirect(PROOT . 'admin/blog/position');
+            redirect(PROOT . 'admin/executives/position');
         } else {
             echo js_alert('Something went wrong, please try again');
-            redirect(PROOT . 'admin/blog/position');
+            redirect(PROOT . 'admin/executives/position');
         }
     }
 
@@ -112,7 +112,7 @@ $news_title = (isset($_POST['news_title']) ? sanitize($_POST['news_title']) : ''
             $news_media = (($row[0]['news_media'] != '') ? $row[0]['news_media'] : '');
         } else {
             echo js_alert('Something went wrong, please try again');
-            redirect(PROOT . 'admin/blog/add');
+            redirect(PROOT . 'admin/executives/add');
         }
     }
 
@@ -155,10 +155,10 @@ $news_title = (isset($_POST['news_title']) ? sanitize($_POST['news_title']) : ''
         $result = $statement->execute([$news_title, $news_url, $news_content, $news_media, $news_category, $news_created_by, $news_id]);
         if (isset($result)) {
             $_SESSION['flash_success'] = ucwords($news_title) . ' successfully ' . ((isset($_GET['status']) && $_GET['status'] == 'edit_news') ? 'updated' : 'added') . '!';
-            redirect(PROOT . 'admin/blog/all');
+            redirect(PROOT . 'admin/executives/all');
         } else {
             $_SESSION['flash_error'] = 'Something went wrong, please try again';
-            redirect(PROOT . 'admin/blog/all');
+            redirect(PROOT . 'admin/executives/all');
         }
     }
 
@@ -168,10 +168,10 @@ $news_title = (isset($_POST['news_title']) ? sanitize($_POST['news_title']) : ''
         $result = $News->deleteNewsMedia($conn, sanitize($_GET['delete_np']), sanitize($_GET['image']));
         if ($result) {
             $_SESSION['flash_success'] = 'Media deleted, upload new one!';            
-            redirect(PROOT . 'admin/blog/add/edit_news/' . sanitize($_GET['delete_np']));
+            redirect(PROOT . 'admin/executives/add/edit_news/' . sanitize($_GET['delete_np']));
         } else {
             $_SESSION['flash_error'] = 'Something went wrong, please try again';
-            redirect(PROOT . 'admin/blog/add/edit_news/' . sanitize($_GET['delete_np']));
+            redirect(PROOT . 'admin/executives/add/edit_news/' . sanitize($_GET['delete_np']));
         }
     }
 
@@ -182,10 +182,10 @@ $news_title = (isset($_POST['news_title']) ? sanitize($_POST['news_title']) : ''
             $delete = $News->deleteNews($conn, sanitize($_GET['id']));
             if (isset($delete)) {
                 $_SESSION['flash_success'] = 'News deleted but temporary';
-                redirect(PROOT . 'admin/blog/all');
+                redirect(PROOT . 'admin/executives/all');
             } else {
                 $_SESSION['flash_error'] = 'Something went wrong, please try again';
-                redirect(PROOT . 'admin/blog/all');
+                redirect(PROOT . 'admin/executives/all');
             }
         }
     }
@@ -233,7 +233,7 @@ $news_title = (isset($_POST['news_title']) ? sanitize($_POST['news_title']) : ''
                                                 <div class="form-actions">
                                                     <button type="submit" class="btn btn-success" name="submit_position" id="submit_position"><?= (isset($_GET['status']) && $_GET['status'] == 'edit_position') ? 'Update': 'Add'; ?> position</button>
                                                     <?php if ((isset($_GET['status']) && $_GET['status'] == 'edit_position')): ?>
-                                                        <a href="<?= PROOT; ?>admin/blog/position" class="btn">Cancel</a>
+                                                        <a href="<?= PROOT; ?>admin/executives/position" class="btn">Cancel</a>
                                                     <?php endif; ?>
                                                 </div>
                                             </fieldset>
@@ -252,11 +252,28 @@ $news_title = (isset($_POST['news_title']) ? sanitize($_POST['news_title']) : ''
                                                 <?php if (is_array($position_rows)): ?>
                                                     <?php $i = 1; foreach ($position_rows as $position_row): ?>
                                                         <tr>
-                                                            <td><?= $i; ?></td>
+                                                            <td>
+                                                                <a class='btn btn-secondary text-decoration-none' href='<?= PROOT; ?>admin/executives/position/edit_position/<?= $position_row['position_id']; ?>'>Edit</a>
+                                                            </td>
                                                             <td><?= ucwords($position_row['position']); ?></td>
                                                             <td><?= pretty_date($position_row['createdAt']); ?></td>
+                                                            <td>
+                                                                <a href='javascript:;' class='btn btn-danger text-decoration-none' data-toggle='modal' data-target='#deleteModal<?= $i; ?>'>Delete</a>
+
+                                                                <div class='modal fade' id='deleteModal<?= $i ;?>' tabindex='-1' aria-labelledby='subscribeModalLabel' aria-hidden='true'>
+                                                                    <div class='modal-dialog modal-dialog-centered modal-sm'>
+                                                                        <div class='modal-content'>
+                                                                            <div class='modal-body'>
+                                                                                <p>When you delete this position, all executives under it will be deleted as well.</p>
+                                                                                <button type='button' class='btn' data-dismiss='modal'>Close</button>
+                                                                                <a href='<?= PROOT; ?>admin/executives/position/delete/<?= $position_row['position_id']; ?>' class='btn btn-secondary'>Confirm Delete.</a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
                                                         </tr>
-                                                    <?php endforeach ?>
+                                                    <?php $i++; endforeach ?>
                                                 <?php else: ?>
                                                     <tr>
                                                         <td colspan="4">No positions found!</td>
