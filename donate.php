@@ -3,30 +3,10 @@
     // Pay dues page
 
     require_once ("db_connection/conn.php");
-    $TITLE = "Pay Dues";
+    $TITLE = "Donate";
     $navTheme = "";
     include ("inc/header.inc.php");
 
-    if (isset($_GET['url']) && !empty($_GET['url'])) {
-        // code...
-        $studentid = sanitize($_GET['url']);
-        $student = find_member_by_studentID($conn, $studentid);
-        $amountToPay = 0;
-        $level = '';
-        if (is_array($student)) {
-            $a = get_amount_to_pay_using_level($conn, $studentid, $student['member_level']);
-
-            if (is_array($student)) {
-                $amountToPay = $a['levelAmount'];
-                $level = $a['level'];
-            }
-
-        } else {
-           echo js_alert('Student not found!');
-           redirect(PROOT . 'auth/pay-dues');
-        }
-
-    }
 
 
 ?>
@@ -44,21 +24,25 @@
                                 <path d="M30.8,83.2c0.1,0.5-3.5,1.7-7.7,3.1c-4.3,1.4-9.2,3.1-12.1,4.1c-5.7,1.9-10.6,3.1-11,2.1 c-0.4-0.9,3.9-3.6,9.8-5.6c2.9-1,8.1-2.4,12.6-3.2C26.9,83,30.7,82.7,30.8,83.2z"/>
                             </svg>
                         </span>
-                        Donate into the GMSA account.
+                        Donations are accepted into the GMSA account.
                     </h1>
-                    <p>NB: Please if you want to make the donation anonymously, skipt the field and input the amount</p>
+                    <p>NB: Please if you want to make the donation anonymously, skip the field and input the amount</p>
                     <form class="col-md-7 bg-light border rounded-2 position-relative mx-auto p-2 mt-4 mt-md-5" id="paymentForm">
                         <div class="input-floating-label form-floating mb-4 mb-3">
-                            <input type="number" min="0" class="form-control bg-transparent" id="level" readonly value="">
+                            <input type="text" class="form-control bg-transparent" name="name" id="name">
+                            <label for="floatingPassword">Name</label>
+                        </div>
+                        <div class="input-floating-label form-floating mb-4 mb-3">
+                            <input type="number" min="0" class="form-control bg-transparent" name="phone">
                             <label for="floatingPassword">Phone number</label>
                         </div>
                         <div class="input-floating-label form-floating mb-4 mb-3">
-                            <input type="email" class="form-control bg-transparent" id="email" value="">
+                            <input type="email" class="form-control bg-transparent" name="email" id="email">
                             <label for="floatingPassword">Email</label>
                         </div>
                         <div class="input-floating-label form-floating mb-4 mb-3">
-                            <input type="number" min="1" class="form-control bg-transparent" id="email" value="">
-                            <label for="floatingPassword">Ammount</label>
+                            <input type="number" min="1" class="form-control bg-transparent" name="amount" id="amount">
+                            <label for="floatingPassword">Amount</label>
                         </div>
                         <button type="submit" onclick="payWithPaystack()" class="btn btn-primary mb-0">Pay now</button>
                     </form>
@@ -92,34 +76,36 @@
             function payWithPaystack(e) {
                 e.preventDefault();
 
+                const name = document.getElementById("name").value
+                const phone = document.getElementById("phone").value
+                const email = ((document.getElementById("email").value == '') ? '<?= 'anony_' . time(); ?>' : document.getElementById("email").value)
                 const amount = document.getElementById("amount").value
                 let handler = PaystackPop.setup({
                     key: '<?= PAYSTACK_TEST_PUBLIC_KEY; ?>', // Replace with your public key
-                    email: document.getElementById("email").value,
+                    email: email,
                     amount: amount * 100,
                     currency: 'GHS',
                     channels: ['card', 'bank', 'ussd', 'qr', 'mobile_money', 'bank_transfer'], 
-                    ref: 'GMSA'+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+                    ref: 'GMSA-DNT'+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
                 // label: "Optional string that replaces customer email"
                     onClose: function(){
                     alert('Window closed.');
                     },
                     callback: function(response) {
                         var reference = response.reference;
-                        var student_id = '<?= $studentid; ?>'
-                        var level = '<?= $level; ?>';
                         $.ajax ({
-                            url: '<?= PROOT; ?>auth/dues.payment.php',
+                            url: '<?= PROOT; ?>auth/make.donation.php',
                             method : 'POST',
                             data: {
-                                student_id : student_id, 
-                                level : level, 
-                                reference : reference,
-                                amount : amount
+                                name : name, 
+                                phone : phone, 
+                                email : email,
+                                amount : amount,
+                                reference : reference
                             },
                             success : function(data) {
                                 if (data == '') {
-                                    window.location = '<?= PROOT; ?>auth/dues-paid/'+reference;
+                                    window.location = '<?= PROOT; ?>auth/donation-made/'+reference;
                                 }
                             }
                         })
