@@ -34,7 +34,7 @@ if ($search_query != '') {
 		OR transaction_reference LIKE "%'.$find_query.'%"  
 		OR transaction_amount LIKE "%'.$find_query.'%"  
 		OR level LIKE "%'.$find_query.'%"  
-		OR gmsa_dues.createdAt LIKE "%'.$find_query.'%") 
+		OR gmsa_dues.createdAt = "'.$find_query.'") 
 	';
 } else {
 	$query .= 'ORDER BY gmsa_dues.createdAt DESC ';

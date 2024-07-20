@@ -11,6 +11,41 @@
 
     $executives = fetch_all_executives($conn);
 
+    $post = cleanPost($_GET);
+    $name = (isset($_GET['name']) && !empty($_GET['name']) ? $post['name'] : '');
+    $from = (isset($_GET['from']) && !empty($_GET['from']) ? $post['from'] : '');
+    $to = (isset($_GET['to']) && !empty($_GET['to']) ? $post['to'] : '');
+    if (isset($_GET['name'])) {
+        // code...
+
+        $sql = "
+             SELECT * FROM gmsa_executives 
+            INNER JOIN gmsa_positions 
+            ON gmsa_positions.position_id = gmsa_executives.position_id 
+            INNER JOIN gmsa_members 
+            ON gmsa_members.member_id = gmsa_executives.member_id 
+            WHERE (
+                member_firstname LIKE '%".$name."%' 
+                OR member_middlename LIKE '%".$name."%' 
+                OR member_lastname LIKE '%".$name."%' 
+                OR year_from = $from 
+                OR year_to = $to 
+                OR (
+                    year_from = $from 
+                    AND year_to = $to 
+                )
+            )
+            AND gmsa_executives.status = ?
+        ";
+        $statement = $conn->prepare($sql);
+        $executives = '';
+        if ($statement->rowCount() > 0) {
+            $executives = $statement->fetchAll();
+        }
+    }
+
+
+
 
 ?>
     <main>
@@ -39,26 +74,28 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        <div class="row gutter-1">
-                            <div class="form-group col-md-4">
-                                <input type="search" class="form-control-lg form-control" id="inputEmail4" placeholder="Name">
+                        <form method="GET">
+                            <div class="row gutter-1">
+                                <div class="form-group col-md-4">
+                                    <input type="search" class="form-control-lg form-control" name="name" placeholder="Name">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <select class="form-control form-control-lg" name="from">
+                                        <option value="">From</option>
+                                        <?php yearDropdown($startYear = 2013, $endYear = date('Y'), $id = "year", $class = "form-control form-control-lg"); ?>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <select class="form-control form-control-lg" name="to">
+                                        <option value="">To</option>
+                                        <?php yearDropdown($startYear = 2013, $endYear = date('Y'), $id = "year", $class = "form-control form-control-lg"); ?>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <button class="btn btn-lg btn-block btn-success">Search</button>
+                                </div>
                             </div>
-                            <div class="form-group col-md-3">
-                                <select class="form-control form-control-lg">
-                                    <option value="">From</option>
-                                    <?php yearDropdown($startYear = 2013, $endYear = date('Y'), $id = "year", $class = "form-control form-control-lg"); ?>
-                                </select>
-                            </div>
-                            <div class="form-group col-md-3">
-                                <select class="form-control form-control-lg">
-                                    <option value="">To</option>
-                                    <?php yearDropdown($startYear = 2013, $endYear = date('Y'), $id = "year", $class = "form-control form-control-lg"); ?>
-                                </select>
-                            </div>
-                            <div class="form-group col-md-2">
-                                <button class="btn btn-lg btn-block btn-success">Search</button>
-                            </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>    
@@ -66,6 +103,16 @@
 
         <section>
             <div class="container">
+                <?php if (isset($_GET['name'])): ?>
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4>Search results;</h4>
+                        </div>
+                        <div>
+                            <a href="<?= goBack(); ?>"><< Go back</a>
+                        </div>
+                    </div>
+                <?php endif; ?>
                 <div class="row g-4 g-sm-6">
                     <?php if (is_array($executives)): ?>
                         <?php foreach ($executives as $executive): ?>
@@ -83,7 +130,7 @@
                         <?php endforeach ?>
                     <?php else: ?>
                         <div class="alert alert-danger">
-                            <p>No executives found!</p>
+                            No executives found!
                         </div>
                     <?php endif ?>
                 </div>
