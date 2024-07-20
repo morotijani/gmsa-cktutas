@@ -198,7 +198,7 @@
 
                     <header class="page-title-bar">
                         <div class="d-md-flex align-items-md-start">
-                            <h1 class="page-title mr-sm-auto"> Executives Table </h1>
+                            <h1 class="page-title mr-sm-auto"> Executives </h1>
                             <div class="btn-toolbar">
                                 <button type="button" class="btn btn-light"><i class="oi oi-data-transfer-download"></i> <span class="ml-1">Export</span></button> <button type="button" class="btn btn-light"><i class="oi oi-data-transfer-upload"></i> <span class="ml-1">Import</span></button>
                                 <div class="dropdown">
@@ -282,17 +282,30 @@
                                         </table>
                                     </div>
                                 </div>
-                            <?php elseif (($_GET['type'] == 'add' && $_GET['status'] == 'new') && isset($_GET['status']) || ($_GET['status'] == 'edit_executive')):
-                                echo 'id' . $_GET['id'];
+                            <?php 
+                                elseif (($_GET['type'] == 'add' && $_GET['status'] == 'new') && isset($_GET['status']) || ($_GET['status'] == 'edit_executive')): 
+                                    if ($_GET['status'] == 'new') {
+                                        $id = sanitize($_GET['id']);
+                                        $member_row = find_member_by_id($conn, $id);
+                                        if (is_array($member_row)) {
+                                            // code...
+
+                                        } else {
+                                            $_SESSION['flash_error'] = 'Member not found!';
+                                            redirect(PROOT . 'admin/members');
+                                        }
+                                    } else if ($_GET['status'] == 'edit_executive') {
+
+                                    }
                             ?>
                                 <div class="card">
                                     <div class="card-body">
                                         <form method="POST">
                                             <fieldset>
-                                                <legend>Update</legend>
+                                                <legend><?= (($_GET['status'] == 'new') ? 'Add' : 'Update'); ?> member</legend>
                                                 <div class="form-group">
                                                     <div class="form-label-group">
-                                                        <input type="text" class="form-control" id="prayer_name" name="prayer_name" placeholder="Prayer name" required=""> <label for="prayer_name">File</label>
+                                                        <input type="text" class="form-control" id="prayer_name" name="prayer_name" placeholder="Prayer name" required="" value="<?= ucwords($member_row['member_firstname'] . ' ' . $member_row['member_middlename'] . ' ' . $member_row['member_lastname']); ?>"> <label for="prayer_name">File</label>
                                                     </div>
                                                 </div>
 

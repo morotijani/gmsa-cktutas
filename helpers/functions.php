@@ -127,6 +127,21 @@ function find_member_by_studentID($conn, $studentid) {
 	return (($count_rows > 0) ? $row[0] : '');
 }
 
+// find member by student id
+function find_member_by_id($conn, $studentid) {
+
+	$query = "
+		SELECT * FROM gmsa_members 
+		WHERE gmsa_members.member_id = ? 
+	";
+	$statement = $conn->prepare($query);
+	$statement->execute([$studentid]);
+	$count_rows = $statement->rowCount();
+
+	$row = $statement->fetchAll();
+	return (($count_rows > 0) ? $row[0] : '');
+}
+
 
 // find member by student id
 function find_paid_dues_by_reference($conn, $reference) {
