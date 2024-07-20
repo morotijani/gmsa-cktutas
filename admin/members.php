@@ -54,8 +54,8 @@
                                     <button type="button" class="btn btn-light" data-toggle="dropdown" aria-expanded="false"><span>More</span> <span class="fa fa-caret-down"></span></button>
                                     <div class="dropdown-menu dropdown-menu-right" style="">
                                         <div class="dropdown-arrow"></div>
-                                        <a href="#" class="dropdown-item">Add tasks</a> 
-                                        <a href="#" class="dropdown-item">Invite members</a>
+                                        <a href="#" class="dropdown-item">Add member</a> 
+                                        <a href="#" class="dropdown-item"></a>
                                         <div class="dropdown-divider"></div>
                                         <a href="#" class="dropdown-item">Share</a> 
                                         <a href="#" class="dropdown-item">Archive</a>
@@ -67,7 +67,7 @@
                     <div class="page-section">
                         <div class="card card-fluid">
                             <?php if (isset($_GET['edit']) && !empty($_GET['edit'])): ?>
-                            
+
                             <?php else: ?>
                                 <div class="card-header">
                                     <ul class="nav nav-tabs card-header-tabs">
@@ -90,7 +90,7 @@
                                         </div>
                                     </div>
                                     <div id="load-content"></div>                                 
-                            <?php endif ?>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>

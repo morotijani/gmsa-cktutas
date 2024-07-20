@@ -37,7 +37,6 @@
     }
 
 ?>
-
     <main class="app-main">
         <div class="wrapper">
             <div class="page">
@@ -65,15 +64,27 @@
                             <div class="progress progress-xs rounded-0 fade" id="progress_bar" style="">
                                 <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" id="progress_bar_process" role="progressbar" style="width: 0%;"></div>
                             </div>
-                            <div id="uploadList" class="list-group list-group-flush list-group-divider">
+                            <div id="uploadList" class="container">
                                 <div id="uploaded_image" class="row mt-5">
                                     <?php 
                                         foreach ($images as $image) {
                                             echo '
-                                                <div class="col-md-2 mb-2">
-                                                    <div class="card">
-                                                        <img class="img-fluid" src="' . PROOT . $image['gallery_media'].'">
-                                                        <a href="?delete='.$image['id'].'&location='.$image['gallery_media'].'" class="badge badge-danger">delete</a>
+                                                <div class="col-xl-3 col-lg-4 col-sm-6">
+                                                    <div class="card card-figure">
+                                                        <figure class="figure">
+                                                            <div class="figure-img">
+                                                                <img class="img-fluid" src="' . PROOT . $image['gallery_media'] . '" alt="Card image cap"> <a href="' . PROOT . $image['gallery_media'].'" target="_blank" class="img-link"><span class="tile tile-circle bg-danger"><span class="oi oi-eye"></span></span> <span class="img-caption d-none">Image caption goes here</span></a>
+                                                            </div>
+                                                            <figcaption class="figure-caption">
+                                                              <ul class="list-inline text-muted mb-0">
+                                                                    <li class="list-inline-item">
+                                                                        <span class="oi oi-paperclip"></span> ' . getFilesize(BASEURL . $image['gallery_media']) . ' </li>
+                                                                    <li class="list-inline-item float-right">
+                                                                        <a href="?delete='.$image['id'].'&location='.$image['gallery_media'].'" class="badge badge-danger"><span class="oi oi-trash"></span></a>
+                                                                    </li>
+                                                                </ul>
+                                                            </figcaption>
+                                                        </figure>
                                                     </div>
                                                 </div>
                                             ';

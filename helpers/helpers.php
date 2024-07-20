@@ -470,10 +470,35 @@ function goBack() {
     return $previous;
 }
 
-  
+// get file size
+function getFilesize($file) {
+    if (!file_exists($file)) return "File does not exist";
 
+    $filesize = filesize($file);
 
+    if ($filesize > 1024) {
+        $filesize = ($filesize / 1024);
 
+        if ($filesize > 1024) {
+            $filesize = ($filesize / 1024);
+
+            if ($filesize > 1024) {
+                $filesize = ($filesize / 1024);
+                $filesize = round($filesize, 1);
+                return $filesize." GB";
+            } else {
+                $filesize = round($filesize, 1);
+                return $filesize." MB";
+            }
+        } else {
+            $filesize = round($filesize, 1);
+            return $filesize." KB";
+        }
+    } else {
+        $filesize = round($filesize, 1);
+        return $filesize." Bytes";
+    }
+}
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
