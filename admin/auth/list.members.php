@@ -84,6 +84,7 @@ $output = '
 ';
 
 if ($total_data > 0) {
+	$i = 1;
 	foreach ($result as $row) {
 
 		$output .= '
@@ -95,9 +96,9 @@ if ($total_data > 0) {
                 </td>
                 <td>
                     <a href="#" class="tile tile-img mr-1">
-                        <img class="img-fluid" src="assets/images/dummy/img-1.jpg" alt="Card image cap">
+                        <img class="img-fluid" src="' . PROOT . (($row["member_picture"] == '') ? 'assets/media/default.png' : $row['member_picture']) . '" alt="Card image cap">
                     </a> 
-                    <a href="javascript:;" data-target="#memberModal_' . $row["id"] . '" data-toggle="modal">'.ucwords($row["member_firstname"] . ' ' . $row["member_middlename"] . '  ' . $row["member_lastname"]).'</a>
+                    <a href="javascript:;" data-target="#memberModal_' . $i . '" data-toggle="modal">'.ucwords($row["member_firstname"] . ' ' . $row["member_middlename"] . '  ' . $row["member_lastname"]).'</a>
                 </td>
                 <td class="align-middle"> '.$row["member_level"].' </td>
                 <td class="align-middle"> '.ucwords($row["member_programme"]).' </td>
@@ -110,100 +111,88 @@ if ($total_data > 0) {
                 </td>
             </tr>
 
-            <!-- Trade details -->
-            <div class="modal fade" id="memberModal_' . $row["id"] . '" tabindex="-1" aria-labelledby="memberModalLabel_' . $row["id"] . '" aria-hidden="true">
-				<div class="modal-dialog modal-dialog-centered">
-					<div class="modal-content overflow-hidden">
-						<div class="modal-header pb-0 border-0">
-							<h1 class="modal-title h4" id="memberModalLabel_' . $row["id"] . '">' . $row["member_firstname"] . ' details</h1>
-							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <!-- Member details -->
+            <div class="modal fade" id="memberModal_' . $i . '" tabindex="-1" role="dialog" aria-labelledby="memberModalLabel_' . $i. '" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h6 class="modal-title" id="memberModalLabel_' . $i . '">' . $row["member_firstname"] . ' details</h6>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
 						</div>
-						<div class="modal-body p-0 text-center">
+						<div class="modal-body p-2">
 							<ul class="list-group">
 								<li class="list-group-item" style="padding: 0.1rem 1rem;">
-			                        <small class="text-muted">Full name,</small>
-			                        <p>' . ucwords($row["member_firstname"] . ' ' . $row["member_middlename"] . '  ' . $row["member_lastname"]) . '</p>
+			                        <p><small class="text-muted">Full name,</small><br>' . ucwords($row["member_firstname"] . ' ' . $row["member_middlename"] . '  ' . $row["member_lastname"]) . '</p>
 			                    </li>
 			                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
-			                        <small class="text-muted">Email,</small>
-			                        <p>' . $row["member_email"] . '</p>
+			                        <p><small class="text-muted">Email,</small><br>' . $row["member_email"] . '</p>
 			                    </li>
 			                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
-			                        <small class="text-muted">Phone</small>
-			                        <p>' . $row["member_phone"] . '</p>
+			                        <p><small class="text-muted">Phone</small><br>' . $row["member_phone"] . '</p>
 			                    </li>
 			                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
-			                        <small class="text-muted">Gender</small>
-			                        <p>' . $row["member_gender"] . '</p>
+			                        <p><small class="text-muted">Gender</small><br>' . $row["member_gender"] . '</p>
 			                    </li>
 			                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
-			                        <small class="text-muted">Date of Birth</small>
-			                        <p>' . $row["member_dob"] . '</p>
+			                        <p><small class="text-muted">Date of Birth</small><br>' . $row["member_dob"] . '</p>
 			                    </li>
 			                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
-			                        <small class="text-muted">Region</small>
-			                        <p>' . ucwords($row["member_region"]) . '</p>
+			                        <p><small class="text-muted">Region</small><br>' . ucwords($row["member_region"]) . '</p>
 			                    </li>
 			                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
-			                        <small class="text-muted">City</small>
-			                        <p id="send-amount">' . ucwords($row["member_city"]) . '</p>
+			                        <p><small class="text-muted">City</small><br>' . ucwords($row["member_city"]) . '</p>
 			                    </li>
 			                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
-			                        <small class="text-muted">Digital address</small>
-			                        <p id="send-amount">' . $row["member_digitaladdress"] . '</p>
+			                        <p><small class="text-muted">Digital address</small><br>' . $row["member_digitaladdress"] . '</p>
 			                    </li>
 			                </ul>
-			                <h3>School details</h>
+			                <h6 class="my-1">School details</h6>
 							<ul class="list-group">
 			                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
-			                        <small class="text-muted">Student Id</small>
-			                        <p>' . $row["member_studentid"] . '</p>
+			                        <p><small class="text-muted">Student Id</small><br>' . $row["member_studentid"] . '</p>
 			                    </li>
 			                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
-			                        <small class="text-muted">Programme</small>
-			                        <p>' . $row["member_programme"] . '</p>
+			                        <p><small class="text-muted">Programme</small><br>' . $row["member_programme"] . '</p>
 			                    </li>
 			                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
-			                        <small class="text-muted">Department</small>
-			                        <p>' . ucwords($row["member_department"]) . '</p>
+			                        <p><small class="text-muted">Department</small><br>' . ucwords($row["member_department"]) . '</p>
 			                    </li>
 			                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
-			                        <small class="text-muted">Admission type</small>
-			                        <p>' . ucwords($row["member_admissiontype"]) . '</p>
+			                        <p><small class="text-muted">Admission type</small><br>' . ucwords($row["member_admissiontype"]) . '</p>
 			                    </li>
 			                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
-			                        <small class="text-muted">Admission year</small>
-			                        <p>' . $row["member_admissionyear"] . '</p>
+			                        <p><small class="text-muted">Admission year</small><br>' . $row["member_admissionyear"] . '</p>
 			                    </li>
 			                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
-			                        <small class="text-muted">Level</small>
-			                        <p>' . ucwords($row["member_level"]) . '</p>
+			                        <p><small class="text-muted">Level</small><br>' . ucwords($row["member_level"]) . '</p>
 			                    </li>
 			                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
-			                        <small class="text-muted">Hostel</small>
-			                        <p>' . ucwords($row["member_hostel"]) . '</p>
+			                        <p><small class="text-muted">Hostel</small><br>' . ucwords($row["member_hostel"]) . '</p>
 			                    </li>
 			                </ul>
-			                <h3>School details</h>
+			                <h6 class="my-1">Parent details</h6>
 							<ul class="list-group">
 			                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
-			                        <small class="text-muted">Parent / Guardian name</small>
-			                        <p>' . ucwords($row["member_guardianfullname"]) . '</p>
+			                        <p><small class="text-muted">Parent / Guardian name</small><br>' . ucwords($row["member_guardianfullname"]) . '</p>
 			                    </li>
 			                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
-			                        <small class="text-muted">Parent / Guardian name</small>
-			                        <p>' . $row["member_guardianphonenumber"] . '</p>
+			                        <p><small class="text-muted">Parent / Guardian name</small><br>' . $row["member_guardianphonenumber"] . '</p>
 			                    </li>
 			                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
-			                        <small class="text-muted">Date</small>
-			                        <p>' . pretty_date($row["createdAt"]) . '</p>
+			                        <p><small class="text-muted">Date</small><br>' . pretty_date($row["createdAt"]) . '</p>
 			                    </li>
 							</ul>
+							<div class="d-flex justify-content-between my-4">
+								<a class="btn btn-sm btn-dark" href="'.PROOT.'admin/executives/add/'.$row["member_id"].'">Add executive</a>&nbsp;
+								<a class="btn btn-sm btn-primary" href="'.PROOT.'admin/members/edit/'.$row["member_id"].'">Edit</a>&nbsp;
+								<a class="btn btn-sm btn-warning" href="'.PROOT.'admin/members/delete/'.$row["member_id"].'">Delete</a>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		';
+		$i++;
 	}
 
 } else {
