@@ -13,8 +13,7 @@
         $reference = sanitize($_GET['url']);
         $donation = find_donation_details_with_refence($conn, $reference);
         if (is_array($donation)) {
-            
-            
+            $message = 200;
         } else {
             $message = 404;
         }
@@ -38,71 +37,11 @@
                                 <path d="M30.8,83.2c0.1,0.5-3.5,1.7-7.7,3.1c-4.3,1.4-9.2,3.1-12.1,4.1c-5.7,1.9-10.6,3.1-11,2.1 c-0.4-0.9,3.9-3.6,9.8-5.6c2.9-1,8.1-2.4,12.6-3.2C26.9,83,30.7,82.7,30.8,83.2z"/>
                             </svg>
                         </span>
-                        <?= (($message == 200) ? 'Your GMSA dues has been successfully paid!<br> Thank you.' : '<span class="text-danger">Your GMSA dues has NOT been paid, please go and make payment</span>!'); ?>
+                        <?= (($message == 200) ? 'Your Donation has been received by GMSA successfully!<br> Thank you.<br>Reference ID:' . $reference  : '<span class="text-danger">There was a problem with your donation, please try again</span>!'); ?>
                     </h1>
-                    <?php if ($message == 200): ?>
-                        <div class="card shadow p-4 p-sm-5 p-md-6 mt-3" id="print-area">
-                            <div class="card-header border-bottom px-0 pt-0 pb-5 text-center">
-                                <div class="d-flex justify-content-between">
-                                    <div class="">
-                                        <img src="<?= PROOT; ?>assets/media/logo/logo.png" class="img-fluid" style="width: 100px;">
-                                    </div>
-                                    <div class="">
-                                        <h1 class="mb-3 h6">Bismillahir Rahmanir Rahim <br>In the name of Allah, most Gracious, most merciful</h1>
-                                        <p class="mb-0">GHANA MUSLIM STUDENTS ASSOCIATION <br>C.K TEDAM UNIVERSITY OF TECHNOLOGY AND APPLIED SCIENCES</p>
-                                    </div>
-                                    <div class="">
-                                        <img src="<?= PROOT; ?>assets/media/logo/CK-LOGO.png" class="img-fluid" style="width: 100px;">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <div class="d-flex">
-                                    <div class="flex-grow-1">
-                                        <button type="submit" class="btn border mb-3">Oficial Reciept</button>
-                                    </div>
-                                    <div class="" >
-                                        <input type="text" style="border-bottom: 2px dashed;" class="form-control-plaintext text-center" readonly value="<?= date("jS F, Y");?>">
-                                    </div>
-                                </div>
-                                <div class="my-4">
-                                    <b>Received from:</b> <span style="border-bottom: 2px dashed;"><?= ucwords($student_row['member_firstname'] . ' ' . $student_row['member_middlename'] . ' ' . $student_row['member_lastname']); ?></span>
-                                </div>
-                                <div class="my-4">
-                                    <b>The sum of:</b> <span style="border-bottom: 2px dashed;"><?= ucfirst(convertNumber(number_format($student['transaction_amount'], 2))); ?> Ghana cedis</span>
-                                </div>
-                                <div class="my-4">
-                                    <b>Being part / full payment for:</b> <span style="border-bottom: 2px dashed;"><?= $payment_status; ?></span>
-                                </div>
-                                <div class="d-flex my-4">
-                                    <div class="flex-grow-1">
-                                        <div class="">
-                                            <b>Reference No:</b> <span style="border-bottom: 2px dashed;"><?= $reference; ?></span>
-                                        </div>
-                                    </div>
-                                    <div class="">
-                                        <b>Balance:</b> <span style="border-bottom: 2px dashed;"><?= money($AMOUNT, 2); ?> Ghana cedis</span>
-                                    </div>
-                                </div>
-                                <div class="d-flex">
-                                    <div class="flex-grow-1">
-                                        <button type="submit" class="btn border mb-3"><?= money($student['transaction_amount']); ?>p</button>
-                                    </div>
-                                    <div class="">
-                                        <img src="<?= PROOT . $site_row['signature']; ?>" style="width: 75px; height: 75px;">
-                                        <br>
-                                        <b>Signature</b>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="my-5 text-center">
-                            <a href="<?= PROOT; ?>" class="btn btn-dark">Go home.</a>&nbsp;
-                            <button type="button" onclick="printDiv('print-area')" href="<?= PROOT; ?>" class="btn btn-light">Print receipt.</button>
-                        </div>
-                    <?php else: ?>
+                    <?php if ($message == 404): ?>
                         <div class="my-5">
-                            <a href="<?= PROOT; ?>auth/pay-dues" class="btn btn-dark">Pay dues.</a>&nbsp;
+                            <a href="<?= PROOT; ?>donate" class="btn btn-dark">Make donation.</a>&nbsp;
                             <a href="<?= PROOT; ?>" class="btn btn-light">Go home.</a>
                         </div>
                     <?php endif; ?>
@@ -124,17 +63,5 @@
     <script type="text/javascript" src="<?= PROOT; ?>dist/js/bootstrap.min.js"></script>
     <script src="<?= PROOT; ?>dist/js/functions.js"></script>
 
-    <script type="text/javascript">
-        function printDiv(divId) {
-            var printContents = document.getElementById(divId).innerHTML;
-            var originalContents = document.body.innerHTML;
-
-            document.body.innerHTML = printContents;
-
-            window.print();
-
-            document.body.innerHTML = originalContents;
-        }
-    </script>
 </body>
 </html>

@@ -405,3 +405,16 @@ function fetch_all_executives($conn, $limit) {
 
     return (($statement->rowCount() > 0) ?  $rows : '');
 }
+
+//
+function find_donation_details_with_refence($conn, $reference) {
+	$sql = "
+		SELECT * FROM gmsa_donations 
+		WHERE reference = ?
+	";
+	$statement = $conn->prepare($sql);
+	$statement->execute([$reference]);
+	$rows = $statement->fetchAll();
+
+	return (($statement->rowCount() > 0) ?  $rows : '');
+}

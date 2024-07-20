@@ -24,25 +24,25 @@
                                 <path d="M30.8,83.2c0.1,0.5-3.5,1.7-7.7,3.1c-4.3,1.4-9.2,3.1-12.1,4.1c-5.7,1.9-10.6,3.1-11,2.1 c-0.4-0.9,3.9-3.6,9.8-5.6c2.9-1,8.1-2.4,12.6-3.2C26.9,83,30.7,82.7,30.8,83.2z"/>
                             </svg>
                         </span>
-                        Donations are accepted into the GMSA account.
+                        Donations will be accepted into the GMSA account.
                     </h1>
                     <p>NB: Please if you want to make the donation anonymously, skip the field and input the amount</p>
-                    <form class="col-md-7 bg-light border rounded-2 position-relative mx-auto p-2 mt-4 mt-md-5" id="paymentForm">
+                    <form id="paymentForm" class="col-md-7 bg-light border rounded-2 position-relative mx-auto p-2 mt-4 mt-md-5">
                         <div class="input-floating-label form-floating mb-4 mb-3">
                             <input type="text" class="form-control bg-transparent" name="name" id="name">
-                            <label for="floatingPassword">Name</label>
+                            <label for="name">Name</label>
                         </div>
                         <div class="input-floating-label form-floating mb-4 mb-3">
-                            <input type="number" min="0" class="form-control bg-transparent" name="phone">
-                            <label for="floatingPassword">Phone number</label>
+                            <input type="number" min="0" class="form-control bg-transparent" name="phone" id="phone">
+                            <label for="phone">Phone number</label>
                         </div>
                         <div class="input-floating-label form-floating mb-4 mb-3">
                             <input type="email" class="form-control bg-transparent" name="email" id="email">
-                            <label for="floatingPassword">Email</label>
+                            <label for="email">Email</label>
                         </div>
                         <div class="input-floating-label form-floating mb-4 mb-3">
-                            <input type="number" min="1" class="form-control bg-transparent" name="amount" id="amount">
-                            <label for="floatingPassword">Amount</label>
+                            <input type="number" min="2" class="form-control bg-transparent" name="amount" id="amount">
+                            <label for="amount">Amount</label>
                         </div>
                         <button type="submit" onclick="payWithPaystack()" class="btn btn-primary mb-0">Pay now</button>
                     </form>
@@ -78,7 +78,7 @@
 
                 const name = document.getElementById("name").value
                 const phone = document.getElementById("phone").value
-                const email = ((document.getElementById("email").value == '') ? '<?= 'anony_' . time(); ?>' : document.getElementById("email").value)
+                const email = ((document.getElementById("email").value == '') ? '<?= 'anony_' . time() . '@gmsadonation.org'; ?>' : document.getElementById("email").value)
                 const amount = document.getElementById("amount").value
                 let handler = PaystackPop.setup({
                     key: '<?= PAYSTACK_TEST_PUBLIC_KEY; ?>', // Replace with your public key
@@ -114,15 +114,10 @@
                         alert(message);
                     }
                 });
-                if (amount <= <?= $amountToPay; ?>) {
-                    if (amount > 0) {
-                        handler.openIframe();
-                    } else {
-                        //alert('you cannot not pay less than 10ghc');
-                        return false;
-                    }
+                if (amount >= 2) {
+                    handler.openIframe();
                 } else {
-                    alert('you cannot not pay more');
+                    //alert('you cannot not pay less than 10ghc');
                     return false;
                 }
             }

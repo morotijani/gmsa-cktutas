@@ -8,9 +8,9 @@
   
     if (isset($_POST['reference'])) {
 
-        $name = sanitize($_POST['student_id']);
-        $phone = sanitize($_POST['level']);
-        $email = sanitize($_POST['reference']);
+        $name = sanitize($_POST['name']);
+        $phone = sanitize($_POST['phone']);
+        $email = sanitize($_POST['email']);
         $amount = sanitize($_POST['amount']);
         $reference = sanitize($_POST['reference']);
 
@@ -49,7 +49,7 @@
                         VALUES (?, ?, ?, ?, ?, ?, ?)
                     ";
                     $statement = $conn->prepare($query);
-                    $statement->execute([$donation_id, $name, $phone, $email, $phone, $amount, $reference, $createdAt]);
+                    $statement->execute([$donation_id, $name, $email, $phone, $amount, $reference, $createdAt]);
                     echo '';
                 } else {
                     echo 'transaction did not go through please try again!';
