@@ -8,7 +8,6 @@
     include ("includes/aside.php");
 
     $total_data = $conn->query("SELECT * FROM gmsa_executives WHERE status = 0")->rowCount();
-
     $position_rows = get_positions($conn);
 
     $message = '';
@@ -86,12 +85,22 @@
         }
     }
 
-    $news_title = (isset($_POST['news_title']) ? sanitize($_POST['news_title']) : '');
-    $news_category = (isset($_POST['news_category']) ? sanitize($_POST['news_category']) : '');
-    $news_content = (isset($_POST['news_content']) ? $_POST['news_content'] : '');
+
     $executive_media = '';
-    $news_url = php_url_slug($news_title);
-    $news_created_by = $admin_data['admin_id'];
+    if (isset($_GET['type']) && $_GET['type'] == 'add' && $_GET['status'] == 'new') {
+        $id = sanitize($_GET['id']);
+        $member_row = find_member_by_id($conn, $id);
+        if (is_array($member_row)) {
+            $member_id = $id;
+            $executive_media = $member_row['member_picture'];
+        } else {
+            $_SESSION['flash_error'] = 'Member not found!';
+            redirect(PROOT . 'admin/members');
+        }
+    }
+    $executive_position = (isset($_POST['executive_position']) ? sanitize($_POST['executive_position']) : '');
+    $createdAt = date("Y-m-d H:i:s A");
+    $executive_id = guidv4();
 
     // news edit
     if (isset($_GET['status']) && $_GET['status'] == 'edit_news') { 
@@ -116,45 +125,51 @@
         }
     }
 
-    if (isset($_POST['submitNews'])) {
-        // UPLOAD PASSPORT PICTURE TO uploadedprofile IF FIELD IS NOT EMPTY
-        if ($_POST['uploaded_news_media'] == '') {
+    if (isset($_POST['submitExecutive'])) {
+        if ($_POST['uploaded_executive_media'] == '') {
             if (!empty($_FILES)) {
 
-                $image_test = explode(".", $_FILES["news_media"]["name"]);
+                $image_test = explode(".", $_FILES["executive_media"]["name"]);
                 $image_extension = end($image_test);
-                $image_name = md5(microtime()).'.'.$image_extension;
+                $image_name = md5(microtime()) . '.' . $image_extension;
 
-                $news_media = 'assets/media/news/'.$image_name;
-                move_uploaded_file($_FILES["news_media"]["tmp_name"], BASEURL . $news_media);
+                $executive_media = 'assets/media/members/' . $image_name;
+                move_uploaded_file($_FILES["executive_media"]["tmp_name"], BASEURL . $executive_media);
                 
                 if (isset($_POST['uploaded_image']) && $_POST['uploaded_image'] != '') {
                     unlink($_POST['uploaded_image']);
                 }
             } else {
-                $message = '<div class="alert alert-danger">Passport Picture Can not be Empty</div>';
+                $message = '<div class="alert alert-danger">Picture cannot be empty!</div>';
             }
         } else {
-            $news_media = $_POST['uploaded_news_media'];
+            $executive_media = $_POST['uploaded_executive_media'];
         }
 
-        $news_id = guidv4();
         $query = "
-            INSERT INTO `gmsa_news`(`news_title`, `news_url`, `news_content`, `news_media`, `news_category`, `news_created_by`, `news_id`) 
-            VALUES (?, ?, ?, ?, ?, ?, ?)
+            INSERT INTO `gmsa_executives`(`member_id`, `position_id`, `createdAt`, `executive_id`) 
+            VALUES (?, ?, ?, ?)
         ";
         if (isset($_GET['status']) && $_GET['status'] == 'edit_news') {
-            $news_id = $id;
+            $executive_id = $id;
             $query = "
-                UPDATE gmsa_news 
-                SET news_title = ?, news_url = ?,  news_content = ?,  news_media = ?,  news_category = ?, news_updated_by = ?
-                WHERE news_id = ?
+                UPDATE gmsa_executives 
+                SET member_id = ?, position_id = ?, updatedAt = ?
+                WHERE executive_id = ?
             ";
         }
         $statement = $conn->prepare($query);
-        $result = $statement->execute([$news_title, $news_url, $news_content, $news_media, $news_category, $news_created_by, $news_id]);
+        $result = $statement->execute([$member_id, $executive_position, $createdAt, $executive_id]);
         if (isset($result)) {
-            $_SESSION['flash_success'] = ucwords($news_title) . ' successfully ' . ((isset($_GET['status']) && $_GET['status'] == 'edit_news') ? 'updated' : 'added') . '!';
+            $sql = "
+                UPDATE gmsa_members 
+                SET member_picture = ? 
+                WHERE member_id = ?
+            ";
+            $statement = $conn->prepare($sql);
+            $statement->execute([$executive_media, $member_id]);
+
+            $_SESSION['flash_success'] = 'Executive successfully ' . ((isset($_GET['status']) && $_GET['status'] == 'edit_news') ? 'updated' : 'added') . '!';
             redirect(PROOT . 'admin/executives/all');
         } else {
             $_SESSION['flash_error'] = 'Something went wrong, please try again';
@@ -283,24 +298,15 @@
                                     </div>
                                 </div>
                             <?php 
-                                elseif (($_GET['type'] == 'add' && $_GET['status'] == 'new') && isset($_GET['status']) || ($_GET['status'] == 'edit_executive')): 
+                                elseif (isset($_GET['status']) && (($_GET['type'] == 'add' && $_GET['status'] == 'new') || ($_GET['status'] == 'edit_executive'))): 
                                     if ($_GET['status'] == 'new') {
-                                        $id = sanitize($_GET['id']);
-                                        $member_row = find_member_by_id($conn, $id);
-                                        if (is_array($member_row)) {
-                                            // code...
-                                            $executive_media = $member_row['member_picture'];
-                                        } else {
-                                            $_SESSION['flash_error'] = 'Member not found!';
-                                            redirect(PROOT . 'admin/members');
-                                        }
                                     } else if ($_GET['status'] == 'edit_executive') {
 
                                     }
                             ?>
                                 <div class="card">
                                     <div class="card-body">
-                                        <form method="POST">
+                                        <form method="POST" enctype="multipart/form-data">
                                             <fieldset>
                                                 <legend><?= (($_GET['status'] == 'new') ? 'Add' : 'Update'); ?> executive</legend>
                                                 <div class="form-group">
@@ -311,13 +317,13 @@
 
                                                 <div class="form-group">
                                                     <div class="form-label-group">
-                                                        <select type="text" class="custom-select" name="news_category" id="news_category" required>
-                                                           <option value="" <?= (($news_category == '') ? 'selected' : ''); ?>>...</option>
+                                                        <select type="text" class="custom-select" name="executive_position" id="executive_position" required>
+                                                           <option value="" <?= (($executive_position == '') ? 'selected' : ''); ?>>...</option>
                                                             <?php foreach ($position_rows as $position_row): ?>
-                                                                <option value="<?= $position_row['position_id']; ?>" <?= (($news_category == $position_row['position_id']) ? 'selected' : ''); ?>><?= ucwords($position_row['position']); ?></option>
+                                                                <option value="<?= $position_row['position_id']; ?>" <?= (($executive_position == $position_row['position_id']) ? 'selected' : ''); ?>><?= ucwords($position_row['position']); ?></option>
                                                             <?php endforeach ?>
                                                         </select>
-                                                        <label for="news_category">Position</label>
+                                                        <label for="executive_position">Position</label>
                                                     </div>
                                                 </div>
 
@@ -339,7 +345,7 @@
                                                 <input type="hidden" name="uploaded_executive_media" id="uploaded_executive_media" value="<?= $executive_media; ?>">
 
                                                 <div class="form-actions mb-2">
-                                                    <button type="submit" class="btn btn-secondary" name="submitNews" id="submitNews"><?= (isset($_GET['status']) && $_GET['status'] == 'edit_news') ? 'Update': 'Add'; ?> executive</button>
+                                                    <button type="submit" class="btn btn-secondary" name="submitExecutive" id="submitExecutive"><?= (isset($_GET['status']) && $_GET['status'] == 'edit_news') ? 'Update': 'Add'; ?> executive</button>
                                                     <?php if (isset($_GET['status']) && $_GET['status'] == 'edit_news'): ?>
                                                         <br><br>
                                                         <a href="<?= PROOT; ?>admin/executive" class="btn">Cancel</a>
