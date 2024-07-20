@@ -74,7 +74,9 @@
                                 <button id="dues_next" class="btn btn-dark rounded-2 mb-0"><i class="bi bi-forward-fill me-2"></i>Next</button>
                             </div>
                         </form>
-                        <a href="<?= PROOT; ?>" class="btn mb-0 mt-4">Cancel</a>
+                        <a href="<?= PROOT; ?>" class="btn mb-0 mt-4 text-decoration-underline">Cancel</a>
+                        <br>
+                        <small>Not registered yet? <a href="<?= PROOT; ?>auth/register">register here</a></small>
                     <?php endif ?>
                 </div>
             </div>
