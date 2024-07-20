@@ -227,15 +227,15 @@ function getBrowserAndOs() {
 
 
 function display_errors($errors) {
-    $display = '<div class="alert alert-warning alert-dismissible fade show " role="alert">';
+    $display = '<div class="lead bg-danger text-white text-center">';
     foreach ($errors as $error) {
         // code...
         $display .= $error;
         break;
     }
     $display .= '
-    		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-		</div>';
+		</div>
+    ';
     return $display;
 }
 

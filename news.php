@@ -57,7 +57,6 @@
                 </div>
 
                 <h6 class="mb-4">Blog category</h6>
-                <!-- Slider START -->
                 <div class="swiper" data-swiper-options='{
                     "slidesPerView": 2, 
                     "spaceBetween": 30,

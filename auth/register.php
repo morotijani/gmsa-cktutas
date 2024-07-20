@@ -30,12 +30,12 @@
         $createdAt = date("Y-m-d H:i:s A");
         $vericode = md5(time());
 
-        if (!is_array(find_by_student_id($studentid))) {
+        if (is_array(find_by_student_id($studentid))) {
             $errors[] = "Student ID already exist!";
         }
 
-        if (!is_array(find_by_student_email($email))) {
-            $errors[] = "Student ID already exist!";
+        if (is_array(find_by_student_email($email))) {
+            $errors[] = "Email already exist!";
         }
 
         if (!empty($errors)) {
@@ -51,7 +51,7 @@
                     {$fn},</h3>
                     <p>
                         Thank you for registering. Please verify your account by clicking 
-                        <a href=\"https://sites.local/garypie/store/verified/{$vericode}\" target=\"_blank\">here</a>.
+                        <a href=\"https://sites.local/garypie/auth/verified/{$vericode}\" target=\"_blank\">here</a>.
                 </p>
             ";
 
@@ -68,7 +68,7 @@
 
             if (isset($result)) {
                 $_SESSION['flash_success'] = 'Your have successfully created a membership account!';
-                redirect(PROOT . 'auth/register');
+                redirect(PROOT . 'auth/verify');
             } else {
                 echo js_alert("Something went wrong, please try again!");
             }
@@ -191,7 +191,7 @@
 
     <main>
         
-        <div><?= $flash; ?></div>
+        <?= $flash; ?>
         <section class="pt-1">
             <div class="container">
                 <div class="inner-container text-center mb-6">
@@ -217,31 +217,31 @@
                                 <div class="row g-3">
                                     <div class="col-sm-4">
                                         <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="firstname" name="firstname" placeholder="">
+                                            <input type="text" class="form-control" id="firstname" name="firstname" placeholder="" value="<?= $firstname; ?>">
                                             <label for="firstname">First name *</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="middlename" name="middlename" placeholder="">
+                                            <input type="text" class="form-control" id="middlename" name="middlename" placeholder="" value="<?= $middlename; ?>">
                                             <label for="middlename">Middle name</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="lastname" name="lastname" placeholder="">
+                                            <input type="text" class="form-control" id="lastname" name="lastname" placeholder="" value="<?= $lastname; ?>">
                                             <label for="lastname">Last name *</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-floating mb-3">
-                                            <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com">
+                                            <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" value="<?= $email; ?>">
                                             <label for="email">Email *</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-floating mb-3">
-                                            <input type="tel" inputmode="" class="form-control" id="phone" name="phone" placeholder="">
+                                            <input type="tel" inputmode="" class="form-control" id="phone" name="phone" placeholder="" value="<?= $phone; ?>">
                                             <label for="phone">Phone *</label>
                                         </div>
                                     </div>
@@ -257,25 +257,25 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-floating mb-3">
-                                            <input type="date" class="form-control" id="dob" name="dob" placeholder="">
+                                            <input type="date" class="form-control" id="dob" name="dob" placeholder="" value="<?= $dob; ?>">
                                             <label for="dob">Date of Birth *</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="region" name="region" placeholder="">
+                                            <input type="text" class="form-control" id="region" name="region" placeholder="" value="<?= $region; ?>">
                                             <label for="region">Region</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="city" name="city" placeholder="">
+                                            <input type="text" class="form-control" id="city" name="city" placeholder="" value="<?= $city; ?>">
                                             <label for="city">City</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="digitaladdress" name="digitaladdress" placeholder="">
+                                            <input type="text" class="form-control" id="digitaladdress" name="digitaladdress" placeholder="" value="<?= $digitaladdress; ?>">
                                             <label for="digitaladdress">Digital Address (optional)</label>
                                         </div>
                                     </div>
@@ -288,19 +288,19 @@
                                     <h4 class="mb-3 fw-light">School Details</h4>
                                     <div class="col-sm-12">
                                         <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="studentid" name="studentid" placeholder="">
+                                            <input type="text" class="form-control" id="studentid" name="studentid" placeholder="" value="<?= $studentid; ?>">
                                             <label for="studentid">Student ID *</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="programme" name="programme" placeholder="name@example.com">
+                                            <input type="text" class="form-control" id="programme" name="programme" placeholder="" value="<?= $programme; ?>">
                                             <label for="programme">Programme *</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-floating mb-3">
-                                            <input type="tel" class="form-control" id="department" name="department" placeholder="">
+                                            <input type="tel" class="form-control" id="department" name="department" placeholder="" value="<?= $department; ?>">
                                             <label for="department">Department *</label>
                                         </div>
                                     </div>
@@ -317,13 +317,13 @@
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-floating mb-3">
-                                            <input type="tel" class="form-control" id="admissionyear" name="admissionyear" placeholder="">
+                                            <input type="tel" class="form-control" id="admissionyear" name="admissionyear" placeholder="" value="<?= $admissionyear; ?>">
                                             <label for="admissionyear">Admission year *</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-floating mb-3">
-                                            <input type="number" min="0" class="form-control" id="level" name="level" placeholder="">
+                                            <input type="number" min="0" class="form-control" id="level" name="level" placeholder="" value="<?= $level; ?>">
                                             <label for="level">Level *</label>
                                         </div>
                                     </div>
@@ -335,11 +335,11 @@
                             <div id="step-3" class="d-none">
                                 <h4 class="mb-3 fw-light">Parent/Guardian Details</h4>
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="guardianfullname" name="guardianfullname" placeholder="">
+                                    <input type="text" class="form-control" id="guardianfullname" name="guardianfullname" placeholder="" value="<?= $guardianfullname; ?>">
                                     <label for="guardianfullname">Full name *</label>
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <input type="tel" inputmode="" class="form-control" id="guardianphonenumber" name="guardianphonenumber" placeholder="">
+                                    <input type="tel" inputmode="" class="form-control" id="guardianphonenumber" name="guardianphonenumber" placeholder="" value="<?= $guardianphonenumber; ?>">
                                     <label for="guardianphonenumber">Phone number *</label>
                                 </div>
                                 <button type="button" class="btn btn-lg btn-light icon-link icon-link-hover mb-0" id="prev-2">Back <i class="bi bi-arrow-left"></i></button>

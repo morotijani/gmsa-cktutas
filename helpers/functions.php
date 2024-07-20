@@ -26,7 +26,8 @@ function find_by_student_id($student_id) {
 	$statement->execute([$student_id]);
 	$count_rows = $statement->rowCount();
 
-	return $statement->fetchAll();
+	$row = $statement->fetchAll();
+	return (($count_rows > 0) ? $row[0] : '');
 }
 
 
@@ -42,7 +43,8 @@ function find_by_student_email($email) {
 	$statement->execute([$email]);
 	$count_rows = $statement->rowCount();
 
-	return $statement->fetchAll();
+	$row = $statement->fetchAll();
+	return (($count_rows > 0) ? $row[0] : '');
 }
 
 
