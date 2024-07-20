@@ -144,7 +144,7 @@
             $_SESSION['flash_success'] = 'Executive successfully added!';
             redirect(PROOT . 'admin/executives/all');
         } else {
-            $_SESSION['flash_error'] = 'Something went wrong, please try again';
+            $_SESSION['flash_error'] = 'Something went wrong, please try again!';
             redirect(PROOT . 'admin/executives/all');
         }
     }
@@ -281,7 +281,14 @@
                                     </div>
                                 </div>
                             <?php 
-                                elseif (isset($_GET['status']) && (($_GET['type'] == 'add' && $_GET['status'] == 'new'))): ?>
+                                elseif (isset($_GET['status']) && (($_GET['type'] == 'add' && $_GET['status'] == 'new'))):
+
+                                $findExecutive = find_executive_by_member_id($conn, $member_id);
+                                if (is_array($findExecutive)) {
+                                    $_SESSION['flash_error'] = 'Selected member is already added as an executive!';
+                                    redirect(PROOT . 'admin/members');
+                                }
+                            ?>
                                 <div class="card">
                                     <div class="card-body">
                                         <form method="POST" enctype="multipart/form-data">

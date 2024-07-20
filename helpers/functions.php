@@ -371,3 +371,16 @@ function get_positions($conn) {
 
     return (($statement->rowCount() > 0) ?  $rows : '');
 }
+
+// find executive by member id
+function find_executive_by_member_id($conn, $member_id) {
+	$sql = "
+        SELECT * FROM gmsa_executives 
+        WHERE member_id = ?
+    ";
+    $statement = $conn->prepare($sql);
+    $statement->execute([$member_id]);
+    $rows = $statement->fetchAll();
+
+    return (($statement->rowCount() > 0) ?  $rows : '');
+}
