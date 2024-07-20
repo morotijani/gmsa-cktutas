@@ -28,12 +28,13 @@ $search_query = ((isset($_POST['query'])) ? sanitize($_POST['query']) : '');
 $find_query = str_replace(' ', '%', $search_query);
 if ($search_query != '') {
 	$query .= '
-		AND (member_id LIKE "%'.$find_query.'%" 
+		AND (year_to = "'.$find_query.'" 
 		OR member_firstname LIKE "%'.$find_query.'%" 
 		OR member_middlename LIKE "%'.$find_query.'%" 
 		OR member_lastname LIKE "%'.$find_query.'%" 
 		OR member_programme LIKE "%'.$find_query.'%" 
 		OR member_level LIKE "%'.$find_query.'%" 
+		OR year_from = "'.$find_query.'" 
 		OR Position LIKE "%'.$find_query.'%") 
 	';
 } else {
