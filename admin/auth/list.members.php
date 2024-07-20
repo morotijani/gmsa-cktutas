@@ -183,7 +183,7 @@ if ($total_data > 0) {
 			                    </li>
 							</ul>
 							<div class="d-flex justify-content-between my-4">
-								<a class="btn btn-sm btn-dark" href="'.PROOT.'admin/executives/add/'.$row["member_id"].'">Add executive</a>&nbsp;
+								<a class="btn btn-sm btn-dark" href="'.PROOT.'admin/executives/add/new/'.$row["member_id"].'">Add executive</a>&nbsp;
 								<a class="btn btn-sm btn-primary" href="'.PROOT.'admin/members/edit/'.$row["member_id"].'">Edit</a>&nbsp;
 								<a class="btn btn-sm btn-warning" href="'.PROOT.'admin/members/delete/'.$row["member_id"].'">Delete</a>
 							</div>

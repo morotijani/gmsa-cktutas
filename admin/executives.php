@@ -282,7 +282,9 @@
                                         </table>
                                     </div>
                                 </div>
-                            <?php elseif ($_GET['type'] == 'add' || (isset($_GET['status']) && $_GET['status'] == 'edit_executive')): ?>
+                            <?php elseif (($_GET['type'] == 'add' && $_GET['status'] == 'new') && isset($_GET['status']) || ($_GET['status'] == 'edit_executive')):
+                                echo 'id' . $_GET['id'];
+                            ?>
                                 <div class="card">
                                     <div class="card-body">
                                         <form method="POST">
