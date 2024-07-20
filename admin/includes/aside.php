@@ -53,13 +53,13 @@
                             <a href="javascript:;" class="menu-link"><span class="menu-icon fa-solid fa-person-rays"></span> <span class="menu-text">Executives</span></a>
                             <ul class="menu">
                                 <li class="menu-item">
-                                    <a href="<?= PROOT; ?>admin/executives" class="menu-link">All</a>
+                                    <a href="<?= PROOT; ?>admin/executives/all" class="menu-link">All</a>
                                 </li>
                                 <li class="menu-item">
-                                    <a href="<?= PROOT; ?>admin/position" class="menu-link">Positions</a>
+                                    <a href="<?= PROOT; ?>admin/executives/position" class="menu-link">Positions</a>
                                 </li>
                                 <li class="menu-item">
-                                    <a href="<?= PROOT; ?>admin/executives?add=1" class="menu-link">Add new Executive</a>
+                                    <a href="<?= PROOT; ?>admin/executives/add" class="menu-link">Add new Executive</a>
                                 </li>
                             </ul>
                         </li>

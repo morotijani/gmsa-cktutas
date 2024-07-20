@@ -86,10 +86,10 @@
         }
     }
 
-$news_title = (isset($_POST['news_title']) ? sanitize($_POST['news_title']) : '');
+    $news_title = (isset($_POST['news_title']) ? sanitize($_POST['news_title']) : '');
     $news_category = (isset($_POST['news_category']) ? sanitize($_POST['news_category']) : '');
     $news_content = (isset($_POST['news_content']) ? $_POST['news_content'] : '');
-    $news_media = '';
+    $executive_media = '';
     $news_url = php_url_slug($news_title);
     $news_created_by = $admin_data['admin_id'];
 
@@ -217,8 +217,7 @@ $news_title = (isset($_POST['news_title']) ? sanitize($_POST['news_title']) : ''
                     </header>
                     <div class="page-section">
                         <?php if (isset($_GET['type'])): ?>
-                            <?php if ($_GET['type'] == ''): ?>
-                            <?php elseif ($_GET['type'] == 'position' || (isset($_GET['status']) && $_GET['status'] == 'edit_position')): ?>
+                            <?php if ($_GET['type'] == 'position' || (isset($_GET['status']) && $_GET['status'] == 'edit_position')): ?>
                                 <div class="container-fluid mt-4">
                                     <div class="card card-body">
                                         <form method="POST" action="<?= ((isset($_GET['status']) && $_GET['status'] == 'edit_position') ? '?edit_position=' . sanitize($_GET['id']) : ''); ?>">
@@ -288,15 +287,10 @@ $news_title = (isset($_POST['news_title']) ? sanitize($_POST['news_title']) : ''
                                     <div class="card-body">
                                         <form method="POST">
                                             <fieldset>
-                                                <legend>Update <?= $prayer_name; ?></legend>
+                                                <legend>Update</legend>
                                                 <div class="form-group">
                                                     <div class="form-label-group">
-                                                        <input type="text" class="form-control" id="prayer_name" name="prayer_name" placeholder="Prayer name" required="" value="<?= $prayer_name; ?>"> <label for="prayer_name">Prayer</label>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <div class="form-label-group">
-                                                        <input type="time" class="form-control" id="prayer_time" name="prayer_time" placeholder="Time" required="" value="<?= $prayer_time; ?>"> <label for="prayer_time">Time</label>
+                                                        <input type="text" class="form-control" id="prayer_name" name="prayer_name" placeholder="Prayer name" required=""> <label for="prayer_name">File</label>
                                                     </div>
                                                 </div>
 
@@ -304,11 +298,11 @@ $news_title = (isset($_POST['news_title']) ? sanitize($_POST['news_title']) : ''
                                                     <div class="form-label-group">
                                                         <select type="text" class="custom-select" name="news_category" id="news_category" required>
                                                            <option value="" <?= (($news_category == '') ? 'selected' : ''); ?>>...</option>
-                                                            <?php foreach ($Category->listCategory($conn) as $category_row): ?>
-                                                                <option value="<?= $category_row['category_id']; ?>" <?= (($news_category == $category_row['category_id']) ? 'selected' : ''); ?>><?= ucwords($category_row['category']); ?></option>
+                                                            <?php foreach ($position_rows as $position_row): ?>
+                                                                <option value="<?= $position_row['position_id']; ?>" <?= (($news_category == $position_row['position_id']) ? 'selected' : ''); ?>><?= ucwords($position_row['position']); ?></option>
                                                             <?php endforeach ?>
                                                         </select>
-                                                        <label for="news_category">Category</label>
+                                                        <label for="news_category">Position</label>
                                                     </div>
                                                 </div>
 
@@ -330,7 +324,7 @@ $news_title = (isset($_POST['news_title']) ? sanitize($_POST['news_title']) : ''
                                                 <input type="hidden" name="uploaded_executive_media" id="uploaded_executive_media" value="<?= $executive_media; ?>">
 
                                                 <div class="form-actions mb-2">
-                                                    <button type="submit" class="btn btn-secondary" name="submitNews" id="submitNews"><?= (isset($_GET['status']) && $_GET['status'] == 'edit_news') ? 'Update': 'Create'; ?> News</button>
+                                                    <button type="submit" class="btn btn-secondary" name="submitNews" id="submitNews"><?= (isset($_GET['status']) && $_GET['status'] == 'edit_news') ? 'Update': 'Create'; ?> executive</button>
                                                     <?php if (isset($_GET['status']) && $_GET['status'] == 'edit_news'): ?>
                                                         <br><br>
                                                         <a href="<?= PROOT; ?>admin/executive" class="btn">Cancel</a>
@@ -341,28 +335,28 @@ $news_title = (isset($_POST['news_title']) ? sanitize($_POST['news_title']) : ''
                                     </div>
                                 </div>
                             <?php else: ?>
-                            <div class="card card-fluid">
-                                <div class="card-header">
-                                    <ul class="nav nav-tabs card-header-tabs">
-                                        <li class="nav-item">
-                                            <a class="nav-link active" href="<?= PROOT; ?>admin/members">All (<?= $total_data; ?>)</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#tab2">Other</a>
-                                        </li>
-                                    </ul>
-                                </div>
-
-                                <div class="card-body">
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><span class="oi oi-magnifying-glass"></span></span>
-                                            </div>
-                                            <input type="text" id="search" class="form-control" placeholder="Search record">
-                                        </div>
+                                <div class="card card-fluid">
+                                    <div class="card-header">
+                                        <ul class="nav nav-tabs card-header-tabs">
+                                            <li class="nav-item">
+                                                <a class="nav-link active" href="<?= PROOT; ?>admin/members">All (<?= $total_data; ?>)</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="#tab2">Other</a>
+                                            </li>
+                                        </ul>
                                     </div>
-                                    <div id="load-content"></div>                                 
+
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><span class="oi oi-magnifying-glass"></span></span>
+                                                </div>
+                                                <input type="text" id="search" class="form-control" placeholder="Search record">
+                                            </div>
+                                        </div>
+                                        <div id="load-content"></div>                                 
                             <?php endif; ?>
                             <?php endif; ?>
                         </div>

@@ -66,27 +66,31 @@
                     </header>
                     <div class="page-section">
                         <div class="card card-fluid">
-                            <div class="card-header">
-                                <ul class="nav nav-tabs card-header-tabs">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" href="<?= PROOT; ?>admin/members">All (<?= $total_data; ?>)</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#tab2">Other</a>
-                                    </li>
-                                </ul>
-                            </div>
-
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><span class="oi oi-magnifying-glass"></span></span>
-                                        </div>
-                                        <input type="text" id="search" class="form-control" placeholder="Search record">
-                                    </div>
+                            <?php if (isset($_GET['edit']) && !empty($_GET['edit'])): ?>
+                            
+                            <?php else: ?>
+                                <div class="card-header">
+                                    <ul class="nav nav-tabs card-header-tabs">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" href="<?= PROOT; ?>admin/members">All (<?= $total_data; ?>)</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#tab2">Other</a>
+                                        </li>
+                                    </ul>
                                 </div>
-                                <div id="load-content"></div>                                 
+
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><span class="oi oi-magnifying-glass"></span></span>
+                                            </div>
+                                            <input type="text" id="search" class="form-control" placeholder="Search record">
+                                        </div>
+                                    </div>
+                                    <div id="load-content"></div>                                 
+                            <?php endif ?>
                         </div>
                     </div>
                 </div>
