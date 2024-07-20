@@ -289,8 +289,7 @@
                                 <?php elseif ($_GET['type'] == 'category' || (isset($_GET['status']) && $_GET['status'] == 'edit_category')): ?>
                                     <div class="container-fluid mt-4">
                                         <div>
-                                            <form method="POST" action="
-                                            <?= ((isset($_GET['status']) && $_GET['status'] == 'edit_category') ? '?edit_category=' . sanitize($_GET['id']) : ''); ?>">
+                                            <form method="POST" action="<?= ((isset($_GET['status']) && $_GET['status'] == 'edit_category') ? '?edit_category=' . sanitize($_GET['id']) : ''); ?>">
                                                 <div class="bg-danger text-center"><?= $message; ?></div>
                                                 <fieldset>
                                                     <legend>Category</legend>

@@ -1,239 +1,385 @@
 <?php 
     require_once ("../db_connection/conn.php");
+    if (!admin_is_logged_in()) {
+        admn_login_redirect();
+    }
+    include ("includes/head.php");
     include ("includes/header.php");
+    include ("includes/aside.php");
 
-    // DELETE A MEMBER PERMANENTLY
-    if (isset($_GET['permanent_delete']) && !empty($_GET['permanent_delete'])) {
-        $permanent_delete = (int)$_GET['permanent_delete'];
-        $permanent_delete = sanitize($permanent_delete);
+    $total_data = $conn->query("SELECT * FROM gmsa_executives WHERE status = 0")->rowCount();
 
-        $uploaded_passport_location = BASEURL . $_GET['uploaded_passport'];
-        $DEL = unlink($uploaded_passport_location);
+    $position_rows = get_positions($conn);
 
-        if ($DEL) {
-            $query = "
-                DELETE FROM tein_membership 
-                WHERE id = ?
-            ";
-            $statement = $conn->prepare($query);
-            $statement->execute([$permanent_delete]);
-            $_SESSION['flash_success'] = 'Member permanently <span class="bg-info">DELETED</span>';
-            redirect(PROOT . '.in/members');
+    $message = '';
+    $position = (isset($_POST['position']) ? sanitize($_POST['position']) : '');
+
+    // position edit
+    if ((isset($_GET['status']) && $_GET['status'] == 'edit_position')) {
+        $id = sanitize($_GET['id']);
+
+        $sql = "
+            SELECT * FROM gmsa_positions 
+            WHERE position_id = ? 
+            LIMIT 1
+        ";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$id]);
+        $row = $statement->fetchAll();
+        if ($statement->rowCount() > 0) {
+            $position =  (isset($_POST['position']) ? sanitize($_POST['position']) : $row[0]['position']);
+        } else {
+            echo js_alert('Something went wrong, please try again');
+            redirect(PROOT . 'admin/blog/position');
         }
     }
 
-    $query = "
-        SELECT * FROM tein_membership 
-        WHERE membership_executive = ? 
-        AND membership_trash = ?
-        ORDER BY id DESC 
-    ";
-    $statement = $conn->prepare($query);
-    $statement->execute(['Yes', 0]);
-    $result = $statement->fetchAll();
+    // ADD POSITION
+    if (isset($_POST['submit_position'])) {
+        if (!empty($position)) {
+            $check = $conn->query("SELECT * FROM gmsa_positions WHERE position = '".$position."'")->rowCount();
+            if (isset($_GET['status']) && $_GET['status'] == 'edit') {
+                $check = $conn->query("SELECT * FROM gmsa_positions WHERE position = '" . $position . "' AND position_id != " . $id . "")->rowCount();
+            }
+            if ($check > 0) {
+                $message = $position . ' already exists.';
+            } else {
+                $position_id = guidv4();
+
+                $q = "
+                    INSERT INTO gmsa_positions (position, position_id) 
+                    VALUES (?, ?)
+                ";
+                if (isset($_GET['status']) && $_GET['status'] == 'edit_position') {
+                    $position_id = $id;
+                    $q = "
+                        UPDATE gmsa_positions 
+                        SET position = ? 
+                        WHERE position_id = ?
+                    ";
+                }
+                $statement = $conn->prepare($q);
+                $result = $statement->execute([$position, $position_id]);
+                if (isset($result)) {
+                    $_SESSION['flash_success'] = ucwords($position) . ' successfully ' . ((isset($_GET['status']) && $_GET['status'] == 'edit_position') ? 'updated' : 'added') . '!';        
+                    redirect(PROOT . 'admin/blog/position');
+                } else {
+                    echo js_alert('Something went wrong, please try again');
+                    redirect(PROOT . 'admin/blog/position');
+                }
+            }
+        } else {
+            $message = 'Position name required!';
+        }
+    }
+
+    // DELETE A POSITION
+    if ((isset($_GET['type']) && $_GET['type'] == 'position') && (isset($_GET['status']) && $_GET['status'] == 'delete')) {
+        $delete = sanitize($_GET['id']);
+        $result = $conn->query("DELETE FROM gmsa_positions WHERE position_id = '".$delete."'")->execute();
+        if ($result) {
+            $_SESSION['flash_success'] = 'Position deleted!';            
+            redirect(PROOT . 'admin/blog/position');
+        } else {
+            echo js_alert('Something went wrong, please try again');
+            redirect(PROOT . 'admin/blog/position');
+        }
+    }
+
+$news_title = (isset($_POST['news_title']) ? sanitize($_POST['news_title']) : '');
+    $news_category = (isset($_POST['news_category']) ? sanitize($_POST['news_category']) : '');
+    $news_content = (isset($_POST['news_content']) ? $_POST['news_content'] : '');
+    $news_media = '';
+    $news_url = php_url_slug($news_title);
+    $news_created_by = $admin_data['admin_id'];
+
+    // news edit
+    if (isset($_GET['status']) && $_GET['status'] == 'edit_news') { 
+        $id = sanitize($_GET['id']);
+        $sql = "
+            SELECT * FROM gmsa_news 
+            WHERE news_id = ? 
+            LIMIT 1
+        ";
+        $statement = $conn->prepare($sql);
+        $statement->execute([$id]);
+        $row = $statement->fetchAll();
+        
+        if ($statement->rowCount() > 0) {
+            $news_title = (isset($_POST['news_title']) ? sanitize($_POST['news_title']) : $row[0]['news_title']);
+            $news_category = (isset($_POST['news_category']) ? sanitize($_POST['news_category']) : $row[0]['news_category']);
+            $news_content = (isset($_POST['news_content']) ? $_POST['news_content'] : $row[0]['news_content']);
+            $news_media = (($row[0]['news_media'] != '') ? $row[0]['news_media'] : '');
+        } else {
+            echo js_alert('Something went wrong, please try again');
+            redirect(PROOT . 'admin/blog/add');
+        }
+    }
+
+    if (isset($_POST['submitNews'])) {
+        // UPLOAD PASSPORT PICTURE TO uploadedprofile IF FIELD IS NOT EMPTY
+        if ($_POST['uploaded_news_media'] == '') {
+            if (!empty($_FILES)) {
+
+                $image_test = explode(".", $_FILES["news_media"]["name"]);
+                $image_extension = end($image_test);
+                $image_name = md5(microtime()).'.'.$image_extension;
+
+                $news_media = 'assets/media/news/'.$image_name;
+                move_uploaded_file($_FILES["news_media"]["tmp_name"], BASEURL . $news_media);
+                
+                if (isset($_POST['uploaded_image']) && $_POST['uploaded_image'] != '') {
+                    unlink($_POST['uploaded_image']);
+                }
+            } else {
+                $message = '<div class="alert alert-danger">Passport Picture Can not be Empty</div>';
+            }
+        } else {
+            $news_media = $_POST['uploaded_news_media'];
+        }
+
+        $news_id = guidv4();
+        $query = "
+            INSERT INTO `gmsa_news`(`news_title`, `news_url`, `news_content`, `news_media`, `news_category`, `news_created_by`, `news_id`) 
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+        ";
+        if (isset($_GET['status']) && $_GET['status'] == 'edit_news') {
+            $news_id = $id;
+            $query = "
+                UPDATE gmsa_news 
+                SET news_title = ?, news_url = ?,  news_content = ?,  news_media = ?,  news_category = ?, news_updated_by = ?
+                WHERE news_id = ?
+            ";
+        }
+        $statement = $conn->prepare($query);
+        $result = $statement->execute([$news_title, $news_url, $news_content, $news_media, $news_category, $news_created_by, $news_id]);
+        if (isset($result)) {
+            $_SESSION['flash_success'] = ucwords($news_title) . ' successfully ' . ((isset($_GET['status']) && $_GET['status'] == 'edit_news') ? 'updated' : 'added') . '!';
+            redirect(PROOT . 'admin/blog/all');
+        } else {
+            $_SESSION['flash_error'] = 'Something went wrong, please try again';
+            redirect(PROOT . 'admin/blog/all');
+        }
+    }
+
+
+    // DELETE A picture on edit news post
+    if ((isset($_GET['delete_np']) && !empty($_GET['delete_np'])) && (isset($_GET['image']) && !empty($_GET['image']))) {
+        $result = $News->deleteNewsMedia($conn, sanitize($_GET['delete_np']), sanitize($_GET['image']));
+        if ($result) {
+            $_SESSION['flash_success'] = 'Media deleted, upload new one!';            
+            redirect(PROOT . 'admin/blog/add/edit_news/' . sanitize($_GET['delete_np']));
+        } else {
+            $_SESSION['flash_error'] = 'Something went wrong, please try again';
+            redirect(PROOT . 'admin/blog/add/edit_news/' . sanitize($_GET['delete_np']));
+        }
+    }
+
+    // Delete news
+    if (isset($_GET['type']) && $_GET['type'] == 'add') {
+        if (isset($_GET['status']) && $_GET['status'] == 'delete') {
+            // code...
+            $delete = $News->deleteNews($conn, sanitize($_GET['id']));
+            if (isset($delete)) {
+                $_SESSION['flash_success'] = 'News deleted but temporary';
+                redirect(PROOT . 'admin/blog/all');
+            } else {
+                $_SESSION['flash_error'] = 'Something went wrong, please try again';
+                redirect(PROOT . 'admin/blog/all');
+            }
+        }
+    }
 ?> 
+    <main class="app-main">
+        <div class="wrapper">
+            <div class="page">
+                <?= $flash; ?>
+                <div class="page-inner">
 
-    <?= $flash; ?>
-    <div class="container-fluid">
-        <main style="background-color: rgb(51, 51, 51);">
-            <div class="row justify-content-center">
-                <div class="col-md-4">
-
-                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3" style="margin-top: 34px;">
-                        <h2 class="text-white" style="font-weight: 600; font-size: 20px; line-height: 28px;">TEIN . Executives</h2>
-                        <?php if (!admin_is_logged_in()): ?>
-                            <a href="<?= PROOT; ?>.in/auth/signin" class="btn btn-sm btn-outline-secondary" style="background: #333333;"> . Sign in</a>
-                        <?php else: ?>
-                            <a href="<?= PROOT; ?>.in/add.member" class="btn btn-sm btn-outline-secondary" style="background: #333333;"> + Add Member</a>
-                        <?php endif ?>
-                    </div>
-
-                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center p-3 my-3 text-white bg-purple rounded shadow-sm text-white user-banner">
-                        <div class="btn-group me-2">
-
-                            <img class="me-3" src="<?= PROOT; ?>dist/media/logo/logo.png" alt="" width="48" height="38">
-                            <div class="lh-1">
-                                <h1 class="h6 mb-0 text-white lh-1" style="font-size: 16px; white-space: nowrap; text-overflow: ellipsis; font-weight: 700;"><?= (!admin_is_logged_in()) ? 'TEIN - CKT-UTAS' : strtoupper($admin_data['admin_fullname']); ?></h1>
-                                <span style="font-size: 12px; line-height: 16px;"><?= (!admin_is_logged_in()) ? '@tein.cktutas.org' : $admin_data['admin_email']; ?></span><br>   
-                                <span style="align-items: center; flex-direction: row;">😎 signed in.</span>
-                            </div>
-                        </div>
-                        <div class="btn-toolbar mb-2 mb-md-0">
-                            <div class="btn-group me-2">
+                    <header class="page-title-bar">
+                        <div class="d-md-flex align-items-md-start">
+                            <h1 class="page-title mr-sm-auto"> Executives Table </h1>
+                            <div class="btn-toolbar">
+                                <button type="button" class="btn btn-light"><i class="oi oi-data-transfer-download"></i> <span class="ml-1">Export</span></button> <button type="button" class="btn btn-light"><i class="oi oi-data-transfer-upload"></i> <span class="ml-1">Import</span></button>
                                 <div class="dropdown">
-                                    <button  class="text-white" style="background-color: transparent; border: none;" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        ...
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="<?= PROOT; ?>executives">Refresh</a></li>
-                                        <li><a class="dropdown-item" href="<?= PROOT; ?>executives">Export</a></li>
-                                        <li><a class="dropdown-item" href="<?= PROOT; ?>positions">Position</a></li>
-                                        <li><a class="dropdown-item" href="<?= PROOT; ?>members">Members</a></li>
-                                        <li><a class="dropdown-item" href="<?= PROOT; ?>logout">Logout</a></li>
-                                    </ul>
+                                    <button type="button" class="btn btn-light" data-toggle="dropdown" aria-expanded="false"><span>More</span> <span class="fa fa-caret-down"></span></button>
+                                    <div class="dropdown-menu dropdown-menu-right" style="">
+                                        <div class="dropdown-arrow"></div>
+                                        <a href="<?= PROOT; ?>admin/executives/add" class="dropdown-item">Add executive</a> 
+                                        <a href="<?= PROOT; ?>admin/executives/position" class="dropdown-item">Add Position</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a href="<?= PROOT; ?>admin" class="dropdown-item">Dashboard</a> 
+                                        <a href="<?= goBack(); ?>" class="dropdown-item">Go back</a>
+                                    </div>
                                 </div>
                             </div>
-                            <a href="index" class="btn btn-sm btn-outline-secondary">
-                                Menu
-                            </a>
                         </div>
-                    </div>
-
-                </div>
-            </div>
-           
-
-            <div class="text-white w-100 h-100" style="z-index: 5; padding: 4px 0px; margin-bottom: 20px; transition: all 0.2s ease-in-out; background: #3B3B3B; border-radius: 4px; box-shadow: 0px 1.6px 3.6px rgb(0 0 0 / 25%), 0px 0px 2.9px rgb(0 0 0 / 22%);">
-                <div class="container-fluid mt-4">
-                    <div class="table-responsive">
-                         <table class="table table-sm text-white table-bordered">
-                            <thead>
-                                <tr style="color: #A7A7A7; font-weight: 700;">
-                                    <th></th>
-                                    <th>Membership Id</th>
-                                    <th>Student Id</th>
-                                    <th>First Name</th>
-                                    <th>Last Name</th>
-                                    <th>Email</th>
-                                    <th>Sex</th>
-                                    <th>Department</th>
-                                    <th>Programme</th>
-                                    <th>Level</th>
-                                    <th>Name of Hostel</th>
-                                    <th>WhatsApp Contact</th>
-                                    <th>Telephone Number</th>
-                                    <th>Passport</th>
-                                    <th>Registered Date</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $i = 1; foreach ($result as $row): ?>
-                                <tr>
-                                    <td><?= $i; ?></td>
-                                    <td>
-                                        <?= $row['membership_identity']; ?>
-                                        <?= ($row['membership_paid'] == 1) ? '<span class="badge bg-success">Paid</span>' : ''; ?>        
-                                        <?= ($row['membership_executive'] == 'Yes') ? '<span class="badge bg-info">' . ucwords($row["membership_position"]) . '</span>' : ''; ?>        
-                                    </td>
-                                    <td><?= $row['membership_student_id']; ?></td>
-                                    <td><?= ucwords($row['membership_fname']); ?></td>
-                                    <td><?= ucwords($row['membership_lname']); ?></td>
-                                    <td><?= $row['membership_email']; ?></td>
-                                    <td><?= ucwords($row['membership_sex']); ?></td>
-                                    <td><?= ucwords($row['membership_department']); ?></td>
-                                    <td><?= ucwords($row['membership_programme']); ?></td>
-                                    <td><?= ucwords($row['membership_level']); ?></td>
-                                    <td><?= ucwords($row['membership_name_of_hostel']); ?></td>
-                                    <td><?= $row['membership_whatsapp_contact']; ?></td>
-                                    <td><?= $row['membership_telephone_number']; ?></td>
-                                    <td>
-                                        <a href="<?= PROOT . $row['membership_passport']; ?>" target="_blank">
-                                            <img src="<?= PROOT . $row['membership_passport']; ?>" width="100" height="100" class="img-thumbnail">  
-                                        </a>
-                                    </td>
-                                    <td><?= pretty_date_notime($row['membership_registered_date']); ?></td>
-                                    <td>
-                                        <a class="badge bg-dark text-decoration-none" href="javascript:;" data-bs-toggle="modal" data-bs-target="#memberModal<?= $row['id']; ?>">Details</a>
-                                        <?php if (admin_is_logged_in()): ?>
-                                            <a class="badge bg-secondary text-decoration-none" href="<?= PROOT; ?>.in/add.member?edit=1&id=<?= $row['id']; ?>">Edit</a>
-                                            <!-- <a class="badge bg-danger text-decoration-none" href="<?= PROOT; ?>members?delete=1&id=<?= $row['id']; ?>">Delete</a> -->
-                                            <a class="badge bg-danger text-decoration-none" href="<?= PROOT; ?>.in/members?permanent_delete=<?= $row['id']; ?>&uploaded_passport=<?= $row['membership_passport']; ?>">Delete</a>
-                                        <?php endif ?>
-
-                                        <div class="modal fade" id="memberModal<?= $row['id']; ?>" tabindex="-1" aria-labelledby="memberModalLabel<?= $row['id']; ?>" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered">
-                                                <div class="modal-content" style="background: #3B3B3B;">
-                                                    <div class="modal-body text-center">
-                                                        <div>
-                                                            <?= ($row['membership_paid'] == 1) ? '<span class="badge bg-success mb-2">Paid</span>' : ''; ?>        
-                                                            <?= ($row['membership_executive'] == 'Yes') ? '<span class="badge bg-info mb-2">' . ucwords($row["membership_position"]) . '</span>' : ''; ?>
-                                                        </div>
-                                                        <img src="<?= PROOT . $row['membership_passport']; ?>" alt="" class="img-fluid rounded" style="height: 200px; width: auto; margin: 0 auto;">
-                                                        <table class="table table-sm table-bordered mt-3" style="width: auto; margin: 0 auto;">
-                                                            <tr class="text-white">
-                                                                <td style="color: #A7A7A7; font-weight: 700;">Identity</td>
-                                                                <td><?= $row['membership_identity']; ?></td>
-                                                            </tr>
-                                                            <tr class="text-white">
-                                                                <td style="color: #A7A7A7; font-weight: 700;">Full name</td>
-                                                                <td><?= ucwords($row['membership_fname'] . ' ' . $row['membership_lname']); ?></td>
-                                                            </tr>
-                                                            <tr class="text-white">
-                                                                <td style="color: #A7A7A7; font-weight: 700;">Email</td>
-                                                                <td><?= $row['membership_email']; ?></td>
-                                                            </tr>
-                                                            <tr class="text-white">
-                                                                <td style="color: #A7A7A7; font-weight: 700;">Sex</td>
-                                                                <td><?= ucwords($row['membership_sex']); ?></td>
-                                                            </tr>
-                                                            <tr class="text-white">
-                                                                <td style="color: #A7A7A7; font-weight: 700;">School</td>
-                                                                <td><?= ucwords($row['membership_school']); ?></td>
-                                                            </tr>
-                                                            <tr class="text-white">
-                                                                <td style="color: #A7A7A7; font-weight: 700;">Department</td>
-                                                                <td><?= ucwords($row['membership_department']); ?></td>
-                                                            </tr>
-                                                            <tr class="text-white">
-                                                                <td style="color: #A7A7A7; font-weight: 700;">Programme</td>
-                                                                <td><?= ucwords($row['membership_programme']); ?></td>
-                                                            </tr>
-                                                            <tr class="text-white">
-                                                                <td style="color: #A7A7A7; font-weight: 700;">Level</td>
-                                                                <td><?= ucwords($row['membership_level']); ?></td>
-                                                            </tr>
-                                                            <tr class="text-white">
-                                                                <td style="color: #A7A7A7; font-weight: 700;">Year of Admission</td>
-                                                                <td><?= $row['membership_yoa']; ?></td>
-                                                            </tr>
-                                                            <tr class="text-white">
-                                                                <td style="color: #A7A7A7; font-weight: 700;">Year of Completion</td>
-                                                                <td><?= $row['membership_yoc']; ?></td>
-                                                            </tr>
-                                                            <tr class="text-white">
-                                                                <td style="color: #A7A7A7; font-weight: 700;">Name of Hostel</td>
-                                                                <td><?= ucwords($row['membership_name_of_hostel']); ?></td>
-                                                            </tr>
-                                                            <tr class="text-white">
-                                                                <td style="color: #A7A7A7; font-weight: 700;">Region</td>
-                                                                <td><?= ucwords($row['membership_region']); ?></td>
-                                                            </tr>
-                                                            <tr class="text-white">
-                                                                <td style="color: #A7A7A7; font-weight: 700;">Constituency</td>
-                                                                <td><?= ucwords($row['membership_constituency']); ?></td>
-                                                            </tr>
-                                                            <tr class="text-white">
-                                                                <td style="color: #A7A7A7; font-weight: 700;">WhatsApp Contact</td>
-                                                                <td><?= $row['membership_whatsapp_contact']; ?></td>
-                                                            </tr>
-                                                            <tr class="text-white">
-                                                                <td style="color: #A7A7A7; font-weight: 700;">Telephone Number</td>
-                                                                <td><?= $row['membership_telephone_number']; ?></td>
-                                                            </tr>
-                                                            <tr class="text-white">
-                                                                <td style="color: #A7A7A7; font-weight: 700;">Card Type</td>
-                                                                <td><?= $row['membership_card_type']; ?></td>
-                                                            </tr>
-                                                        </table>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                        <button type="button" class="btn btn-primary">Print</button>
+                    </header>
+                    <div class="page-section">
+                        <?php if (isset($_GET['type'])): ?>
+                            <?php if ($_GET['type'] == ''): ?>
+                            <?php elseif ($_GET['type'] == 'position' || (isset($_GET['status']) && $_GET['status'] == 'edit_position')): ?>
+                                <div class="container-fluid mt-4">
+                                    <div class="card card-body">
+                                        <form method="POST" action="<?= ((isset($_GET['status']) && $_GET['status'] == 'edit_position') ? '?edit_position=' . sanitize($_GET['id']) : ''); ?>">
+                                            <div class="bg-danger text-center"><?= $message; ?></div>
+                                            <fieldset>
+                                                <legend>Position</legend>
+                                                <div class="form-group">
+                                                    <div class="form-label-group">
+                                                        <input type="text" class="form-control" id="position" name="position" placeholder="Position name" required="" value="<?= $position; ?>"> <label for="position">Position</label>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
+                                                <div class="form-actions">
+                                                    <button type="submit" class="btn btn-success" name="submit_position" id="submit_position"><?= (isset($_GET['status']) && $_GET['status'] == 'edit_position') ? 'Update': 'Add'; ?> position</button>
+                                                    <?php if ((isset($_GET['status']) && $_GET['status'] == 'edit_position')): ?>
+                                                        <a href="<?= PROOT; ?>admin/blog/position" class="btn">Cancel</a>
+                                                    <?php endif; ?>
+                                                </div>
+                                            </fieldset>
+                                        </form>
+                                        <br>
+                                        <table class="table text-center">
+                                            <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th>Position</th>
+                                                    <th>Date</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>                                            
+                                                <?php if (is_array($position_rows)): ?>
+                                                    <?php $i = 1; foreach ($position_rows as $position_row): ?>
+                                                        <tr>
+                                                            <td><?= $i; ?></td>
+                                                            <td><?= ucwords($position_row['position']); ?></td>
+                                                            <td><?= pretty_date($position_row['createdAt']); ?></td>
+                                                        </tr>
+                                                    <?php endforeach ?>
+                                                <?php else: ?>
+                                                    <tr>
+                                                        <td colspan="4">No positions found!</td>
+                                                    </tr>
+                                                <?php endif ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            <?php elseif ($_GET['type'] == 'add' || (isset($_GET['status']) && $_GET['status'] == 'edit_executive')): ?>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <form method="POST">
+                                            <fieldset>
+                                                <legend>Update <?= $prayer_name; ?></legend>
+                                                <div class="form-group">
+                                                    <div class="form-label-group">
+                                                        <input type="text" class="form-control" id="prayer_name" name="prayer_name" placeholder="Prayer name" required="" value="<?= $prayer_name; ?>"> <label for="prayer_name">Prayer</label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="form-label-group">
+                                                        <input type="time" class="form-control" id="prayer_time" name="prayer_time" placeholder="Time" required="" value="<?= $prayer_time; ?>"> <label for="prayer_time">Time</label>
+                                                    </div>
+                                                </div>
 
-                                    </td>
-                                <?php $i++; endforeach; ?>
-                                </tr>
-                            </tbody>
-                        </table>
+                                                <div class="form-group">
+                                                    <div class="form-label-group">
+                                                        <select type="text" class="custom-select" name="news_category" id="news_category" required>
+                                                           <option value="" <?= (($news_category == '') ? 'selected' : ''); ?>>...</option>
+                                                            <?php foreach ($Category->listCategory($conn) as $category_row): ?>
+                                                                <option value="<?= $category_row['category_id']; ?>" <?= (($news_category == $category_row['category_id']) ? 'selected' : ''); ?>><?= ucwords($category_row['category']); ?></option>
+                                                            <?php endforeach ?>
+                                                        </select>
+                                                        <label for="news_category">Category</label>
+                                                    </div>
+                                                </div>
+
+                                                <?php if ($executive_media != ''): ?>
+                                                <div class="mb-3">
+                                                    <label>Executive Image</label><br>
+                                                    <img src="<?= PROOT . $executive_media; ?>" class="img-fluid img-thumbnail" style="width: 200px; height: 200px; object-fit: cover;">
+                                                    <a href="<?= PROOT; ?>admin/executive?delete_np=<?= $_GET['id']; ?>&image=<?= $executive_media; ?>" class="badge bg-danger">Change Image</a>
+                                                </div>
+                                                <?php else: ?>
+                                                <div class="mb-3">
+                                                    <div>
+                                                        <label for="executive_media" class="form-label">Featured news image</label>
+                                                        <input type="file" class="form-control" id="executive_media" name="executive_media" required>
+                                                        <span id="upload_file"></span>
+                                                    </div>
+                                                </div>
+                                                <?php endif; ?>
+                                                <input type="hidden" name="uploaded_executive_media" id="uploaded_executive_media" value="<?= $executive_media; ?>">
+
+                                                <div class="form-actions mb-2">
+                                                    <button type="submit" class="btn btn-secondary" name="submitNews" id="submitNews"><?= (isset($_GET['status']) && $_GET['status'] == 'edit_news') ? 'Update': 'Create'; ?> News</button>
+                                                    <?php if (isset($_GET['status']) && $_GET['status'] == 'edit_news'): ?>
+                                                        <br><br>
+                                                        <a href="<?= PROOT; ?>admin/executive" class="btn">Cancel</a>
+                                                    <?php endif ?>
+                                                </div>
+                                            </fieldset>
+                                        </form>
+                                    </div>
+                                </div>
+                            <?php else: ?>
+                            <div class="card card-fluid">
+                                <div class="card-header">
+                                    <ul class="nav nav-tabs card-header-tabs">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" href="<?= PROOT; ?>admin/members">All (<?= $total_data; ?>)</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#tab2">Other</a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><span class="oi oi-magnifying-glass"></span></span>
+                                            </div>
+                                            <input type="text" id="search" class="form-control" placeholder="Search record">
+                                        </div>
+                                    </div>
+                                    <div id="load-content"></div>                                 
+                            <?php endif; ?>
+                            <?php endif; ?>
+                        </div>
                     </div>
                 </div>
             </div>
-               
         </main>
     </div>
 <?php include ("includes/footer.php"); ?>
+<script type="text/javascript">
+     // SEARCH AND PAGINATION FOR LIST
+    function load_data(page, query = '') {
+        $.ajax({
+            url : "<?= PROOT; ?>admin/auth/list.members.php",
+            method : "POST",
+            data : {
+                page : page, 
+                query : query
+            },
+            success : function(data) {
+                $("#load-content").html(data);
+            }
+        });
+    }
+
+    load_data(1);
+    $('#search').keyup(function() {
+        var query = $('#search').val();
+        load_data(1, query);
+    });
+
+    $(document).on('click', '.page-link-go', function() {
+        var page = $(this).data('page_number');
+        var query = $('#search').val();
+        load_data(page, query);
+    });
+</script>
