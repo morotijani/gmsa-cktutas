@@ -9,6 +9,8 @@
     $Category = new Category;
     $News = new News;
 
+    $total_data = $conn->query("SELECT * FROM gmsa_news WHERE status = 0")->rowCount();
+
     $message = '';
     // CATEGORY
     $category = (isset($_POST['category']) ? sanitize($_POST['category']) : '');
@@ -243,27 +245,27 @@
 
                             <?php if (isset($_GET['type'])): ?>
                                 <?php if ($_GET['type'] == 'all'): ?>
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th></th>
-                                                    <th>Heading</th>
-                                                    <th>Category</th>
-                                                    <th>Views</th>
-                                                    <th>Date</th>
-                                                    <th>Added by</th>
-                                                    <th></th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>                                            
-                                                <?php 
-                                                    echo $News->allNews($conn, 0);
-                                                ?>
-                                            </tbody>
-                                        </table>
+                                    <div class="card-header">
+                                        <ul class="nav nav-tabs card-header-tabs">
+                                            <li class="nav-item">
+                                                <a class="nav-link active" href="<?= PROOT; ?>admin/blog/all">All (<?= $total_data; ?>)</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="<?= PROOT; ?>admin/blog/archive">Archive</a>
+                                            </li>
+                                        </ul>
                                     </div>
+
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><span class="oi oi-magnifying-glass"></span></span>
+                                                </div>
+                                                <input type="text" id="search" class="form-control" placeholder="Search record">
+                                            </div>
+                                        </div>
+                                        <div id="load-content"></div>
                                 <?php elseif ($_GET['type'] == 'archive'): ?>
                                     <div class="table-responsive">
                                         <table class="table">
@@ -279,7 +281,7 @@
                                                     <th></th>
                                                 </tr>
                                             </thead>
-                                            <tbody>                                            
+                                            <tbody>                                    
                                                 <?php 
                                                     echo $News->allNews($conn, 1);
                                                 ?>
@@ -408,44 +410,33 @@
      
         $(document).ready(function() {
 
-            // Upload IMAGE Temporary
-            $(document).on('change','#passport', function() {
+            // SEARCH AND PAGINATION FOR LIST
+            function load_data(page, query = '') {
+                $.ajax({
+                    url : "<?= PROOT; ?>admin/auth/list.blog.php",
+                    method : "POST",
+                    data : {
+                        page : page, 
+                        query : query
+                    },
+                    success : function(data) {
+                        $("#load-content").html(data);
+                    }
+                });
+            }
 
-                var property = document.getElementById("passport").files[0];
-                var image_name = property.name;
-
-                var image_extension = image_name.split(".").pop().toLowerCase();
-                if (jQuery.inArray(image_extension, ['jpeg', 'png', 'jpg']) == -1) {
-                    alert("The file extension must be .jpg, .png, .jpeg");
-                    $('#passport').val('');
-                    return false;
-                }
-
-                var image_size = property.size;
-                if (image_size > 15000000) {
-                    alert('The file size must be under 15MB');
-                    return false;
-                } else {
-
-                    var form_data = new FormData();
-                    form_data.append("passport", property);
-                    $.ajax({
-                        url: "<?= PROOT; ?>.in/auth/temporary.upload.php",
-                        method: "POST",
-                        data: form_data,
-                        contentType: false,
-                        cache: false,
-                        processData: false,
-                        beforeSend: function() {
-                            $("#upload_file").html("<div class='text-success font-weight-bolder'>Uploading member image ...</div>");
-                        },
-                        success: function(data) {
-                            $("#upload_file").html(data);
-                            $('#passport').css('visibility', 'hidden');
-                        }
-                    });
-                }
+            load_data(1);
+            $('#search').keyup(function() {
+                var query = $('#search').val();
+                load_data(1, query);
             });
+
+            $(document).on('click', '.page-link-go', function() {
+                var page = $(this).data('page_number');
+                var query = $('#search').val();
+                load_data(page, query);
+            });
+
 
             // DELETE TEMPORARY UPLOADED IMAGE
             $(document).on('click', '.removeImg', function() {

@@ -4,13 +4,13 @@
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-30D5JFLRFW"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
 
-      gtag('config', 'G-30D5JFLRFW');
+        gtag('config', 'G-30D5JFLRFW');
     </script>
-    
+
     <title><?= $TITLE; ?> - GMSA CKTUTAS</title>
 
     <!-- Meta Tags -->
@@ -20,7 +20,7 @@
     <meta name="author" content="GMSA CKTUTAS /  IT&PUBLICITY COMMITTEE">
     <meta property="og:locale" content="en_US">
     <meta name="description" content="Ghana Muslime Student Association, CKT-UTAS">
-    <meta property="og:description" content="Responsive admin theme build on top of Bootstrap 4">
+    <meta property="og:description" content="Ghana Muslime Student Association, CKT-UTAS">
     <link rel="canonical" href="https://gmsacktutas.org">
     <meta property="og:url" content="https://gmsacktutas.org">
     <meta property="og:site_name" content="GMSA - CKTUTAS">
