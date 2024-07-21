@@ -32,6 +32,7 @@
     // edit a member
     if (isset($_GET['type']) && $_GET['type'] == 'edit' && !empty($_GET['id'])) {
         $id = sanitize($_GET['id']);
+        $member_media = '';
 
         $member = find_by_member_id($id);
         if (is_array($member)) {
@@ -54,9 +55,30 @@
             $level = (isset($_POST['level']) ? $post['level'] : $member['member_level']);
             $guardianfullname = (isset($_POST['guardianfullname']) ? $post['guardianfullname'] : $member['member_guardianfullname']);
             $guardianphonenumber = (isset($_POST['guardianphonenumber']) ? $post['guardianphonenumber'] : $member['member_guardianphonenumber']);
+            $member_media = $member_row['member_picture'];
 
             if (isset($_POST['firstname'])) {
                 // code...
+
+                if ($_POST['uploaded_member_media'] == '') {
+                    if (!empty($_FILES)) {
+
+                        $image_test = explode(".", $_FILES["member_media"]["name"]);
+                        $image_extension = end($image_test);
+                        $image_name = md5(microtime()) . '.' . $image_extension;
+
+                        $member_media = 'assets/media/members/' . $image_name;
+                        move_uploaded_file($_FILES["member_media"]["tmp_name"], BASEURL . $member_media);
+                        
+                        if (isset($_POST['uploaded_image']) && $_POST['uploaded_image'] != '') {
+                            unlink($_POST['uploaded_image']);
+                        }
+                    } else {
+                        $message = '<div class="alert alert-danger">Picture cannot be empty!</div>';
+                    }
+                } else {
+                    $member_media = $_POST['uploaded_member_media'];
+                }
 
                 $sql = "
                     UPDATE `gmsa_members` 
@@ -145,6 +167,22 @@
                                         <legend>Edit <?= $firstname; ?></legend>
 
                                         <h4 class="mb-3 fw-light">Personal Details</h4>
+                                         <?php if ($member_media != ''): ?>
+                                        <div class="mb-3">
+                                            <label>Executive Image</label><br>
+                                            <img src="<?= PROOT . $member_media; ?>" class="img-fluid img-thumbnail" style="width: 200px; height: 200px; object-fit: cover;">
+                                            <a href="<?= PROOT; ?>admin/members?delete_np=<?= $_GET['id']; ?>&image=<?= $member_media; ?>" class="badge bg-danger">Change Image</a>
+                                        </div>
+                                        <?php else: ?>
+                                        <div class="mb-3">
+                                            <div>
+                                                <label for="member_media" class="form-label">Upload image</label>
+                                                <input type="file" class="form-control" id="member_media" name="member_media" required>
+                                                <span id="upload_file"></span>
+                                            </div>
+                                        </div>
+                                        <?php endif; ?>
+                                        <input type="hidden" name="uploaded_member_media" id="uploaded_member_media" value="<?= $member_media; ?>">
                                         <div class="row g-3">
                                             <div class="col-sm-4">
                                                 <div class="form-group">
@@ -388,30 +426,94 @@
     </div>
 <?php include ("includes/footer.php"); ?>
 <script type="text/javascript">
-     // SEARCH AND PAGINATION FOR LIST
-    function load_data(page, query = '') {
-        $.ajax({
-            url : "<?= PROOT; ?>admin/auth/list.members.php",
-            method : "POST",
-            data : {
-                page : page, 
-                query : query
-            },
-            success : function(data) {
-                $("#load-content").html(data);
+    $(document).ready(function() {
+
+        // SEARCH AND PAGINATION FOR LIST
+        function load_data(page, query = '') {
+            $.ajax({
+                url : "<?= PROOT; ?>admin/auth/list.members.php",
+                method : "POST",
+                data : {
+                    page : page, 
+                    query : query
+                },
+                success : function(data) {
+                    $("#load-content").html(data);
+                }
+            });
+        }
+
+        load_data(1);
+        $('#search').keyup(function() {
+            var query = $('#search').val();
+            load_data(1, query);
+        });
+
+        $(document).on('click', '.page-link-go', function() {
+            var page = $(this).data('page_number');
+            var query = $('#search').val();
+            load_data(page, query);
+        });
+
+                // DELETE TEMPORARY UPLOADED IMAGE
+        $(document).on('click', '.removeImg', function() {
+            var tempuploded_file_id = $(this).attr('id');
+
+            $.ajax ({
+                url: "<?= PROOT; ?>admin/auth/delete.temporary.uploaded.php",
+                method: "POST",
+                data:{
+                    tempuploded_file_id : tempuploded_file_id
+                },
+                success: function(data) {
+                    $('#removeTempuploadedFile').remove();
+                    $('#passport').css('visibility', 'visible');
+                    $('#passport').val('');
+
+                    $('#member_media').css('visibility', 'visible');
+                    $('#member_media').val('');
+                }
+            });
+        });
+
+
+        // Upload IMAGE Temporary
+        $(document).on('change','#member_media', function() {
+
+            var property = document.getElementById("member_media").files[0];
+            var image_name = property.name;
+
+            var image_extension = image_name.split(".").pop().toLowerCase();
+            if (jQuery.inArray(image_extension, ['jpeg', 'png', 'jpg', 'gif']) == -1) {
+                alert("The file extension must be .jpg, .png, .jpeg, .gif");
+                $('#member_media').val('');
+                return false;
+            }
+
+            var image_size = property.size;
+            if (image_size > 15000000) {
+                alert('The file size must be under 15MB');
+                return false;
+            } else {
+
+                var form_data = new FormData();
+                form_data.append("member_media", property);
+                $.ajax({
+                    url: "<?= PROOT; ?>admin/auth/temporary.upload.executive.php",
+                    method: "POST",
+                    data: form_data,
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    beforeSend: function() {
+                        $("#upload_file").html("<div class='text-success font-weight-bolder'>Uploading news image ...</div>");
+                    },
+                    success: function(data) {
+                        $("#upload_file").html(data);
+                        $('#member_media').css('visibility', 'hidden');
+                    }
+                });
             }
         });
-    }
-
-    load_data(1);
-    $('#search').keyup(function() {
-        var query = $('#search').val();
-        load_data(1, query);
-    });
-
-    $(document).on('click', '.page-link-go', function() {
-        var page = $(this).data('page_number');
-        var query = $('#search').val();
-        load_data(page, query);
-    });
+    })
 </script>
