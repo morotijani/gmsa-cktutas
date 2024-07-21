@@ -60,6 +60,7 @@ if ($total_data > 0) {
                     <div class="col-md-8">
                         <div class="card-body d-flex flex-column h-100 ps-0 pe-3">
                             <div><span class="badge text-bg-dark mb-3">'.ucwords($row['category']).'</span></div>
+                            <small>'.$row["news_views"].' views</small>
                             <h5 class="card-title mb-3 mb-md-0">'.$row["news_title"].'</h5>
                             <div class="d-sm-flex justify-content-between align-items-center mt-auto">
                                 <p class="mb-2 heading-color fw-semibold">By '.ucwords($row['admin_fullname']).'</p>
