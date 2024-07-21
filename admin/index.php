@@ -91,7 +91,7 @@
                     <div class="page-section">
                         <div class="section-block">
                             <div class="metric-row">
-                                <div class="col-lg-9">
+                                <div class="col-lg-<?= ((!admin_has_permission()) ? '12' : '9'); ?>">
                                     <div class="metric-row metric-flush">
                                         <div class="col">
                                             <a href="<?= PROOT; ?>admin/members" class="metric metric-bordered align-items-center">
@@ -119,17 +119,20 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-3">
-                                    <a href="<?= PROOT; ?>admin/dues" class="metric metric-bordered">
-                                        <div class="metric-badge">
-                                            <span class="badge badge-lg badge-success"><span class="oi oi-media-record pulse mr-1"></span> PAID DUES THIS YEAR</span>
-                                        </div>
-                                        <p class="metric-value h3">
-                                            <sub><i class="fa fa-money-bill-trend-up"></i></sub> <span class="value"><?= total_dues_this_year($conn); ?></span>
-                                        </p>
-                                    </a>
-                                </div>
+                                <?php if (admin_has_permission()): ?>
+                                    <div class="col-lg-3">
+                                        <a href="<?= PROOT; ?>admin/dues" class="metric metric-bordered">
+                                            <div class="metric-badge">
+                                                <span class="badge badge-lg badge-success"><span class="oi oi-media-record pulse mr-1"></span> PAID DUES THIS YEAR</span>
+                                            </div>
+                                            <p class="metric-value h3">
+                                                <sub><i class="fa fa-money-bill-trend-up"></i></sub> <span class="value"><?= total_dues_this_year($conn); ?></span>
+                                            </p>
+                                        </a>
+                                    </div>
+                                <?php endif ?>
                             </div>
+                            <?php if (admin_has_permission()): ?>
                             <div class="card card-body">
                                 <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
                             </div>
@@ -173,6 +176,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <?php endif ?>
 
                         </div>
 
@@ -182,6 +186,7 @@
         </div>
     <?php include ("includes/footer.php"); ?>
     <script type="text/javascript" src="<?= PROOT; ?>assets/js/Chart.min.js"></script>
+    <?php if (admin_has_permission()): ?>
     <script>
     (function () {
     'use strict'
@@ -254,3 +259,4 @@
 })()
 
 </script>
+<?php endif; ?>

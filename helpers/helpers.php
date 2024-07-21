@@ -1091,7 +1091,7 @@ function get_admin_profile($admin_id) {
 	$query = "
 		SELECT * FROM gmsa_admin 
 		WHERE admin_id = ?
-        AND admin_trash = ? 
+        AND admin_status = ? 
 		LIMIT 1
 	";
 	$statement = $conn->prepare($query);
