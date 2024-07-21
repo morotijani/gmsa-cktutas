@@ -3,6 +3,7 @@
     if (!admin_is_logged_in()) {
         admn_login_redirect();
     }
+
     // check for permissions
     if (!admin_has_permission()) {
         admin_permission_redirect('index');
@@ -11,9 +12,6 @@
     include ("includes/head.php");
     include ("includes/header.php");
     include ("includes/aside.php");
-
-
-
 
     // delete admin
     if (isset($_GET['delete'])) {
@@ -28,14 +26,14 @@
         $result = $statement->execute([1, $admin_id]);
         if (isset($result)) {
 
-            $message = "delete an admin with id " . $admin_id . "";
-            add_to_log($message, $admin_data['admin_id']);
+            // $message = "delete an admin with id " . $admin_id . "";
+            // add_to_log($message, $admin_data['admin_id']);
 
             $_SESSION['flash_success'] = 'Admin has been deleted!';
-            redirect(PROOT . "acc/admins");
+            redirect(PROOT . "admin/admins");
         } else {
             echo js_alert("Something went wrong!");
-            redirect(PROOT . "acc/admins");
+            redirect(PROOT . "admin/admins");
         }
     }
 
@@ -78,14 +76,14 @@
                 $result = $statement->execute($data);
                 if (isset($result)) {
 
-                    $message = "added new admin ".ucwords($admin_fullname)." as a ".strtoupper($admin_permissions)."";
-                    add_to_log($message, $admin_data['admin_id']);
+                    // $message = "added new admin ".ucwords($admin_fullname)." as a ".strtoupper($admin_permissions)."";
+                    // add_to_log($message, $admin_data['admin_id']);
 
                     $_SESSION['flash_success'] = 'Admin has been Added!';
-                    redirect(PROOT . "acc/admins");
+                    redirect(PROOT . "admin/admins");
                 } else {
                     echo js_alert("Something went wrong!");
-                    redirect(PROOT . "acc/admins?add=1");
+                    redirect(PROOT . "admin/admins?add=1");
                 }
             }
         }
@@ -103,7 +101,7 @@
                             <h1 class="page-title mr-sm-auto"> Admins </h1>
                             <div class="btn-toolbar">
                                 <?php if (!isset($_GET['add'])): ?>
-                                    <a href="<?= PROOT . 'admin/admins?add=1'; ?>" class="btn btn-light"> <span class="ml-1">Add admin</span></a>&nbsp;
+                                    <a href="<?= PROOT . 'admin/admins?add=1'; ?>" class="btn btn-light"> <span class="ml-1">+ Add admin</span></a>&nbsp;
                                 <?php endif ?>
                                 <a href="<?= goBack(); ?>" class="btn btn-light"> <span class="ml-1">Go back</span></a>
                             </div>

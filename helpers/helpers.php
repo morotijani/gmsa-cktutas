@@ -652,13 +652,13 @@ function admin_is_logged_in(){
 // Redirect admin if !logged in
 function admn_login_redirect($url = 'login') {
 	$_SESSION['flash_error'] = 'You must be logged in to access that page!';
-	redirect(PROOT . 'admin/auth/' . $url);
+	redirect(PROOT . 'admin/' . $url);
 }
 
 // Redirect admin if do not have permission
 function admin_permission_redirect($url = 'login') {
 	$_SESSION['flash_error'] = 'You do not have permission in to access that page!';
-	redirect(PROOT . 'admin/auth/' . $url);
+	redirect(PROOT . 'admin/' . $url);
 }
 
 function admin_has_permission($permission = 'admin') {
@@ -1052,7 +1052,7 @@ function get_all_admins() {
     foreach ($result as $row) {
         $admin_last_login = $row["admin_last_login"];
         if ($admin_last_login == NULL) {
-            $admin_last_login = '<span class="text-secondary">Never</span>';
+            $admin_last_login = '<span class="text-muted">Never</span>';
         } else {
             $admin_last_login = pretty_date($admin_last_login);
         }
@@ -1063,7 +1063,7 @@ function get_all_admins() {
                     
         if ($row['admin_id'] != $admin_data['admin_id']) {
             $output .= '
-                <a href="' . PROOT . 'admin/admins?delete='.$row["admin_id"].'" class="btn btn-sm btn-neutral"><i class="bi bi-trash3"></i></a>
+                <a href="' . PROOT . 'admin/admins?delete='.$row["admin_id"].'" class="btn btn-secondary"><i class="far fa-trash-alt"></i> <span class="sr-only">Remove</span></a>
             ';
         }
 
