@@ -102,7 +102,9 @@
                         <div class="d-md-flex align-items-md-start">
                             <h1 class="page-title mr-sm-auto"> Admins </h1>
                             <div class="btn-toolbar">
-                                <a href="<?= PROOT . 'admin/change-password'; ?>" class="btn btn-light"> <span class="ml-1">Change password</span></a>&nbsp;
+                                <?php if (!isset($_GET['add'])): ?>
+                                    <a href="<?= PROOT . 'admin/admins?add=1'; ?>" class="btn btn-light"> <span class="ml-1">Add admin</span></a>&nbsp;
+                                <?php endif ?>
                                 <a href="<?= goBack(); ?>" class="btn btn-light"> <span class="ml-1">Go back</span></a>
                             </div>
                         </div>
@@ -113,7 +115,7 @@
                                 <form method="POST">
                                     <div class="text-danger text-center"><?= $errors; ?></div>
                                     <fieldset>
-                                        <legend>Update profile details</legend>
+                                        <legend>Add new admin</legend>
                                         <div class="form-group">
                                             <div class="form-label-group">
                                                 <input type="text" class="form-control" id="admin_fullname" name="admin_fullname" required="" value="<?= $admin_fullname; ?>"> <label for="admin_fullname">Name</label>
@@ -124,8 +126,26 @@
                                                 <input type="email" class="form-control" id="admin_email" name="admin_email" required="" value="<?= $admin_email; ?>"> <label for="admin_email">Email</label>
                                             </div>
                                         </div>
+                                        <div class="form-group">
+                                            <div class="form-label-group">
+                                                <input type="password" class="form-control" id="admin_password" name="admin_password" required=""> <label for="admin_password">Password</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-label-group">
+                                                <input type="password" class="form-control" id="confirm" name="confirm" required=""> <label for="confirm">Confirm password</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="admin_permissions" class="form-label">Permission</label>
+                                            <select class="form-control" name="admin_permissions" id="admin_permissions" required>
+                                                <option value=""<?= (($admin_permissions == '')?' selected' : '') ?>>Admin type</option>
+                                                <option value="editor"<?= (($admin_permissions == 'editor')?' selected' : '') ?>>Editor</option>
+                                                <option value="admin,editor"<?= (($admin_permissions == 'admin,editor')?' selected' : '') ?>>Admin,  Editor</option>
+                                            </select>
+                                        </div>
                                         <div class="form-actions">
-                                            <button class="btn btn-success" type="submit" name="submit">Update</button>
+                                            <button class="btn btn-success" type="submit" name="submit">Add</button>
                                             <a class="btn" href="<?= PROOT; ?>admin/profile">Cancel update</a>
                                         </div>
                                     </fieldset>
