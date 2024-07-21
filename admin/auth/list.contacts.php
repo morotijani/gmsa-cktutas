@@ -28,7 +28,7 @@ if ($search_query != '') {
 		OR message_name LIKE "%'.$find_query.'%" 
 		OR message_email LIKE "%'.$find_query.'%" 
 		OR message_phone LIKE "%'.$find_query.'%"  
-		OR createdAt LIKE "%'.$find_query.'%") 
+		OR createdAt = "'.$find_query.'") 
 	';
 } else {
 	$query .= 'ORDER BY createdAt DESC ';

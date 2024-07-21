@@ -26,7 +26,7 @@ if ($search_query != '') {
 	$query .= '
 		AND (subscriber_id LIKE "%'.$find_query.'%" 
 		OR subscriber_email LIKE "%'.$find_query.'%" 
-		OR createdAt LIKE "%'.$find_query.'%") 
+		OR createdAt = "'.$find_query.'") 
 	';
 } else {
 	$query .= 'ORDER BY createdAt DESC ';
