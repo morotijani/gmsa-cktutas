@@ -2,35 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><!-- End Required meta tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title> Dashboard | GMSA - CKTUTAS </title>
-    <meta property="og:title" content="Dashboard">
-    <meta name="author" content="Beni Arisandi">
-    <meta property="og:locale" content="en_US">
-    <meta name="description" content="Responsive admin theme build on top of Bootstrap 4">
-    <meta property="og:description" content="Responsive admin theme build on top of Bootstrap 4">
-    <link rel="canonical" href="https://gmsacktutas.org">
-    <meta property="og:url" content="https://gmsacktutas.org">
-    <meta property="og:site_name" content="GMSA - CKTUTAS">
-    <script type="application/ld+json">
-        {
-            "name": "Looper - Bootstrap 4 Admin Theme",
-            "description": "Responsive admin theme build on top of Bootstrap 4",
-            "author":
-        {
-            "@type": "Person",
-            "name": "Beni Arisandi"
-        },
-            "@type": "WebSite",
-            "url": "",
-            "headline": "Dashboard",
-            "@context": "http://schema.org"
-        }
-    </script><!-- End SEO tag -->
+
     <!-- FAVICONS -->
-    <link rel="apple-touch-icon" sizes="144x144" href="assets/apple-touch-icon.png">
-    <link rel="shortcut icon" href="assets/favicon.ico">
-    <meta name="theme-color" content="#3063A0"><!-- End FAVICONS -->
+    <link rel="apple-touch-icon" sizes="144x144" href="<?= PROOT; ?>assets/media/logo/logo.png">
+    <link rel="shortcut icon" href="<?= PROOT; ?>assets/media/logo/logo.png">
+    <meta name="theme-color" content="#3063A0">
     <!-- GOOGLE FONT -->
     <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600" rel="stylesheet"><!-- End GOOGLE FONT -->
     <!-- BEGIN PLUGINS STYLES -->
@@ -49,6 +27,6 @@
         disabledSkinStylesheet.setAttribute('disabled', true);
         // add loading class to html immediately
         document.querySelector('html').classList.add('loading');
-    </script><!-- END THEME STYLES -->
-  </head>
-  <body>
+    </script>
+</head>
+<body>

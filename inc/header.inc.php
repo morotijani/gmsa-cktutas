@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,8 +6,31 @@
     <!-- Meta Tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="author" content="gmsacktutas.com">
-    <meta name="description" content="">
+    <meta property="og:title" content="Dashboard">
+    <meta name="author" content="Beni Arisandi">
+    <meta property="og:locale" content="en_US">
+    <meta name="description" content="Responsive admin theme build on top of Bootstrap 4">
+    <meta property="og:description" content="Responsive admin theme build on top of Bootstrap 4">
+    <link rel="canonical" href="https://gmsacktutas.org">
+    <meta property="og:url" content="https://gmsacktutas.org">
+    <meta property="og:site_name" content="GMSA - CKTUTAS">
+    <script type="application/ld+json">
+        {
+            "name": "Looper - Bootstrap 4 Admin Theme",
+            "description": "Responsive admin theme build on top of Bootstrap 4",
+            "author":
+        {
+            "@type": "Person",
+            "name": "Beni Arisandi"
+        },
+            "@type": "WebSite",
+            "url": "",
+            "headline": "Dashboard",
+            "@context": "http://schema.org"
+        }
+    </script>
+
+
 
     <!-- Dark mode -->
     <script src="<?= PROOT; ?>dist/js/dark-mode.js"></script>

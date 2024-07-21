@@ -8,8 +8,6 @@ require BASEURL . 'vendor/autoload.php';
 use ipinfo\ipinfo\IPinfo;
 
 
-
-
 function dnd($data) {
 	echo "<pre>";
 	print_r($data);
@@ -247,33 +245,25 @@ function convertNumber($number) {
     if ($integer[0] == "-") {
         $output = "negative ";
         $integer    = ltrim($integer, "-");
-    }
-    else if ($integer[0] == "+")
-    {
+    } else if ($integer[0] == "+") {
         $output = "positive ";
         $integer    = ltrim($integer, "+");
     }
 
-    if ($integer[0] == "0")
-    {
+    if ($integer[0] == "0") {
         $output .= "zero";
-    }
-    else
-    {
+    } else {
         $integer = str_pad($integer, 36, "0", STR_PAD_LEFT);
         $group   = rtrim(chunk_split($integer, 3, " "), " ");
         $groups  = explode(" ", $group);
 
         $groups2 = array();
-        foreach ($groups as $g)
-        {
+        foreach ($groups as $g) {
             $groups2[] = convertThreeDigit($g[0], $g[1], $g[2]);
         }
 
-        for ($z = 0; $z < count($groups2); $z++)
-        {
-            if ($groups2[$z] != "")
-            {
+        for ($z = 0; $z < count($groups2); $z++) {
+            if ($groups2[$z] != "") {
                 $output .= $groups2[$z] . convertGroup(11 - $z) . (
                         $z < 11
                         && !array_search('', array_slice($groups2, $z + 1, -1))
@@ -288,11 +278,9 @@ function convertNumber($number) {
         $output = rtrim($output, ", ");
     }
 
-    if ($fraction > 0)
-    {
+    if ($fraction > 0) {
         $output .= " point";
-        for ($i = 0; $i < strlen($fraction); $i++)
-        {
+        for ($i = 0; $i < strlen($fraction); $i++) {
             $output .= " " . convertDigit($fraction[$i]);
         }
     }
@@ -300,10 +288,8 @@ function convertNumber($number) {
     return $output;
 }
 
-function convertGroup($index)
-{
-    switch ($index)
-    {
+function convertGroup($index) {
+    switch ($index) {
         case 11:
             return " decillion";
         case 10:
@@ -331,17 +317,14 @@ function convertGroup($index)
     }
 }
 
-function convertThreeDigit($digit1, $digit2, $digit3)
-{
+function convertThreeDigit($digit1, $digit2, $digit3) {
     $buffer = "";
 
-    if ($digit1 == "0" && $digit2 == "0" && $digit3 == "0")
-    {
+    if ($digit1 == "0" && $digit2 == "0" && $digit3 == "0") {
         return "";
     }
 
-    if ($digit1 != "0")
-    {
+    if ($digit1 != "0") {
         $buffer .= convertDigit($digit1) . " hundred";
         if ($digit2 != "0" || $digit3 != "0")
         {
@@ -349,24 +332,19 @@ function convertThreeDigit($digit1, $digit2, $digit3)
         }
     }
 
-    if ($digit2 != "0")
-    {
+    if ($digit2 != "0") {
         $buffer .= convertTwoDigit($digit2, $digit3);
     }
-    else if ($digit3 != "0")
-    {
+    else if ($digit3 != "0") {
         $buffer .= convertDigit($digit3);
     }
 
     return $buffer;
 }
 
-function convertTwoDigit($digit1, $digit2)
-{
-    if ($digit2 == "0")
-    {
-        switch ($digit1)
-        {
+function convertTwoDigit($digit1, $digit2) {
+    if ($digit2 == "0") {
+        switch ($digit1) {
             case "1":
                 return "ten";
             case "2":
@@ -386,10 +364,8 @@ function convertTwoDigit($digit1, $digit2)
             case "9":
                 return "ninety";
         }
-    } else if ($digit1 == "1")
-    {
-        switch ($digit2)
-        {
+    } else if ($digit1 == "1") {
+        switch ($digit2) {
             case "1":
                 return "eleven";
             case "2":
@@ -409,11 +385,9 @@ function convertTwoDigit($digit1, $digit2)
             case "9":
                 return "nineteen";
         }
-    } else
-    {
+    } else {
         $temp = convertDigit($digit2);
-        switch ($digit1)
-        {
+        switch ($digit1) {
             case "2":
                 return "twenty-$temp";
             case "3":
@@ -434,10 +408,8 @@ function convertTwoDigit($digit1, $digit2)
     }
 }
 
-function convertDigit($digit)
-{
-    switch ($digit)
-    {
+function convertDigit($digit) {
+    switch ($digit) {
         case "0":
             return "zero";
         case "1":
@@ -680,228 +652,6 @@ function admin_has_permission($permission = 'admin') {
 
 
 
-// GET PRODUCT CATEGORY
-function get_category($category_id) {
-	global $conn;
-	$output = '';
-
-	$query = "
-		SELECT * FROM garypie_category 
-		WHERE category_id = :category_id
-		AND category_trash = :category_trash 
-		LIMIT 1
-	";
-	$statement = $conn->prepare($query);
-	$statement->execute(
-		[
-			':category_id' 	=> $category_id,
-			':category_trash' 	=> 0
-		]
-	);
-	$result = $statement->fetchAll();
-	foreach ($result as $row) 
-		return $row['category'];
-}
-
-function get_entire_category($child_id){
-	global $conn;
-	$id = sanitize($child_id);
-	$sql = "
-	
-
-		SELECT p.category_parent AS 'pid', p.category AS 'parent', c.category_id AS 'cid', c.category AS 'child'
-		FROM garypie_category c
-		INNER JOIN garypie_category p
-		ON c.category_parent = p.category_id
-		WHERE c.category_id = '$id'";
-
-	$statement = $conn->query($sql);
-	$categories = $statement->fetchAll();
-	foreach ($categories as $category) {
-		// code...
-	return $category;
-	}
-}
-
-
-	// GET PRODUCT CATEGORY
-function get_product_category($product_category) {
-	global $conn;
-	$output = '';
-
-	$query = "
-		SELECT * FROM garypie_category 
-		WHERE category_trash = :category_trash
-	";
-	$statement = $conn->prepare($query);
-	$statement->execute(
-		[
-			':category_trash' 	=> 0
-		]
-	);
-	$result = $statement->fetchAll();
-	$count_category = $statement->rowCount();
-	if ($count_category > 0) {
-		foreach ($result as $row) {
-			$output .= '
-				<option value="'.$row['category_id']. '" '.(($product_category == $row['category_id'])? "selected" : "").'>'.ucwords($row['category']).'</option>
-			';
-		}
-	} else {
-		$output = '<option value="">No category found.</option>';
-	}
-	return $output;
-}
-
-// GET ALL PRODUCTS WHERE TRASH = 0
-function  get_all_product($product_trash = '') {
-	global $conn;
-	$output = '';
-
-	$query = "
-		SELECT * FROM garypie_product 
-		INNER JOIN garypie_category
-		ON garypie_category.category_id = garypie_product.product_category
-		LEFT JOIN garypie_admin
-		ON garypie_admin.admin_id = garypie_product.product_added_by
-		WHERE garypie_product.product_trash = :product_trash
-		AND garypie_category.category_trash = :category_trash
-		ORDER BY garypie_product.id DESC
-	";
-	$statement = $conn->prepare($query);
-	$statement->execute([
-		':product_trash' 	=> $product_trash,
-		':category_trash' 	=> 0
-	]);
-	$count_products = $statement->rowCount();
-	$result = $statement->fetchAll();
-
-	if ($count_products > 0) {
-		$i = 1;
-		foreach ($result as $key => $row) {
-			$output .= '
-				<tr>
-					<td>'.$i.'</td>
-					<td>'.ucwords($row["product_name"]).'</td>
-					<td>'.ucwords($row["category"]).'</td>
-					<td>'.money($row["product_price"]).'</td>
-					<td>'.$row["product_sizes"].'</td>
-					<td>'.ucwords($row["admin_fullname"]).'</td>
-					<td>'.pretty_date($row["product_added_date"]).'</td>
-				';
-				if ($product_trash == 0) {
-					$output .= '
-						<td>
-							<a href="'.PROOT.'gpmin/products?featured='.(($row['product_featured'] == 0)?"1":"0").'&id='.$row["product_id"].'" class="btn btn-sm btn-light">
-								<span data-feather="'.(($row['product_featured'] == 0)?"plus":"minus").'"></span> '.(($row['product_featured'] == 0)?"":"Featured product").'
-							</a>
-						</td>
-						<td>
-					';
-				} else {
-					$output .= '
-						<td>
-						</td>
-						<td>
-					';
-				}
-				if ($product_trash == 1) {
-					$output .= '
-						<a href="'.PROOT.'gpmin/products?permanent_delete='.$row["product_id"].'&upload_product_image_name='.$row["product_image"].'" class="btn btn-sm btn-outline-primary"><span data-feather="trash"></span></a>&nbsp;
-                          <a href="'.PROOT.'gpmin/products?restore='.$row["product_id"].'" class="btn btn-sm btn-outline-danger"><span data-feather="refresh-cw"></span></a>&nbsp;
-					';
-				} else {
-					$output .= '
-							<a href="'.PROOT.'gpmin/products?edit='.$row["product_id"].'" class="btn btn-sm btn-info"><span data-feather="edit-2"></span></a>
-							<a href="'.PROOT.'gpmin/products?delete='.$row["product_id"].'" class="btn btn-sm btn-secondary"><span data-feather="trash-2"></span></a>
-						';
-				}
-				$output .= '
-						</td>
-					</tr>
-				';
-			$i++;
-		}
-	} else {
-		$output = '
-			<tr>
-				<td colspan="9">No products found in the database...</h3></td>
-			</tr>
-		';
-	}
-	return $output;
-}
-
-// GET ALL CATEGORIES
-function get_all_category($category_trash = 0) {
-	global $conn;
-	$output = '';
-
-	$query = "
-		SELECT * FROM garypie_category 
-		WHERE category_parent = :category_parent 
-		AND category_trash = :category_trash 
-		ORDER BY category_id DESC
-	";
-	$statement = $conn->prepare($query);
-	$statement->execute([
-		':category_parent' => 0,
-		':category_trash' => $category_trash
-	]);
-	$result = $statement->fetchAll();
-	$count_row = $statement->rowCount();
-
-	if ($count_row > 0) {
-		foreach ($result as $row) {
-			$parent_id = (int)$row["category_id"];
-			$child = $conn->query("
-				SELECT * FROM garypie_category 
-				WHERE category_parent = {$parent_id}
-			")->fetchAll();
-
-
-			$output .= '
-				<tr class="bg-info">
-					<td>
-						<a href="' . PROOT . 'gpmin/category/'.$row["category_id"].'" class="btn btn-sm btn-secondary"><i data-feather="edit"></i></a>
-					</td>
-					<td>'.ucwords($row["category"]).'</td>
-					<td>Parent</td>
-					<td>'.pretty_date($row["category_added_date"]).'</td>
-					<td>
-						<span id="'.$row["category_id"].'" onclick="perm_delete_category(category_id = '.$row["category_id"].');" class="btn btn-sm btn-light"><i data-feather="trash-2"></i></span>
-					</td>
-				</tr>
-			';
-			foreach ($child as $child_row) {
-				// code...
-				$output .= '
-
-				<tr class="bg-light">
-					<td>
-						<a href="' . PROOT . 'gpmin/category/'.$child_row["category_id"].'" class="btn btn-sm btn-secondary"><i data-feather="edit"></i></a>
-					</td>
-					<td>'.ucwords($row["category"]).'</td>
-					<td>'.ucwords($child_row["category"]).'</td>
-					<td>'.pretty_date($child_row["category_added_date"]).'</td>
-					<td>
-						<span id="'.$child_row["category_id"].'" onclick="temp_delete_category(category_id = '.$child_row["category_id"].');" class="btn btn-sm btn-light">Delete</span>
-						</td>
-					</tr>
-				';
-			}
-		}
-	} else {
-		$output = '
-			<tr>
-				<td colspan="4">No category found.</td>
-			</tr>
-		';
-	}
-	return $output;
-}
-
-
 // GET ALL CATEGORIES
 function get_all_faqs() {
 	global $conn;
@@ -989,50 +739,6 @@ function faq_exist($id) {
 
 
 
-function low_inventory_access() {
-	global $conn;
-	$inventoryQ = "
-        SELECT * FROM garypie_product 
-        WHERE product_trash = ?
-    ";
-    $statement = $conn->prepare($inventoryQ);
-    $statement->execute([0]);
-    $inventory_result = $statement->fetchAll();
-    $lowItems = array();
-    foreach ($inventory_result as $inventory_row) {
-    	$item = array();
-    	$sizes = sizesToArray($inventory_row['product_sizes']);
-    	foreach ($sizes as $size) {
-    		// code...
-    		if ($size['quantity'] <= $size['threshold']) {
-    			// code...
-		    	$cat = get_entire_category($inventory_row['product_category']);
-		    	$item = array(
-		    		'title' => $inventory_row['product_name'],
-		    		'size' => $size['size'],
-		    		'quantity' => $size['quantity'],
-		    		'threshold' => $size['threshold'],
-		    		'category' => $cat['parent'] . ' ~ ' . $cat['child']
-		    	);
-	        	$lowItems[] = $item;
-	    	}
-    	}
-         
-        
-    }
-    return $lowItems;
-}
-
-
-
-
-
-
-
-
-
-
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // GET ALL ADMINS
@@ -1116,473 +822,4 @@ function get_admin_profile($admin_id) {
 		}
 	}
 	return $output;
-}
-
-// LIST * USERS
-function get_all_users($user_trash = 0) {
-	global $conn;
-
-	$query = "
-		SELECT * FROM garypie_user
-		WHERE user_trash = :user_trash
-	";
-	$statement = $conn->prepare($query);
-	$statement->execute([':user_trash' => $user_trash]);
-	$result = $statement->fetchAll();
-	$row_count = $statement->rowCount();
-
-	$output = '';
-	if ($row_count > 0) {
-
-		$i = 1;
-		foreach ($result as $row) {
-			$user_last_login = $row["user_last_login"];
-			if ($user_last_login == NULL) {
-				$user_last_login = '<span class="text-secondary">Never</span>';
-			} else {
-				$user_last_login = pretty_date($user_last_login);
-			}
-
-			$output .= '
-				<td>'.$i.'</td>
-				<td>'.ucwords($row["user_fullname"]).'</td>
-				<td>'.$row["user_email"].'</td>
-				<td>'.(($row["user_phone"] != '')?$row["user_phone"]:'<span class="text-secondary">Empty</span>').'</td>
-				<td>'.(($row["user_address"] != '')?ucwords($row["user_address"]):'<span class="text-secondary">Empty</span>').'</td>
-				<td>'.pretty_date($row["user_joined_date"]).'</td>
-				<td>'.$user_last_login.'</td>
-				<td>
-					<a href="users/'.$row["user_id"].'" class="btn btn-sm btn-light"><span data-feather="eye"></span></a>&nbsp;
-			';
-			if ($user_trash == 1) {
-				$output .= '
-					<a href="users?restore='.$row["user_id"].'" class="btn btn-sm btn-secondary"><span data-feather="refresh-ccw"></span></a>&nbsp;
-					<a href="users?delete='.$row["user_id"].'" class="btn btn-sm btn-warning"><span data-feather="trash"></span></a>&nbsp;
-				';
-			} else {
-				$output .= '
-					<a href="users?terminate='.$row["user_id"].'" class="btn btn-sm btn-secondary"><span data-feather="user-x"></span></a>&nbsp;
-				';
-			}
-			$output .= '
-					</td>
-				</tr>
-			';
-			$i++;
-		}
-	} else {
-		$output = '
-			<tr>
-				<td colspan="8"> - No data found under users table.</td>
-			</tr>
-		';
-	}
-	return $output;
-}
-
-// LIST * USERS
-function subscribed_emails() {
-	global $conn;
-
-	$query = "
-		SELECT * FROM garypie_subscription 
-		ORDER BY subscription_id DESC
-	";
-	$statement = $conn->prepare($query);
-	$statement->execute();
-	$row_count = $statement->rowCount();
-	$result = $statement->fetchAll();
-
-	$output = '';
-	$i = 1;
-	if ($row_count > 0) {
-		foreach ($result as $row) {
-			$output .= '
-				<tr>
-					<td>'.$i.'</td>
-					<td>'.$row["subscription_email"].'</td>
-					<td>'.pretty_date($row["subscription_date"]).'</td>
-				</tr>
-			';
-			$i++;
-		}
-	} else {
-		$output = '
-			<tr>
-				<td colspan="3">No emails under subscription table.</td>
-			</tr>
-		';
-	}
-	return $output;
-}
-
-// CHECK IF USER EXISTS
-function user_exist($user_id) {
-	global $conn;
-
-	$query = "
-        SELECT * FROM garypie_user 
-        WHERE user_id = :user_id 
-        LIMIT 1
-    ";
-    $statement = $conn->prepare($query);
-    $statement->execute([':user_id' => $user_id]);
-    $count_row = $statement->rowCount();
-    return $count_row;
-}
-
-
-// CHECK IF USER EXISTS
-function category_exist($category_id) {
-	global $conn;
-
-	$query = "
-        SELECT * FROM garypie_category 
-        WHERE category_id = :category_id 
-        LIMIT 1
-    ";
-    $statement = $conn->prepare($query);
-    $statement->execute([':category_id' => $category_id]);
-    $count_row = $statement->rowCount();
-    $row = $statement->fetchAll();
-    $arr['row'] = $row;
-    $arr['counting'] = $count_row;
-
-    return $arr;
-}
-
-
-
-
-
-
-
-
-
-
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-// Get categories
-function get_all_categories() {
-	global $conn;
-	$output = '';
-
-	$query = '
-		SELECT * FROM garypie_category 
-		WHERE category_parent = :category_parent 
-		AND category_trash = :category_trash 
-		ORDER BY category ASC
-		LIMIT 5
-	';
-	$statement = $conn->prepare($query);
-	$statement->execute([
-		':category_parent' 	=> 0,
-		':category_trash' 	=> 0
-	]);
-	$result = $statement->fetchAll();
-
-	foreach ($result as $row) {
-		$output .= '
-			<a class="nav-link" href="'.PROOT.'store/category/'.$row["category_url"].'">'.ucwords($row["category"]).'</a>
-		';
-	}
-	return $output;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-// FIND USER WITH EMAIL
- function findUserByEmail($email) {
- 	global $conn;
-    $sql = "
-    	SELECT * FROM garypie_user 
-    	WHERE user_email = :user_email
-    ";
-    $statement = $conn->prepare($sql);
-    $statement->execute([':user_email' => $email]);
-    $result = $statement->fetchAll();
-    foreach ($result as $row) {
-    	return $row;
-    }
-}
-
-// Sessions For login
-function userLogin($user_id) {
-	$_SESSION['GPUser'] = $user_id;
-	global $conn;
-	$data = array(
-		':user_last_login' => date("Y-m-d H:i:s"),
-		':user_id' => (int)$user_id
-	);
-	$query = "
-		UPDATE garypie_user 
-		SET user_last_login = :user_last_login 
-		WHERE user_id = :user_id";
-	$statement = $conn->prepare($query);
-	$result = $statement->execute($data);
-	if (isset($result)) {
-		$access_token = IPINFO_KEY;
-		$client = new IPinfo($access_token);
-        $ip = $client->getDetails();
-        $ip_address = $ip->ip;
-
-        // $bo = getBrowserAndOs();
-        // $browser = $bo['browser'];
-        // $os = $bo['operatingSystem'];
-
-		$user_data = $conn->query("SELECT * FROM garypie_user WHERE user_id = '" . $user_id . "' LIMIT 1")->fetchAll();
-		$fn = explode(' ', $user_data[0]['user_fullname']);
-		$fn = ucwords($fn[0]);
-    	$to = $user_data[0]['user_email'];
-     	$subject = "Login Notification | Garypie";
-		$body = "
-			<h3>
-			Hello {$fn},</h3>
-			<p>
-				We detected a recent sign-in to your Garypie Account.
-				<br>
-				<b>Sign-in details<b>
-				<br>
-				<b>IP Address</b>: " . $ip_address . "
-				<br>
-				<b>Date</b>: " . date('m/d/y' .", ". 'h:i:s A') . "
-				<br>
-				<b>User Agent</b>: " . $_SERVER['HTTP_USER_AGENT'] . "
-				<br>
-				If you did not initiate this, kindly reset your password <a href='" . PROOT . "store/forgot-password'>Change password</a> and contact us immediately at <a href='mailto:contact@inqoins.io'>hello@garypie.com</a>
-				<br>
-				<br>
-				With love,
-				<br>
-				- Garypie Team.
-			</p>
-		";
-		send_email($fn, $to, $subject, $body);
-
-		$_SESSION['flash_success'] = 'You are now logged in!';
-		redirect(PROOT . 'store/index');
-	}
-}
-
-function user_is_logged_in(){
-	if (isset($_SESSION['GPUser']) && $_SESSION['GPUser'] > 0) {
-		return true;
-	}
-	return false;
-}
-
-// Redirect admin if !logged in
-function user_login_redirect($url = 'login') {
-	$_SESSION['flash_error'] = '<div class="text-center" id="temporary" style="margin-top: 60px;">You must be logged in to access that page.</div>';
-	header('Location: '.$url);
-}
-
-
-function send_vericode($email) {
-	global $conn;
-    $success = false;
-    $user = findUserByEmail($email);
-
-    if($user) {
-      	$vericode = md5(time());
-      	$sql = "
-      		UPDATE garypie_user 
-      		SET user_vericode = :user_vericode 
-      		WHERE user_id = :user_id
-      	";
-      	$statement = $conn->prepare($sql);
-      	$result = $statement->execute([
-      		':user_vericode' => $vericode,
-      		':user_id' => $user['user_id']
-      	]);
-      	if ($result) {
-        	$fn = ucwords($user['user_fullname']);
-        	$to = $email;
-         	$subject = "Please Verify Your Account";
-			$body = "
-				<h3>
-					{$fn},</h3>
-					<p>
-						Thank you for regestering. Please verify your account by clicking 
-          				<a href=\"https://garypie/garypie/verify/{$vericode}\" target=\"_blank\">here</a>.
-        		</p>
-			";
-
-			$mail = send_email($fn, $to, $subject, $body);
-			if ($mail) {
-				$success = 'Message has been sent';
-			} else {
-			    return "Message could not be sent.";
-			    //return "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-			}
-      	}
-    }
-    return $success;
- }
-
-
-
-
-
-
-
-
-
-
-
-////////////////////////////////////////////////////////////////////////////////////
-
-// count products in cart
-function count_cart_new() {
-	global $conn;
-	global $user_data;
-	$output = 0;
-
-	$cart_id = '';
- 	if (isset($_COOKIE[CART_COOKIE])) {
- 		$cart_id = sanitize($_COOKIE[CART_COOKIE]);
- 	}
-
-	if (!empty($cart_id)) {
-      	$sql = "
-        	SELECT * FROM garypie_cart 
-        	WHERE cart_id = ?
-      	";
-      	$statement = $conn->prepare($sql);
-      	$statement->execute([$cart_id]);
-      	$row = $statement->fetchAll();
-      	if ($statement->rowCount() > 0) {
-          	$items = json_decode($row[0]['items'], true);
-          	$user_idArray = array();
-          	foreach ($items as $item) {
-          		// code...
-				$user_idArray[] = $item['user_id'];
-		    	$logged_user = (user_is_logged_in() ? $user_data['user_id'] : '');
-		        if ($item['user_id'] == $logged_user && $item['pays'] == 0) {
-		        	$output = count($user_idArray);
-		        } else {
-
-		        }
-          	}
-	    }
-    }
-    if ($output == 0) {
-    	$output = '';
-    }
-	
-	return $output;
-}
-
-// sizes to array
-function sizesToArray($string) {
-	$sizesArray = explode(',', $string);
-	$returnArray = array();
-	foreach ($sizesArray as $size) {
-		// code...
-		$s = explode(":", $size);
-		$returnArray[] = array('size' => $s[0], 'quantity' => $s[1], 'threshold' => $s[2]);
-						//Array ( [0] => Array ( [size] => small [quantity] => 11 [threshold] => 2 ) )
-	}
-	return $returnArray;
-}
-
-// 
-function sizesToString($sizes) {
-	$sizeString = '';
-	foreach ($sizes as $size) {
-		// code...
-		$sizeString .= $size['size'] . ':' . $size['quantity'] . ':' . $size['threshold'] . ',';
-	}
-	$trimmed = rtrim($sizeString, ',');
-	return $trimmed;
-}
-
-
-// get sold out products
-function soldOut($product_id) {
-	$product_id = sanitize($product_id);
-	global $conn;
-	$output = '';
-
-	$sql = "
-        SELECT * FROM garypie_product 
-        WHERE garypie_product.product_id = ? 
-        AND garypie_product.product_trash = ? 
-        LIMIT 1
-    ";
-    $statement = $conn->prepare($sql);
-    $statement->execute([$product_id, 0]);
-    $count_row = $statement->rowCount();
-    $row = $statement->fetchAll();
-    if ($count_row > 0) {
-       $sizeString = $row[0]['product_sizes']; 
-       $size_array = explode(',', $sizeString); 
-
-	    foreach ($size_array as $string) { 
-	        $string_array = explode(':', $string);
-	        $size = $string_array[0];
-	        $available = $string_array[1];
-
-	        if ($available > 0) {
-		        if ($row[0]['product_featured'] == 0) {
-		        	$output = '<div class="badge bg-white text-body card-badge card-badge-start text-uppercase">New</div>';
-		        } else {
-		        	$output = '<div class="badge bg-warning text-body card-badge card-badge-start text-uppercase">Sale</div>';
-		        }
-	        } else {
-	            $output = '<div class="badge bg-danger text-body card-badge card-badge-start text-uppercase">Sold out</div>';
-	        }
-		}                   
-   }
-   return $output;
-}
-
-// get all brands
-function getall_brands($limit) {
-	global $conn;
- 	$sql = "
-        SELECT * FROM garypie_brand 
-        ORDER BY brand_id DESC 
-        LIMIT $limit
-    ";
-    $statement = $conn->prepare($sql);
-    $statement->execute();
-    return $statement->fetchAll();
-}
-
-// get category parent and attach to child to form a unique slug url
-function parent_child_url($id) {
-	global $conn;
-
-	$sql = "
-		SELECT * FROM garypie_category 
-		WHERE category_id = ? 
-		LIMIT 1
-	";
-	$statement = $conn->prepare($sql);
-	$statement->execute([$id]);
-	$row = $statement->fetchAll();
-
-	if ($statement->rowCount() > 0) {
-		$parent_name = $row[0]['category'];
-		return $parent_name;
-	} else {
-		return false;
-	}
-	
 }

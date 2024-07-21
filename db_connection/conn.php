@@ -36,8 +36,7 @@
 	    $fax = $site_row["about_fax"];
 	    $street_1 = ucwords($site_row["about_street1"]);
 	    $street_2 = ucwords($site_row["about_street2"]);
-	    
-        $about_info = $site_row['about_info'];
+	    $about_info = $site_row['about_info'];
 	}
 
 
@@ -67,37 +66,6 @@
  		}
  	}
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////
- 	// USER LOGIN
- 	if (isset($_SESSION['GPUser'])) {
- 		$user_id = $_SESSION['GPUser'];
- 		$data = array(
- 			':user_id' => $user_id,
- 			':user_trash' => 0
- 		);
- 		$sql = "
- 			SELECT * FROM gmsa_user 
- 			WHERE user_id = :user_id 
- 			AND user_trash = :user_trash 
- 			LIMIT 1
- 		";
- 		$statement = $conn->prepare($sql);
- 		$statement->execute($data);
- 		if ($statement->rowCount() > 0) {
-	 		foreach ($statement->fetchAll() as $user_data) {
-	 			$fn = explode(' ', $user_data['user_fullname']);
-	 			$user_data['first'] = ucwords($fn[0]);
-	 			$user_data['last'] = '';
-	 			if (count($fn) > 1) {
-	 				$user_data['last'] = ucwords($fn[1]);
-	 			}
-	 		}
- 		} else {
- 			unset($_SESSION['GPUser']);
- 			redirect(PROOT . 'store/index');
- 		}
-
- 	}
 
  	// Display on Messages on Errors And Success
  	$flash = '';

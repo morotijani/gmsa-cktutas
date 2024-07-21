@@ -31,23 +31,7 @@
     <!-- BEGIN THEME JS -->
     <script src="<?= PROOT; ?>admin/dist/js/theme.min.js"></script>
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-116692175-1"></script>
-
-    <script>
-        window.dataLayer = window.dataLayer || [];
-
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-      
-        gtag('js', new Date());
-        gtag('config', 'UA-116692175-1');
-
-        // $('#temporary').parent().fadeOut('');
-        // Fade out messages
-        $("#temporary").fadeOut(6000);
-
+    <script type="text/javascript">
         function isNumberKey(evt) {
             var charCode = (evt.which) ? evt.which : evt.keyCode
             return !(charCode > 31 && (charCode < 48 || charCode > 57));
