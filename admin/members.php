@@ -55,7 +55,7 @@
             $level = (isset($_POST['level']) ? $post['level'] : $member['member_level']);
             $guardianfullname = (isset($_POST['guardianfullname']) ? $post['guardianfullname'] : $member['member_guardianfullname']);
             $guardianphonenumber = (isset($_POST['guardianphonenumber']) ? $post['guardianphonenumber'] : $member['member_guardianphonenumber']);
-            $member_media = $member_row['member_picture'];
+            $member_media = $member['member_picture'];
 
             if (isset($_POST['firstname'])) {
                 // code...
@@ -99,6 +99,31 @@
         } else {
             $_SESSION['flash_error'] = 'Member not found!';
             redirect(PROOT . 'admin/members');
+        }
+    }
+
+    // DELETE A executive picture
+    if ((isset($_GET['delete_np']) && !empty($_GET['delete_np'])) && (isset($_GET['image']) && !empty($_GET['image']))) {
+
+        $mediaLocation = BASEURL . sanitize($_GET['image']);
+        $delete = unlink($mediaLocation);
+        unset($mediaLocation);
+
+        if ($delete) {
+            $update = "
+                UPDATE gmsa_members 
+                SET member_picture = ? 
+                WHERE member_id = ?
+            ";
+            $statement = $conn->prepare($update);
+            $result = $statement->execute([NULL, sanitize($_GET['delete_np'])]);
+            if ($result) {
+                $_SESSION['flash_success'] = 'Member profile picture deleted, upload new one!';            
+                redirect(PROOT . 'admin/members/edit/' . sanitize($_GET['delete_np']));
+            } else {
+                $_SESSION['flash_error'] = 'Something went wrong, please try again';
+                redirect(PROOT . 'admin/members/edit/' . sanitize($_GET['delete_np']));
+            }
         }
     }
 
@@ -169,7 +194,7 @@
                                         <h4 class="mb-3 fw-light">Personal Details</h4>
                                          <?php if ($member_media != ''): ?>
                                         <div class="mb-3">
-                                            <label>Executive Image</label><br>
+                                            <label>Profile picture</label><br>
                                             <img src="<?= PROOT . $member_media; ?>" class="img-fluid img-thumbnail" style="width: 200px; height: 200px; object-fit: cover;">
                                             <a href="<?= PROOT; ?>admin/members?delete_np=<?= $_GET['id']; ?>&image=<?= $member_media; ?>" class="badge bg-danger">Change Image</a>
                                         </div>
@@ -467,9 +492,6 @@
                 },
                 success: function(data) {
                     $('#removeTempuploadedFile').remove();
-                    $('#passport').css('visibility', 'visible');
-                    $('#passport').val('');
-
                     $('#member_media').css('visibility', 'visible');
                     $('#member_media').val('');
                 }
@@ -499,7 +521,7 @@
                 var form_data = new FormData();
                 form_data.append("member_media", property);
                 $.ajax({
-                    url: "<?= PROOT; ?>admin/auth/temporary.upload.executive.php",
+                    url: "<?= PROOT; ?>admin/auth/temporary.upload.member.php",
                     method: "POST",
                     data: form_data,
                     contentType: false,

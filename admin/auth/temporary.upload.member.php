@@ -4,9 +4,9 @@
 
 	require_once ("../../db_connection/conn.php");
 
-	if ($_FILES["executive_media"]["name"]  != '') {
+	if ($_FILES["member_media"]["name"]  != '') {
 
-		$test = explode(".", $_FILES["executive_media"]["name"]);
+		$test = explode(".", $_FILES["member_media"]["name"]);
 
 		$extention = end($test);
 
@@ -14,7 +14,7 @@
 
 		$location = BASEURL . 'assets/media/temporary/' . $name;
 
-		move_uploaded_file($_FILES["executive_media"]["tmp_name"], $location);
+		move_uploaded_file($_FILES["member_media"]["tmp_name"], $location);
 
 		echo '
 			<div id="removeTempuploadedFile" class="list-group list-group-flush list-group-divider">

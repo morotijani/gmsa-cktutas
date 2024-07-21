@@ -86,13 +86,13 @@
     }
 
 
-    $executive_media = '';
+    $member_media = '';
     if (isset($_GET['type']) && $_GET['type'] == 'add' && $_GET['status'] == 'new') {
         $id = sanitize($_GET['id']);
         $member_row = find_member_by_id($conn, $id);
         if (is_array($member_row)) {
             $member_id = $id;
-            $executive_media = $member_row['member_picture'];
+            $member_media = $member_row['member_picture'];
         } else {
             $_SESSION['flash_error'] = 'Member not found!';
             redirect(PROOT . 'admin/members');
@@ -106,15 +106,15 @@
 
     if (isset($_POST['submitExecutive'])) {
         
-        if ($_POST['uploaded_executive_media'] == '') {
+        if ($_POST['uploaded_member_media'] == '') {
             if (!empty($_FILES)) {
 
-                $image_test = explode(".", $_FILES["executive_media"]["name"]);
+                $image_test = explode(".", $_FILES["member_media"]["name"]);
                 $image_extension = end($image_test);
                 $image_name = md5(microtime()) . '.' . $image_extension;
 
-                $executive_media = 'assets/media/members/' . $image_name;
-                move_uploaded_file($_FILES["executive_media"]["tmp_name"], BASEURL . $executive_media);
+                $member_media = 'assets/media/members/' . $image_name;
+                move_uploaded_file($_FILES["member_media"]["tmp_name"], BASEURL . $member_media);
                 
                 if (isset($_POST['uploaded_image']) && $_POST['uploaded_image'] != '') {
                     unlink($_POST['uploaded_image']);
@@ -123,7 +123,7 @@
                 $message = '<div class="alert alert-danger">Picture cannot be empty!</div>';
             }
         } else {
-            $executive_media = $_POST['uploaded_executive_media'];
+            $member_media = $_POST['uploaded_member_media'];
         }
 
         $query = "
@@ -139,7 +139,7 @@
                 WHERE member_id = ?
             ";
             $statement = $conn->prepare($sql);
-            $statement->execute([$executive_media, $member_id]);
+            $statement->execute([$member_media, $member_id]);
 
             $_SESSION['flash_success'] = 'Executive successfully added!';
             redirect(PROOT . 'admin/executives/all');
@@ -163,7 +163,7 @@
         }
     }
 
-     // DELETE A executive picture
+    // DELETE A executive picture
     if ((isset($_GET['delete_np']) && !empty($_GET['delete_np'])) && (isset($_GET['image']) && !empty($_GET['image']))) {
 
         $mediaLocation = BASEURL . sanitize($_GET['image']);
@@ -179,7 +179,7 @@
             $statement = $conn->prepare($update);
             $result = $statement->execute([NULL, sanitize($_GET['delete_np'])]);
             if ($result) {
-                $_SESSION['flash_success'] = 'Media deleted, upload new one!';            
+                $_SESSION['flash_success'] = 'Executive profile picture deleted, upload new one!';            
                 redirect(PROOT . 'admin/executives/add/new/' . sanitize($_GET['delete_np']));
             } else {
                 $_SESSION['flash_error'] = 'Something went wrong, please try again';
@@ -318,22 +318,22 @@
                                                     <label for="year_to">Year to</label>
                                                     <select type="year" class="form-control" id="year_to" name="year_to" required="" value="<?= $year_to; ?>"></select>
                                                 </div>
-                                                <?php if ($executive_media != ''): ?>
+                                                <?php if ($member_media != ''): ?>
                                                 <div class="mb-3">
                                                     <label>Executive Image</label><br>
-                                                    <img src="<?= PROOT . $executive_media; ?>" class="img-fluid img-thumbnail" style="width: 200px; height: 200px; object-fit: cover;">
-                                                    <a href="<?= PROOT; ?>admin/executives?delete_np=<?= $_GET['id']; ?>&image=<?= $executive_media; ?>" class="badge bg-danger">Change Image</a>
+                                                    <img src="<?= PROOT . $member_media; ?>" class="img-fluid img-thumbnail" style="width: 200px; height: 200px; object-fit: cover;">
+                                                    <a href="<?= PROOT; ?>admin/executives?delete_np=<?= $_GET['id']; ?>&image=<?= $member_media; ?>" class="badge bg-danger">Change Image</a>
                                                 </div>
                                                 <?php else: ?>
                                                 <div class="mb-3">
                                                     <div>
-                                                        <label for="executive_media" class="form-label">Upload image</label>
-                                                        <input type="file" class="form-control" id="executive_media" name="executive_media" required>
+                                                        <label for="member_media" class="form-label">Upload image</label>
+                                                        <input type="file" class="form-control" id="member_media" name="member_media" required>
                                                         <span id="upload_file"></span>
                                                     </div>
                                                 </div>
                                                 <?php endif; ?>
-                                                <input type="hidden" name="uploaded_executive_media" id="uploaded_executive_media" value="<?= $executive_media; ?>">
+                                                <input type="hidden" name="uploaded_member_media" id="uploaded_member_media" value="<?= $member_media; ?>">
 
                                                 <div class="form-actions mb-2">
                                                     <button type="submit" class="btn btn-secondary" name="submitExecutive" id="submitExecutive">Add executive</button>
@@ -440,26 +440,23 @@
                 },
                 success: function(data) {
                     $('#removeTempuploadedFile').remove();
-                    $('#passport').css('visibility', 'visible');
-                    $('#passport').val('');
-
-                    $('#executive_media').css('visibility', 'visible');
-                    $('#executive_media').val('');
+                    $('#member_media').css('visibility', 'visible');
+                    $('#member_media').val('');
                 }
             });
         });
 
 
         // Upload IMAGE Temporary
-        $(document).on('change','#executive_media', function() {
+        $(document).on('change','#member_media', function() {
 
-            var property = document.getElementById("executive_media").files[0];
+            var property = document.getElementById("member_media").files[0];
             var image_name = property.name;
 
             var image_extension = image_name.split(".").pop().toLowerCase();
             if (jQuery.inArray(image_extension, ['jpeg', 'png', 'jpg', 'gif']) == -1) {
                 alert("The file extension must be .jpg, .png, .jpeg, .gif");
-                $('#executive_media').val('');
+                $('#member_media').val('');
                 return false;
             }
 
@@ -470,9 +467,9 @@
             } else {
 
                 var form_data = new FormData();
-                form_data.append("executive_media", property);
+                form_data.append("member_media", property);
                 $.ajax({
-                    url: "<?= PROOT; ?>admin/auth/temporary.upload.executive.php",
+                    url: "<?= PROOT; ?>admin/auth/temporary.upload.member.php",
                     method: "POST",
                     data: form_data,
                     contentType: false,
@@ -483,7 +480,7 @@
                     },
                     success: function(data) {
                         $("#upload_file").html(data);
-                        $('#executive_media').css('visibility', 'hidden');
+                        $('#member_media').css('visibility', 'hidden');
                     }
                 });
             }
