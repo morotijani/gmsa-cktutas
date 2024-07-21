@@ -35,32 +35,45 @@
 
         $member = find_by_member_id($id);
         if (is_array($member)) {
+            $post = cleanPost($_POST);
+            $firstname = (isset($_POST['firstname']) ? $post['firstname'] : $member['member_firstname']);
+            $middlename = (isset($_POST['middlename']) ? $post['middlename'] : $member['member_middlename']);
+            $lastname = (isset($_POST['lastname']) ? $post['lastname'] : $member['member_lastname']);
+            $email = (isset($_POST['email']) ? $post['email'] : $member['member_email']);
+            $phone = (isset($_POST['phone']) ? $post['phone'] : $member['member_phone']);
+            $gender = (isset($_POST['gender']) ? $post['gender'] : $member['member_gender']);
+            $dob = (isset($_POST['dob']) ? $post['dob'] : $member['member_dob']);
+            $region = (isset($_POST['region']) ? $post['region'] : $member['member_region']);
+            $city = (isset($_POST['city']) ? $post['city'] : $member['member_city']);
+            $digitaladdress = (isset($_POST['digitaladdress']) ? $post['digitaladdress'] : $member['member_digitaladdress']);
+            $studentid = (isset($_POST['studentid']) ? $post['studentid'] : $member['member_studentid']);
+            $programme = (isset($_POST['programme']) ? $post['programme'] : $member['member_programme']);
+            $department = (isset($_POST['department']) ? $post['department'] : $member['member_department']);
+            $admissiontype = (isset($_POST['admissiontype']) ? $post['admissiontype'] : $member['member_admissiontype']);
+            $admissionyear = (isset($_POST['admissionyear']) ? $post['admissionyear'] : $member['member_admissionyear']);
+            $level = (isset($_POST['level']) ? $post['level'] : $member['member_level']);
+            $guardianfullname = (isset($_POST['guardianfullname']) ? $post['guardianfullname'] : $member['member_guardianfullname']);
+            $guardianphonenumber = (isset($_POST['guardianphonenumber']) ? $post['guardianphonenumber'] : $member['member_guardianphonenumber']);
 
+            if (isset($_POST['firstname'])) {
+                // code...
 
-            $sql = "
-                UPDATE `gmsa_members` 
-                SET `member_firstname`= ?,`member_middlename`= ?,`member_lastname`= ?,`member_email`= ?,`member_phone`= ?,`user_password`= ?,`member_gender`= ?,`member_dob`= ?,`member_region`= ?,`member_city`= ?,`member_digitaladdress`= ?,`member_studentid`= ?,`member_programme`= ?,`member_department`= ?,`member_admissiontype`= ?,`member_admissionyear`= ?,`member_hostel`= ?,`member_level`= ?,`member_guardianfullname`= ?,`member_guardianphonenumber`= ?,`member_picture`= ?
-                WHERE member_id = ?
-            ";
-            // $status = 1;
-            // if ($_GET['type'] == 'restore') {
-            //     $status = 0;
-            // }
-            // $query = "
-            //     UPDATE gmsa_members 
-            //     SET status = ? 
-            //     WHERE member_id = ? 
-            // ";
-            // $statement = $conn->prepare($query);
-            // $result = $statement->execute([$status, $id]);
-            // if (isset($result)) {
-            //     // code...
-            //     $_SESSION['flash_success'] = 'Member ' . (($_GET['type'] == 'restore') ? 'restored' : 'removed temporary') . '!';
-            //     redirect(PROOT . 'admin/members');
-            // } else {
-            //     $_SESSION['flash_error'] = 'Something went wrong, please try again!';
-            //     redirect(PROOT . 'admin/members');
-            // }
+                $sql = "
+                    UPDATE `gmsa_members` 
+                    SET `member_firstname`= ?,`member_middlename`= ?,`member_lastname`= ?,`member_email`= ?,`member_phone`= ?,`user_password`= ?,`member_gender`= ?,`member_dob`= ?,`member_region`= ?,`member_city`= ?,`member_digitaladdress`= ?,`member_studentid`= ?,`member_programme`= ?,`member_department`= ?,`member_admissiontype`= ?,`member_admissionyear`= ?,`member_hostel`= ?,`member_level`= ?,`member_guardianfullname`= ?,`member_guardianphonenumber`= ?,`member_picture`= ?
+                    WHERE member_id = ?
+                ";
+                // $statement = $conn->prepare($query);
+                // $result = $statement->execute([$status, $id]);
+                // if (isset($result)) {
+                //     // code...
+                //     $_SESSION['flash_success'] = 'Member ' . (($_GET['type'] == 'restore') ? 'restored' : 'removed temporary') . '!';
+                //     redirect(PROOT . 'admin/members');
+                // } else {
+                //     $_SESSION['flash_error'] = 'Something went wrong, please try again!';
+                //     redirect(PROOT . 'admin/members');
+                // }
+            }
         } else {
             $_SESSION['flash_error'] = 'Member not found!';
             redirect(PROOT . 'admin/members');
@@ -129,20 +142,163 @@
                             <?php if (isset($_GET['type']) && $_GET['type'] == 'edit' && !empty($_GET['id'])): ?>
                                 <form method="POST" class="p-3">
                                     <fieldset>
-                                        <legend>Edit <?= $prayer_name; ?></legend>
+                                        <legend>Edit <?= $firstname; ?></legend>
+
+                                        <h4 class="mb-3 fw-light">Personal Details</h4>
+                                        <div class="row g-3">
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <div class="form-label-group">
+                                                        <input type="text" class="form-control" id="firstname" name="firstname" placeholder="" value="<?= $firstname; ?>">
+                                                        <label for="firstname">First name *</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <div class="form-label-group">
+                                                        <input type="text" class="form-control" id="middlename" name="middlename" placeholder="" value="<?= $middlename; ?>">
+                                                        <label for="middlename">Middle name</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <div class="form-label-group">
+                                                        <input type="text" class="form-control" id="lastname" name="lastname" placeholder="" value="<?= $lastname; ?>">
+                                                        <label for="lastname">Last name *</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <div class="form-label-group">
+                                                        <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" value="<?= $email; ?>">
+                                                        <label for="email">Email *</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <div class="form-label-group">
+                                                        <input type="tel" inputmode="" class="form-control" id="phone" name="phone" placeholder="" value="<?= $phone; ?>">
+                                                        <label for="phone">Phone *</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <select type="text" class="form-control form-control-lg" id="gender" name="gender">
+                                                        <option value="" selected>Gender *</option>
+                                                        <option value="Male">Male</option>
+                                                        <option value="Female">Female</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <div class="form-label-group">
+                                                        <input type="date" class="form-control" id="dob" name="dob" placeholder="" value="<?= $dob; ?>">
+                                                        <label for="dob">Date of Birth *</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <div class="form-label-group">
+                                                        <input type="text" class="form-control" id="region" name="region" placeholder="" value="<?= $region; ?>">
+                                                        <label for="region">Region</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <div class="form-label-group">
+                                                        <input type="text" class="form-control" id="city" name="city" placeholder="" value="<?= $city; ?>">
+                                                        <label for="city">City</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <div class="form-label-group">
+                                                        <input type="text" class="form-control" id="digitaladdress" name="digitaladdress" placeholder="" value="<?= $digitaladdress; ?>">
+                                                        <label for="digitaladdress">Digital Address (optional)</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row g-3">
+                                            <h4 class="mb-3 fw-light">School Details</h4>
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <div class="form-label-group">
+                                                        <input type="text" class="form-control" id="studentid" name="studentid" placeholder="" value="<?= $studentid; ?>">
+                                                        <label for="studentid">Student ID *</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <div class="form-label-group">
+                                                        <input type="text" class="form-control" id="programme" name="programme" placeholder="" value="<?= $programme; ?>">
+                                                        <label for="programme">Programme *</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <div class="form-label-group">
+                                                        <input type="tel" class="form-control" id="department" name="department" placeholder="" value="<?= $department; ?>">
+                                                        <label for="department">Department *</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-floating">
+                                                    <select type="tel" class="form-control form-control-lg" id="admissiontype" name="admissiontype">
+                                                        <option value="" selected>Admission type *</option>
+                                                        <option value="Diploma">Diploma</option>
+                                                        <option value="Undergraduate">Undergraduate</option>
+                                                        <option value="Postgraduate">Postgraduate</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <div class="form-label-group">
+                                                        <input type="tel" class="form-control" id="admissionyear" name="admissionyear" placeholder="" value="<?= $admissionyear; ?>">
+                                                        <label for="admissionyear">Admission year *</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <div class="form-label-group">
+                                                        <input type="number" min="0" class="form-control" id="level" name="level" placeholder="" value="<?= $level; ?>">
+                                                        <label for="level">Level *</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <h4 class="mb-3 fw-light">Parent/Guardian Details</h4>
                                         <div class="form-group">
                                             <div class="form-label-group">
-                                                <input type="text" class="form-control" id="prayer_name" name="prayer_name" placeholder="Prayer name" required="" value="<?= $prayer_name; ?>"> <label for="prayer_name">Prayer</label>
+                                                <input type="text" class="form-control" id="guardianfullname" name="guardianfullname" placeholder="" value="<?= $guardianfullname; ?>">
+                                                <label for="guardianfullname">Full name *</label>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="form-label-group">
-                                                <input type="time" class="form-control" id="prayer_time" name="prayer_time" placeholder="Time" required="" value="<?= $prayer_time; ?>"> <label for="prayer_time">Time</label>
+                                                <input type="tel" inputmode="" class="form-control" id="guardianphonenumber" name="guardianphonenumber" placeholder="" value="<?= $guardianphonenumber; ?>">
+                                                <label for="guardianphonenumber">Phone number *</label>
                                             </div>
                                         </div>
                                         <div class="form-actions">
-                                            <button class="btn btn-success" type="submit" name="submit">Update prayer</button>
-                                            <a class="btn" href="<?= PROOT; ?>admin/prayer-time">Cancel update</a>
+                                            <button class="btn btn-success" type="submit" name="submit">Edit member</button>
+                                            <a class="btn" href="<?= PROOT; ?>admin/members">Cancel</a>
                                         </div>
                                     </fieldset>
                                 </form>
