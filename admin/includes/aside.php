@@ -63,12 +63,14 @@
                                 </li>
                             </ul>
                         </li>
+                        <?php if (admin_has_permission()): ?>
                         <li class="menu-item">
                             <a href="<?= PROOT; ?>admin/dues" class="menu-link"><span class="menu-icon fa fa-money-bill-trend-up"></span> <span class="menu-text">Dues</span></a>
                         </li>
                         <li class="menu-item">
                             <a href="<?= PROOT; ?>admin/donations" class="menu-link"><span class="menu-icon fa fa-money-bill"></span> <span class="menu-text">Donations</span></a>
                         </li>
+                        <?php endif; ?>
                         <li class="menu-item">
                             <a href="<?= PROOT; ?>admin/contacts" class="menu-link"><span class="menu-icon oi oi-envelope-open"></span> <span class="menu-text">Contacts</span></a>
                         </li>
@@ -86,9 +88,11 @@
                             <a href="<?= PROOT; ?>admin/site" class="menu-link"><span class="menu-icon fas fa-globe"></span> <span class="menu-text">Site</span></a>
                         </li>
                         <hr>
+                        <?php if (admin_has_permission()): ?>
                         <li class="menu-item">
                             <a href="<?= PROOT; ?>admin/admins" class="menu-link"><span class="menu-icon oi oi-people"></span> <span class="menu-text">Admins</span></a>
                         </li>
+                        <?php endif; ?>
                         <li class="menu-item has-child">
                             <a href="javascript:;" class="menu-link"><span class="menu-icon fa-solid fa-person"></span> <span class="menu-text"><?= ucwords($admin_data['admin_fullname']); ?> </span></a>
                             <ul class="menu">
