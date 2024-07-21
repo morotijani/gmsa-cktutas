@@ -64,10 +64,10 @@
                             </ul>
                         </li>
                         <li class="menu-item">
-                            <a href="<?= PROOT; ?>admin/dues" class="menu-link"><span class="menu-icon fa-brands fa-envira"></span> <span class="menu-text">Dues</span></a>
+                            <a href="<?= PROOT; ?>admin/dues" class="menu-link"><span class="menu-icon fa fa-money-bill-trend-up"></span> <span class="menu-text">Dues</span></a>
                         </li>
                         <li class="menu-item">
-                            <a href="<?= PROOT; ?>admin/donations" class="menu-link"><span class="menu-icon fa-brands fa-envira"></span> <span class="menu-text">Donations</span></a>
+                            <a href="<?= PROOT; ?>admin/donations" class="menu-link"><span class="menu-icon fa fa-money-bill"></span> <span class="menu-text">Donations</span></a>
                         </li>
                         <li class="menu-item">
                             <a href="<?= PROOT; ?>admin/contacts" class="menu-link"><span class="menu-icon oi oi-envelope-open"></span> <span class="menu-text">Contacts</span></a>
@@ -77,10 +77,10 @@
                             <a href="<?= PROOT; ?>admin/prayer-time" class="menu-link"><span class="menu-icon fa-solid fa-person-praying"></span> <span class="menu-text">Prayer Time</span></a>
                         </li>
                         <li class="menu-item">
-                            <a href="<?= PROOT; ?>admin/activity" class="menu-link"><span class="menu-icon fas fa-globe"></span> <span class="menu-text">Activities</span></a>
+                            <a href="<?= PROOT; ?>admin/activity" class="menu-link"><span class="menu-icon fa fa-calendar-check"></span> <span class="menu-text">Activities</span></a>
                         </li>
                         <li class="menu-item">
-                            <a href="<?= PROOT; ?>admin/gallery" class="menu-link"><span class="menu-icon fa-brands fa-envira"></span> <span class="menu-text">Gallery</span></a>
+                            <a href="<?= PROOT; ?>admin/gallery" class="menu-link"><span class="menu-icon fa fa-photo-film"></span> <span class="menu-text">Gallery</span></a>
                         </li>
                         <hr>
                         <li class="menu-item">

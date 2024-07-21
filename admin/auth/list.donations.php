@@ -29,7 +29,7 @@ if ($search_query != '') {
 		OR phone LIKE "%'.$find_query.'%" 
 		OR amount = "'.$find_query.'"  
 		OR reference LIKE "%'.$find_query.'%"  
-		OR gmsa_dues.createdAt = "'.$find_query.'") 
+		OR createdAt = "'.$find_query.'") 
 	';
 } else {
 	$query .= 'ORDER BY createdAt DESC ';
@@ -51,23 +51,7 @@ $output = '
 	        <table class="table">
 	            <thead>
 	                <tr>
-	                    <th colspan="2" style="min-width:320px">
-	                        <div class="thead-dd dropdown">
-	                            <span class="custom-control custom-control-nolabel custom-checkbox"><input type="checkbox" class="custom-control-input" id="check-handle"> <label class="custom-control-label" for="check-handle"></label></span>
-	                            <div class="thead-btn" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	                                <span class="fa fa-caret-down"></span>
-	                            </div>
-	                            <div class="dropdown-menu">
-	                                <div class="dropdown-arrow"></div>
-	                                <a class="dropdown-item" href="#">Select all</a> 
-	                                <a class="dropdown-item" href="#">Unselect all</a>
-	                                <div class="dropdown-divider"></div>
-	                                <a class="dropdown-item" href="#">Bulk remove</a> 
-	                                <a class="dropdown-item" href="#">Bulk edit</a> 
-	                                <a class="dropdown-item" href="#">Separate actions</a>
-	                            </div>
-	                        </div>
-	                    </th>
+	                    <th>  </th>
 	                    <th> Reference </th>
 	                    <th> Name </th>
 	                    <th> Email </th>
@@ -85,11 +69,7 @@ if ($total_data > 0) {
 
 		$output .= '
 			<tr>
-                <td class="align-middle col-checker">
-                    <div class="custom-control custom-control-nolabel custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" name="selectedRow[]" id="p3"> <label class="custom-control-label" for="p3"></label>
-                    </div>
-                </td>
+				<td>'.$i.'</td>
                 <td>' . $row["reference"] . '</td>
                 <td class="align-middle"> ' . ucwords($row["name"]) . ' </td>
                 <td class="align-middle"> ' . $row["email"] . ' </td>
@@ -98,6 +78,7 @@ if ($total_data > 0) {
                 <td class="align-middle"> ' . pretty_date($row["createdAt"]) . ' </td>
             </tr>
 		';
+		$i++;
 	}
 
 } else {

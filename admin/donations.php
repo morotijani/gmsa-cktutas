@@ -19,7 +19,7 @@
 
                     <header class="page-title-bar">
                         <div class="d-md-flex align-items-md-start">
-                            <h1 class="page-title mr-sm-auto"> Dues </h1>
+                            <h1 class="page-title mr-sm-auto"> Donations </h1>
                             <div class="btn-toolbar">
                                 <button type="button" class="btn btn-light"><i class="oi oi-data-transfer-download"></i> <span class="ml-1">Export</span></button> <a href="<?= PROOT . 'admin/donations'; ?>" class="btn btn-light"> <span class="ml-1">Refresh</span></a>
                             </div>
