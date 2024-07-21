@@ -1,6 +1,6 @@
 <?php
 
-    // Pay dues page
+    // Donation page
 
     require_once ("db_connection/conn.php");
     $TITLE = "Donate";

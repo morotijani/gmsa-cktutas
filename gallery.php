@@ -1,6 +1,6 @@
 <?php
 
-    // Contact us page
+    // Gallery page
 
     require_once ("db_connection/conn.php");
     $TITLE = "Gallery";

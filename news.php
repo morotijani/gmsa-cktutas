@@ -1,6 +1,6 @@
 <?php
 
-    // Contact us page
+    // News page
 
     require_once ("db_connection/conn.php");
     $TITLE = "News";

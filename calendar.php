@@ -1,9 +1,9 @@
 <?php
 
-    // Contact us page
+    // Calendar page
 
     require_once ("db_connection/conn.php");
-    $TITLE = "Contacts us";
+    $TITLE = "Calendar";
     $navTheme = "";
     include ("inc/header.inc.php");
     include ("inc/nav.inc.php");

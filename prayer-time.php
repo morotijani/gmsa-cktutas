@@ -1,11 +1,10 @@
 <?php
 
-    // Contact us page
+    // Prayer time page
 
     require_once ("db_connection/conn.php");
     $navTheme = "";
     $TITLE = "Prayer time";
-    // $activeNav = "active";
     include ("inc/header.inc.php");
     include ("inc/nav.inc.php");
 
