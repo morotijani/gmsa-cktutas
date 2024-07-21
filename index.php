@@ -42,7 +42,7 @@
                                 <div class="container">
                                     <div class="row">
                                         <div class="col-sm-11 col-lg-8 col-xl-7 text-center m-auto">
-                                            <span class="bg-white bg-opacity-10 text-white small rounded-3 px-3 py-2">🚀 #Ghana Muslim Students Association</span>
+                                            <span class="bg-white bg-opacity-10 text-white small rounded-3 px-3 py-2">🕌 #GMSA</span>
                                             <!-- Title -->
                                             <h1 class="text-white display-4 my-4">Ghana Muslims <span class="text-primary">Student</span> Association</h1>
                                             <p class="text-white mb-5"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquacaecat cupidatat non mollit est laborum. </p>

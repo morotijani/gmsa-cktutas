@@ -29,7 +29,7 @@
 
                 <div class="row" data-aos="fade-up">
                     <div class="col text-center">
-                        <p><span class="badge bg-success text-blue mr-1">New</span> GMSA gives you all prayer time and details. <a href="<?= PROOT; ?>prayer-time" class="link">Prayer time</a></p>
+                        <p><span class="badge bg-success text-blue mr-1">GMSA</span> we gives you all prayer time and details. <a href="<?= PROOT; ?>prayer-time" class="link">Prayer time</a></p>
                     </div>
                 </div>
             </div>
