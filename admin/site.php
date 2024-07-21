@@ -86,7 +86,7 @@
                             </p>
                             <div class="ml-auto">
                                 <div class="dropdown">
-                                    <a class="btn btn-success" href="<?= PROOT . 'admin/prayer-time' .((isset($_GET['edit'])) ? '?edit='.$id.'': ''); ?>"><span>Refresh</span> <i class="fa fa-fw fa-recycle"></i></a>
+                                    <a class="btn btn-success" href="<?= PROOT . 'admin/site'; ?>"><span>Refresh</span> <i class="fa fa-fw fa-recycle"></i></a>
                                 </div>
                             </div>
                         </div>

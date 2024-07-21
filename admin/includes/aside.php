@@ -59,20 +59,15 @@
                                     <a href="<?= PROOT; ?>admin/executives/position" class="menu-link">Positions</a>
                                 </li>
                                 <li class="menu-item">
-                                    <a href="<?= PROOT; ?>admin/executives/add" class="menu-link">Add new Executive</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="menu-item has-child">
-                            <a href="javascript:;" class="menu-link"><span class="menu-icon oi oi-browser"></span> <span class="menu-text">Layouts</span> <span class="badge badge-subtle badge-success">+4</span></a>
-                            <ul class="menu">
-                                <li class="menu-item">
-                                    <a href="layout-custom.html" class="menu-link">Custom</a>
+                                    <a href="<?= PROOT; ?>admin/members" class="menu-link">Add new Executive</a>
                                 </li>
                             </ul>
                         </li>
                         <li class="menu-item">
                             <a href="<?= PROOT; ?>admin/dues" class="menu-link"><span class="menu-icon fa-brands fa-envira"></span> <span class="menu-text">Dues</span></a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="<?= PROOT; ?>admin/donations" class="menu-link"><span class="menu-icon fa-brands fa-envira"></span> <span class="menu-text">Donations</span></a>
                         </li>
                         <li class="menu-item">
                             <a href="<?= PROOT; ?>admin/contacts" class="menu-link"><span class="menu-icon oi oi-envelope-open"></span> <span class="menu-text">Contacts</span></a>
