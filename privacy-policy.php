@@ -16,7 +16,7 @@
                 <div class="row">
                     <div class="col-xl-10 text-center mx-auto">
                         <span class="font-heading heading-color d-inline-block bg-light px-3 py-2 rounded-3 mb-4">🕌 GMSA</span>
-                        <h1 class="mb-4">Our Privacy Policy</h1>
+                        <h1 class="mb-4">Privacy Policy</h1>
                         <p class="lead mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
                         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
                         quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo

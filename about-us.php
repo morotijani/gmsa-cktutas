@@ -1,6 +1,6 @@
 <?php
 
-    // Contact us page
+    // About us page
 
     require_once ("db_connection/conn.php");
     $TITLE = "About us";
