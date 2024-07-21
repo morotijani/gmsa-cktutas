@@ -14,7 +14,7 @@
                     </li>
                 </ul>
                 
-                <div class="copyright" id="copyright"> Copyright &copy; 2013 - <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script> . All right reserved. </div>
+                <div class="copyright" id="copyright"> Copyright &copy; 2021 - <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script> . All right reserved. </div>
             </footer>
         </main>
 
@@ -33,9 +33,6 @@
     <script src="<?= PROOT; ?>admin/dist/js/Chart.min.js"></script>
     <!-- BEGIN THEME JS -->
     <script src="<?= PROOT; ?>admin/dist/js/theme.min.js"></script>
-    <!-- BEGIN PAGE LEVEL JS -->
-    <!-- <script src="<?= PROOT; ?>admin/dist/js/dashboard-demo.js"></script>  -->
-    <!-- END PAGE LEVEL JS -->
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-116692175-1"></script>

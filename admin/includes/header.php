@@ -3,7 +3,7 @@
             <div class="top-bar">
                 <div class="top-bar-brand">
                     <button class="hamburger hamburger-squeeze mr-2" type="button" data-toggle="aside-menu" aria-label="toggle aside menu"><span class="hamburger-box"><span class="hamburger-inner"></span></span></button>
-                    <a href="index.html">
+                    <a href="<?= PROOT; ?>admin">
                         <img src="<?= PROOT; ?>assets/media/logo/logo.png" class="img-fluid rounded" width="40">
                     </a>
                 </div>

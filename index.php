@@ -149,12 +149,12 @@
                             <div class="col-md-6 col-xl-3">
                                 <div class="bg-light rounded p-4 overflow-hidden">
                                     <h6 class="mb-5 mb-sm-8">Since</h6>
-                                    <div class="display-1 text-primary text-end mb-n5 mb-md-n6 me-n4">2013</div>
+                                    <div class="display-1 text-primary text-end mb-n5 mb-md-n6 me-n4">2021</div>
                                 </div>
                             </div>
                             
                             <div class="col-md-6 col-xl-4">
-                                <h6 class="fw-semibold mb-5">28 Years of working experience</h6>
+                                <h6 class="fw-semibold mb-5">Many years of service</h6>
                             
                                 <div class="accordion accordion-icon accordion-border-bottom" id="accordionFaq">
                                     <!-- Item -->
@@ -475,7 +475,7 @@
                             </form>
                         </div>
                     </div>
-                    <p class="small mb-0 px-4">Subscribe now and receive weekly newsletter with educational materials, prayer times, activity calendar, Friday news, and much more!</p>
+                    <p class="small mb-0 px-4">Subscribe now and receive weekly newsletter with educational materials, prayer times, activity calendar, Friday announcements, and much more!</p>
                 </div>
             </div>
         </section>
