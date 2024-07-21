@@ -50,23 +50,8 @@ $output = '
 	        <table class="table">
 	            <thead>
 	                <tr>
-	                    <th colspan="2" style="min-width:320px">
-	                        <div class="thead-dd dropdown">
-	                            <span class="custom-control custom-control-nolabel custom-checkbox"><input type="checkbox" class="custom-control-input" id="check-handle"> <label class="custom-control-label" for="check-handle"></label></span>
-	                            <div class="thead-btn" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	                                <span class="fa fa-caret-down"></span>
-	                            </div>
-	                            <div class="dropdown-menu">
-	                                <div class="dropdown-arrow"></div>
-	                                <a class="dropdown-item" href="#">Select all</a> 
-	                                <a class="dropdown-item" href="#">Unselect all</a>
-	                                <div class="dropdown-divider"></div>
-	                                <a class="dropdown-item" href="#">Bulk remove</a> 
-	                                <a class="dropdown-item" href="#">Bulk edit</a> 
-	                                <a class="dropdown-item" href="#">Separate actions</a>
-	                            </div>
-	                        </div>
-	                    </th>
+	                    <th> &nbsp; </th>
+	                    <th> Name </th>
 	                    <th> Email </th>
 	                    <th> Message </th>
 	                    <th> Date </th>
@@ -77,17 +62,14 @@ $output = '
 ';
 
 if ($total_data > 0) {
+	$i = 1;
 	foreach ($result as $row) {
 
 		$output .= '
 			<tr>
-                <td class="align-middle col-checker">
-                    <div class="custom-control custom-control-nolabel custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" name="selectedRow[]" id="p3"> <label class="custom-control-label" for="p3"></label>
-                    </div>
-                </td>
+                <td>' . $i . '</td>
                 <td> 
-                    <a href="javascript:;" data-target="#contactModal_' . $row["id"] . '" data-toggle="modal">'.ucwords($row["message_name"]).'</a>
+                    <a href="javascript:;" data-target="#contactModal_' . $i . '" data-toggle="modal">'.ucwords($row["message_name"]).'</a>
                 </td>
                 <td class="align-middle"> ' . $row["message_email"] . ' </td>
                 <td class="align-middle"> ' . mb_strimwidth($row["message"], 0, 120, '...') . ' </td>
@@ -97,35 +79,30 @@ if ($total_data > 0) {
                 </td>
             </tr>
 
-            <!-- Trade details -->
-            <div class="modal fade" id="contactModal_' . $row["id"] . '" tabindex="-1" aria-labelledby="contactModalLabel_' . $row["id"] . '" aria-hidden="true">
-				<div class="modal-dialog modal-dialog-centered">
+            <!-- Mail details -->
+            <div class="modal fade" id="contactModal_' . $i . '" tabindex="-1" role="dialog" aria-labelledby="contactModalLabel_' . $i . '" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered" role="document">
 					<div class="modal-content overflow-hidden">
 						<div class="modal-header pb-0 border-0">
-							<h1 class="modal-title h4" id="contactModalLabel_' . $row["id"] . '">' . $row["message_name"] . ' message</h1>
-							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							<h6 class="modal-title" id="contactModalLabel_' . $i . '">' . $row["message_name"] . ' message</h6>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
 						</div>
-						<div class="modal-body p-0 text-center">
+						<div class="modal-body p-2">
 							<ul class="list-group">
-								<li class="list-group-item" style="padding: 0.1rem 1rem;">
-			                        <small class="text-muted">Name,</small>
-			                        <p>' . ucwords($row["message_name"]) . '</p>
+			                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
+			                        <p><small class="text-muted">Email,</small><br>' . ucwords($row["message_name"]) . '</p>
 			                    </li>
 			                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
-			                        <small class="text-muted">Email,</small>
-			                        <p>' . $row["message_email"] . '</p>
+			                        <p><small class="text-muted">Email,</small><br>' . $row["message_email"] . '</p>
 			                    </li>
 			                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
-			                        <small class="text-muted">Phone</small>
-			                        <p>' . $row["message_phone"] . '</p>
+			                      	<p><small class="text-muted">Phone</small><br>' . $row["message_phone"] . '</p>
 			                    </li>
 			                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
-			                        <small class="text-muted">Mesage</small>
-			                        <p>' . nl2br($row["message"]) . '</p>
+			                        <p><small class="text-muted">Mesage</small><br>' . nl2br($row["message"]) . '</p>
 			                    </li>
 			                    <li class="list-group-item" style="padding: 0.1rem 1rem;">
-			                        <small class="text-muted">Date</small>
-			                        <p>' . ucwords($row["createdAt"]) . '</p>
+			                        <p><small class="text-muted">Date</small><br>' . ucwords($row["createdAt"]) . '</p>
 			                    </li>
 							</ul>
 						</div>
@@ -133,6 +110,7 @@ if ($total_data > 0) {
 				</div>
 			</div>
 		';
+		$i++;
 	}
 
 } else {

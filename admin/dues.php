@@ -80,9 +80,6 @@
                                     <li class="nav-item">
                                         <a class="nav-link active" href="<?php echo PROOT; ?>admin/dues">All (<?= $total_data; ?>)</a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#tab2">Other</a>
-                                    </li>
                                 </ul>
                             </div>
 
