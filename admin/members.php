@@ -190,8 +190,8 @@
                                                 <div class="form-group">
                                                     <select type="text" class="form-control form-control-lg" id="gender" name="gender">
                                                         <option value="" selected>Gender *</option>
-                                                        <option value="Male">Male</option>
-                                                        <option value="Female">Female</option>
+                                                        <option value="Male"<?= (($gender == 'Male') ? ' selected': ''); ?>>Male</option>
+                                                        <option value="Female"<?= (($gender == 'Female') ? ' selected': ''); ?>>Female</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -259,9 +259,9 @@
                                                 <div class="form-floating">
                                                     <select type="tel" class="form-control form-control-lg" id="admissiontype" name="admissiontype">
                                                         <option value="" selected>Admission type *</option>
-                                                        <option value="Diploma">Diploma</option>
-                                                        <option value="Undergraduate">Undergraduate</option>
-                                                        <option value="Postgraduate">Postgraduate</option>
+                                                        <option value="Diploma"<?= (($admissiontype == 'Diploma') ? ' selected': ''); ?>>Diploma</option>
+                                                        <option value="Undergraduate"<?= (($admissiontype == 'Undergraduate') ? ' selected': ''); ?>>Undergraduate</option>
+                                                        <option value="Postgraduate"<?= (($admissiontype == 'Postgraduate') ? ' selected': ''); ?>>Postgraduate</option>
                                                     </select>
                                                 </div>
                                             </div>
