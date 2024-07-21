@@ -76,7 +76,7 @@ if ($total_data > 0) {
 			<tr>
                 <td> ' . $i. ' </td>
                 <td>
-                    <a href="#" class="tile tile-img mr-1">
+                    <a href="javascript:;" class="tile tile-img mr-1">
                         <img class="img-fluid" src="' . PROOT . (($row["member_picture"] == '') ? 'assets/media/default.png' : $row['member_picture']) . '" alt="Card image cap">
                     </a> 
                     <a href="javascript:;" data-target="#memberModal_' . $i . '" data-toggle="modal">'.ucwords($row["member_firstname"] . ' ' . $row["member_middlename"] . '  ' . $row["member_lastname"]).'</a>
@@ -87,8 +87,8 @@ if ($total_data > 0) {
                 <td class="align-middle"> '.$row["member_phone"].' </td>
                 <td class="align-middle"> '.ucwords($row["member_hostel"]).' </td>
                 <td class="align-middle text-right">
-                    <a href="?edit='.$row["member_id"].'" class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-pencil-alt"></i> <span class="sr-only">Edit</span></a> 
-                    <a href="?remove='.$row["member_id"].'" class="btn btn-sm btn-icon btn-secondary"><i class="far fa-trash-alt"></i> <span class="sr-only">Remove</span></a> 
+                    <a href="'.PROOT.'admin/members/edit/'.$row["member_id"].'" class="btn btn-sm btn-icon btn-secondary"><i class="fa fa-pencil-alt"></i> <span class="sr-only">Edit</span></a> 
+                    <a href="'.PROOT.'admin/members/remove/'.$row["member_id"].'" class="btn btn-sm btn-icon btn-secondary"><i class="far fa-trash-alt"></i> <span class="sr-only">Remove</span></a> 
                 </td>
             </tr>
 
@@ -166,7 +166,7 @@ if ($total_data > 0) {
 							<div class="d-flex justify-content-between my-4">
 								<a class="btn btn-sm btn-dark" href="'.PROOT.'admin/executives/add/new/'.$row["member_id"].'">Add executive</a>&nbsp;
 								<a class="btn btn-sm btn-primary" href="'.PROOT.'admin/members/edit/'.$row["member_id"].'">Edit</a>&nbsp;
-								<a class="btn btn-sm btn-warning" href="'.PROOT.'admin/members/delete/'.$row["member_id"].'">Delete</a>
+								<a class="btn btn-sm btn-warning" href="'.PROOT.'admin/members/remove/'.$row["member_id"].'">Delete</a>
 							</div>
 						</div>
 					</div>

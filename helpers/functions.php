@@ -30,7 +30,6 @@ function find_by_student_id($student_id) {
 	return (($count_rows > 0) ? $row[0] : '');
 }
 
-
 // find student by email
 function find_by_student_email($email) {
 	global $conn;
@@ -41,6 +40,23 @@ function find_by_student_email($email) {
 	";
 	$statement = $conn->prepare($query);
 	$statement->execute([$email]);
+	$count_rows = $statement->rowCount();
+
+	$row = $statement->fetchAll();
+	return (($count_rows > 0) ? $row[0] : '');
+}
+
+// find member by member_id
+function find_by_member_id($member_id) {
+	global $conn;
+
+	$query = "
+		SELECT * FROM gmsa_members 
+		WHERE gmsa_members.member_id = ? 
+		LIMIT 1
+	";
+	$statement = $conn->prepare($query);
+	$statement->execute([$member_id]);
 	$count_rows = $statement->rowCount();
 
 	$row = $statement->fetchAll();
@@ -408,7 +424,7 @@ function fetch_all_executives($conn, $limit) {
     return (($statement->rowCount() > 0) ?  $rows : '');
 }
 
-//
+// find donation with reference
 function find_donation_details_with_refence($conn, $reference) {
 	$sql = "
 		SELECT * FROM gmsa_donations 
@@ -420,3 +436,5 @@ function find_donation_details_with_refence($conn, $reference) {
 
 	return (($statement->rowCount() > 0) ?  $rows : '');
 }
+
+// fin
