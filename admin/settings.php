@@ -39,7 +39,7 @@
                 $_SESSION['flash_success'] = 'Admin has been updated!';
                 redirect(PROOT . "admin/profile");
             } else {
-                echo js_alert("Something went wrong!");
+                $_SESSION['flash_error'] = "Something went wrong!";
                 redirect(PROOT . "admin/profile");
             }
         }

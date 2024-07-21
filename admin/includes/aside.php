@@ -82,9 +82,12 @@
                         <li class="menu-item">
                             <a href="<?= PROOT; ?>admin/gallery" class="menu-link"><span class="menu-icon fa fa-photo-film"></span> <span class="menu-text">Gallery</span></a>
                         </li>
-                        <hr>
                         <li class="menu-item">
                             <a href="<?= PROOT; ?>admin/site" class="menu-link"><span class="menu-icon fas fa-globe"></span> <span class="menu-text">Site</span></a>
+                        </li>
+                        <hr>
+                        <li class="menu-item">
+                            <a href="<?= PROOT; ?>admin/admins" class="menu-link"><span class="menu-icon oi oi-people"></span> <span class="menu-text">Admins</span></a>
                         </li>
                         <li class="menu-item has-child">
                             <a href="javascript:;" class="menu-link"><span class="menu-icon fa-solid fa-person"></span> <span class="menu-text"><?= ucwords($admin_data['admin_fullname']); ?> </span></a>
@@ -94,6 +97,9 @@
                                 </li>
                                 <li class="menu-item">
                                     <a href="<?= PROOT; ?>admin/settings" class="menu-link">Settings</a>
+                                </li>
+                                <li class="menu-item">
+                                    <a href="<?= PROOT; ?>admin/change-password" class="menu-link">Change password</a>
                                 </li>
                                 <li class="menu-item">
                                     <a href="<?= PROOT; ?>admin/auth/logout" class="menu-link">Log out</a>

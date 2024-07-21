@@ -1037,48 +1037,50 @@ function low_inventory_access() {
 
 // GET ALL ADMINS
 function get_all_admins() {
-	global $conn;
-	global $admin_data;
-	$output = '';
+    global $conn;
+    global $admin_data;
+    $output = '';
 
-	$query = "
-		SELECT * FROM garypie_admin 
-		WHERE admin_trash = :admin_trash
-	";
-	$statement = $conn->prepare($query);
-	$statement->execute([':admin_trash' => 0]);
-	$result = $statement->fetchAll();
+    $query = "
+        SELECT * FROM gmsa_admin 
+        WHERE admin_status = ?
+    ";
+    $statement = $conn->prepare($query);
+    $statement->execute([0]);
+    $result = $statement->fetchAll();
 
-	foreach ($result as $row) {
-		$admin_last_login = $row["admin_last_login"];
-		if ($admin_last_login == NULL) {
-			$admin_last_login = '<span class="text-secondary">Never</span>';
-		} else {
-			$admin_last_login = pretty_date($admin_last_login);
-		}
-		$output .= '
-			<tr>
-				<td>
-		';
-					
-		if ($row['admin_id'] != $admin_data['admin_id']) {
-			$output .= '
-				<a href="'.PROOT.'gpmin/admins?delete='.$row["admin_id"].'" class="btn btn-sm btn-light"><span data-feather="trash-2"></span></a>
-			';
-		}
+    foreach ($result as $row) {
+        $admin_last_login = $row["admin_last_login"];
+        if ($admin_last_login == NULL) {
+            $admin_last_login = '<span class="text-secondary">Never</span>';
+        } else {
+            $admin_last_login = pretty_date($admin_last_login);
+        }
+        $output .= '
+            <tr>
+                <td>
+        ';
+                    
+        if ($row['admin_id'] != $admin_data['admin_id']) {
+            $output .= '
+                <a href="' . PROOT . 'admin/admins?delete='.$row["admin_id"].'" class="btn btn-sm btn-neutral"><i class="bi bi-trash3"></i></a>
+            ';
+        }
 
-		$output .= '
-				</td>
-				<td>'.ucwords($row["admin_fullname"]).'</td>
-				<td>'.$row["admin_email"].'</td>
-				<td>'.pretty_date($row["admin_joined_date"]).'</td>
-				<td>'.$admin_last_login.'</td>
-				<td>'.$row["admin_permissions"].'</td>
-			</tr>
-		';
-	}
-	return $output;
+        $output .= '
+                </td>
+                <td>' . (($row["admin_profile"] == NULL) ? '' : '<div class="avatar"><a href="' . PROOT . $row["admin_profile"] . '" target="_blank"><img src="' . PROOT . $row["admin_profile"] . '" clas="" style="width: 50px; height: 50px;" />') . '</a></div></td>
+                <td>' . ucwords($row["admin_fullname"]) . '</td>
+                <td>' . $row["admin_email"] . '</td>
+                <td>' . pretty_date($row["admin_joined_date"]) . '</td>
+                <td>' . $admin_last_login . '</td>
+                <td>' . strtoupper($row["admin_permissions"]) . '</td>
+            </tr>
+        ';
+    }
+    return $output;
 }
+
 
 // GET ADMIN PROFILE DETAILS
 function get_admin_profile($admin_id) {
@@ -1290,173 +1292,10 @@ function get_all_categories() {
 }
 
 
-// Get featured products
-function get_featured_products($featured = 1) {
-	global $conn;
-	$output = '';
-
-	$query = '
-		SELECT * FROM garypie_product 
-		INNER JOIN garypie_category 
-		ON garypie_category.category_id = garypie_product.product_category 
-		INNER JOIN garypie_brand
-		ON garypie_brand.brand_id = garypie_product.product_brand 
-		WHERE garypie_product.product_trash = 0
-	';
-	if ($featured == 1) {
-		$query .= ' AND garypie_product.product_featured = 1';
-	}
-	$query .= ' ORDER BY garypie_product.product_name ASC';
-	if ($featured == 1) {
-		$query .= ' LIMIT 4';
-	}
-
-	$statement = $conn->prepare($query);
-	$statement->execute();
-	$result = $statement->fetchAll();
-
-	if ($statement->rowCount() > 0) {
-		$n = 0;
-		foreach ($result as $row) {
-			$product_images = explode(",", $row['product_image']);
-			if (count($product_images) == 1) {
-				$product_image = '
-					<img class="card-img-top card-img" src="' . $row['product_image'] . '" alt="' . $row['category'] . ' image.">
-				';
-			} else {
-				$product_image = '
-					<img class="card-img-top card-img-back" src="' . $product_images[0] . '" alt="...">
-					<img class="card-img-top card-img-front" src="' . $product_images[1] . '" alt="' . $row['category'] . ' image.">
-				';
-			}
-			
-			$output .= '
-				<div class="col-6 col-md-3 col-lg">
-                	<div class="card mb-7">
-                		' . soldOut($row['product_id']) . '
-                        <div class="card-img">
-                            <a class="card-img-hover" href="' . PROOT . 'store/products/' . $row['product_url'] . '">
-                                ' . $product_image . '
-                            </a>
-                            <div class="card-actions">
-                                <span class="card-action">
-                                    <button class="btn btn-xs btn-circle btn-white-primary" onclick="detailsmodal(&quot;' . $row['product_id'] . '&quot;)">
-                                        <i class="fe fe-eye"></i>
-                                    </button>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="card-body px-0">
-                            <!-- Category -->
-                            <div class="fs-xs">
-                                <a class="text-muted" href="' . PROOT . 'store/brand/' . $row['brand_url'] . '">' . ucwords($row['brand_name']) . '</a>&nbsp;.&nbsp;<a class="text-muted" href="' . PROOT . 'store/category/' . $row['category_url'] . '">' . ucwords($row['category']) . '</a>
-                            </div>
-                            <!-- Title -->
-                            <div class="fw-bold">
-                                <a class="text-body" href="' . PROOT . 'store/products/'.$row['product_url'].'">
-                                    ' . ucwords($row["product_name"]) . '
-                                </a>
-                            </div>
-                            <!-- Price -->
-                            <div class="fw-bold text-muted">
-                                '.money($row["product_price"]).'
-                            </div>
-                        </div>
-                    </div>
-                </div>
-			';
-			$n++;
-			if ($n == 4) {
-				$output .= '
-					<div class="w-100 d-none d-lg-block"></div>
-				';
-			}
-		}
-	}
-	return $output;
-}
 
 
-// Get randomly products 
-function you_may_also_like_products() {
-	global $conn;
-	$output = '';
 
-	$query = '
-		SELECT * FROM garypie_product 
-		INNER JOIN garypie_category 
-		ON garypie_category.category_id = garypie_product.product_category 
-		INNER JOIN garypie_brand
-		ON garypie_brand.brand_id = garypie_product.product_brand 
-		WHERE garypie_product.product_trash = 0
-		ORDER BY RAND()
-		LIMIT 8
-	';
 
-	$statement = $conn->prepare($query);
-	$statement->execute();
-	$result = $statement->fetchAll();
-
-	if ($statement->rowCount() > 0) {
-		$n = 0;
-		foreach ($result as $row) {
-			$product_images = explode(",", $row['product_image']);
-			if (count($product_images) == 1) {
-				$product_image = '
-					<img class="card-img-top card-img" src="' . $row['product_image'] . '" alt="' . $row['category'] . ' image.">
-				';
-			} else {
-				$product_image = '
-					<img class="card-img-top card-img-back" src="' . $product_images[0] . '" alt="...">
-					<img class="card-img-top card-img-front" src="' . $product_images[1] . '" alt="' . $row['category'] . ' image.">
-				';
-			}
-			
-			$output .= '
-				<div class="col-6 col-md-3 col-lg">
-                	<div class="card mb-7">
-                		' . soldOut($row['product_id']) . '
-                        <div class="card-img">
-                            <a class="card-img-hover" href="' . PROOT . 'store/products/' . $row['product_url'] . '">
-                                ' . $product_image . '
-                            </a>
-                            <div class="card-actions">
-                                <span class="card-action">
-                                    <button class="btn btn-xs btn-circle btn-white-primary" onclick="detailsmodal(&quot;' . $row['product_id'] . '&quot;)">
-                                        <i class="fe fe-eye"></i>
-                                    </button>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="card-body px-0">
-                            <!-- Category -->
-                            <div class="fs-xs">
-                                <a class="text-muted" href="' . PROOT . 'store/brand/' . $row['brand_url'] . '">' . ucwords($row['brand_name']) . '</a>&nbsp;.&nbsp;<a class="text-muted" href="' . PROOT . 'store/category/' . $row['category_url'] . '">' . ucwords($row['category']) . '</a>
-                            </div>
-                            <!-- Title -->
-                            <div class="fw-bold">
-                                <a class="text-body" href="' . PROOT . 'store/products/'.$row['product_url'].'">
-                                    ' . ucwords($row["product_name"]) . '
-                                </a>
-                            </div>
-                            <!-- Price -->
-                            <div class="fw-bold text-muted">
-                                '.money($row["product_price"]).'
-                            </div>
-                        </div>
-                    </div>
-                </div>
-			';
-			$n++;
-			if ($n == 4) {
-				$output .= '
-					<div class="w-100 d-none d-lg-block"></div>
-				';
-			}
-		}
-	}
-	return $output;
-}
 
 
 

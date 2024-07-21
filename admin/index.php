@@ -82,7 +82,7 @@
                             </p>
                             <div class="ml-auto">
                                 <div class="dropdown">
-                                    <button class="btn btn-secondary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Refresh</span> <i class="fa fa-fw fa-recycle"></i></button>
+                                    <a class="btn btn-secondary" href="<?= PROOT; ?>admin"><span>Refresh</span> <i class="fa fa-fw fa-recycle"></i></a>
                                 </div>
                             </div>
                         </div>

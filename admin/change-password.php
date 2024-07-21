@@ -19,7 +19,7 @@
     $new_hashed = password_hash($password, PASSWORD_BCRYPT);
     $admin_id = $admin_data['admin_id'];
 
-    if (isset($_POST)) {
+    if ($_POST) {
         if (empty($_POST['old_password']) || empty($_POST['password']) || empty($_POST['confirm'])) {
             $errors = 'You must fill out all fields';
         } else {
@@ -49,14 +49,14 @@
             $result = $satement->execute(array($new_hashed, $admin_id));
             if (isset($result)) {
 
-                $message = "changed password";
-                add_to_log($message, $admin_id);
+                // $message = "changed password";
+                // add_to_log($message, $admin_id);
 
                 $_SESSION['flash_success'] = 'Password successfully updated!';
-                redirect(PROOT . "acc/profile");
+                redirect(PROOT . "admin/profile");
             } else {
-                echo js_alert('Something went wrong');
-                redirect(PROOT . "acc/change-password");
+                $_SESSION['flash_error'] = 'Something went wrong!';
+                redirect(PROOT . "admin/change-password");
             }
         }
     }
@@ -83,7 +83,7 @@
                              <form method="POST">
                                 <div class="text-danger text-center"><?= $errors; ?></div>
                                 <fieldset>
-                                    <legend>Update profile details</legend>
+                                    <legend>Change password</legend>
                                     <div class="form-group">
                                         <div class="form-label-group">
                                             <input type="password" class="form-control" id="old_password" name="old_password" required="" value="<?= $old_password; ?>"> <label for="old_password">Old password</label>
