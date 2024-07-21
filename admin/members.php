@@ -29,6 +29,45 @@
         }
     }
 
+    // edit a member
+    if (isset($_GET['type']) && $_GET['type'] == 'edit' && !empty($_GET['id'])) {
+        $id = sanitize($_GET['id']);
+
+        $member = find_by_member_id($id);
+        if (is_array($member)) {
+
+
+            $sql = "
+                UPDATE `gmsa_members` 
+                SET `member_firstname`= ?,`member_middlename`= ?,`member_lastname`= ?,`member_email`= ?,`member_phone`= ?,`user_password`= ?,`member_gender`= ?,`member_dob`= ?,`member_region`= ?,`member_city`= ?,`member_digitaladdress`= ?,`member_studentid`= ?,`member_programme`= ?,`member_department`= ?,`member_admissiontype`= ?,`member_admissionyear`= ?,`member_hostel`= ?,`member_level`= ?,`member_guardianfullname`= ?,`member_guardianphonenumber`= ?,`member_picture`= ?
+                WHERE member_id = ?
+            ";
+            // $status = 1;
+            // if ($_GET['type'] == 'restore') {
+            //     $status = 0;
+            // }
+            // $query = "
+            //     UPDATE gmsa_members 
+            //     SET status = ? 
+            //     WHERE member_id = ? 
+            // ";
+            // $statement = $conn->prepare($query);
+            // $result = $statement->execute([$status, $id]);
+            // if (isset($result)) {
+            //     // code...
+            //     $_SESSION['flash_success'] = 'Member ' . (($_GET['type'] == 'restore') ? 'restored' : 'removed temporary') . '!';
+            //     redirect(PROOT . 'admin/members');
+            // } else {
+            //     $_SESSION['flash_error'] = 'Something went wrong, please try again!';
+            //     redirect(PROOT . 'admin/members');
+            // }
+        } else {
+            $_SESSION['flash_error'] = 'Member not found!';
+            redirect(PROOT . 'admin/members');
+        }
+    }
+
+
     // temporary delete a member
     if (isset($_GET['type']) && ($_GET['type'] == 'remove' || $_GET['type'] == 'restore') && !empty($_GET['id'])) {
         $id = sanitize($_GET['id']);
@@ -88,12 +127,25 @@
                     <div class="page-section">
                         <div class="card card-fluid">
                             <?php if (isset($_GET['type']) && $_GET['type'] == 'edit' && !empty($_GET['id'])): ?>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                <form method="POST" class="p-3">
+                                    <fieldset>
+                                        <legend>Edit <?= $prayer_name; ?></legend>
+                                        <div class="form-group">
+                                            <div class="form-label-group">
+                                                <input type="text" class="form-control" id="prayer_name" name="prayer_name" placeholder="Prayer name" required="" value="<?= $prayer_name; ?>"> <label for="prayer_name">Prayer</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-label-group">
+                                                <input type="time" class="form-control" id="prayer_time" name="prayer_time" placeholder="Time" required="" value="<?= $prayer_time; ?>"> <label for="prayer_time">Time</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-actions">
+                                            <button class="btn btn-success" type="submit" name="submit">Update prayer</button>
+                                            <a class="btn" href="<?= PROOT; ?>admin/prayer-time">Cancel update</a>
+                                        </div>
+                                    </fieldset>
+                                </form>
                             <?php elseif (isset($_GET['type']) && $_GET['type'] == 'archive' && !empty($_GET['id'])):
                                 $query = "
                                     SELECT * FROM gmsa_members 
