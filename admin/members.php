@@ -52,14 +52,13 @@
             $department = (isset($_POST['department']) ? $post['department'] : $member['member_department']);
             $admissiontype = (isset($_POST['admissiontype']) ? $post['admissiontype'] : $member['member_admissiontype']);
             $admissionyear = (isset($_POST['admissionyear']) ? $post['admissionyear'] : $member['member_admissionyear']);
+            $hostel = (isset($_POST['hostel']) ? $post['hostel'] : $member['member_hostel']);
             $level = (isset($_POST['level']) ? $post['level'] : $member['member_level']);
             $guardianfullname = (isset($_POST['guardianfullname']) ? $post['guardianfullname'] : $member['member_guardianfullname']);
             $guardianphonenumber = (isset($_POST['guardianphonenumber']) ? $post['guardianphonenumber'] : $member['member_guardianphonenumber']);
             $member_media = $member['member_picture'];
 
             if (isset($_POST['firstname'])) {
-                // code...
-
                 if ($_POST['uploaded_member_media'] == '') {
                     if (!empty($_FILES)) {
 
@@ -80,21 +79,22 @@
                     $member_media = $_POST['uploaded_member_media'];
                 }
 
+                $data = [$firstname, $middlename, $lastname, $email, $phone, $gender, $dob, $region, $city, $digitaladdress, $studentid, $programme, $department, $admissiontype, $admissionyear, $hostel, $level, $guardianfullname, $guardianphonenumber, $id];
                 $sql = "
                     UPDATE `gmsa_members` 
-                    SET `member_firstname`= ?,`member_middlename`= ?,`member_lastname`= ?,`member_email`= ?,`member_phone`= ?,`user_password`= ?,`member_gender`= ?,`member_dob`= ?,`member_region`= ?,`member_city`= ?,`member_digitaladdress`= ?,`member_studentid`= ?,`member_programme`= ?,`member_department`= ?,`member_admissiontype`= ?,`member_admissionyear`= ?,`member_hostel`= ?,`member_level`= ?,`member_guardianfullname`= ?,`member_guardianphonenumber`= ?,`member_picture`= ?
+                    SET `member_firstname`= ?,`member_middlename`= ?,`member_lastname`= ?,`member_email`= ?,`member_phone`= ?, `member_gender`= ?,`member_dob`= ?,`member_region`= ?,`member_city`= ?,`member_digitaladdress`= ?,`member_studentid`= ?,`member_programme`= ?,`member_department`= ?,`member_admissiontype`= ?,`member_admissionyear`= ?,`member_hostel`= ?,`member_level`= ?,`member_guardianfullname`= ?,`member_guardianphonenumber`= ?,`member_picture`= ?
                     WHERE member_id = ?
                 ";
-                // $statement = $conn->prepare($query);
-                // $result = $statement->execute([$status, $id]);
-                // if (isset($result)) {
-                //     // code...
-                //     $_SESSION['flash_success'] = 'Member ' . (($_GET['type'] == 'restore') ? 'restored' : 'removed temporary') . '!';
-                //     redirect(PROOT . 'admin/members');
-                // } else {
-                //     $_SESSION['flash_error'] = 'Something went wrong, please try again!';
-                //     redirect(PROOT . 'admin/members');
-                // }
+                $statement = $conn->prepare($sql);
+                $result = $statement->execute($data);
+                if (isset($result)) {
+                    // code...
+                    $_SESSION['flash_success'] = 'Member updated successfully!';
+                    redirect(PROOT . 'admin/members');
+                } else {
+                    $_SESSION['flash_error'] = 'Something went wrong, please try again!';
+                    redirect(PROOT . 'admin/members');
+                }
             }
         } else {
             $_SESSION['flash_error'] = 'Member not found!';
@@ -341,6 +341,14 @@
                                                     <div class="form-label-group">
                                                         <input type="number" min="0" class="form-control" id="level" name="level" placeholder="" value="<?= $level; ?>">
                                                         <label for="level">Level *</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <div class="form-label-group">
+                                                        <input type="text"  class="form-control" id="hostel" name="hostel" value="<?= $hostel; ?>">
+                                                        <label for="level">Hostel</label>
                                                     </div>
                                                 </div>
                                             </div>
