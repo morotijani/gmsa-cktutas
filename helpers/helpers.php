@@ -1081,18 +1081,19 @@ function get_all_admins() {
 }
 
 // GET ADMIN PROFILE DETAILS
-function get_admin_profile() {
+function get_admin_profile($admin_id) {
 	global $conn;
 	global $admin_data;
 	$output = '';
 
 	$query = "
-		SELECT * FROM garypie_admin 
-		WHERE admin_trash = :admin_trash 
+		SELECT * FROM gmsa_admin 
+		WHERE admin_id = ?
+        AND admin_trash = ? 
 		LIMIT 1
 	";
 	$statement = $conn->prepare($query);
-	$statement->execute([':admin_trash' => 0]);
+	$statement->execute([$admin_id,  0]);
 	$result = $statement->fetchAll();
 
 	foreach ($result as $row) {
