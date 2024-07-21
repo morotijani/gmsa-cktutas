@@ -198,7 +198,7 @@
                         <div class="d-md-flex align-items-md-start">
                             <h1 class="page-title mr-sm-auto"> Executives </h1>
                             <div class="btn-toolbar">
-                                <button type="button" class="btn btn-light"><i class="oi oi-data-transfer-download"></i> <span class="ml-1">Export</span></button> <button type="button" class="btn btn-light"><i class="oi oi-data-transfer-upload"></i> <span class="ml-1">Import</span></button>
+                                <button type="button" class="btn btn-light"><i class="oi oi-data-transfer-download"></i> <span class="ml-1">Export</span></button>
                                 <div class="dropdown">
                                     <button type="button" class="btn btn-light" data-toggle="dropdown" aria-expanded="false"><span>More</span> <span class="fa fa-caret-down"></span></button>
                                     <div class="dropdown-menu dropdown-menu-right" style="">
@@ -351,9 +351,6 @@
                                             <li class="nav-item">
                                                 <a class="nav-link active" href="<?= PROOT; ?>admin/members">All (<?= $total_data; ?>)</a>
                                             </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#tab2">Other</a>
-                                            </li>
                                         </ul>
                                     </div>
 
@@ -382,8 +379,8 @@
         $('#year_from').each(function() {
             var year = (new Date()).getFullYear();
             var current = year;
-            year -= 11;
-            for (var i = 0; i < 12; i++) {
+            year -= 3;
+            for (var i = 0; i < 5; i++) {
                 if ((year+i) == current)
                     $(this).append('<option selected value="' + (year + i) + '">' + (year + i) + '</option>');
                 else
@@ -394,8 +391,8 @@
         $('#year_to').each(function() {
             var year = (new Date()).getFullYear();
             var current = year + 1;
-            year -= 11;
-            for (var i = 0; i < 13; i++) {
+            year -= 3;
+            for (var i = 0; i < 5; i++) {
                 if ((year+i) == current)
                     $(this).append('<option selected value="' + (year + i) + '">' + (year + i) + '</option>');
                 else

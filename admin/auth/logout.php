@@ -9,3 +9,4 @@
     session_destroy();
 
 	redirect(PROOT . 'admin/auth/login');
+    

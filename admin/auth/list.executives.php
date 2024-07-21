@@ -57,23 +57,8 @@ $output = '
 	        <table class="table">
 	            <thead>
 	                <tr>
-	                    <th colspan="2" style="min-width:320px">
-	                        <div class="thead-dd dropdown">
-	                            <span class="custom-control custom-control-nolabel custom-checkbox"><input type="checkbox" class="custom-control-input" id="check-handle"> <label class="custom-control-label" for="check-handle"></label></span>
-	                            <div class="thead-btn" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	                                <span class="fa fa-caret-down"></span>
-	                            </div>
-	                            <div class="dropdown-menu">
-	                                <div class="dropdown-arrow"></div>
-	                                <a class="dropdown-item" href="#">Select all</a> 
-	                                <a class="dropdown-item" href="#">Unselect all</a>
-	                                <div class="dropdown-divider"></div>
-	                                <a class="dropdown-item" href="#">Bulk remove</a> 
-	                                <a class="dropdown-item" href="#">Bulk edit</a> 
-	                                <a class="dropdown-item" href="#">Separate actions</a>
-	                            </div>
-	                        </div>
-	                    </th>
+	                    <th> &nbsp; </th>
+	                    <th> Name </th>
 	                    <th> Position </th>
 	                    <th> Year </th>
 	                    <th> Programme </th>
@@ -89,11 +74,7 @@ if ($total_data > 0) {
 
 		$output .= '
 			<tr>
-                <td class="align-middle col-checker">
-                    <div class="custom-control custom-control-nolabel custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" name="selectedRow[]" id="p3"> <label class="custom-control-label" for="p3"></label>
-                    </div>
-                </td>
+                <td>' . $i . '</td>
                 <td>
                     <a href="#" class="tile tile-img mr-1">
                         <img class="img-fluid" src="' . PROOT . (($row["member_picture"] == '') ? 'assets/media/default.png' : $row['member_picture']) . '" alt="Card image cap">

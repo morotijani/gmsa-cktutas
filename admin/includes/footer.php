@@ -1,20 +1,17 @@
             <footer class="app-footer">
                 <ul class="list-inline">
                     <li class="list-inline-item">
-                        <a class="text-muted" href="#">Support</a>
+                        <a class="text-muted" href="<?= PROOT; ?>policy-privacy">Documentation</a>
                     </li>
                     <li class="list-inline-item">
-                        <a class="text-muted" href="#">Help Center</a>
+                        <a class="text-muted" href="<?= PROOT; ?>policy-privacy">Privacy</a>
                     </li>
                     <li class="list-inline-item">
-                        <a class="text-muted" href="#">Privacy</a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a class="text-muted" href="#">Terms of Service</a>
+                        <a class="text-muted" href="<?= PROOT; ?>tc">Terms of Service</a>
                     </li>
                 </ul>
                 
-                <div class="copyright" id="copyright"> Copyright &copy; 2021 - <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script> . All right reserved. </div>
+                <div class="copyright" id="copyright"> Copyright &copy; 2021 - <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>. </div>
             </footer>
         </main>
 

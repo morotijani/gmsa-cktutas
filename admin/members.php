@@ -54,11 +54,10 @@
                                     <button type="button" class="btn btn-light" data-toggle="dropdown" aria-expanded="false"><span>More</span> <span class="fa fa-caret-down"></span></button>
                                     <div class="dropdown-menu dropdown-menu-right" style="">
                                         <div class="dropdown-arrow"></div>
-                                        <a href="#" class="dropdown-item">Add member</a> 
-                                        <a href="#" class="dropdown-item"></a>
+                                        <a href="<?= PROOT; ?>auth/register" class="dropdown-item">Add member</a> 
+                                        <a href="<?= PROOT; ?>admin/executives/all" class="dropdown-item">Executives</a>
                                         <div class="dropdown-divider"></div>
-                                        <a href="#" class="dropdown-item">Share</a> 
-                                        <a href="#" class="dropdown-item">Archive</a>
+                                        <a href="<?= PROOT; ?>admin/members/archive" class="dropdown-item">Archive</a>
                                     </div>
                                 </div>
                             </div>
@@ -75,7 +74,7 @@
                                             <a class="nav-link active" href="<?= PROOT; ?>admin/members">All (<?= $total_data; ?>)</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="#tab2">Other</a>
+                                            <a class="nav-link" href="<?= PROOT; ?>admin/members/archive">Archive</a>
                                         </li>
                                     </ul>
                                 </div>

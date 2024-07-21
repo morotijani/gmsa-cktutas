@@ -42,50 +42,14 @@ $result = $statement->fetchAll();
 $count_filter = $statement->rowCount();
 
 
-$output = ' 
-    <div class="card-header">
-        <ul class="nav nav-tabs card-header-tabs">
-            <li class="nav-item">
-                <a class="nav-link active" href="'.PROOT.'admin/subscribers">All (' . $total_data . ')</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#tab2">Other</a>
-            </li>
-        </ul>
-    </div>
-
-    <div class="card-body">
-        <div class="form-group">
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"><span class="oi oi-magnifying-glass"></span></span>
-                </div>
-                <input type="text" id="search" class="form-control" placeholder="Search record">
-            </div>
-        </div>
-
+$output = '
     	<div class="text-muted"> Showing ' . $count_filter . ' to 10 of ' . $total_data . ' entries </div>
         <div class="table-responsive">
 	        <table class="table">
 	            <thead>
 	                <tr>
-	                    <th colspan="2" style="min-width:320px">
-	                        <div class="thead-dd dropdown">
-	                            <span class="custom-control custom-control-nolabel custom-checkbox"><input type="checkbox" class="custom-control-input" id="check-handle"> <label class="custom-control-label" for="check-handle"></label></span>
-	                            <div class="thead-btn" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	                                <span class="fa fa-caret-down"></span>
-	                            </div>
-	                            <div class="dropdown-menu">
-	                                <div class="dropdown-arrow"></div>
-	                                <a class="dropdown-item" href="#">Select all</a> 
-	                                <a class="dropdown-item" href="#">Unselect all</a>
-	                                <div class="dropdown-divider"></div>
-	                                <a class="dropdown-item" href="#">Bulk remove</a> 
-	                                <a class="dropdown-item" href="#">Bulk edit</a> 
-	                                <a class="dropdown-item" href="#">Separate actions</a>
-	                            </div>
-	                        </div>
-	                    </th>
+	                    <th> &nbsp; </th>
+	                    <th> Email </th>
 	                    <th> Date </th>
 	                    <th style="width:100px; min-width:100px;"> &nbsp; </th>
 	                </tr>
@@ -94,15 +58,12 @@ $output = '
 ';
 
 if ($total_data > 0) {
+	$i = 1;
 	foreach ($result as $row) {
 
 		$output .= '
 			<tr>
-                <td class="align-middle col-checker">
-                    <div class="custom-control custom-control-nolabel custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" name="selectedRow[]" id="p3"> <label class="custom-control-label" for="p3"></label>
-                    </div>
-                </td>
+                <td class="align-middle col-checker">' . $i . '</td>
                 <td> 
                     '.$row["subscriber_email"].'
                 </td>
@@ -112,6 +73,7 @@ if ($total_data > 0) {
                 </td>
             </tr>
 		';
+		$i++;
 	}
 
 } else {

@@ -63,17 +63,15 @@
                 <button class="btn btn-lg btn-success btn-block" type="submit">Sign In</button>
             </div>
             <div class="text-center pt-3">
-                <a href="<?= PROOT; ?>" class="link">Visit site</a> <span class="mx-2">·</span> <a href="auth-recovery-password.html" class="link">Forgot Password?</a>
+                <a href="<?= PROOT; ?>" class="link">Visit site</a> <span class="mx-2">·</span>
             </div>
         </form>
-        <footer class="auth-footer" id="copyright"> &copy; 2013 - <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script> All Rights Reserved. <a href="#">Privacy</a> and <a href="#">Terms</a></footer>
+        <footer class="auth-footer" id="copyright"> &copy; 2021 - <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>
     </main>
 
-    <!-- BEGIN BASE JS -->
     <script src="<?= PROOT; ?>admin/dist/js/jquery.min.js"></script>
     <script src="<?= PROOT; ?>admin/dist/js/popper.min.js"></script>
     <script src="<?= PROOT; ?>admin/dist/js/bootstrap.min.js"></script>
-    <!-- BEGIN PLUGINS JS -->
     <script src="<?= PROOT; ?>admin/dist/js/particles.js"></script>
     <script type="text/javascript">
          /**
@@ -88,19 +86,7 @@
     </script>
     <!-- BEGIN THEME JS -->
     <script src="<?= PROOT; ?>admin/dist/js/theme.js"></script>
-
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-116692175-1"></script>
-
     <script>
-        window.dataLayer = window.dataLayer || [];
-
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-      
-        gtag('js', new Date());
-        gtag('config', 'UA-116692175-1');
 
         // $('#temporary').parent().fadeOut('');
         // Fade out messages

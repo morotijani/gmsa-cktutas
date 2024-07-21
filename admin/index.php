@@ -61,6 +61,7 @@
         $QUERY = "
             SELECT * FROM gmsa_dues 
             WHERE MONTH(createdAt) = '{$thisMonth}' 
+            ORDER BY createdAt DESC
         ";
         $statement = $conn->prepare($QUERY);
         $statement->execute();
@@ -101,7 +102,7 @@
                                             </a>
                                         </div>
                                         <div class="col">
-                                            <a href="<?= PROOT; ?>admin/blog" class="metric metric-bordered align-items-center">
+                                            <a href="<?= PROOT; ?>admin/blog/all" class="metric metric-bordered align-items-center">
                                                 <h2 class="metric-label"> News </h2>
                                                 <p class="metric-value h3">
                                                   <sub><i class="oi oi-fork"></i></sub> <span class="value"><?= count_news($conn, 0); ?></span>
@@ -119,12 +120,12 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-3">
-                                    <a href="user-tasks.html" class="metric metric-bordered">
+                                    <a href="<?= PROOT; ?>admin/dues" class="metric metric-bordered">
                                         <div class="metric-badge">
                                             <span class="badge badge-lg badge-success"><span class="oi oi-media-record pulse mr-1"></span> PAID DUES THIS YEAR</span>
                                         </div>
                                         <p class="metric-value h3">
-                                            <sub><i class="fa fa-money"></i></sub> <span class="value"><?= total_dues_this_year($conn); ?></span>
+                                            <sub><i class="fa fa-money-bill-trend-up"></i></sub> <span class="value"><?= total_dues_this_year($conn); ?></span>
                                         </p>
                                     </a>
                                 </div>
@@ -134,7 +135,7 @@
                             </div>
                             <hr class="my-5">
                             <div class="section-block">
-                                <h2 class="section-title"> Payment made in this month (<?= date('m'); ?>) </h2>
+                                <h2 class="section-title"> Payment made in this month (<?= date('F'); ?>) </h2>
                             </div>
                             <div class="card card-fluid">
                                 <div class="card-body">
