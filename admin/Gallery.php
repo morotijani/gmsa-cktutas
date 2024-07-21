@@ -69,7 +69,7 @@
                                     <?php 
                                         foreach ($images as $image) {
                                             echo '
-                                                <div class="col-xl-3 col-lg-4 col-sm-6">
+                                                <div class="col-xl-2 col-lg-2 col-sm-4">
                                                     <div class="card card-figure">
                                                         <figure class="figure">
                                                             <div class="figure-img">
