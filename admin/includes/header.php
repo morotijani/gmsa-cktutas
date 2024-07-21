@@ -31,7 +31,7 @@
                             </li>
                         </ul>
                         <div class="dropdown d-none d-md-flex">
-                            <button class="btn-account" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="user-avatar user-avatar-md"><img src="assets/images/avatars/profile.jpg" alt=""></span> <span class="account-summary pr-lg-4 d-none d-lg-block"><span class="account-name"><?= $admin_data['admin_fullname']; ?> </span> <span class="account-description">IT Committee</span></span></button>
+                            <button class="btn-account" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="user-avatar user-avatar-md"><img src="<?= PROOT . (($admin_data['admin_profile'] == NULL) ? 'assets/media/avatar.png' : $admin_data['admin_profile']); ?>" alt=""></span> <span class="account-summary pr-lg-4 d-none d-lg-block"><span class="account-name"><?= $admin_data['admin_fullname']; ?> </span> <span class="account-description">IT Committee</span></span></button>
                             <div class="dropdown-menu">
                                 <div class="dropdown-arrow d-lg-none" x-arrow=""></div>
                                 <div class="dropdown-arrow ml-3 d-none d-lg-block"></div>

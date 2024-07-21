@@ -33,8 +33,8 @@
             $result = $statement->execute($data);
             if (isset($result)) {
 
-                $message = "updated profile details";
-                add_to_log($message, $admin_data['admin_id']);
+                // $message = "updated profile details";
+                // add_to_log($message, $admin_data['admin_id']);
 
                 $_SESSION['flash_success'] = 'Admin has been updated!';
                 redirect(PROOT . "admin/profile");
@@ -75,32 +75,35 @@
                                                 <img src="<?= PROOT . (($admin_data['admin_profile'] == NULL) ? 'assets/media/avatar.png' : $admin_data['admin_profile']); ?>" style="object-fit: cover; object-position: center; width: 35px; height: 35px" alt="<?=ucwords($admin_data['admin_fullname']); ?>'s profile.">
                                             </a>
                                             <div class="d-flex justify-content-between mx-1">
-                                                <label for="file_upload" class="btn btn-secondary mx-1">
-                                                    <span>Upload</span> 
-                                                    <input type="file" name="file_upload" id="file_upload" class="">
-                                                </label> 
-                                                <a href="javascript:;" class="btn d-inline-flex btn-danger change-profile-picture" id="<?= (($admin_data['admin_profile'] == NULL) ? '' : $admin_data['admin_profile']); ?>">
-                                                    <span><i class="bi bi-trash"></i> </span>
-                                                    <span class="d-none d-sm-block me-2">Remove</span>
-                                                </a>
+                                                <?php if ($admin_data['admin_profile'] == NULL): ?>
+                                                    <label for="file_upload" class="btn btn-secondary mx-1">
+                                                        <span>Upload</span> 
+                                                        <input type="file" name="file_upload" id="file_upload" class="">
+                                                    </label>
+                                                <?php else: ?>
+                                                    <a href="javascript:;" class="btn d-inline-flex btn-danger change-profile-picture" id="<?= (($admin_data['admin_profile'] == NULL) ? '' : $admin_data['admin_profile']); ?>">
+                                                        <span><i class="bi bi-trash"></i> </span>
+                                                        <span class="d-none d-sm-block me-2">Remove</span>
+                                                    </a>
+                                                <?php endif ?>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
                             <hr class="">
                              <form method="POST">
+                                <div class="text-danger text-center"><?= $errors; ?></div>
                                 <fieldset>
                                     <legend>Update profile details</legend>
                                     <div class="form-group">
                                         <div class="form-label-group">
-                                            <input type="text" class="form-control" id="admin_fullname" name="admin_fullname" placeholder="0.00" required="" value="<?= $admin_fullname; ?>"> <label for="admin_fullname">Name</label>
+                                            <input type="text" class="form-control" id="admin_fullname" name="admin_fullname" required="" value="<?= $admin_fullname; ?>"> <label for="admin_fullname">Name</label>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="form-label-group">
-                                            <input type="text" class="form-control" id="admin_email" name="admin_email" placeholder="0.00" required="" value="<?= $admin_email; ?>"> <label for="admin_email">Email</label>
+                                            <input type="email" class="form-control" id="admin_email" name="admin_email" required="" value="<?= $admin_email; ?>"> <label for="admin_email">Email</label>
                                         </div>
                                     </div>
                                     <div class="form-actions">
