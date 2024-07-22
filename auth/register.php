@@ -21,6 +21,7 @@
     $department = (isset($_POST['department']) ? $post['department'] : '');
     $admissiontype = (isset($_POST['admissiontype']) ? $post['admissiontype'] : '');
     $admissionyear = (isset($_POST['admissionyear']) ? $post['admissionyear'] : '');
+    $hostel = (isset($_POST['hostel']) ? $post['hostel'] : '');
     $level = (isset($_POST['level']) ? $post['level'] : '');
     $guardianfullname = (isset($_POST['guardianfullname']) ? $post['guardianfullname'] : '');
     $guardianphonenumber = (isset($_POST['guardianphonenumber']) ? $post['guardianphonenumber'] : '');
@@ -58,10 +59,10 @@
             // $mail_result = send_email($fn, $to, $subject, $body);
             // if ($mail_result) {}
 
-            $data = [$member_id, $firstname, $middlename, $lastname, $email, $phone, $gender, $dob, $region, $city, $digitaladdress, $studentid, $programme, $department, $admissiontype, $admissionyear, $level, $guardianfullname, $guardianphonenumber, $vericode, $createdAt];
+            $data = [$member_id, $firstname, $middlename, $lastname, $email, $phone, $gender, $dob, $region, $city, $digitaladdress, $studentid, $programme, $department, $admissiontype, $admissionyear, $hostel, $level, $guardianfullname, $guardianphonenumber, $vericode, $createdAt];
             $query = "
-                INSERT INTO `gmsa_members`(`member_id`, `member_firstname`, `member_middlename`, `member_lastname`, `member_email`, `member_phone`, `member_gender`, `member_dob`, `member_region`, `member_city`, `member_digitaladdress`, `member_studentid`, `member_programme`, `member_department`, `member_admissiontype`, `member_admissionyear`, `member_level`, `member_guardianfullname`, `member_guardianphonenumber`, `member_vericode`, `createdAt`) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                INSERT INTO `gmsa_members`(`member_id`, `member_firstname`, `member_middlename`, `member_lastname`, `member_email`, `member_phone`, `member_gender`, `member_dob`, `member_region`, `member_city`, `member_digitaladdress`, `member_studentid`, `member_programme`, `member_department`, `member_admissiontype`, `member_admissionyear`, `member_hostel`, `member_level`, `member_guardianfullname`, `member_guardianphonenumber`, `member_vericode`, `createdAt`) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             ";
             $statement = $conn->prepare($query);
             $result = $statement->execute($data);
@@ -325,6 +326,12 @@
                                         <div class="form-floating mb-3">
                                             <input type="number" min="0" class="form-control" id="level" name="level" placeholder="" value="<?= $level; ?>">
                                             <label for="level">Level *</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="hostel" name="hostel" placeholder="" value="<?= $hostel; ?>">
+                                            <label for="hostel">Hostel </label>
                                         </div>
                                     </div>
                                 </div>

@@ -72,17 +72,18 @@
                         if (isset($_POST['uploaded_image']) && $_POST['uploaded_image'] != '') {
                             unlink($_POST['uploaded_image']);
                         }
-                    } else {
-                        $message = '<div class="alert alert-danger">Picture cannot be empty!</div>';
-                    }
+                    } 
+                    // else {
+                    //     $message = '<div class="alert alert-danger">Picture cannot be empty!</div>';
+                    // }
                 } else {
                     $member_media = $_POST['uploaded_member_media'];
                 }
 
-                $data = [$firstname, $middlename, $lastname, $email, $phone, $gender, $dob, $region, $city, $digitaladdress, $studentid, $programme, $department, $admissiontype, $admissionyear, $hostel, $level, $guardianfullname, $guardianphonenumber, $id];
+                $data = [$firstname, $middlename, $lastname, $email, $phone, $gender, $dob, $region, $city, $digitaladdress, $studentid, $programme, $department, $admissiontype, $admissionyear, $hostel, $level, $guardianfullname, $guardianphonenumber, $member_media, $id];
                 $sql = "
                     UPDATE `gmsa_members` 
-                    SET `member_firstname`= ?,`member_middlename`= ?,`member_lastname`= ?,`member_email`= ?,`member_phone`= ?, `member_gender`= ?,`member_dob`= ?,`member_region`= ?,`member_city`= ?,`member_digitaladdress`= ?,`member_studentid`= ?,`member_programme`= ?,`member_department`= ?,`member_admissiontype`= ?,`member_admissionyear`= ?,`member_hostel`= ?,`member_level`= ?,`member_guardianfullname`= ?,`member_guardianphonenumber`= ?,`member_picture`= ?
+                    SET `member_firstname` = ?, `member_middlename` = ?, `member_lastname` = ?, `member_email` = ?, `member_phone`= ?, `member_gender`= ?,`member_dob`= ?,`member_region`= ?,`member_city`= ?,`member_digitaladdress`= ?,`member_studentid`= ?,`member_programme`= ?,`member_department`= ?,`member_admissiontype`= ?,`member_admissionyear`= ?,`member_hostel`= ?,`member_level`= ?,`member_guardianfullname`= ?,`member_guardianphonenumber`= ?,`member_picture`= ?
                     WHERE member_id = ?
                 ";
                 $statement = $conn->prepare($sql);
@@ -187,7 +188,7 @@
                     <div class="page-section">
                         <div class="card card-fluid">
                             <?php if (isset($_GET['type']) && $_GET['type'] == 'edit' && !empty($_GET['id'])): ?>
-                                <form method="POST" class="p-3">
+                                <form method="POST" class="p-3" enctype="multipart/form-data">
                                     <fieldset>
                                         <legend>Edit <?= $firstname; ?></legend>
 
@@ -202,7 +203,7 @@
                                         <div class="mb-3">
                                             <div>
                                                 <label for="member_media" class="form-label">Upload image</label>
-                                                <input type="file" class="form-control" id="member_media" name="member_media" required>
+                                                <input type="file" class="form-control" id="member_media" name="member_media">
                                                 <span id="upload_file"></span>
                                             </div>
                                         </div>
