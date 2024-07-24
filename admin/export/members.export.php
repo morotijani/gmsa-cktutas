@@ -97,6 +97,6 @@
 
         } else {
             $_SESSION['flash_error'] = "No Record Found!";
-            redirect(PROOT . 'admin/blog/all');
+            redirect(PROOT . 'admin/members');
         }
     }

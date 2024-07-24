@@ -13,19 +13,16 @@
     \PhpOffice\PhpSpreadsheet\IOFactory::registerWriter('Pdf', $class);
 
 
-    $fileName = "GMSA-CKTUTAS-EXECUTIVES-SHEET";
+    $fileName = "GMSA-CKTUTAS-DUES-ALL-SHEET";
 
-    
     $query = "
         SELECT *, 
         CONCAT(gmsa_members.member_firstname, ' ', gmsa_members.member_middlename, ' ', gmsa_members.member_lastname) full_name, 
-        CONCAT(gmsa_executives.year_from, ' / ', gmsa_executives.year_to) executive_year 
-        FROM gmsa_executives 
+        gmsa_dues.createdAt as dca 
+        FROM gmsa_dues 
         INNER JOIN gmsa_members 
-            ON gmsa_members.member_id = gmsa_executives.member_id 
-        INNER JOIN gmsa_positions 
-            ON gmsa_positions.position_id = gmsa_executives.position_id 
-        WHERE gmsa_executives.status = ? 
+            ON gmsa_members.member_studentid = gmsa_dues.student_id
+        WHERE gmsa_dues.status = ? 
     ";
     $statement = $conn->prepare($query);
     $statement->execute([0]);
@@ -36,21 +33,23 @@
         $sheet = $spreadsheet->getActiveSheet();
 
         // Header
-        $sheet->setCellValue('A1', 'EXECUTIVE ID');
-        $sheet->setCellValue('B1', 'EXECUTIVE NAME');
-        $sheet->setCellValue('C1', 'EXECUTIVE POSITION');
-        $sheet->setCellValue('D1', 'EXECUTIVE YEAR');
-        $sheet->setCellValue('E1', 'EXECUTIVE PROGRAMME');
-        $sheet->setCellValue('F1', 'EXECUTIVE PHOTO');
+        $sheet->setCellValue('A1', 'DUES ID');
+        $sheet->setCellValue('B1', 'REFERENCE');
+        $sheet->setCellValue('C1', 'NAME');
+        $sheet->setCellValue('D1', 'EMAIL');
+        $sheet->setCellValue('E1', 'LEVEL');
+        $sheet->setCellValue('F1', 'AMOUNT (₵)');
+        $sheet->setCellValue('G1', 'DATE');
 
         $rowCount = 2;
         foreach ($rows as $row) {
-            $sheet->setCellValue('A' . $rowCount, $row['executive_id']);
-            $sheet->setCellValue('B' . $rowCount, ucwords($row['full_name']));
-            $sheet->setCellValue('C' . $rowCount, ucwords($row['position']));
-            $sheet->setCellValue('D' . $rowCount, $row['executive_year']);
-            $sheet->setCellValue('E' . $rowCount, ucwords($row['member_programme']));
-            $sheet->setCellValue('F' . $rowCount, 'https://gmsacktutas.com/' . $row['member_picture']);
+            $sheet->setCellValue('A' . $rowCount, $row['dues_id']);
+            $sheet->setCellValue('B' . $rowCount, $row['transaction_reference']);
+            $sheet->setCellValue('C' . $rowCount, ucwords($row['full_name']));
+            $sheet->setCellValue('D' . $rowCount, $row['member_email']);
+            $sheet->setCellValue('E' . $rowCount, ucwords($row['member_level']));
+            $sheet->setCellValue('F' . $rowCount, $row['transaction_amount']);
+            $sheet->setCellValue('g' . $rowCount, pretty_date($row['dca']));
             $rowCount++;
         }
         
@@ -66,5 +65,5 @@
 
     } else {
         $_SESSION['flash_error'] = "No Record Found!";
-        redirect(PROOT . 'admin/executives/all');
+        redirect(PROOT . 'admin/dues');
     }
