@@ -171,7 +171,7 @@
                         <div class="d-md-flex align-items-md-start">
                             <h1 class="page-title mr-sm-auto text-<?= ((isset($_GET['type']) && $_GET['type'] == 'archive' && !empty($_GET['id'])) ? 'danger ': ''); ?>"> <?= ((isset($_GET['type']) && $_GET['type'] == 'archive' && !empty($_GET['id'])) ? 'Archive ': ''); ?>Members Table </h1>
                             <div class="btn-toolbar">
-                                <button type="button" class="btn btn-light"><i class="oi oi-data-transfer-download"></i> <span class="ml-1">Export</span></button>
+                                <a href="<?= PROOT . 'admin/export/members.export?export=' . ((isset($_GET['type']) && $_GET['type'] == 'archive') ? 'archive ': 'all'); ?>" class="btn btn-light"><i class="oi oi-data-transfer-download"></i> <span class="ml-1">Export</span></a>
                                 <div class="dropdown">
                                     <button type="button" class="btn btn-light" data-toggle="dropdown" aria-expanded="false"><span>More</span> <span class="fa fa-caret-down"></span></button>
                                     <div class="dropdown-menu dropdown-menu-right" style="">

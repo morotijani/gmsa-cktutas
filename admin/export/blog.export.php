@@ -48,7 +48,7 @@
 
             $rowCount = 2;
             foreach ($rows as $row) {
-                $sheet->setCellValue('A' . $rowCount, ucwords($row['news_id']));
+                $sheet->setCellValue('A' . $rowCount, $row['news_id']);
                 $sheet->setCellValue('B' . $rowCount, ucwords($row['news_title']));
                 $sheet->setCellValue('C' . $rowCount, strip_tags($row['news_content']));
                 $sheet->setCellValue('D' . $rowCount, 'https://gmsacktutas.com/' . $row['news_media']);
