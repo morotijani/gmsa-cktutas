@@ -107,7 +107,10 @@
                         <div class="d-md-flex align-items-md-start">
                             <h1 class="page-title mr-sm-auto"> Contacts </h1>
                             <div class="btn-toolbar">
-                                <button type="button" class="btn btn-light"><i class="oi oi-data-transfer-download"></i> <span class="ml-1">Export</span></button> <a href="<?= PROOT . 'admin/contacts' . ((isset($_GET['update-contact']) && !empty($_GET['update-contact'])) ? '' : '?update-contact=1'); ?>" class="btn btn-light"> <span class="ml-1"><?= ((isset($_GET['update-contact']) && !empty($_GET['update-contact'])) ? '' : 'Update'); ?> Contact</span></a>
+                                <?php if (!$_GET): ?>
+                                <a href="<?= PROOT . 'admin/export/contacts.export'; ?>" class="btn btn-light"><i class="oi oi-data-transfer-download"></i> <span class="ml-1">Export</span></a>
+                                <?php endif; ?>
+                                <a href="<?= PROOT . 'admin/contacts' . ((isset($_GET['update-contact']) && !empty($_GET['update-contact'])) ? '' : '?update-contact=1'); ?>" class="btn btn-light"> <span class="ml-1"><?= ((isset($_GET['update-contact']) && !empty($_GET['update-contact'])) ? '' : 'Update'); ?> Contact</span></a>
                             </div>
                         </div>
                     </header>

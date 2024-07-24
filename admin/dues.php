@@ -50,7 +50,7 @@
                             <h1 class="page-title mr-sm-auto"> Dues </h1>
                             <div class="btn-toolbar">
                                 <?php if (!$_GET): ?>
-                                <a href="<?= PROOT . 'admin/export/dues.export'; ?>" class="btn btn-light"><i class="oi oi-data-transfer-download"></i> <span class="ml-1">Export</span></a>
+                                <a href="<?= PROOT . 'admin/export/dues.export'; ?>" class="btn btn-light"><i class="oi oi-data-transfer-download"></i> <span class="ml-1">Export</span></a>&nbsp;
                                 <?php endif; ?>
                                 <a href="<?= PROOT . 'admin/dues?update=1'; ?>" class="btn btn-light"> <span class="ml-1">Update dues amount</span></a>
                             </div>
