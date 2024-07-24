@@ -13,16 +13,11 @@
     \PhpOffice\PhpSpreadsheet\IOFactory::registerWriter('Pdf', $class);
 
 
-    $fileName = "GMSA-CKTUTAS-DUES-ALL-SHEET";
+    $fileName = "GMSA-CKTUTAS-DONATIONS-ALL-SHEET";
 
     $query = "
-        SELECT *, 
-        CONCAT(gmsa_members.member_firstname, ' ', gmsa_members.member_middlename, ' ', gmsa_members.member_lastname) full_name, 
-        gmsa_dues.createdAt as dca 
-        FROM gmsa_dues 
-        INNER JOIN gmsa_members 
-            ON gmsa_members.member_studentid = gmsa_dues.student_id
-        WHERE gmsa_dues.status = ? 
+        SELECT * FROM gmsa_donations 
+        WHERE status = ? 
     ";
     $statement = $conn->prepare($query);
     $statement->execute([0]);
@@ -33,23 +28,23 @@
         $sheet = $spreadsheet->getActiveSheet();
 
         // Header
-        $sheet->setCellValue('A1', 'DUES ID');
+        $sheet->setCellValue('A1', 'DONATION ID');
         $sheet->setCellValue('B1', 'REFERENCE');
         $sheet->setCellValue('C1', 'NAME');
         $sheet->setCellValue('D1', 'EMAIL');
-        $sheet->setCellValue('E1', 'LEVEL');
+        $sheet->setCellValue('E1', 'PHONE');
         $sheet->setCellValue('F1', 'AMOUNT (₵)');
         $sheet->setCellValue('G1', 'DATE');
 
         $rowCount = 2;
         foreach ($rows as $row) {
-            $sheet->setCellValue('A' . $rowCount, $row['dues_id']);
-            $sheet->setCellValue('B' . $rowCount, $row['transaction_reference']);
-            $sheet->setCellValue('C' . $rowCount, ucwords($row['full_name']));
-            $sheet->setCellValue('D' . $rowCount, $row['member_email']);
-            $sheet->setCellValue('E' . $rowCount, ucwords($row['member_level']));
-            $sheet->setCellValue('F' . $rowCount, money($row['transaction_amount']));
-            $sheet->setCellValue('g' . $rowCount, pretty_date($row['dca']));
+            $sheet->setCellValue('A' . $rowCount, $row['donation_id']);
+            $sheet->setCellValue('B' . $rowCount, $row['reference']);
+            $sheet->setCellValue('C' . $rowCount, ucwords($row['name']));
+            $sheet->setCellValue('D' . $rowCount, $row['email']);
+            $sheet->setCellValue('E' . $rowCount, $row['phone']);
+            $sheet->setCellValue('F' . $rowCount, money($row['amount']));
+            $sheet->setCellValue('G' . $rowCount, pretty_date($row['createdAt']));
             $rowCount++;
         }
         
@@ -65,5 +60,5 @@
 
     } else {
         $_SESSION['flash_error'] = "No Record Found!";
-        redirect(PROOT . 'admin/dues');
+        redirect(PROOT . 'admin/donations');
     }
