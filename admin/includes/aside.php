@@ -19,7 +19,7 @@
                             <a href="<?= PROOT; ?>admin" class="menu-link"><span class="menu-icon fas fa-home"></span> <span class="menu-text">Dashboard</span></a>
                         </li>
                         <li class="menu-item has-child">
-                            <a href="javascript:;" class="menu-link"><span class="menu-icon fa-regular fa-newspaper"></span> <span class="menu-text">Blog / News</span> <span class="badge badge-warning">New</span></a>
+                            <a href="javascript:;" class="menu-link"><span class="menu-icon fas fa-blog"></span> <span class="menu-text">Blog / News</span> <span class="badge badge-warning">New</span></a>
                             <ul class="menu">
                                 <li class="menu-item">
                                     <a href="<?= PROOT; ?>admin/blog/all" class="menu-link">All</a>
@@ -86,6 +86,13 @@
                         </li>
                         <li class="menu-item">
                             <a href="<?= PROOT; ?>admin/site" class="menu-link"><span class="menu-icon fas fa-globe"></span> <span class="menu-text">Site</span></a>
+                        </li>
+                        <hr>
+                        <li class="menu-item">
+                            <a href="<?= PROOT; ?>admin/drive" class="menu-link"><span class="menu-icon fa-solid fa-hard-drive"></span> <span class="menu-text">Drive</span></a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="<?= PROOT; ?>admin/logs" class="menu-link"><span class="menu-icon fa-solid fa-rectangle-list"></span> <span class="menu-text">Logs</span></a>
                         </li>
                         <hr>
                         <?php if (admin_has_permission()): ?>
