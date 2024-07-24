@@ -198,7 +198,9 @@
                         <div class="d-md-flex align-items-md-start">
                             <h1 class="page-title mr-sm-auto"> Executives </h1>
                             <div class="btn-toolbar">
-                                <button type="button" class="btn btn-light"><i class="oi oi-data-transfer-download"></i> <span class="ml-1">Export</span></button>
+                                <?php if (isset($_GET['type']) && $_GET['type'] == 'all'): ?>
+                                    <a href="<?= PROOT . 'admin/export/executives.export'; ?>" class="btn btn-light"><i class="oi oi-data-transfer-download"></i> <span class="ml-1">Export</span></a>
+                                <?php endif ?>
                                 <div class="dropdown">
                                     <button type="button" class="btn btn-light" data-toggle="dropdown" aria-expanded="false"><span>More</span> <span class="fa fa-caret-down"></span></button>
                                     <div class="dropdown-menu dropdown-menu-right" style="">

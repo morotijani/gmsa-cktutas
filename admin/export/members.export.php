@@ -86,7 +86,7 @@
             }
             
             $writer = new Xlsx($spreadsheet);
-            $NewFileName = $fileName . '.xlsx';
+            $NewFileName = $fileName . '-' . date("Y-m-d") . '.xlsx';
 
             // $message = "exported " . strtoupper($FileExtType) . " trades data";
             // add_to_log($message, $_SESSION['JSAdmin']);
