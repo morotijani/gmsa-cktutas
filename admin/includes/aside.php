@@ -2,11 +2,17 @@
     <aside class="app-aside app-aside-expand-md app-aside-light">
         <div class="aside-content">
             <header class="aside-header d-block d-md-none">
-                <button class="btn-account" type="button" data-toggle="collapse" data-target="#dropdown-aside"><span class="user-avatar user-avatar-lg"><img src="assets/images/avatars/profile.jpg" alt=""></span> <span class="account-icon"><span class="fa fa-caret-down fa-lg"></span></span> <span class="account-summary"><span class="account-name">Ibranim Dramani</span> <span class="account-description">IT Committee</span></span></button>
+                <button class="btn-account" type="button" data-toggle="collapse" data-target="#dropdown-aside"><span class="user-avatar user-avatar-lg"><img src="<?= PROOT . (($admin_data['admin_profile'] == NULL) ? 'assets/media/avatar.png' : $admin_data['admin_profile']); ?>" alt=""></span> <span class="account-icon"><span class="fa fa-caret-down fa-lg"></span></span> <span class="account-summary"><span class="account-name"><?= $admin_data['admin_fullname']; ?> </span> <span class="account-description">IT Committee</span></span></button>
                 <div id="dropdown-aside" class="dropdown-aside collapse">
                     <div class="pb-3">
-                        <a class="dropdown-item" href="user-profile.html"><span class="dropdown-icon oi oi-person"></span> Profile</a> <a class="dropdown-item" href="auth-signin-v1.html"><span class="dropdown-icon oi oi-account-logout"></span> Logout</a>
-                        <div class="dropdown-divider"></div><a class="dropdown-item" href="#">Help Center</a> <a class="dropdown-item" href="#">Ask Forum</a> <a class="dropdown-item" href="#">Keyboard Shortcuts</a>
+                        <a class="dropdown-item" href="<?= PROOT; ?>admin/profile"><span class="dropdown-icon oi oi-person"></span> Profile</a> 
+                        <a class="dropdown-item" href="<?= PROOT; ?>admin/auth/logout"><span class="dropdown-icon oi oi-account-logout"></span> Logout</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="<?= PROOT; ?>admin/settings">Settings</a> 
+                        <a class="dropdown-item" href="<?= PROOT; ?>admin/change-password">Change Password</a> 
+                        <?php if (admin_has_permission()): ?>
+                        <a class="dropdown-item" href="<?= PROOT; ?>admin/admins">Admins</a>
+                        <?php endif ?>
                     </div>
                 </div>
             </header>
