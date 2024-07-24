@@ -22,11 +22,9 @@
             $status = 1;
         }
         $query = "
-            SELECT *, gmsa_news.createdAt news_date 
-            FROM gmsa_news 
-            INNER JOIN gmsa_categories 
-                ON gmsa_categories.category_id = gmsa_news.news_category 
-            WHERE gmsa_news.status  = ?
+            SELECT * 
+            FROM gmsa_members 
+            WHERE gmsa_members.status  = ?
         ";
         $statement = $conn->prepare($query);
         $statement->execute([$status]);
@@ -82,7 +80,7 @@
                 $sheet->setCellValue('R' . $rowCount, $row['member_level']);
                 $sheet->setCellValue('S' . $rowCount, ucwords($row['member_guardianfullname']));
                 $sheet->setCellValue('T' . $rowCount, $row['member_guardianphonenumber']);
-                $sheet->setCellValue('U' . $rowCount, $row['member_picture']);
+                $sheet->setCellValue('U' . $rowCount, 'https://gmsacktutas.org/' . $row['member_picture']);
                 $sheet->setCellValue('V' . $rowCount, pretty_date($row['createdAt']));
                 $rowCount++;
             }
