@@ -233,6 +233,9 @@
                                         <a href="<?= PROOT; ?>admin/blog/add" class="dropdown-item">Add news</a> 
                                         <a href="<?= PROOT; ?>admin/blog/category" class="dropdown-item">Add Category</a>
                                         <div class="dropdown-divider"></div>
+                                        <?php if ($_GET['type'] == 'all' || $_GET['type'] == 'archive'): ?>
+                                        <a href="<?= PROOT; ?>admin/export/blog.export.php?export=<?= (($_GET['type'] == 'all') ? 'all' : 'archive'); ?>" class="dropdown-item">Export news</a>
+                                        <?php endif; ?>
                                         <a href="<?= PROOT; ?>admin" class="dropdown-item">Dashoard</a> 
                                         <a href="<?= PROOT; ?>admin/blog/archive" class="dropdown-item">Archive</a>
                                     </div>
