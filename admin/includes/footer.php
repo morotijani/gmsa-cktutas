@@ -32,6 +32,10 @@
     <script src="<?= PROOT; ?>admin/dist/js/theme.min.js"></script>
 
     <script type="text/javascript">
+
+        // Fade out messages
+        $("#temporary").fadeOut(8000);
+
         function isNumberKey(evt) {
             var charCode = (evt.which) ? evt.which : evt.keyCode
             return !(charCode > 31 && (charCode < 48 || charCode > 57));

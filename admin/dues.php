@@ -20,7 +20,6 @@
     if (isset($_POST['submit'])) {
         if (!empty($fresher) || $fresher != '' && $fresher > 0) {
             if (!empty($continuing) || $continuing != '' && $continuing > 0) {
-                //dnd($_POST);
                 $sql = "
                     UPDATE `gmsa_about` 
                     SET `dues_for_fresher` = ?, `dues_for_continue` = ? 

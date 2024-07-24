@@ -24,10 +24,10 @@
                     <div class="top-bar-item top-bar-item-right px-0 d-none d-sm-flex">
                         <ul class="header-nav nav">
                             <li class="nav-item dropdown header-nav-dropdown has-notified">
-                                <a class="nav-link" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="oi oi-pulse"></span></a>
+                                <a class="nav-link" href="<?= PROOT; ?>admin/blog/all"><span class="oi oi-pulse"></span></a>
                             </li>
                             <li class="nav-item dropdown header-nav-dropdown has-notified">
-                                <a class="nav-link" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="oi oi-envelope-open"></span></a>
+                                <a class="nav-link" href="<?= PROOT; ?>admin/contacts"><span class="oi oi-envelope-open"></span></a>
                             </li>
                         </ul>
                         <div class="dropdown d-none d-md-flex">
@@ -39,9 +39,11 @@
                                 <a class="dropdown-item" href="<?= PROOT; ?>admin/profile"><span class="dropdown-icon oi oi-person"></span> Profile</a> 
                                 <a class="dropdown-item" href="<?= PROOT; ?>admin/auth/logout"><span class="dropdown-icon oi oi-account-logout"></span> Logout</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Help Center</a> 
-                                <a class="dropdown-item" href="#">Ask Forum</a> 
-                                <a class="dropdown-item" href="#">Keyboard Shortcuts</a>
+                                <a class="dropdown-item" href="<?= PROOT; ?>admin/settings">Settings</a> 
+                                <a class="dropdown-item" href="<?= PROOT; ?>admin/change-password">Change Password</a>
+                                <?php if (admin_has_permission()): ?>
+                                <a class="dropdown-item" href="<?= PROOT; ?>admin/admins">Admins</a>
+                                <?php endif ?>
                             </div>
                         </div>
                     </div>

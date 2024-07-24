@@ -185,8 +185,9 @@
             </div>
         </div>
     <?php include ("includes/footer.php"); ?>
-    <script type="text/javascript" src="<?= PROOT; ?>assets/js/Chart.min.js"></script>
+    
     <?php if (admin_has_permission()): ?>
+    <script type="text/javascript" src="<?= PROOT; ?>assets/js/Chart.min.js"></script>
     <script>
     (function () {
     'use strict'
