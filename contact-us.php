@@ -28,7 +28,10 @@
         $result = $statement->execute($data);
 
         if ($result) {
-            // code...
+
+            $log_message = ucwords($name) . " contacted us with id " . $message_id;
+            add_to_log($log_message, $ip_address);
+
             echo js_alert("Your message have been sent successfully!");
             redirect(PROOT . 'contact-us');
         } else {

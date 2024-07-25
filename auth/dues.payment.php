@@ -49,6 +49,10 @@
                     ";
                     $statement = $conn->prepare($query);
                     $statement->execute([$dues_id, $student_id, $reference, $amount, $level, $createdAt]);
+
+                    $log_message = "dues payment made with amount of " . money($amount) . " with student id " . $student_id . ", reference code of " . $reference . " and id " . $dues_id;
+                    add_to_log($log_message, $ip_address);
+
                     echo '';
                 } else {
                     echo 'transaction did not go through please try again!';

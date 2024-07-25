@@ -49,8 +49,14 @@
                         VALUES (?, ?, ?, ?, ?, ?, ?)
                     ";
                     $statement = $conn->prepare($query);
-                    $statement->execute([$donation_id, $name, $email, $phone, $amount, $reference, $createdAt]);
-                    echo '';
+                    $result = $statement->execute([$donation_id, $name, $email, $phone, $amount, $reference, $createdAt]);
+                    if ($result) {
+                        // code...
+
+                        $log_message = "donation made with an amount of " . money($amount) . " with id  " . $donation_id;
+                        add_to_log($log_message, $ip_address);
+                        echo '';
+                    }
                 } else {
                     echo 'transaction did not go through please try again!';
                 }

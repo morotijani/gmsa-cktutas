@@ -68,6 +68,10 @@
             $result = $statement->execute($data);
 
             if (isset($result)) {
+
+                $log_message = "new member added with id " . $member_id;
+                add_to_log($log_message, $ip_address);
+
                 $_SESSION['flash_success'] = 'Your have successfully created a membership account!';
                 redirect(PROOT . 'auth/verify');
             } else {

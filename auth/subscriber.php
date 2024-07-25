@@ -51,7 +51,7 @@
 
 
                 $log_message = "added a subscriber with is " . $subscriber_id . "";
-                add_to_log($log_message, $admin_data['admin_id']);
+                add_to_log($log_message, $ip_address);
 			}
 		}
 		echo $output;

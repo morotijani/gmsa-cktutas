@@ -15,10 +15,16 @@ if ($_POST['page'] > 1) {
 	$start = 0;
 }
 
+$a = '';
+$th = '';
+if (!admin_has_permission()) {
+	$a = "AND log_from = '".$admin_data['admin_id']."' ";
+}
 
 $query = "
 	SELECT * FROM gmsa_logs 
 	WHERE status = 0 
+	$a 
 ";
 $search_query = ((isset($_POST['query'])) ? sanitize($_POST['query']) : '');
 $find_query = str_replace(' ', '%', $search_query);
@@ -54,7 +60,7 @@ $output = '
 	                    <th> Message </th>
 	                    <th> From </th>
 	                    <th> Date </th>
-	                    <th style="width:100px; min-width:100px;"> &nbsp; </th>
+	                    '.$th.'
 	                </tr>
 	            </thead>
 	            <tbody>
@@ -64,6 +70,15 @@ if ($total_data > 0) {
 	$i = 1;
 	foreach ($result as $row) {
 
+		$td = '';
+		if (admin_has_permission()) {
+			$th = '<th style="width:100px; min-width:100px;"> &nbsp; </th>';
+			$td = '<td class="align-middle text-right">
+                    <a href="?remove='.$row["id"].'" class="btn btn-sm btn-icon btn-secondary"><i class="far fa-trash-alt"></i> <span class="sr-only">Remove</span></a> 
+                </td>';
+
+		}
+
 		$output .= '
 			<tr>
                 <td class="align-middle col-checker">' . $i . '</td>
@@ -71,9 +86,7 @@ if ($total_data > 0) {
                 <td>'.$row["log_message"].'</td>
                 <td>'.$row["log_from"].'</td>
                 <td class="align-middle"> '.pretty_date($row["createdAt"]).' </td>
-                <td class="align-middle text-right">
-                    <a href="?remove='.$row["id"].'" class="btn btn-sm btn-icon btn-secondary"><i class="far fa-trash-alt"></i> <span class="sr-only">Remove</span></a> 
-                </td>
+                '.$td.'
             </tr>
 		';
 		$i++;
