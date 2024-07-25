@@ -19,8 +19,8 @@
 			$result = $statement->execute([NULL, $admin_data['admin_id']]);
 			if (isset($result)) {
 				
-				// $message = "deleted profile picture";
-                // add_to_log($message, $admin_data['admin_id']);
+				$message = "deleted admin profile picture";
+                add_to_log($message, $admin_data['admin_id']);
 
 				echo '';
 			}

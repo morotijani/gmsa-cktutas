@@ -33,8 +33,8 @@
             $result = $statement->execute($data);
             if (isset($result)) {
 
-                // $message = "updated profile details";
-                // add_to_log($message, $admin_data['admin_id']);
+                $log_message = "updated profile details with id " . $admin_data['admin_id'] . "";
+                add_to_log($log_message, $admin_data['admin_id']);
 
                 $_SESSION['flash_success'] = 'Admin has been updated!';
                 redirect(PROOT . "admin/profile");

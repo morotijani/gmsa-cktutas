@@ -15,6 +15,13 @@
 				SET ads = ''
 			";
 			$statement = $conn->prepare($query);
-			$statement->execute();
+			$result = $statement->execute();
+
+			if ($result) {
+				// code...
+
+                $log_message = "deleted ads media";
+                add_to_log($log_message, $admin_data['admin_id']);
+			}
 		}
 	}

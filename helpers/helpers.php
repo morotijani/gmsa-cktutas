@@ -609,6 +609,9 @@ function adminLogin($admin_id) {
 	$statement = $conn->prepare($query);
 	$result = $statement->execute($data);
 	if (isset($result)) {
+        $log_message = "logged in admin " . $admin_id;
+        add_to_log($log_message, $admin_id);
+
 		$_SESSION['flash_success'] = 'You are now logged in!';
 		redirect(PROOT . 'admin/index');
 	}

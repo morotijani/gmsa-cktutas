@@ -25,6 +25,10 @@
             $result = $statement->execute([$id]);
             if ($result) {
                 // code...
+
+                $log_message = "deleted subscriber with is " . $id . "";
+                add_to_log($log_message, $admin_data['admin_id']);
+
                 $_SESSION['flash_success'] = 'Subscriber deleted successfully!';
                 redirect(PROOT . 'admin/subscribers');
             } else {

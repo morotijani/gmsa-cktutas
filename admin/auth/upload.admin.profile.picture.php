@@ -28,8 +28,8 @@
 			$result = $statement->execute([$name, $admin_data['admin_id']]);
 
 			if (isset($result)) {
-				// $message = "updated profile picture";
-                // add_to_log($message, $admin_data['admin_id']);
+				$message = "uploaded admin profile picture";
+                add_to_log($message, $admin_data['admin_id']);
 
 				echo '';
 			}

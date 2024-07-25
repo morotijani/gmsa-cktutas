@@ -20,7 +20,10 @@
         $result = $statement->execute([$about_info]);
 
         if ($result) {
-            $_SESSION['flash_success'] = 'Contact updated successfully!';
+            $log_message = "updated about info";
+            add_to_log($log_message, $admin_data['admin_id']);
+
+            $_SESSION['flash_success'] = 'About info updated successfully!';
             redirect(PROOT . 'admin/site');
         } else {
             $_SESSION['flash_error'] = 'Something went wrong, please try again!';
@@ -44,6 +47,10 @@
 
         if ($result) {
             // code...
+
+            $log_message = "updated social media link(s)";
+            add_to_log($log_message, $admin_data['admin_id']);
+
             $_SESSION['flash_success'] = 'Social media links updated successfully!';
             redirect(PROOT . 'admin/site');
         } else {
@@ -64,6 +71,10 @@
 
         if ($result) {
             // code...
+
+            $log_message = "updated about mission and vision";
+            add_to_log($log_message, $admin_data['admin_id']);
+
             $_SESSION['flash_success'] = 'Mision Vision updated successfully!';
             redirect(PROOT . 'admin/site');
         } else {
