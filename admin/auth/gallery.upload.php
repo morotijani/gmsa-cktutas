@@ -20,6 +20,12 @@ if (isset($_FILES['images'])) {
 			";
 			$statement = $conn->prepare($query);
 			$result = $statement->execute([$new_name, $dateAded]);
+
+			if ($result) {
+				// code...
+				$log_message = "uploaded gallery file(s)";
+	            add_to_log($log_message, $admin_data['admin_id']);
+			}
 		}
 
 	}

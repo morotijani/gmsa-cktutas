@@ -30,6 +30,10 @@
             $statement = $conn->prepare($deleteQuery);
             $result = $statement->execute([$id]);
             if ($result) {
+
+                $log_message = "deleted a gallery file with id " . $id . "";
+                add_to_log($log_message, $admin_data['admin_id']);
+
                 $_SESSION['flash_success'] = 'Media deleted successfully!';
                 redirect(PROOT . 'admin/gallery');
             }
