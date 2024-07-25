@@ -24,6 +24,10 @@
             ";
             $statement = $conn->prepare($query);
             $statement->execute([$permanent_delete]);
+
+            $log_message = "deleted member permanently with id " . $permanent_delete . "";
+            add_to_log($log_message, $admin_data['admin_id']);
+
             $_SESSION['flash_success'] = 'Member permanently deleted!';
             redirect(PROOT . 'admin/members');
         }
@@ -89,6 +93,9 @@
                 $statement = $conn->prepare($sql);
                 $result = $statement->execute($data);
                 if (isset($result)) {
+
+                    $log_message = "updated member with id " . $id . "";
+                    add_to_log($log_message, $admin_data['admin_id']);
                     // code...
                     $_SESSION['flash_success'] = 'Member updated successfully!';
                     redirect(PROOT . 'admin/members');
@@ -103,7 +110,7 @@
         }
     }
 
-    // DELETE A executive picture
+    // DELETE A member picture
     if ((isset($_GET['delete_np']) && !empty($_GET['delete_np'])) && (isset($_GET['image']) && !empty($_GET['image']))) {
 
         $mediaLocation = BASEURL . sanitize($_GET['image']);
@@ -119,6 +126,10 @@
             $statement = $conn->prepare($update);
             $result = $statement->execute([NULL, sanitize($_GET['delete_np'])]);
             if ($result) {
+
+                $log_message = "deleted member picture with id " . $_GET['delete_np'] . " to upload new one";
+                add_to_log($log_message, $admin_data['admin_id']);
+
                 $_SESSION['flash_success'] = 'Member profile picture deleted, upload new one!';            
                 redirect(PROOT . 'admin/members/edit/' . sanitize($_GET['delete_np']));
             } else {
@@ -129,7 +140,7 @@
     }
 
 
-    // temporary delete a member
+    // temporary delete or restore a member
     if (isset($_GET['type']) && ($_GET['type'] == 'remove' || $_GET['type'] == 'restore') && !empty($_GET['id'])) {
         $id = sanitize($_GET['id']);
 
@@ -148,6 +159,10 @@
             $result = $statement->execute([$status, $id]);
             if (isset($result)) {
                 // code...
+
+                $log_message = (($_GET['type'] == 'restore') ? 'restored' : 'temporary removed') . " member with id " . $id . "";
+                add_to_log($log_message, $admin_data['admin_id']);
+
                 $_SESSION['flash_success'] = 'Member ' . (($_GET['type'] == 'restore') ? 'restored' : 'removed temporary') . '!';
                 redirect(PROOT . 'admin/members');
             } else {

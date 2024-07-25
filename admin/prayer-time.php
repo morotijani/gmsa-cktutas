@@ -30,6 +30,10 @@
                 $result = $statement->execute([$prayer_name, $prayer_time, $id]);
                 if ($result) {
                     // code...
+
+                    $log_message = "payer time updated with id " . $id . "";
+                    add_to_log($log_message, $admin_data['admin_id']);
+
                     $_SESSION['flash_success'] = strtoupper($prayer_name) . ', updated successfully!';
                     redirect(PROOT . 'admin/prayer-time');
                 } else {
