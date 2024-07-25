@@ -590,13 +590,32 @@ function yearDropdown($startYear, $endYear, $id="year", $class) {
     }
 }
 
+function find_file_extension($file) {
+    $media = explode('.', $file);
+
+    $extension = end($media);
+
+    $location = PROOT . 'assets/media/drive/';
+    $icon = $location . 'paper.png';
+
+    if ($extension == 'xlsx') {
+        $icon = $location . 'xls.png';
+    } elseif ($extension == 'docx') {
+        $icon = $location . 'docx.png';
+    } elseif ($extension == 'jpg') {
+        $icon = $location . 'image.png';
+    } elseif ($extension == 'txt') {
+        $icon = $location . 'txt.png';
+    }
+
+    return $icon;
+}
+
 
 
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
-
-
 
 
 // Sessions For login
