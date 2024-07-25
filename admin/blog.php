@@ -52,6 +52,7 @@
                     INSERT INTO gmsa_categories (category, category_url, category_id) 
                     VALUES (?, ?, ?)
                 ";
+                $log_msg = 'add';
                 if (isset($_GET['status']) && $_GET['status'] == 'edit_category') {
                     $category_id = $id;
                     $q = "
@@ -59,10 +60,14 @@
                         SET category = ?, category_url = ?
                         WHERE category_id = ?
                     ";
+                    $log_msg = 'updat';
                 }
                 $statement = $conn->prepare($q);
                 $result = $statement->execute([$category, $category_url, $category_id]);
                 if (isset($result)) {
+                    $log_message = $log_msg . "ed category with id " . $category_id . "";
+                    add_to_log($log_message, $admin_data['admin_id']);
+
                     $_SESSION['flash_success'] = ucwords($category) . ' successfully ' . ((isset($_GET['status']) && $_GET['status'] == 'edit_category') ? 'updated' : 'added') . '!';        
                     redirect(PROOT . 'admin/blog/category');
                 } else {
@@ -80,6 +85,9 @@
         $delete = sanitize($_GET['id']);
         $result = $Category->deleteCategory($conn, $delete);
         if ($result) {
+            $log_message = "deleted a category with id " . $delete . "";
+            add_to_log($log_message, $admin_data['admin_id']);
+
             $_SESSION['flash_success'] = 'Category deleted!';            
             redirect(PROOT . 'admin/blog/category');
         } else {
@@ -98,6 +106,9 @@
         $_GET['featured'] = (($_GET['featured'] == 2) ? 0 : $_GET['featured']);
         $feature = $News->featuredNews($conn, (int)$_GET['featured'], sanitize($_GET['id']));
         if ($feature) {
+            $log_message = (($_GET['featured'] == 0) ? 'un-featured' : 'featured') . " a blog post with id " . $_GET['id'] . "";
+            add_to_log($log_message, $admin_data['admin_id']);
+
             $_SESSION['flash_success'] = 'News ' . (($_GET['featured'] == 0) ? 'un-featured' : 'featured') . ' successfully!';
             redirect(PROOT . 'admin/blog/all');
         } else {
@@ -167,6 +178,7 @@
             INSERT INTO `gmsa_news`(`news_title`, `news_url`, `news_content`, `news_media`, `news_category`, `news_created_by`, `news_id`) 
             VALUES (?, ?, ?, ?, ?, ?, ?)
         ";
+        $log_msg = 'creat';
         if (isset($_GET['status']) && $_GET['status'] == 'edit_news') {
             $news_id = $id;
             $query = "
@@ -174,10 +186,15 @@
                 SET news_title = ?, news_url = ?,  news_content = ?,  news_media = ?,  news_category = ?, news_updated_by = ?
                 WHERE news_id = ?
             ";
+            $log_msg = 'updat';
         }
         $statement = $conn->prepare($query);
         $result = $statement->execute([$news_title, $news_url, $news_content, $news_media, $news_category, $news_created_by, $news_id]);
         if (isset($result)) {
+
+            $log_message = $log_msg . "ed a blog post with id " . $news_id . "";
+            add_to_log($log_message, $admin_data['admin_id']);
+
             $_SESSION['flash_success'] = ucwords($news_title) . ' successfully ' . ((isset($_GET['status']) && $_GET['status'] == 'edit_news') ? 'updated' : 'added') . '!';
             redirect(PROOT . 'admin/blog/all');
         } else {
@@ -191,6 +208,10 @@
     if ((isset($_GET['delete_np']) && !empty($_GET['delete_np'])) && (isset($_GET['image']) && !empty($_GET['image']))) {
         $result = $News->deleteNewsMedia($conn, sanitize($_GET['delete_np']), sanitize($_GET['image']));
         if ($result) {
+
+            $log_message = "deleted a post picture with id " . $_GET['delete_np'] . "";
+            add_to_log($log_message, $admin_data['admin_id']);
+
             $_SESSION['flash_success'] = 'Media deleted, upload new one!';            
             redirect(PROOT . 'admin/blog/add/edit_news/' . sanitize($_GET['delete_np']));
         } else {
@@ -205,6 +226,9 @@
             // code...
             $delete = $News->deleteNews($conn, sanitize($_GET['id']));
             if (isset($delete)) {
+                $log_message = "deleted a blog post with id " . $_GET['id'] . "";
+                add_to_log($log_message, $admin_data['admin_id']);
+
                 $_SESSION['flash_success'] = 'News deleted but temporary';
                 redirect(PROOT . 'admin/blog/all');
             } else {

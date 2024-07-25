@@ -72,7 +72,7 @@
 
             if (empty($message)) {
                 // code...
-                $log_msg = "add";
+                $log_msg = "creat";
                 $activity_id = guidv4();
                 $query = "
                     INSERT INTO `gmsa_activities`(`activity`, `activity_details`, `activity_venue`, `activity_created_by`, `activity_date`, `activity_time`, `createdAt`, `activity_id`) 
@@ -91,9 +91,9 @@
                 $statement = $conn->prepare($query);
                 $result = $statement->execute([$activity, $details, $activity_venue, $activity_added_by, $activity_date, $activity_time, $createdAt, $activity_id]);
                 if (isset($result)) {
-                    $log_message = $log_msg . "ing activity " . $activity_id;
+                    $log_message = $log_msg . "ed activity with id " . $activity_id;
                     add_to_log($log_message, $_SESSION['GMAdmin']);
-                    
+
                     $_SESSION['flash_success'] = ucwords($activity) . ' successfully ' . ((isset($_GET['edit']) && !empty($_GET['edit'])) ? 'updated' : 'added') . ' successfully!';
                     redirect(PROOT . 'admin/activity');
                 } else {

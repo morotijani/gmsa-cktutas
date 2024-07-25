@@ -22,6 +22,9 @@
             $result = $statement->execute([$id]);
             if ($result) {
                 // code...
+                $log_message = "deleted a contact with id " . $id . "";
+                add_to_log($log_message, $admin_data['admin_id']);
+
                 $_SESSION['flash_success'] = 'Contact deleted successfully!';
                 redirect(PROOT . 'admin/contacts');
             } else {
@@ -86,6 +89,9 @@
                 $statement = $conn->prepare($sql);
                 $result = $statement->execute($data);
                 if (isset($result)) {
+                    $log_message = "updated site contact details";
+                    add_to_log($log_message, $admin_data['admin_id']);
+
                     $_SESSION['flash_success'] = 'Contact page successfully updated!';
                     redirect(PROOT . 'admin/contacts?update-contact=1');
                 }

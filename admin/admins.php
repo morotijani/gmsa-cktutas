@@ -26,8 +26,8 @@
         $result = $statement->execute([1, $admin_id]);
         if (isset($result)) {
 
-            // $message = "delete an admin with id " . $admin_id . "";
-            // add_to_log($message, $admin_data['admin_id']);
+            $message = "deleted an admin with id " . $admin_id . "";
+            add_to_log($message, $_SESSION['GMAdmin']);
 
             $_SESSION['flash_success'] = 'Admin has been deleted!';
             redirect(PROOT . "admin/admins");
@@ -76,8 +76,8 @@
                 $result = $statement->execute($data);
                 if (isset($result)) {
 
-                    // $message = "added new admin ".ucwords($admin_fullname)." as a ".strtoupper($admin_permissions)."";
-                    // add_to_log($message, $admin_data['admin_id']);
+                    $message = "created new admin ".ucwords($admin_fullname)." as an ".strtoupper($admin_permissions)."";
+                    add_to_log($message, $admin_data['admin_id']);
 
                     $_SESSION['flash_success'] = 'Admin has been Added!';
                     redirect(PROOT . "admin/admins");

@@ -49,8 +49,8 @@
             $result = $satement->execute(array($new_hashed, $admin_id));
             if (isset($result)) {
 
-                // $message = "changed password";
-                // add_to_log($message, $admin_id);
+                $message = "changed password";
+                add_to_log($message, $admin_id);
 
                 $_SESSION['flash_success'] = 'Password successfully updated!';
                 redirect(PROOT . "admin/profile");
