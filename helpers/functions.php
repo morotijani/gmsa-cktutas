@@ -13,6 +13,25 @@ class AllFunctions {
 	}
 }
 
+// add to logs
+function add_to_log($message, $log_from) {
+	global $conn;
+
+	$log_id = guidv4();
+	$createdAt = date("Y-m-d H:i:s A");
+	$sql = "
+		INSERT INTO `gmsa_logs`(`log_id`, `log_message`, `log_from`, `createdAt`) 
+		VALUES (?, ?, ?, ?)
+	";
+	$statement = $conn->prepare($sql);
+	$result = $statement->execute([$log_id, $message, $log_from, $createdAt]);
+
+	return false;
+	if ($result) {
+		return true;
+	}
+}
+
 
 // find student by student id
 function find_by_student_id($student_id) {

@@ -26,8 +26,10 @@
         if (is_array($find_activity)) {
 
             $activity = ((isset($_POST['activity']) && !empty($_POST['activity'])) ? $post['activity'] : $find_activity['activity']);
+            $activity_venue = ((isset($_POST['activity_venue']) && !empty($_POST['activity_venue'])) ? $post['activity_venue'] : $find_activity['activity_venue']);
             $details = ((isset($_POST['details']) && !empty($_POST['details'])) ? $post['details'] : $find_activity['activity_details']);
             $activity_date = ((isset($_POST['activity_date']) && !empty($_POST['activity_date'])) ? $post['activity_date'] : $find_activity['activity_date']);
+            $activity_time = ((isset($_POST['activity_time']) && !empty($_POST['activity_time'])) ? $post['activity_time'] : $find_activity['activity_time']);
 
         } else {
             $_SESSION['flash_error'] = 'Activity was not found!';
@@ -70,6 +72,7 @@
 
             if (empty($message)) {
                 // code...
+                $log_msg = "add";
                 $activity_id = guidv4();
                 $query = "
                     INSERT INTO `gmsa_activities`(`activity`, `activity_details`, `activity_venue`, `activity_created_by`, `activity_date`, `activity_time`, `createdAt`, `activity_id`) 
@@ -82,10 +85,15 @@
                         SET activity = ?, activity_details = ?, activity_venue = ?, activity_updated_by = ?, activity_date  = ?, activity_time = ?, updatedAt = ?
                         WHERE activity_id = ?
                     ";
+
+                    $log_msg = "updat";
                 }
                 $statement = $conn->prepare($query);
                 $result = $statement->execute([$activity, $details, $activity_venue, $activity_added_by, $activity_date, $activity_time, $createdAt, $activity_id]);
                 if (isset($result)) {
+                    $log_message = $log_msg . "ing activity " . $activity_id;
+                    add_to_log($log_message, $_SESSION['GMAdmin']);
+                    
                     $_SESSION['flash_success'] = ucwords($activity) . ' successfully ' . ((isset($_GET['edit']) && !empty($_GET['edit'])) ? 'updated' : 'added') . ' successfully!';
                     redirect(PROOT . 'admin/activity');
                 } else {
