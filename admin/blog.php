@@ -209,7 +209,7 @@
         $result = $News->deleteNewsMedia($conn, sanitize($_GET['delete_np']), sanitize($_GET['image']));
         if ($result) {
 
-            $log_message = "deleted a post picture with id " . $_GET['delete_np'] . "";
+            $log_message = "deleted a post picture with id " . $_GET['delete_np'] . " to upload new one";
             add_to_log($log_message, $admin_data['admin_id']);
 
             $_SESSION['flash_success'] = 'Media deleted, upload new one!';            

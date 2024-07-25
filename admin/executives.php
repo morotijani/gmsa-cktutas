@@ -49,6 +49,7 @@
                     INSERT INTO gmsa_positions (position, position_id) 
                     VALUES (?, ?)
                 ";
+                $log_msg = 'creat';
                 if (isset($_GET['status']) && $_GET['status'] == 'edit_position') {
                     $position_id = $id;
                     $q = "
@@ -56,10 +57,15 @@
                         SET position = ? 
                         WHERE position_id = ?
                     ";
+                    $log_msg = 'updat';
                 }
                 $statement = $conn->prepare($q);
                 $result = $statement->execute([$position, $position_id]);
                 if (isset($result)) {
+
+                    $log_message = $log_msg . "ed position with id " . $position_id . "";
+                    add_to_log($log_message, $admin_data['admin_id']);
+
                     $_SESSION['flash_success'] = ucwords($position) . ' successfully ' . ((isset($_GET['status']) && $_GET['status'] == 'edit_position') ? 'updated' : 'added') . '!';        
                     redirect(PROOT . 'admin/executives/position');
                 } else {
@@ -77,6 +83,10 @@
         $delete = sanitize($_GET['id']);
         $result = $conn->query("DELETE FROM gmsa_positions WHERE position_id = '".$delete."'")->execute();
         if ($result) {
+
+            $log_message = "deleted a position with id " . $delete . "";
+            add_to_log($log_message, $admin_data['admin_id']);
+
             $_SESSION['flash_success'] = 'Position deleted!';            
             redirect(PROOT . 'admin/executives/position');
         } else {
@@ -141,6 +151,9 @@
             $statement = $conn->prepare($sql);
             $statement->execute([$member_media, $member_id]);
 
+            $log_message = "added an executive with id " . $executive_id . "";
+            add_to_log($log_message, $admin_data['admin_id']);
+
             $_SESSION['flash_success'] = 'Executive successfully added!';
             redirect(PROOT . 'admin/executives/all');
         } else {
@@ -155,6 +168,9 @@
         $delete = sanitize($_GET['status']);
         $result = $conn->query("DELETE FROM gmsa_executives WHERE executive_id = '".$delete."'")->execute();
         if (isset($result)) {
+            $log_message = "deleted an executive with id " . $delete . "";
+            add_to_log($log_message, $admin_data['admin_id']);
+
             $_SESSION['flash_success'] = 'Executive deleted successfully!';
             redirect(PROOT . 'admin/executives/all');
         } else {
@@ -179,6 +195,9 @@
             $statement = $conn->prepare($update);
             $result = $statement->execute([NULL, sanitize($_GET['delete_np'])]);
             if ($result) {
+                $log_message = "deleted an executive picture with id " . $_GET['delete_np'] . " to upload new one";
+                add_to_log($log_message, $admin_data['admin_id']);
+
                 $_SESSION['flash_success'] = 'Executive profile picture deleted, upload new one!';            
                 redirect(PROOT . 'admin/executives/add/new/' . sanitize($_GET['delete_np']));
             } else {
@@ -259,10 +278,10 @@
                                                             <td>
                                                                 <a href='javascript:;' class='btn btn-danger text-decoration-none' data-toggle='modal' data-target='#deleteModal<?= $i; ?>'>Delete</a>
 
-                                                                <div class='modal fade' id='deleteModal<?= $i ;?>' tabindex='-1' aria-labelledby='subscribeModalLabel' aria-hidden='true'>
-                                                                    <div class='modal-dialog modal-dialog-centered modal-sm'>
+                                                                <div class='modal fade' id='deleteModal<?= $i ;?>' tabindex='-1' role="dialog" aria-labelledby='subscribeModalLabel' aria-hidden='true'>
+                                                                    <div class='modal-dialog modal-dialog-centered modal-sm' role="document">
                                                                         <div class='modal-content'>
-                                                                            <div class='modal-body'>
+                                                                            <div class='modal-body p-2'>
                                                                                 <p>When you delete this position, all executives under it will be deleted as well.</p>
                                                                                 <button type='button' class='btn' data-dismiss='modal'>Close</button>
                                                                                 <a href='<?= PROOT; ?>admin/executives/position/delete/<?= $position_row['position_id']; ?>' class='btn btn-secondary'>Confirm Delete.</a>
