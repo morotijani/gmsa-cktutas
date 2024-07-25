@@ -5,12 +5,12 @@ use PHPMailer\PHPMailer\Exception;
 require BASEURL . 'vendor/autoload.php';
 
 // IP INFO
-use ipinfo\ipinfo\IPinfo;
+// use ipinfo\ipinfo\IPinfo;
 
-$access_token = IPINFO_KEY;
-$client = new IPinfo($access_token);
-$ip = $client->getDetails();
-$ip_address = $ip->ip;
+// $access_token = IPINFO_KEY;
+// $client = new IPinfo($access_token);
+// $ip = $client->getDetails();
+// $ip_address = $ip->ip;
 
 
 function dnd($data) {
@@ -604,8 +604,16 @@ function find_file_extension($file) {
         $icon = $location . 'docx.png';
     } elseif ($extension == 'jpg') {
         $icon = $location . 'image.png';
+    }  elseif ($extension == 'jpeg') {
+        $icon = $location . 'image.png';
+    }  elseif ($extension == 'png') {
+        $icon = $location . 'image.png';
+    }  elseif ($extension == 'gif') {
+        $icon = $location . 'image.png';
     } elseif ($extension == 'txt') {
         $icon = $location . 'txt.png';
+    } elseif ($extension == 'pdf') {
+        $icon = $location . 'pdf.png';
     }
 
     return $icon;

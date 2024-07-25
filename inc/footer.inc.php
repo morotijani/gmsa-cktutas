@@ -36,6 +36,7 @@
                                 <li class="nav-item"><a class="nav-link" href="<?= PROOT; ?>executives">Executives</a></li>
                                 <li class="nav-item"><a class="nav-link" href="<?= PROOT; ?>gallery">Gallery</a></li>
                                 <li class="nav-item"><a class="nav-link" href="<?= PROOT; ?>prayer-time">Prayer Time</a></li>
+                                <li class="nav-item"><a class="nav-link" href="<?= PROOT; ?>activities">Activities</a></li>
                                 <li class="nav-item"><a class="nav-link" href="<?= PROOT; ?>contact-us">Contact us</a></li>
                             </ul>
                         </div>
@@ -46,7 +47,7 @@
                                 <li class="nav-item"><a class="nav-link" href="<?= PROOT; ?>auth/register">Register</a></li>
                                 <li class="nav-item"><a class="nav-link" href="<?= PROOT; ?>auth/pay-dues">Pay Dues</a></li>
                                 <li class="nav-item"><a class="nav-link" href="<?= PROOT; ?>calendar">Calendar</a></li>
-                                <li class="nav-item"><a class="nav-link" href="<?= PROOT; ?>activities">Activities</a></li>
+                                <li class="nav-item"><a class="nav-link" href="<?= PROOT; ?>assets/media/GMSA-CKT-UTAS-Constitution.pdf" target="_blank">GMSA - CONSTITUITION</a></li>
                             </ul>
                         </div>
                         <div class="col-md-4">
@@ -73,7 +74,7 @@
             </div>
             <hr class="opacity-1 mt-6 mb-0">
             <div class="d-md-flex justify-content-between align-items-center text-center text-lg-start py-4">
-                <div class="text-body mb-3 mb-md-0" id="copyright"> Copyrights &copy; 2021 - <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script> GMSA - CKTUTAS. Build by <a href="https://www.gmsacktutas.org/" class="text-body text-primary-hover">IT & Publicity Committee</a>. </div>
+                <div class="text-body mb-3 mb-md-0" id="copyright"> Copyrights &copy; 2021 - <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script> GMSA - CKTUTAS. </div>
             </div>
             
         </div>

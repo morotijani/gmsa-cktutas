@@ -24,13 +24,12 @@ if (isset($_FILES['media'])) {
 
 			if ($result) {
 				// code...
-				$log_message = "uploaded " . $extension . " media file(s)";
+				$log_message = "uploaded drive " . $extension . " media file(s)";
 	            add_to_log($log_message, $admin_data['admin_id']);
 			}
 		}
 
 	}
 
-	echo 'success';
 }
 
