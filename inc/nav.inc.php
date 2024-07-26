@@ -15,6 +15,7 @@
                         <li class="nav-item"> <a class="nav-link" href="<?= PROOT; ?>prayer-time">Prayer Time</a></li>
                         <li class="nav-item"> <a class="nav-link" href="<?= PROOT; ?>news">News</a></li>
                         <li class="nav-item"> <a class="nav-link" href="<?= PROOT; ?>gallery">Gallery</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="<?= PROOT; ?>donate">Donate</a></li>
                     </ul>
                 </div>
 
