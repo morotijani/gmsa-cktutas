@@ -27,7 +27,10 @@
                         <div class="d-md-flex align-items-md-start">
                             <h1 class="page-title mr-sm-auto"> Logs </h1>
                             <div class="btn-toolbar">
-                                <a href="<?= PROOT . 'admin/export/logs.export'; ?>" class="btn btn-light"><i class="oi oi-data-transfer-download"></i> <span class="ml-1">Export</span></a> <a href="<?= PROOT . 'admin/logs'; ?>" class="btn btn-light"> <span class="ml-1">Refresh</span></a>
+                                <?php if (admin_has_permission()): ?>
+                                <a href="<?= PROOT . 'admin/export/logs.export'; ?>" class="btn btn-light"><i class="oi oi-data-transfer-download"></i> <span class="ml-1">Export</span></a> 
+                                <?php endif; ?>
+                                <a href="<?= PROOT . 'admin/logs'; ?>" class="btn btn-light"> <span class="ml-1">Refresh</span></a>
                             </div>
                         </div>
                     </header>

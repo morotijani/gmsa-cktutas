@@ -5,6 +5,11 @@
         admn_login_redirect();
     }
 
+    // check for permissions
+    if (!admin_has_permission('editor')) {
+        admin_permission_redirect('index');
+    }
+
     use PhpOffice\PhpSpreadsheet\Spreadsheet;
     use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
