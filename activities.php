@@ -29,7 +29,7 @@
                         <h1 class="display-5">Highlights of activities</h1>
                     </div>
                     <div class="col-xl-5 ms-auto">
-                        <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod magna aliqua. Ut enim ad minim.</p>
+                        <p class="mb-4">Stay upated with all our upcoming events on campus and all other GMSA activities.</p>
                         <div class="text-center d-inline-block bg-light border rounded px-5 py-3">
                             <span class="heading-color">Have any queries for us?</span> <a class="ms-2" href="<?= PROOT; ?>contact-us">Contact us now <span class="bi-chevron-right small ms-1"></span></a>
                         </div>

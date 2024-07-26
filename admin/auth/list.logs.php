@@ -18,12 +18,12 @@ if ($_POST['page'] > 1) {
 $a = '';
 $th = '';
 if (!admin_has_permission()) {
-	$a = "AND log_from = '".$admin_data['admin_id']."' ";
+	$a = "AND gmsa_logs.log_from = '".$admin_data['admin_id']."' ";
 }
 
 $query = "
 	SELECT * FROM gmsa_logs 
-	WHERE status = 0 
+	WHERE gmsa_logs.status = 0 
 	$a 
 ";
 $search_query = ((isset($_POST['query'])) ? sanitize($_POST['query']) : '');
@@ -41,7 +41,7 @@ if ($search_query != '') {
 
 $filter_query = $query . 'LIMIT ' . $start . ', ' . $limit . '';
 
-$total_data = $conn->query("SELECT * FROM gmsa_logs WHERE status = 0")->rowCount();
+$total_data = $conn->query("SELECT * FROM gmsa_logs WHERE status = 0 $a")->rowCount();
 
 $statement = $conn->prepare($filter_query);
 $statement->execute();
@@ -70,6 +70,14 @@ if ($total_data > 0) {
 	$i = 1;
 	foreach ($result as $row) {
 
+		$ad = find_admin_by_admin_id($conn, $row["log_from"]);
+		$from_row = '';
+		if (is_array($ad)) {
+			$from_row = ucwords($ad[0]["admin_fullname"]);
+		} else {
+			$from_row = $row["log_from"];
+		}
+
 		$td = '';
 		if (admin_has_permission()) {
 			$th = '<th style="width:100px; min-width:100px;"> &nbsp; </th>';
@@ -84,7 +92,7 @@ if ($total_data > 0) {
                 <td class="align-middle col-checker">' . $i . '</td>
                 <td>'.$row["log_id"].'</td>
                 <td>'.$row["log_message"].'</td>
-                <td>'.$row["log_from"].'</td>
+                <td>'.$from_row.'</td>
                 <td class="align-middle"> '.pretty_date($row["createdAt"]).' </td>
                 '.$td.'
             </tr>

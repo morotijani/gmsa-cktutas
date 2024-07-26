@@ -9,7 +9,7 @@
     include ("inc/nav.inc.php");
 
     // fetch blog
-    $blog_rows = fetch_featured_news($conn, 3, 1);
+    $blog_rows = fetch_featured_news($conn, 5, 1);
 
     // fetch ctivities
     $activities = fetch_activities($conn, 5);
@@ -45,7 +45,7 @@
                                             <span class="bg-white bg-opacity-10 text-white small rounded-3 px-3 py-2">🕌 #GMSA</span>
                                             <!-- Title -->
                                             <h1 class="text-white display-4 my-4">Ghana Muslims <span class="text-primary">Student</span> Association</h1>
-                                            <p class="text-white mb-5"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquacaecat cupidatat non mollit est laborum. </p>
+                                            <p class="text-white mb-5"> Since it's inception has served and still serving as the mouthpiece and sole representative organization of all Muslim students in the university, on religious, moral and spiritual matters.</p>
                                             <a class="btn btn-lg btn-white icon-link icon-link-hover mb-0" href="<?= PROOT; ?>about-us">Know now<i class="bi bi-arrow-right"></i> </a>
                                         </div>
                                     </div>
@@ -62,8 +62,7 @@
                                         <div class="col-sm-11 col-lg-8 mt-auto">
                                             <!-- Title -->
                                             <h1 class="text-white display-4 mb-4">Pay your <span class="fw-light">GMSA</span> Dues <span class="fw-light">Online</span></h1>
-                                            <p class="text-white mb-5"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ast laborum. </p>
+                                            <p class="text-white mb-5"> Dues payment made easily! Kindly pay your GMSA dues at the comfort of your home. Remember to register before proceeding with payment. </p>
                                             <a class="btn btn-lg btn-primary icon-link icon-link-hover mb-0" href="<?= PROOT; ?>auth/pay-dues">Pay dues<i class="bi bi-arrow-right"></i> </a>
                                         </div>
                                     </div>
@@ -80,8 +79,7 @@
                                         <div class="col-sm-11 col-lg-8 col-xl-7 m-auto">
                                             <!-- Title -->
                                             <h1 class="text-white display-4 my-4">Get updated on news <span class="text-primary">and</span> know what's up.</h1>
-                                            <p class="text-white mb-5"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                            tempor proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
+                                            <p class="text-white mb-5">Be the first to hear the latest news about GMSA, our upcoming activities, and latest happenings on campus! </p>
                                             <a class="btn btn-lg btn-white icon-link icon-link-hover mb-0" href="<?= PROOT; ?>blog">Get started now<i class="bi bi-arrow-right"></i> </a>
                                         </div>
                                     </div>
@@ -208,7 +206,7 @@
                             We are dedicated to the well-being and success of our students, providing them with extraordinary experiences and networks that allow them to grow and develop …
                             </p>
 
-                            <a href="https://cktutas.edu.gh/" class="btn btn-dark mb-0">Click here for more detail</a>
+                            <a href="https://cktutas.edu.gh/" target="_blank" class="btn btn-dark mb-0">Click here for more detail</a>
                         </div>
                     </div>
 
@@ -303,7 +301,7 @@
                     <div class="row g-4">
                         <div class="col-lg-5">
                             <h2 class="mb-4">Pay, Your, Dues</h2>
-                            <p class="mb-4">Supposing so be resolving breakfast am or perfectly. It drew a hill from me. Valley by oh twenty direct me so.</p>
+                            <p class="mb-4">Dues payment made easily! Kindly pay your GMSA dues at the comfort of your home. Remember to register before proceeding with payment.</p>
                             <div class="row g-4 mb-4 mb-lg-0">
                                 <div class="col-6 col-sm-5">
                                     <a href="<?= PROOT; ?>auth/pay-dues" class="btn btn-lg btn-success"> <i class="bi bi-cash-coin btn-transition"></i> Pay here</a>

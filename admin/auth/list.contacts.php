@@ -79,7 +79,7 @@ if ($total_data > 0) {
                 </td>
             </tr>
 
-            <!-- Mail details -->
+            <!-- Contact details -->
             <div class="modal fade" id="contactModal_' . $i . '" tabindex="-1" role="dialog" aria-labelledby="contactModalLabel_' . $i . '" aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered" role="document">
 					<div class="modal-content overflow-hidden">

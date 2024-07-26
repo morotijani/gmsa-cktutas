@@ -2,7 +2,7 @@
     <aside class="app-aside app-aside-expand-md app-aside-light">
         <div class="aside-content">
             <header class="aside-header d-block d-md-none">
-                <button class="btn-account" type="button" data-toggle="collapse" data-target="#dropdown-aside"><span class="user-avatar user-avatar-lg"><img src="<?= PROOT . (($admin_data['admin_profile'] == NULL) ? 'assets/media/avatar.png' : $admin_data['admin_profile']); ?>" alt=""></span> <span class="account-icon"><span class="fa fa-caret-down fa-lg"></span></span> <span class="account-summary"><span class="account-name"><?= $admin_data['admin_fullname']; ?> </span> <span class="account-description">IT Committee</span></span></button>
+                <button class="btn-account" type="button" data-toggle="collapse" data-target="#dropdown-aside"><span class="user-avatar user-avatar-lg"><img src="<?= PROOT . (($admin_data['admin_profile'] == NULL) ? 'assets/media/avatar.png' : $admin_data['admin_profile']); ?>" alt=""></span> <span class="account-icon"><span class="fa fa-caret-down fa-lg"></span></span> <span class="account-summary"><span class="account-name"><?= $admin_data['admin_fullname']; ?> </span> <span class="account-description"><?= provide_admin_title($admin_data['admin_permissions']); ?></span></span></button>
                 <div id="dropdown-aside" class="dropdown-aside collapse">
                     <div class="pb-3">
                         <a class="dropdown-item" href="<?= PROOT; ?>admin/profile"><span class="dropdown-icon oi oi-person"></span> Profile</a> 
@@ -24,6 +24,7 @@
                         <li class="menu-item has-active">
                             <a href="<?= PROOT; ?>admin" class="menu-link"><span class="menu-icon fas fa-home"></span> <span class="menu-text">Dashboard</span></a>
                         </li>
+                        <?php if (admin_has_permission('editor')): ?>
                         <li class="menu-item has-child">
                             <a href="javascript:;" class="menu-link"><span class="menu-icon fas fa-blog"></span> <span class="menu-text">Blog / News</span> <span class="badge badge-warning">New</span></a>
                             <ul class="menu">
@@ -41,6 +42,7 @@
                                 </li>
                             </ul>
                         </li>
+                        <?php endif; ?>
                         <li class="menu-item has-child">
                             <a href="javascript:;" class="menu-link"><span class="menu-icon fa-solid fa-people-pulling"></span> <span class="menu-text">Members</span></a>
                             <ul class="menu">
@@ -69,7 +71,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <?php if (admin_has_permission()): ?>
+                        <?php if (admin_has_permission('finance')): ?>
                         <li class="menu-item">
                             <a href="<?= PROOT; ?>admin/dues" class="menu-link"><span class="menu-icon fa fa-money-bill-trend-up"></span> <span class="menu-text">Dues</span></a>
                         </li>
@@ -80,6 +82,7 @@
                         <li class="menu-item">
                             <a href="<?= PROOT; ?>admin/contacts" class="menu-link"><span class="menu-icon oi oi-envelope-open"></span> <span class="menu-text">Contacts</span></a>
                         </li>
+                        <?php if (admin_has_permission('editor')): ?>
                         <li class="menu-header">Interfaces </li>
                         <li class="menu-item">
                             <a href="<?= PROOT; ?>admin/prayer-time" class="menu-link"><span class="menu-icon fa-solid fa-person-praying"></span> <span class="menu-text">Prayer Time</span></a>
@@ -93,6 +96,7 @@
                         <li class="menu-item">
                             <a href="<?= PROOT; ?>admin/site" class="menu-link"><span class="menu-icon fas fa-globe"></span> <span class="menu-text">Site</span></a>
                         </li>
+                        <?php endif; ?>
                         <hr>
                         <li class="menu-item">
                             <a href="<?= PROOT; ?>admin/drive" class="menu-link"><span class="menu-icon fa-solid fa-hard-drive"></span> <span class="menu-text">Drive</span></a>

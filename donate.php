@@ -26,7 +26,7 @@
                         </span>
                         Donations will be accepted into the GMSA account.
                     </h1>
-                    <p>NB: Please if you want to make the donation anonymously, skip the field and input just the amount</p>
+                    <p>NB: Please if you want to make the donation anonymously, kindly input your desired amount and ignore all other fields. Thank you!</p>
                     <form id="paymentForm" class="col-md-7 bg-light border rounded-2 position-relative mx-auto p-2 mt-4 mt-md-5">
                         <div class="input-floating-label form-floating mb-4 mb-3">
                             <input type="text" class="form-control bg-transparent" name="name" id="name">
@@ -86,10 +86,10 @@
                     amount: amount * 100,
                     currency: 'GHS',
                     channels: ['card', 'bank', 'ussd', 'qr', 'mobile_money', 'bank_transfer'], 
-                    ref: 'GMSA-DNT'+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+                    ref: 'GMSA-DNT-'+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
                 // label: "Optional string that replaces customer email"
                     onClose: function(){
-                    alert('Window closed.');
+                        alert('Window closed.');
                     },
                     callback: function(response) {
                         var reference = response.reference;
@@ -117,7 +117,6 @@
                 if (amount >= 2) {
                     handler.openIframe();
                 } else {
-                    //alert('you cannot not pay less than 10ghc');
                     return false;
                 }
             }

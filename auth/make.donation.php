@@ -53,7 +53,7 @@
                     if ($result) {
                         // code...
 
-                        $log_message = "donation made with an amount of " . money($amount) . " with id  " . $donation_id;
+                        $log_message = "donation made with an amount of " . money($amount) . ", reference id " . $reference . " and with id  " . $donation_id;
                         add_to_log($log_message, $ip_address);
                         echo '';
                     }
@@ -64,6 +64,5 @@
                 echo 'cmon what are you trying to do bro';
             }
         }
-
         
     }

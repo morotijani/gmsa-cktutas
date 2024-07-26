@@ -8,7 +8,12 @@
     include ("includes/header.php");
     include ("includes/aside.php");
 
-    $total_data = $conn->query("SELECT * FROM gmsa_logs WHERE status = 0")->rowCount();
+    $a = '';
+    if (!admin_has_permission()) {
+        $a = "AND gmsa_logs.log_from = '".$admin_data['admin_id']."' ";
+    }
+
+    $total_data = $conn->query("SELECT * FROM gmsa_logs WHERE status = 0 $a")->rowCount();
 
 
 ?> 

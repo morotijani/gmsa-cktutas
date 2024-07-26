@@ -456,4 +456,35 @@ function find_donation_details_with_refence($conn, $reference) {
 	return (($statement->rowCount() > 0) ?  $rows : '');
 }
 
-// fin
+// find donation with reference
+function find_admin_by_admin_id($conn, $id) {
+	$sql = "
+		SELECT * FROM gmsa_admin 
+		WHERE admin_id = ?
+	";
+	$statement = $conn->prepare($sql);
+	$statement->execute([$id]);
+	$rows = $statement->fetchAll();
+
+	return (($statement->rowCount() > 0) ?  $rows : '');
+}
+
+// find donation with reference
+function provide_admin_title($permission) {
+	global $admin_data;
+
+	// 
+	$title = '';
+	if ($permission == 'admin,finance,editor') {
+		// code...
+		$title = 'Super Admin';
+	} elseif ($permission == 'finance') {
+		$title = 'Finance';
+		// code...
+	} elseif ($permission == 'editor') {
+		// code...
+		$title = 'Editor';
+	}
+	return strtoupper($title);
+}
+

@@ -86,15 +86,16 @@ if ($total_data > 0) {
 	                <a href='javascript:;' class='btn btn-danger text-decoration-none' data-toggle='modal' data-target='#deleteModal" . $i . "'>Delete</a>
 
 	                <!-- VIEW DETAILS MODAL -->
-					<div class='modal fade' id='viewModal" . $i . "' tabindex='-1' aria-labelledby='viewModalLabel' aria-hidden='true' data-bs-backdrop='static' data-bs-keyboard='false'>
-					  	<div class='modal-dialog modal-dialog-centered'>
+					<div class='modal fade' id='viewModal" . $i . "' tabindex='-1' role='dialog' aria-labelledby='viewModalLabel".$i."' aria-hidden='true' data-backdrop='static' data-keyboard='false'>
+					  	<div class='modal-dialog modal-lg modal-dialog-centered' role='document'>
 					    	<div class='modal-content' style='background-color: rgb(51, 51, 51)'>
 					    		<div class='modal-header'>
-					    			<h1 class='modal-title fs-5' id='viewModalLabel'>" . $row['news_title'] . "</h1>
-									<button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+									<h6 class='modal-title' id='viewModalLabel".$i."'>" . $row["news_title"] . "</h6>
+									<button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>×</span></button>
 					    		</div>
 					    		<img class='img-fluid' src='" . PROOT . $row['news_media'] ."' />
-					    		<div class='modal-body'>
+					    		<div class='modal-body p-2'>
+					    			<br>
 					    			<span class='badge badge-subtle badge-info'>" . ucwords($row['category']) . "</span>
 					    			<br>
 					      			<p>" . nl2br($row['news_content']) . "</p>
@@ -104,22 +105,24 @@ if ($total_data > 0) {
 					      				Add On; " . pretty_date($row['createdAt']) . " <br>
 					      				Views; " . $row['news_views'] . " <br>
 					      			</small>
-					      			<br>
-					        		<button type='button' class='btn btn-secondary rounded-0' data-dismiss='modal'>Close</button>
-					        		<a href='javascript:;' data-bs-toggle='modal' data-target='#deleteModal" . $i . "' class='btn btn-outline-danger rounded-0'>Delete.</a>
+									<div class='d-flex justify-content-center my-4'>
+					        			<button type='button' class='btn btn-secondary rounded-0' data-dismiss='modal'>Close</button>&nbsp;
+					        			<a href='javascript:;' data-toggle='modal' data-target='#deleteModal" . $i . "' class='btn btn-danger rounded-0'>Delete.</a>
+					      			</div>
 					      		</div>
 					    	</div>
 					 	</div>
 					</div>
 
 					<!-- DELETE MODAL -->
-					<div class='modal fade' id='deleteModal" . $i . "' tabindex='-1' aria-labelledby='newsModalLabel' aria-hidden='true'>
-					  	<div class='modal-dialog modal-dialog-centered modal-sm'>
+					<div class='modal fade' id='deleteModal" . $i . "' tabindex='-1' role='dialog' aria-labelledby='newsModalLabel' aria-hidden='true'>
+					  	<div class='modal-dialog modal-dialog-centered modal-sm' role='document'>
 					    	<div class='modal-content' style='background-color: rgb(51, 51, 51)'>
-					    		<div class='modal-body'>
+					    		<div class='modal-body p-2'>
 					      			<p>When you delete this categoy, all news and details under it will be deleted as well.</p>
-					        		<button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Close</button>
-					        		<a href='" . PROOT . "admin/blog/add/delete/" . $row['news_id'] . "' class='btn btn-outline-secondary'>Confirm Delete.</a>
+					      			<br>
+					        		<button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>
+					        		<a href='" . PROOT . "admin/blog/add/delete/" . $row['news_id'] . "' class='btn btn-secondary'>Confirm Delete.</a>
 					      		</div>
 					    	</div>
 					 	</div>

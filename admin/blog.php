@@ -3,6 +3,12 @@
     if (!admin_is_logged_in()) {
         admn_login_redirect();
     }
+
+    // check for permissions
+    if (!admin_has_permission('editor')) {
+        admin_permission_redirect('index');
+    }
+
     include ("includes/head.php");
     include ("includes/header.php");
     include ("includes/aside.php");
@@ -152,7 +158,7 @@
     }
 
     if (isset($_POST['submitNews'])) {
-        // UPLOAD PASSPORT PICTURE TO uploadedprofile IF FIELD IS NOT EMPTY
+        // UPLOAD PICTURE IF FIELD IS NOT EMPTY
         if ($_POST['uploaded_news_media'] == '') {
             if (!empty($_FILES)) {
 
@@ -230,6 +236,24 @@
                 add_to_log($log_message, $admin_data['admin_id']);
 
                 $_SESSION['flash_success'] = 'News deleted but temporary';
+                redirect(PROOT . 'admin/blog/all');
+            } else {
+                $_SESSION['flash_error'] = 'Something went wrong, please try again';
+                redirect(PROOT . 'admin/blog/all');
+            }
+        }
+    }
+
+    // Restore news
+    if (isset($_GET['type']) && $_GET['type'] == 'add') {
+        if (isset($_GET['status']) && $_GET['status'] == 'restore') {
+            // code...
+            $delete = $News->restoreNews($conn, sanitize($_GET['id']));
+            if (isset($delete)) {
+                $log_message = "restored a blog post with id " . $_GET['id'] . "";
+                add_to_log($log_message, $admin_data['admin_id']);
+
+                $_SESSION['flash_success'] = 'News restored successfully!';
                 redirect(PROOT . 'admin/blog/all');
             } else {
                 $_SESSION['flash_error'] = 'Something went wrong, please try again';

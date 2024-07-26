@@ -5,7 +5,7 @@
     }
     
     // check for permissions
-    if (!admin_has_permission()) {
+    if (!admin_has_permission('finance')) {
         admin_permission_redirect('index');
     }
 

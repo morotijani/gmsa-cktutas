@@ -23,7 +23,7 @@
 
         <section class="">
             <div class="container-fluid">
-                <h2 class="text-decorated text-decorated-padding text-uppercase font-weight-bold">Full <br>calendar</h2>
+                <h2 class="text-decorated text-decorated-padding text-uppercase font-weight-bold"> calendar</h2>
                 
                 <div id='calendar' class="mb-5"></div>
 

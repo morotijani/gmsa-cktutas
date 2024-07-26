@@ -64,15 +64,16 @@
 		                        ".$option."
 
 		                        <!-- VIEW DETAILS MODAL -->
-								<div class='modal fade' id='viewModal" . $this->i . "' tabindex='-1' aria-labelledby='viewModalLabel' aria-hidden='true' data-bs-backdrop='static' data-bs-keyboard='false'>
-								  	<div class='modal-dialog modal-dialog-centered'>
+								<div class='modal fade' id='viewModal" . $this->i . "' tabindex='-1' role='dialog' aria-labelledby='viewModalLabel".$this->i."' aria-hidden='true' data-backdrop='static' data-keyboard='false' role='document'>
+								  	<div class='modal-dialog modal-lg modal-dialog-centered'>
 								    	<div class='modal-content' style='background-color: rgb(51, 51, 51)'>
 								    		<div class='modal-header'>
-								    			<h1 class='modal-title fs-5' id='viewModalLabel'>" . $new['news_title'] . "</h1>
-        										<button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+												<h6 class='modal-title' id='viewModalLabel".$this->i."'>" . $new["news_title"] . "</h6>
+												<button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>×</span></button>
 								    		</div>
 								    		<img class='img-fluid' src='" . PROOT . $new['news_media'] ."' />
-								    		<div class='modal-body'>
+								    		<div class='modal-body p-2'>
+								    			<br>
 								    			<span class='badge badge-subtle badge-info'>" . ucwords($new['category']) . "</span>
 								    			<br>
 								      			<p>" . nl2br($new['news_content']) . "</p>
@@ -82,22 +83,24 @@
 								      				Add On; " . pretty_date($new['createdAt']) . " <br>
 								      				Views; " . $new['news_views'] . " <br>
 								      			</small>
-								      			<br>
-								        		<button type='button' class='btn btn-secondary rounded-0' data-dismiss='modal'>Close</button>
-								        		<a href='javascript:;' data-bs-toggle='modal' data-target='#deleteModal" . $this->i . "' class='btn btn-outline-danger rounded-0'>Delete.</a>
+								      			<div class='d-flex justify-content-center my-4'>
+								        			<button type='button' class='btn btn-secondary rounded-0' data-dismiss='modal'>Close</button>&nbsp;
+								        			<a href='javascript:;' data-toggle='modal' data-target='#restoreModal" . $this->i . "' class='btn btn-danger rounded-0'>Restore.</a>
+								      			</div>
 								      		</div>
 								    	</div>
 								 	</div>
 								</div>
 
 								<!-- DELETE MODAL -->
-								<div class='modal fade' id='deleteModal" . $this->i . "' tabindex='-1' aria-labelledby='newsModalLabel' aria-hidden='true'>
-								  	<div class='modal-dialog modal-dialog-centered modal-sm'>
+								<div class='modal fade' id='restoreModal" . $this->i . "' tabindex='-1' role='dialog' aria-labelledby='newsModalLabel' aria-hidden='true'>
+								  	<div class='modal-dialog modal-dialog-centered modal-sm' role='document'>
 								    	<div class='modal-content' style='background-color: rgb(51, 51, 51)'>
-								    		<div class='modal-body'>
-								      			<p>When you delete this categoy, all news and details under it will be deleted as well.</p>
-								        		<button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Close</button>
-								        		<a href='" . PROOT . "admin/blog/add/delete/" . $new['news_id'] . "' class='btn btn-outline-secondary'>Confirm Delete.</a>
+								    		<div class='modal-body p-2'>
+								      			<p>Are you sure you want to restore this news post? If yes, click on the Confirm Restore button.</p>
+								      			<br>
+								        		<button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>
+								        		<a href='" . PROOT . "admin/blog/add/restore/" . $new['news_id'] . "' class='btn btn-secondary'>Confirm Restore.</a>
 								      		</div>
 								    	</div>
 								 	</div>
@@ -183,6 +186,19 @@
 	        ";
 	        $statement = $conn->prepare($query);
 	        $result = $statement->execute([1, $id]);
+	        return $result;
+		}
+
+
+		// restore news by setting status to 1
+		public function restoreNews($conn, $id) {
+	        $query = "
+	        	UPDATE gmsa_news 
+	        	SET status = ?
+	        	WHERE news_id = ?
+	        ";
+	        $statement = $conn->prepare($query);
+	        $result = $statement->execute([0, $id]);
 	        return $result;
 		}
 

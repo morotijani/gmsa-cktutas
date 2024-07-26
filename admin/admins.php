@@ -137,9 +137,10 @@
                                         <div class="form-group">
                                             <label for="admin_permissions" class="form-label">Permission</label>
                                             <select class="form-control" name="admin_permissions" id="admin_permissions" required>
-                                                <option value=""<?= (($admin_permissions == '')?' selected' : '') ?>>Admin type</option>
-                                                <option value="editor"<?= (($admin_permissions == 'editor')?' selected' : '') ?>>Editor</option>
-                                                <option value="admin,editor"<?= (($admin_permissions == 'admin,editor')?' selected' : '') ?>>Admin,  Editor</option>
+                                                <option value=""<?= (($admin_permissions == '') ? ' selected' : '') ?>>Admin type</option>
+                                                <option value="editor"<?= (($admin_permissions == 'editor') ? ' selected' : '') ?>>Editor</option>
+                                                <option value="finance"<?= (($admin_permissions == 'finance') ? ' selected' : '') ?>>Finance</option>
+                                                <option value="admin,finance,editor"<?= (($admin_permissions == 'admin,finance,editor') ? ' selected' : '') ?>>Admin, Finance, Editor</option>
                                             </select>
                                         </div>
                                         <div class="form-actions">

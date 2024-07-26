@@ -4,6 +4,12 @@
     if (!admin_is_logged_in()) {
         admn_login_redirect();
     }
+
+    // check for permissions
+    if (!admin_has_permission('editor')) {
+        admin_permission_redirect('index');
+    }
+    
     include ("includes/head.php");
     include ("includes/header.php");
     include ("includes/aside.php");
