@@ -106,6 +106,7 @@
     <link rel="stylesheet" type="text/css" href="<?= PROOT; ?>dist/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="<?= PROOT; ?>dist/css/bootstrap-icons.min.css">
     <link rel="stylesheet" type="text/css" href="<?= PROOT; ?>dist/css/swiper-bundle.min.css">
+    <link rel="stylesheet" type="text/css" href="<?= PROOT; ?>dist/css/bootstrap-datepicker.min.css">
     
     <!-- Theme CSS -->
     <link rel="stylesheet" type="text/css" href="<?= PROOT; ?>dist/css/gmsa.css">
@@ -117,6 +118,10 @@
             font-optical-sizing: auto;
             font-style: normal;
         }
+
+        .ui-datepicker-calendar, {
+   display: none !important;
+}
     </style>
     
 </head>
@@ -262,7 +267,7 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-floating mb-3">
-                                            <input type="date" class="form-control" id="dob" name="dob" placeholder="" value="<?= $dob; ?>" required>
+                                            <input type="text" class="form-control" id="dob" name="dob" placeholder="" autocomplete="off" value="<?= $dob; ?>" required>
                                             <label for="dob">Date of Birth *</label>
                                         </div>
                                     </div>
@@ -378,6 +383,7 @@
     <script type="text/javascript" src="<?= PROOT; ?>dist/js/jquery-3.7.1.min.js"></script>
     <script type="text/javascript" src="<?= PROOT; ?>dist/js/popper.min.js"></script>
     <script type="text/javascript" src="<?= PROOT; ?>dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="<?= PROOT; ?>dist/js/bootstrap-datepicker.min.js"></script>
 
     <script src="<?= PROOT; ?>dist/js/mainfunctions.js"></script>
 
@@ -387,6 +393,19 @@
         $("#temporary").fadeOut(5000);
 
         $(document).ready(function() {
+
+            $("#admissionyear").datepicker({
+                format: "yyyy",
+                viewMode: "years", 
+                minViewMode: "years",
+                updateViewDate: true,
+                changeYear: true,
+                defaultViewDate: {year: '2021'}
+            });
+
+            $("#dob").datepicker({
+            }); 
+
             $('#next-1').click(function() {
 
                 $('#firstname').removeClass('border border-danger')
