@@ -32,6 +32,23 @@
             </div>
         </section>
 
+        <section class="pt-0">
+            <div class="container">
+                <div class="bg-dark rounded p-4 p-sm-6" data-bs-theme="dark">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <h2>Pay your GMSA yearly dues.</h2>
+                            <p class="mb-0">Dues payment made easily! Kindly pay your GMSA dues at the comfort of your home. Remember to register before proceeding with payment.</p>
+                        </div>
+
+                        <div class="col-md-6 text-end">
+                            <a href="<?= PROOT; ?>auth/pay-dues" class="btn btn-lg btn-primary mb-0">Pay dues</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
        
     </main>
 <?php include ("inc/footer.inc.php"); ?>
