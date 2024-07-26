@@ -79,7 +79,7 @@ if ($total_data > 0) {
 		}
 
 		$td = '';
-		if (admin_has_permission()) {
+		if (admin_has_permission('patron')) {
 			$th = '<th style="width:100px; min-width:100px;"> &nbsp; </th>';
 			$td = '<td class="align-middle text-right">
                     <a href="?remove='.$row["id"].'" class="btn btn-sm btn-icon btn-secondary"><i class="far fa-trash-alt"></i> <span class="sr-only">Remove</span></a> 

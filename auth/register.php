@@ -344,7 +344,7 @@
                             </div>
 
                             <div id="step-3" class="d-none">
-                                <h4 class="mb-3 fw-light">Parent/Guardian Details</h4>
+                                <h4 class="mb-3 fw-light">Parent/Guardian/Family Member Details</h4>
                                 <div class="form-floating mb-3">
                                     <input type="text" class="form-control" id="guardianfullname" name="guardianfullname" placeholder="" value="<?= $guardianfullname; ?>">
                                     <label for="guardianfullname">Full name</label>

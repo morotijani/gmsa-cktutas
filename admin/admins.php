@@ -140,7 +140,8 @@
                                                 <option value=""<?= (($admin_permissions == '') ? ' selected' : '') ?>>Admin type</option>
                                                 <option value="editor"<?= (($admin_permissions == 'editor') ? ' selected' : '') ?>>Editor</option>
                                                 <option value="finance"<?= (($admin_permissions == 'finance') ? ' selected' : '') ?>>Finance</option>
-                                                <option value="admin,finance,editor"<?= (($admin_permissions == 'admin,finance,editor') ? ' selected' : '') ?>>Admin, Finance, Editor</option>
+                                                <option value="admin,finance,editor"<?= (($admin_permissions == 'admin,finance,editor') ? ' selected' : '') ?>>Admin</option>
+                                                <option value="admin,patron,finance,editor"<?= (($admin_permissions == 'admin,patron,finance,editor') ? ' selected' : '') ?>>Patron</option>
                                             </select>
                                         </div>
                                         <div class="form-actions">

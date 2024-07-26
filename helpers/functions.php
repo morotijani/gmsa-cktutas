@@ -475,7 +475,9 @@ function provide_admin_title($permission) {
 
 	// 
 	$title = '';
-	if ($permission == 'admin,finance,editor') {
+	if ($permission == 'admin,patron,finance,editor') {
+		$title = 'Patron';
+	} elseif ($permission == 'admin,finance,editor') {
 		// code...
 		$title = 'Super Admin';
 	} elseif ($permission == 'finance') {
