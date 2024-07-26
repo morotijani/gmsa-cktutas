@@ -56,7 +56,7 @@
                                 <li class="nav-item"><a class="nav-link" href="<?= PROOT; ?>privacy-policy">Privacy Policy</a></li>
                                 <li class="nav-item"><a class="nav-link" href="mailto:support@gmsacktutas.org">Supports <i class="bi bi-box-arrow-up-right small ms-1"></i></a></li>
                                 <li class="nav-item"><a class="nav-link" href="<?= PROOT; ?>news">News and blogs</a></li>
-                                <li class="nav-item"><a class="nav-link" href="<?= PROOT; ?>tc">Terms &amp; condition</a></li>
+                                <li class="nav-item"><a class="nav-link" href="<?= PROOT; ?>terms-conditions">Terms &amp; condition</a></li>
                             </ul>
 
                             <h6 class="mb-2 mb-md-4">Follow on</h6>
