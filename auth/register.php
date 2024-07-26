@@ -222,7 +222,7 @@
                                 <div class="row g-3">
                                     <div class="col-sm-4">
                                         <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="firstname" name="firstname" placeholder="" value="<?= $firstname; ?>">
+                                            <input type="text" class="form-control" id="firstname" name="firstname" placeholder="" value="<?= $firstname; ?>" required>
                                             <label for="firstname">First name *</label>
                                         </div>
                                     </div>
@@ -234,25 +234,25 @@
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="lastname" name="lastname" placeholder="" value="<?= $lastname; ?>">
+                                            <input type="text" class="form-control" id="lastname" name="lastname" placeholder="" value="<?= $lastname; ?>" required>
                                             <label for="lastname">Last name *</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-floating mb-3">
-                                            <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" value="<?= $email; ?>">
+                                            <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" value="<?= $email; ?>" required>
                                             <label for="email">Email *</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-floating mb-3">
-                                            <input type="tel" inputmode="" class="form-control" id="phone" name="phone" placeholder="" value="<?= $phone; ?>">
+                                            <input type="tel" inputmode="" class="form-control" id="phone" name="phone" placeholder="" value="<?= $phone; ?>" required>
                                             <label for="phone">Phone *</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-floating mb-3">
-                                            <select type="text" class="form-select" id="gender" name="gender">
+                                            <select type="text" class="form-select" id="gender" name="gender" required>
                                                 <option value="" selected>Open this menu</option>
                                                 <option value="Male">Male</option>
                                                 <option value="Female">Female</option>
@@ -262,7 +262,7 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-floating mb-3">
-                                            <input type="date" class="form-control" id="dob" name="dob" placeholder="" value="<?= $dob; ?>">
+                                            <input type="date" class="form-control" id="dob" name="dob" placeholder="" value="<?= $dob; ?>" required>
                                             <label for="dob">Date of Birth *</label>
                                         </div>
                                     </div>
@@ -293,25 +293,25 @@
                                     <h4 class="mb-3 fw-light">School Details</h4>
                                     <div class="col-sm-12">
                                         <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="studentid" name="studentid" placeholder="" value="<?= $studentid; ?>">
+                                            <input type="text" class="form-control" id="studentid" name="studentid" placeholder="" value="<?= $studentid; ?>" required>
                                             <label for="studentid">Student ID *</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="programme" name="programme" placeholder="" value="<?= $programme; ?>">
+                                            <input type="text" class="form-control" id="programme" name="programme" placeholder="" value="<?= $programme; ?>" required>
                                             <label for="programme">Programme *</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-floating mb-3">
-                                            <input type="tel" class="form-control" id="department" name="department" placeholder="" value="<?= $department; ?>">
+                                            <input type="tel" class="form-control" id="department" name="department" placeholder="" value="<?= $department; ?>" required>
                                             <label for="department">Department *</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-floating mb-3">
-                                            <select type="tel" class="form-select" id="admissiontype" name="admissiontype">
+                                            <select type="tel" class="form-select" id="admissiontype" name="admissiontype" required>
                                                 <option value="" selected>Open this select menu</option>
                                                 <option value="Diploma">Diploma</option>
                                                 <option value="Undergraduate">Undergraduate</option>
@@ -322,13 +322,13 @@
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-floating mb-3">
-                                            <input type="tel" class="form-control" id="admissionyear" name="admissionyear" placeholder="" value="<?= $admissionyear; ?>">
+                                            <input type="tel" class="form-control" id="admissionyear" name="admissionyear" placeholder="" value="<?= $admissionyear; ?>" required>
                                             <label for="admissionyear">Admission year *</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-floating mb-3">
-                                            <input type="number" min="0" class="form-control" id="level" name="level" placeholder="" value="<?= $level; ?>">
+                                            <input type="number" min="0" class="form-control" id="level" name="level" placeholder="" value="<?= $level; ?>" required>
                                             <label for="level">Level *</label>
                                         </div>
                                     </div>
@@ -347,11 +347,11 @@
                                 <h4 class="mb-3 fw-light">Parent/Guardian Details</h4>
                                 <div class="form-floating mb-3">
                                     <input type="text" class="form-control" id="guardianfullname" name="guardianfullname" placeholder="" value="<?= $guardianfullname; ?>">
-                                    <label for="guardianfullname">Full name *</label>
+                                    <label for="guardianfullname">Full name</label>
                                 </div>
                                 <div class="form-floating mb-3">
                                     <input type="tel" inputmode="" class="form-control" id="guardianphonenumber" name="guardianphonenumber" placeholder="" value="<?= $guardianphonenumber; ?>">
-                                    <label for="guardianphonenumber">Phone number *</label>
+                                    <label for="guardianphonenumber">Phone number</label>
                                 </div>
                                 <button type="button" class="btn btn-lg btn-light icon-link icon-link-hover mb-0" id="prev-2">Back <i class="bi bi-arrow-left"></i></button>
                                 <button type="submit" id="submitRegister" name="submit" class="btn btn-lg btn-success icon-link icon-link-hover mb-0">Submit <i class="bi bi-arrow-right"></i></button>
@@ -522,22 +522,22 @@
             });
 
             $('#submitRegister').click(function() {
-                $('#guardianfullname').removeClass('border border-danger')
-                $('#guardianphonenumber').removeClass('border border-danger')
+                // $('#guardianfullname').removeClass('border border-danger')
+                // $('#guardianphonenumber').removeClass('border border-danger')
 
-                if ($('#guardianfullname').val() == '') {
-                    $('#guardianfullname').addClass('border border-danger')
-                    $('#guardianfullname').focus();
-                    alert('Guardian full name is required!')
-                    return false
-                }
+                // if ($('#guardianfullname').val() == '') {
+                //     $('#guardianfullname').addClass('border border-danger')
+                //     $('#guardianfullname').focus();
+                //     alert('Guardian full name is required!')
+                //     return false
+                // }
 
-                if ($('#guardianphonenumber').val() == '') {
-                    $('#guardianphonenumber').addClass('border border-danger')
-                    $('#guardianphonenumber').focus();
-                    alert('Guardian phone number is required!')
-                    return false
-                }
+                // if ($('#guardianphonenumber').val() == '') {
+                //     $('#guardianphonenumber').addClass('border border-danger')
+                //     $('#guardianphonenumber').focus();
+                //     alert('Guardian phone number is required!')
+                //     return false
+                // }
 
                 if (confirm("If the information you have provided are all correct, then click on Ok!")) {
                     $('#registerForm').submit();

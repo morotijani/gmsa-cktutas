@@ -211,7 +211,7 @@ function get_amount_to_pay_using_level($conn, $studentid, $level) {
 	$row = $statement->fetchAll();
 
 	$levelAmount = 0;
-	$level = 100;
+	// $level = 100;
 	if ($count_rows > 0) {
 		// code...
 		if ($row[0]['level'] == 100) {

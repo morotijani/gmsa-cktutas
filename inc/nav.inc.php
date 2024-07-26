@@ -3,7 +3,7 @@
     <header class="header-sticky header-absolute" data-bs-theme="<?= $navTheme; ?>">
         <nav class="navbar navbar-expand-xl px-lg-5">
             <div class="container-fluid">
-                <a class="navbar-brand me-5" href="index.html">
+                <a class="navbar-brand me-5" href="<?= PROOT; ?>">
                     <img class="light-mode-item navbar-brand-item" src="<?= PROOT; ?>assets/media/logo/logo.png" alt="logo">
                     <img class="dark-mode-item navbar-brand-item" src="<?= PROOT; ?>assets/media/logo/logo-1.jpeg" alt="logo">
                 </a>
