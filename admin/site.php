@@ -140,7 +140,7 @@
                                 </form>
                                 <hr class="my-5">
                                 <fieldset>
-                                    <legend>GMSA CKTUTAS COnstitution</legend>
+                                    <legend>GMSA CKTUTAS Constitution</legend>
                                     <div id="upload-file"></div>
                                     <?php if ($site_row['ads'] != ''): ?>
                                         <div id="removeTempuploadedFile" class="list-group list-group-flush list-group-divider">
