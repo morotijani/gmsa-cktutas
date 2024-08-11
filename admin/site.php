@@ -167,7 +167,6 @@
                                     <?php endif; ?>
                                 </fieldset>
                                 <hr class="my-5">
-                                <hr class="my-5">
                                 <fieldset>
                                     <legend>Ads flyer</legend>
                                     <div id="upload-file"></div>
