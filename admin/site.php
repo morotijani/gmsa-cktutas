@@ -162,7 +162,7 @@
                                         </div>
                                     <?php else: ?>
                                     <div class="form-group">
-                                        <input type="file" class="form-control" id="ads" name="ads">
+                                        <input type="file" class="form-control" id="constitution" name="constitution">
                                     </div>
                                     <?php endif; ?>
                                 </fieldset>
