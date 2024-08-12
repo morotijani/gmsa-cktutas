@@ -142,7 +142,7 @@
                                 <fieldset>
                                     <legend>GMSA CKTUTAS Constitution</legend>
                                     <div id="upload-file"></div>
-                                    <?php if ($site_row['ads'] != ''): ?>
+                                    <?php if ($site_row['constitution'] != ''): ?>
                                         <div id="removeTempuploadedFile" class="list-group list-group-flush list-group-divider">
                                             <div class="list-group-item">
                                                 <div class="list-group-item-figure">
