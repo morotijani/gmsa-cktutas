@@ -331,7 +331,7 @@
                 }
             });
 
-            // Upload ADS
+            // Upload Constitution
             $(document).on('change','#constitution', function() {
 
                 var property = document.getElementById("constitution").files[0];
