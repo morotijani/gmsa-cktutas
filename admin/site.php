@@ -143,7 +143,7 @@
                                     <legend>GMSA CKTUTAS Constitution</legend>
                                     <div id="upload-file"></div>
                                     <?php if ($site_row['constitution'] != ''): ?>
-                                        <div id="removeTempuploadedFile" class="list-group list-group-flush list-group-divider">
+                                        <div id="removeTempuploadedConstitution" class="list-group list-group-flush list-group-divider">
                                             <div class="list-group-item">
                                                 <div class="list-group-item-figure">
                                                     <div class="tile tile-img">
@@ -154,7 +154,7 @@
                                                 <div class="media align-items-center">
                                                     <div class="media-body"><?= $site_row['constitution']; ?></div>
                                                         <div class="media-actions">
-                                                            <button type="button" class="btn btn-sm btn-secondary removeImg" id="<?= BASEURL . $site_row['constitution']; ?>">Remove</button>
+                                                            <button type="button" class="btn btn-sm btn-secondary removeConstitution" id="<?= BASEURL . $site_row['constitution']; ?>">Remove</button>
                                                         </div>
                                                     </div>
                                                 </div>
