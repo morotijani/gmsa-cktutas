@@ -380,7 +380,7 @@
                             $("#upload-constitution").html("<div class='text-success font-weight-bolder'>Uploading constitution ...</div>");
                         },
                         success: function(data) {
-                            $("#upload-file").html(data);
+                            $("#upload-constitution").html(data);
                             $('#constitution').css('visibility', 'hidden');
                         }
                     });
