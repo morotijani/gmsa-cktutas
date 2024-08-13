@@ -141,7 +141,7 @@
                                 <hr class="my-5">
                                 <fieldset>
                                     <legend>GMSA CKTUTAS Constitution</legend>
-                                    <div id="upload-file"></div>
+                                    <div id="upload-constitution"></div>
                                     <?php if ($site_row['constitution'] != ''): ?>
                                         <div id="removeTempuploadedConstitution" class="list-group list-group-flush list-group-divider">
                                             <div class="list-group-item">
@@ -360,7 +360,7 @@
                         cache: false,
                         processData: false,
                         beforeSend: function() {
-                            $("#upload-file").html("<div class='text-success font-weight-bolder'>Uploading constitution ...</div>");
+                            $("#upload-constitution").html("<div class='text-success font-weight-bolder'>Uploading constitution ...</div>");
                         },
                         success: function(data) {
                             $("#upload-file").html(data);
