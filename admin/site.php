@@ -332,15 +332,15 @@
             });
 
             // Upload ADS
-            $(document).on('change','#ads', function() {
+            $(document).on('change','#constitution', function() {
 
-                var property = document.getElementById("ads").files[0];
+                var property = document.getElementById("constitution").files[0];
                 var image_name = property.name;
 
                 var image_extension = image_name.split(".").pop().toLowerCase();
                 if (jQuery.inArray(image_extension, ['jpeg', 'png', 'jpg', 'gif']) == -1) {
                     alert("The file extension must be .jpg, .png, .jpeg, .gif");
-                    $('#ads').val('');
+                    $('#constitution').val('');
                     return false;
                 }
 
@@ -351,9 +351,9 @@
                 } else {
 
                     var form_data = new FormData();
-                    form_data.append("ads", property);
+                    form_data.append("constitution", property);
                     $.ajax({
-                        url: "<?= PROOT; ?>admin/auth/upload.ads.php",
+                        url: "<?= PROOT; ?>admin/auth/upload.constitution.php",
                         method: "POST",
                         data: form_data,
                         contentType: false,
@@ -364,7 +364,7 @@
                         },
                         success: function(data) {
                             $("#upload-file").html(data);
-                            $('#ads').css('visibility', 'hidden');
+                            $('#constitution').css('visibility', 'hidden');
                         }
                     });
                 }
