@@ -1,6 +1,6 @@
 <?php 
 
-	// Upload signature And Save To dbs 
+	// Upload constitution And Save To dbs 
 
 	require_once ("../../db_connection/conn.php");
 

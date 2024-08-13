@@ -355,8 +355,8 @@
                 var image_name = property.name;
 
                 var image_extension = image_name.split(".").pop().toLowerCase();
-                if (jQuery.inArray(image_extension, ['jpeg', 'png', 'jpg', 'gif']) == -1) {
-                    alert("The file extension must be .jpg, .png, .jpeg, .gif");
+                if (jQuery.inArray(image_extension, ['pdf']) == -1) {
+                    alert("The file extension must be .pdf only");
                     $('#constitution').val('');
                     return false;
                 }
