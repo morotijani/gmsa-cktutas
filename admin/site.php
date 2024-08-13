@@ -360,7 +360,7 @@
                         cache: false,
                         processData: false,
                         beforeSend: function() {
-                            $("#upload-file").html("<div class='text-success font-weight-bolder'>Uploading news image ...</div>");
+                            $("#upload-file").html("<div class='text-success font-weight-bolder'>Uploading constitution ...</div>");
                         },
                         success: function(data) {
                             $("#upload-file").html(data);
