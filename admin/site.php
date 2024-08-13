@@ -331,6 +331,45 @@
                 }
             });
 
+            // Upload ADS
+            $(document).on('change','#ads', function() {
+
+                var property = document.getElementById("ads").files[0];
+                var image_name = property.name;
+
+                var image_extension = image_name.split(".").pop().toLowerCase();
+                if (jQuery.inArray(image_extension, ['jpeg', 'png', 'jpg', 'gif']) == -1) {
+                    alert("The file extension must be .jpg, .png, .jpeg, .gif");
+                    $('#ads').val('');
+                    return false;
+                }
+
+                var image_size = property.size;
+                if (image_size > 15000000) {
+                    alert('The file size must be under 15MB');
+                    return false;
+                } else {
+
+                    var form_data = new FormData();
+                    form_data.append("ads", property);
+                    $.ajax({
+                        url: "<?= PROOT; ?>admin/auth/upload.ads.php",
+                        method: "POST",
+                        data: form_data,
+                        contentType: false,
+                        cache: false,
+                        processData: false,
+                        beforeSend: function() {
+                            $("#upload-file").html("<div class='text-success font-weight-bolder'>Uploading news image ...</div>");
+                        },
+                        success: function(data) {
+                            $("#upload-file").html(data);
+                            $('#ads').css('visibility', 'hidden');
+                        }
+                    });
+                }
+            });
+
             // DELETE UPLOADED SIGNATURE
             $(document).on('click', '.removeSignature', function() {
                 var tempuploded_file_id = $(this).attr('id');
