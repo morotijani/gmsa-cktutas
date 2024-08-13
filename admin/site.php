@@ -331,6 +331,25 @@
                 }
             });
 
+            // DELETE UPLOADED ADS
+            $(document).on('click', '.removeConstitution', function() {
+                var tempuploded_file_id = $(this).attr('id');
+
+                $.ajax ({
+                    url: "<?= PROOT; ?>admin/auth/delete.constitution.php",
+                    method: "POST",
+                    data:{
+                        tempuploded_file_id : tempuploded_file_id
+                    },
+                    success: function(data) {
+                        //$('#removeTempuploadedFile').remove();
+
+                        location.reload();
+                    }
+                });
+            });
+
+
             // Upload Constitution
             $(document).on('change','#constitution', function() {
 
