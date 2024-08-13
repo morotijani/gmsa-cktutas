@@ -331,7 +331,7 @@
                 }
             });
 
-            // DELETE UPLOADED ADS
+            // DELETE UPLOADED CONSTITUTION
             $(document).on('click', '.removeConstitution', function() {
                 var tempuploded_file_id = $(this).attr('id');
 
@@ -342,8 +342,6 @@
                         tempuploded_file_id : tempuploded_file_id
                     },
                     success: function(data) {
-                        //$('#removeTempuploadedFile').remove();
-
                         location.reload();
                     }
                 });
@@ -400,8 +398,6 @@
                         tempuploded_file_id : tempuploded_file_id
                     },
                     success: function(data) {
-                        //$('#removeTempuploadedFile').remove();
-
                         location.reload();
                     }
                 });
