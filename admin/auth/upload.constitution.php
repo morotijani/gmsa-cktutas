@@ -10,7 +10,7 @@
 
 		$extention = end($test);
 
-		$name = rand(100, 999) . '.' . $extention;
+		$name = 'GMSA-CK-TUTAS-CONSTITUTION.' . $extention;
 
 		$nameLoc = 'assets/media/constitution/' . $name;
 
