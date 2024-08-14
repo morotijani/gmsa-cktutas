@@ -155,9 +155,7 @@
                                                 </div>
                                                 <div class="d-flex justify-content-between p-3">
                                                     <a href="<?= PROOT . $site_row['constitution']; ?>">Preview . <?= $site_row['constitution']; ?></a>
-                                                    <div class="media-actions">
-                                                        <button type="button" class="btn btn-sm btn-secondary removeConstitution" id="<?= BASEURL . $site_row['constitution']; ?>">Remove</button>
-                                                    </div>
+                                                    <button type="button" class="btn btn-sm btn-secondary removeConstitution" id="<?= BASEURL . $site_row['constitution']; ?>">Remove</button>
                                                 </div>
                                             </div>
                                         </div>
