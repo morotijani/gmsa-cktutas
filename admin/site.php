@@ -146,7 +146,12 @@
                                         <div id="removeTempuploadedConstitution" class="list-group list-group-flush list-group-divider">
                                             <div class="card">
                                                 <div class="card-body">
-                                                    <iframe src="https://docs.google.com/gview?url=<?= 'https://sites.local/' . $site_row['constitution']; ?>&embedded=true" style="width:200px; height:200px;" frameborder="0"></iframe>
+                                                    <iframe 
+                                                        src="<?= PROOT . $site_row['constitution']; ?>"
+                                                        style="width:100%; height:200px;" 
+                                                        frameborder="0"
+                                                        scrolling="auto"
+                                                    ></iframe>
                                                 </div>
                                                 <div class="d-flex justify-content-between p-3">
                                                     <a href="<?= PROOT . $site_row['constitution']; ?>">Preview . <?= $site_row['constitution']; ?></a>
