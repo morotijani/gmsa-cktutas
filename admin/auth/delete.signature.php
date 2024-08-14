@@ -12,10 +12,10 @@
 		if ($remove) {
 			$query = "
 				UPDATE gmsa_about 
-				SET signature = ''
+				SET signature = ?
 			";
 			$statement = $conn->prepare($query);
-			$result = $statement->execute();
+			$result = $statement->execute([null]);
 
 			if ($result) {
 				// code...

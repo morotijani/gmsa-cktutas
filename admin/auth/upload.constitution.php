@@ -34,6 +34,21 @@
                 add_to_log($log_message, $admin_data['admin_id']);
 
 				echo '
+					<div class="card">
+                        <div class="card-body">
+                            <iframe 
+                                src="<?= PROOT . $site_row['constitution']; ?>"
+                                style="width:100%; height:200px;" 
+                                frameborder="0"
+                                scrolling="auto"
+                            ></iframe>
+                        </div>
+                        <div class="d-flex justify-content-between p-3">
+                            <a href="<?= PROOT . $site_row['constitution']; ?>" target="_blank" class="btn btn-light">Preview</a>
+                            <button type="button" class="btn btn-sm btn-secondary removeConstitution" id="<?= BASEURL . $site_row['constitution']; ?>">Remove</button>
+                        </div>
+                    </div>
+
 					<div id="removeTempuploadedFile" class="list-group list-group-flush list-group-divider">
 						<div class="list-group-item">
 							<div class="list-group-item-figure">
