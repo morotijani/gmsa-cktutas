@@ -58,10 +58,9 @@
     <link rel="stylesheet" type="text/css" href="<?= PROOT; ?>dist/css/main.css">
     
     <style type="text/css">
-    *, body {
-        font-family: "Montserrat" !important;
-        font-optical-sizing: auto;
-        /*      font-weight: <weight>;*/
+        *, body {
+            font-family: "Montserrat" !important;
+            font-optical-sizing: auto;
             font-style: normal;
         }
     </style>
