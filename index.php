@@ -264,13 +264,13 @@
                                                 <?= $activity['activity_details']; ?>
                                                 <div class="d-flex justify-content-between mt-1">        
                                                     <div class="">
-                                                        Venue: <p class="lead"><?= $activity['activity_time']; ?></p>
+                                                        Venue: <p class="lead"><?= $activity['activity_venue']; ?></p>
                                                     </div> 
-                                                    <div class=""> 
+                                                    <div class="">
                                                         Date: <p class="lead"><?= $activity['activity_date']; ?></p>
                                                     </div> 
                                                     <div class="">
-                                                        Time: <p class="lead"><?= $activity['activity_venue']; ?></p>
+                                                        Time: <p class="lead"><?= $activity['activity_time']; ?></p>
                                                     </div>
                                                 </div>
                                             </div>
