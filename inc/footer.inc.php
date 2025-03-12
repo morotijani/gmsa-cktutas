@@ -47,7 +47,7 @@
                                 <li class="nav-item"><a class="nav-link" href="<?= PROOT; ?>auth/register">Register</a></li>
                                 <li class="nav-item"><a class="nav-link" href="<?= PROOT; ?>auth/pay-dues">Pay Dues</a></li>
                                 <li class="nav-item"><a class="nav-link" href="<?= PROOT; ?>calendar">Calendar</a></li>
-                                <li class="nav-item"><a class="nav-link" href="<?= PROOT; ?>assets/media/GMSA-CKT-UTAS-Constitution.pdf" target="_blank">GMSA - CONSTITUITION</a></li>
+                                <li class="nav-item"><a class="nav-link" href="<?= $site_row['constitution']; ?>" target="_blank">GMSA - CONSTITUITION</a></li>
                             </ul>
                         </div>
                         <div class="col-md-4">
