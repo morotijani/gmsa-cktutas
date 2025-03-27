@@ -114,9 +114,9 @@
 			<!-- Logo END -->
 
 			<!-- Buttons -->
-			<div class="nav align-items-center felx-row ms-2">
+			<!-- <div class="nav align-items-center felx-row ms-2">
 				<button class="btn btn-sm btn-dark mb-0">Buy now!</button>
-			</div>
+			</div> -->
 		</div>
 	</nav>
 	<!-- Logo Nav END -->
@@ -223,7 +223,7 @@ Footer START -->
 		<!-- Bottom footer -->
 		<div class="d-md-flex justify-content-between align-items-center text-center text-lg-start">
 			<!-- copyright text -->
-			<div class="mb-3 mb-md-0"> Copyrights ©2024 Mizzle. Build by <a href="https://www.webestica.com/" class="text-body text-primary-hover">Webestica</a>. </div>
+			<div class="mb-3 mb-md-0"> Copyrights &copy; 2021 - <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script> GMSA - CKTUTAS. </div>
 			<!-- copyright links-->
 			<!-- Language selector -->
 			<ul class="list-inline mb-0">
