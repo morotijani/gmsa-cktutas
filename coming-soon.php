@@ -1,20 +1,20 @@
-<?php
-
-    // Index page
-
-    require_once ("db_connection/conn.php");
-	?>
+<?php require_once ("db_connection/conn.php"); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-	<title>Mizzle - Technology and Corporate Bootstrap Theme</title>
+	<title>Coming soon - GMSA CKTUTAS</title>
 
 	<!-- Meta Tags -->
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="author" content="Webestica.com">
-	<meta name="description" content="Technology and Corporate Bootstrap Theme">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta property="og:title" content="Home">
+    <meta name="author" content="GMSA CKTUTAS /  IT&PUBLICITY COMMITTEE">
+    <meta property="og:locale" content="en_US">
+    <meta name="description" content="Ghana Muslime Student Association, CKT-UTAS">
+    <meta property="og:description" content="Ghana Muslime Student Association, CKT-UTAS">
+    <link rel="canonical" href="https://gmsacktutas.org">
+    <meta property="og:url" content="https://gmsacktutas.org">
+    <meta property="og:site_name" content="GMSA - CKTUTAS">
 
 	<!-- Dark mode -->
 	<script>
@@ -82,7 +82,7 @@
 	<!-- Google Font -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
 	<!-- Plugins CSS -->
     <link rel="stylesheet" type="text/css" href="<?= PROOT; ?>dist/css/all.min.css">
@@ -90,7 +90,13 @@
 	
 	<!-- Theme CSS -->
 	<link rel="stylesheet" type="text/css" href="<?= PROOT; ?>cdn/style.css">
-
+	<style type="text/css">
+        *, body {
+            font-family: "Montserrat" !important;
+            font-optical-sizing: auto;
+            font-style: normal;
+        }
+    </style>
 </head>
 
 <body>
@@ -102,8 +108,8 @@
 		<div class="container">
 			<!-- Logo START -->
 			<a class="navbar-brand" href="index.html">
-				<img class="light-mode-item navbar-brand-item" src="assets/images/logo.svg" alt="logo">
-				<img class="dark-mode-item navbar-brand-item" src="assets/images/logo-light.svg" alt="logo">
+				<img class="light-mode-item navbar-brand-item" src="<?= PROOT; ?>assets/media/logo/logo.png" alt="logo">
+				<img class="dark-mode-item navbar-brand-item" src="<?= PROOT; ?>assets/media/logo/logo-1.jpeg" alt="logo">
 			</a>
 			<!-- Logo END -->
 
