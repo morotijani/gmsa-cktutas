@@ -1,4 +1,9 @@
+<?php
 
+    // Index page
+
+    require_once ("db_connection/conn.php");
+	?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -80,11 +85,11 @@
 	<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
 	<!-- Plugins CSS -->
-	<link rel="stylesheet" type="text/css" href="assets/vendor/font-awesome/css/all.min.css">
-	<link rel="stylesheet" type="text/css" href="assets/vendor/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="<?= PROOT; ?>dist/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="<?= PROOT; ?>dist/css/bootstrap-icons.min.css">
 	
 	<!-- Theme CSS -->
-	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<link rel="stylesheet" type="text/css" href="<?= PROOT; ?>cdn/style.css">
 
 </head>
 
@@ -232,10 +237,10 @@ Footer END -->
 <div class="back-top"></div>
 
 <!-- Bootstrap JS -->
-<script src="assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="<?= PROOT; ?>cdn/bootstrap.bundle.min.js"></script>
 
 <!-- Theme Functions -->
-<script src="assets/js/functions.js"></script>
+<script src="<?= PROOT; ?>cdn/functions.js"></script>
 
 </body>
 </html>
