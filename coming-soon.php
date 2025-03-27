@@ -77,7 +77,7 @@
 	</script>
 
 	<!-- Favicon -->
-	<link rel="shortcut icon" href="assets/images/favicon.ico">
+	<link rel="shortcut icon" href="<?= PROOT; ?>assets/media/logo/logo-1.jpeg">
 
 	<!-- Google Font -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -144,7 +144,7 @@ Main Banner START -->
 
 					<!-- Image -->
 					<div class="position-relative mt-7 mb-5 mb-xl-0">
-						<img src="assets/images/elements/comming-soon.png" class="position-relative z-index-2 h-sm-300px h-md-400px" alt="">
+						<img src="<?= PROOT; ?>cdn/comming-soon.png" class="position-relative z-index-2 h-sm-300px h-md-400px" alt="">
 
 						<!-- SVG decoration -->
 						<figure class="position-absolute top-0 start-0 mt-5 ms-lg-3">
